@@ -13,6 +13,10 @@ public class PlayerHuman : MonoBehaviour
     private float _playerSpeed;
 
     /* Properties */
+    public PlayerController PlayerController{
+        get{return _playerController;}
+        set{_playerController = value;}
+    }
     public float PlayerSpeed { 
         get{return _playerSpeed;}
         set{_playerSpeed = value;}

@@ -13,26 +13,51 @@ public class PlayerController : MonoBehaviour
     private GameObject _triggerObject;
 
     [SerializeField]
-    [Tooltip("카메라 컨트롤러")]
-    private CameraController _cameraController;
-
-    [SerializeField]
     [Tooltip("유저 인터페이스")]
-    private GameObject _userInterface;
+    private Transform _userInterface;
 
     [SerializeField]
     [Tooltip("플레이어의 고유 ID")]
     private int _id;    
+
+    /* Properties */
+    public GameObject TriggerObject{
+        get { return _triggerObject; }
+        set { _triggerObject = value; }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        Transform generatorUI = _userInterface.Find("GeneratorUI").gameObject;
+        generatorUI.GetComponent<CanvasGroup>().alpha = 0.0f;
+        generatorUI.GetComponent<CanvasGroup>().interactable = false;
+
     }
 
+    void CheckTriggerObject(){
+        if(_triggerObject == null){
+            Transform generatorUI = _userInterface.Find("GeneratorUI").gameObject;
+            generatorUI.GetComponent<CanvasGroup>().alpha = 0.0f;
+            generatorUI.GetComponent<CanvasGroup>().interactable = false;
+        }
+    }
+    void CheckUserInput(){
+        if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
+            if(_triggerObject.GetComponent<PowerGenerator>() && !(_userInterface.Find("GeneratorUI").gameObject.activeSelf)){
+                _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().alpha = 1.0f;
+                _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().interactable = true;
+            }
+            else if(_triggerObject.GetComponent<PowerGenerator>() && _userInterface.Find("GeneratorUI").gameObject.activeSelf){
+                _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().alpha = 0.0f;
+                _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().interactable = false;
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        CheckUserInput();
+        CheckTriggerObject();
     }
 
     void FixedUpdate(){
