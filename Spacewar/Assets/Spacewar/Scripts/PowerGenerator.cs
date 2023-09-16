@@ -81,19 +81,16 @@ public class PowerGenerator : MonoBehaviour
         set{_load = value; }
         get{return _load; }
     }
-    public bool GetIsPowered(){
+    public bool GetGeneratorState(){
         return _isPowered;
     }
-    public void SetGeneratorOn(){
-        _isPowered = true;
-    }
-    public void SetGeneratorOff(){
-        _isPowered = false;
+    public void SetGeneratorState(bool isOn){
+        _isPowered = isOn;
     }
 
     bool CheckFuel(){
         if(_fuel < 0.0f){
-             SetGeneratorOff();
+             SetGeneratorState(false);
             return false;
         }
         else{

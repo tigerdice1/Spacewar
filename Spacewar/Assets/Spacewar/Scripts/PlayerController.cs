@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Transform generatorUI = _userInterface.Find("GeneratorUI").gameObject;
+        GameObject generatorUI = _userInterface.Find("GeneratorUI").gameObject;
         generatorUI.GetComponent<CanvasGroup>().alpha = 0.0f;
         generatorUI.GetComponent<CanvasGroup>().interactable = false;
 
@@ -36,18 +36,18 @@ public class PlayerController : MonoBehaviour
 
     void CheckTriggerObject(){
         if(_triggerObject == null){
-            Transform generatorUI = _userInterface.Find("GeneratorUI").gameObject;
+            GameObject generatorUI = _userInterface.Find("GeneratorUI").gameObject;
             generatorUI.GetComponent<CanvasGroup>().alpha = 0.0f;
             generatorUI.GetComponent<CanvasGroup>().interactable = false;
         }
     }
     void CheckUserInput(){
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            if(_triggerObject.GetComponent<PowerGenerator>() && !(_userInterface.Find("GeneratorUI").gameObject.activeSelf)){
+            if(_triggerObject.GetComponent<PowerGenerator>() && !(_userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().interactable)){
                 _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().alpha = 1.0f;
                 _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().interactable = true;
             }
-            else if(_triggerObject.GetComponent<PowerGenerator>() && _userInterface.Find("GeneratorUI").gameObject.activeSelf){
+            else if(_triggerObject.GetComponent<PowerGenerator>() && _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().interactable){
                 _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().alpha = 0.0f;
                 _userInterface.Find("GeneratorUI").gameObject.GetComponent<CanvasGroup>().interactable = false;
             }

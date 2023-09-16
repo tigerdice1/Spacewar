@@ -22,11 +22,11 @@ public class PowerGeneratorUI : MonoBehaviour
     private int _initSequence;
     public void ToggleOnclick(bool isOn){
         if(isOn){
-            _powerGenerator.SetGeneratorOn();
+            _powerGenerator.SetGeneratorState(isOn);
             _initCoroutine = StartCoroutine(InitalizeGenerator());
         }
         else if(!isOn){
-            _powerGenerator.SetGeneratorOff();
+            _powerGenerator.SetGeneratorState(isOn);
             _initCoroutine = StartCoroutine(StopGenerator());
         }
     }
@@ -135,7 +135,7 @@ public class PowerGeneratorUI : MonoBehaviour
     }
 
     void CheckIsGeneratorPowerd(){
-        if(!_powerGenerator.GetIsPowered()){
+        if(!_powerGenerator.GetGeneratorState()){
             _initCoroutine = StartCoroutine(StopGenerator());
             _powerGeneratorBtn.isOn = false;
         }
@@ -151,7 +151,7 @@ public class PowerGeneratorUI : MonoBehaviour
     void Update()
     {
         CheckIsGeneratorPowerd();
-        if(_powerGenerator.GetIsPowered() && _initCoroutine == null){
+        if(_powerGenerator.GetGeneratorState() && _initCoroutine == null){
             CalcLoadTachometer();
         }
     }
