@@ -10,16 +10,27 @@ public class LightController : MonoBehaviour
     [SerializeField]
     private bool _isLightOn;
 
+    private bool _usingElectricity;
+
+    void ChcekElectricity(){
+        if(_usingElectricity){
+            
+        }
+    }
     public void SetLightState(bool isOn)
     {
         if (_lightComponent != null){
             _lightComponent.enabled = isOn;
-            _
+            _isLightOn = isOn;
+            if(_usingElectricity){
+                gameObject.GetComponent<Electricity>().SetPowerState(isOn);
+            }
         }
     }
     // Start is called before the first frame update
     void Start()
     {
+        
         SetLightState(_isLightOn);
     }
 

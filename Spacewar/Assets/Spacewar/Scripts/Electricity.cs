@@ -7,7 +7,17 @@ public class Electricity : MonoBehaviour
     private float _powerUsage;
     private float _powerIdle;
     private float _powerActive;
+    private float _powerUpdateMultiplier;
     private bool _isPowered;
+    private Coroutine _powerUsageCoroutine;
+
+    IEnumerator PowerOn(){
+        while(_powerUsage >= _powerActive){
+            _powerUsage = Mathf.Lerp(_powerUsage, _powerActive, Time.deltaTime);
+
+            yield return null;
+        }
+    }
     public void SetPowerState(bool isOn){
         _isPowered = isOn;
     }
