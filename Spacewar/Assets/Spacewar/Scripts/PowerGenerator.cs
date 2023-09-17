@@ -26,6 +26,10 @@ public class PowerGenerator : MonoBehaviour
     private PlayerController _triggeredController;
 
     [SerializeField]
+    [Tooltip("조명")]
+    private Light _lightComponent;
+
+    [SerializeField]
     [Tooltip("사용할 UI")]
     private GameObject _generatorUserInterface;
 
@@ -86,6 +90,7 @@ public class PowerGenerator : MonoBehaviour
     }
     public void SetGeneratorState(bool isOn){
         _isPowered = isOn;
+        _lightComponent.GetComponent<LightController>().SetLightState(isOn);
     }
 
     bool CheckFuel(){
@@ -133,7 +138,7 @@ public class PowerGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetGeneratorState(false);
     }
 
     // Update is called once per frame
