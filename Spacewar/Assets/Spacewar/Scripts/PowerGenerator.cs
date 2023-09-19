@@ -30,6 +30,10 @@ public class PowerGenerator : MonoBehaviour
     private Light _lightComponent;
 
     [SerializeField]
+    [Tooltip("조명상태")]
+    private LightController _lightController;
+
+    [SerializeField]
     [Tooltip("사용할 UI")]
     private GameObject _generatorUserInterface;
 
@@ -118,6 +122,10 @@ public class PowerGenerator : MonoBehaviour
         }
         if(_tempertureTimer >= _criticalTemperatureTimer){
             // 임계온도 도달 후 시간 경과 이후 액션
+            //if (_lightController != null){
+            //    _lightController.LightStateColor = LightController.LightState.Over;
+            //    Debug.Log("Critical");
+            //}
         }
     }
 
