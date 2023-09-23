@@ -30,10 +30,6 @@ public class PowerGenerator : MonoBehaviour
     private Light _lightComponent;
 
     [SerializeField]
-    [Tooltip("조명상태")]
-    private LightController _lightController;
-
-    [SerializeField]
     [Tooltip("사용할 UI")]
     private GameObject _generatorUserInterface;
 
@@ -72,6 +68,8 @@ public class PowerGenerator : MonoBehaviour
     [Tooltip("발전기의 임계 온도가 유지된 시간")]
     private float _criticalTemperatureTimer;
 
+    private bool _isCritical;
+
     [SerializeField]
     [Tooltip("발전기 작동여부")]
     private bool _isPowered;
@@ -89,12 +87,13 @@ public class PowerGenerator : MonoBehaviour
         set{_load = value; }
         get{return _load; }
     }
+    
+
     public bool GetGeneratorState(){
         return _isPowered;
     }
     public void SetGeneratorState(bool isOn){
         _isPowered = isOn;
-        _lightComponent.GetComponent<LightController>().SetLightState(isOn);
     }
 
     bool CheckFuel(){
@@ -107,6 +106,21 @@ public class PowerGenerator : MonoBehaviour
         }
     }
 
+    void CheckGeneratorLight(){
+        if(_isPowered){
+            if(_isCritical){
+                _lightComponent.GetComponent<Electricity>().SetPowerState(true);
+                _lightComponent.GetComponent<LightController>().SetLightColor(Color.red);
+            }
+            else{
+                _lightComponent.gameObject.GetComponent<Electricity>().SetPowerState(true);
+                _lightComponent.GetComponent<LightController>().SetLightColor(Color.green);
+            }
+        }
+        else if(!_isPowered){
+            _lightComponent.gameObject.GetComponent<Electricity>().SetPowerState(false);
+        }
+    }
     void CalcFuelConsume(){
         _fuel -= _load / Mathf.Pow(_efficiency, 2);
         _power = _maxPower / 100.0f * _load;
@@ -116,9 +130,11 @@ public class PowerGenerator : MonoBehaviour
     void CheckGeneratorTemperture(){
         if(_temperture > _criticalTemperature){
             _tempertureTimer += Time.deltaTime;
+            _isCritical = true;
         }
         else if(_temperture < _criticalTemperature){
             _tempertureTimer = 0.0f;
+            _isCritical = false;
         }
         if(_tempertureTimer >= _criticalTemperatureTimer){
             // 임계온도 도달 후 시간 경과 이후 액션
@@ -156,6 +172,8 @@ public class PowerGenerator : MonoBehaviour
             CheckFuel();
             CalcFuelConsume();
             CheckGeneratorTemperture();
+            
         }
+        CheckGeneratorLight();
     }
 }

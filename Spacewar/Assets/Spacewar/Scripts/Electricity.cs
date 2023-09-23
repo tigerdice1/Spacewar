@@ -15,7 +15,12 @@ public class Electricity : MonoBehaviour
     private bool _isPowered;
     private Coroutine _powerUsageCoroutine;
 
-    IEnumerator PowerOn(){
+    /* Properties */
+    public bool IsPowered{
+        get { return _isPowered; }
+        set { _isPowered = value; }
+    }
+    IEnumerator PowerOnCoroutine(){
         while(_powerUsage >= _powerActive){
             float newPowerUsage = Mathf.Lerp(_powerUsage, _powerActive, Time.deltaTime);
             _powerUsage = newPowerUsage;
@@ -26,7 +31,7 @@ public class Electricity : MonoBehaviour
     public void SetPowerState(bool isOn){
         _isPowered = isOn;
         _powerUsage = _powerIdle;
-        _powerUsageCoroutine = StartCoroutine(PowerOn());
+        _powerUsageCoroutine = StartCoroutine(PowerOnCoroutine());
     }
     // Start is called before the first frame update
     void Start()
