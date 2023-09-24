@@ -20,6 +20,18 @@ public class Electricity : MonoBehaviour
         get { return _isPowered; }
         set { _isPowered = value; }
     }
+    public float PowerUsage{
+        get { return _powerUsage; }
+        set { _powerUsage = value; }
+    }
+    public float PowerIdle{
+        get { return _powerIdle; }
+        set { _powerIdle = value; }
+    }
+    public float PowerActive{
+        get { return _powerActive; }
+        set { _powerActive = value; }
+    }
     IEnumerator PowerOnCoroutine(){
         if(_powerUsageCoroutine != null){
             StopCoroutine(_powerUsageCoroutine);
