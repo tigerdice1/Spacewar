@@ -58,18 +58,18 @@ public class RadialGauge_UI : MonoBehaviour
             yield return null;
         }
     }
-    void RotationBySlerp(float targetRotation, float rotationSpeed){
+    public void RotationBySlerp(float targetRotation, float rotationSpeed){
         _playingCoroutine = StartCoroutine(SlerpCoroutine(targetRotation, rotationSpeed));
     }
 
-    void RotationByLerp(float targetRotation, float rotationSpeed){
+    public void RotationByLerp(float targetRotation, float rotationSpeed){
         _playingCoroutine = StartCoroutine(LerpCoroutine(targetRotation, rotationSpeed));
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        RotationByLerp(100.0f, 20.0f);
+
     }
 
     // Update is called once per frame
