@@ -5,12 +5,15 @@ using UnityEngine;
 public class RadialGauge_UI : MonoBehaviour
 {
     [SerializeField]
-    private float _minimumRotation;
+    protected float _minimumRotation;
 
     [SerializeField]
-    private float _maximumRotation;
+    protected float _maximumRotation;
 
-    private Coroutine _playingCoroutine;
+    [SerializeField]
+    protected float _rotationAngle;
+
+    protected Coroutine _playingCoroutine;
 
     IEnumerator SlerpCoroutine(float targetRotationZ, float rotationSpeed){
         Quaternion currentRotation = gameObject.transform.rotation;
@@ -58,14 +61,43 @@ public class RadialGauge_UI : MonoBehaviour
             yield return null;
         }
     }
-    public void RotationBySlerp(float targetRotation, float rotationSpeed){
+    public void StaticRotationBySlerp(float targetRotation, float rotationSpeed){
         _playingCoroutine = StartCoroutine(SlerpCoroutine(targetRotation, rotationSpeed));
     }
 
-    public void RotationByLerp(float targetRotation, float rotationSpeed){
+    public void StaticRotationByLerp(float targetRotation, float rotationSpeed){
         _playingCoroutine = StartCoroutine(LerpCoroutine(targetRotation, rotationSpeed));
     }
 
+    public void DynamicRotationBySlerp(float targetRotationZ, float rotationSpeed){
+        if(_playingCoroutine != null){
+            _playingCoroutine = null;
+        }
+        // 지금 오브젝트의 회전값 가져오기
+        Quaternion currentRotation = gameObject.transform.rotation;
+        // 오브젝트의 목표 회전값 지정
+        Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, targetRotationZ);
+        Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
+        Vector3 eulerAngles = newRotation.eulerAngles;
+        eulerAngles.z = Mathf.Clamp(eulerAngles.z, _minimumRotation, _maximumRotation);
+        Quaternion clamppedRotation = Quaternion.Euler(eulerAngles); 
+        gameObject.transform.rotation = clamppedRotation;
+    }
+
+    public void DynamicRotationByLerp(float targetRotationZ, float rotationSpeed){
+        if(_playingCoroutine != null){
+            _playingCoroutine = null;
+        }
+        // 지금 오브젝트의 회전값 가져오기
+        Quaternion currentRotation = gameObject.transform.rotation;
+        // 오브젝트의 목표 회전값 지정
+        Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, targetRotationZ);
+        Quaternion newRotation = Quaternion.Lerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
+        Vector3 eulerAngles = newRotation.eulerAngles;
+        eulerAngles.z = Mathf.Clamp(eulerAngles.z, _minimumRotation, _maximumRotation);
+        Quaternion clamppedRotation = Quaternion.Euler(eulerAngles); 
+        gameObject.transform.rotation = clamppedRotation;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +105,7 @@ public class RadialGauge_UI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
