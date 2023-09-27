@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class RadialGauge_UI : MonoBehaviour
 {
+
+    [SerializeField]
+    protected GameObject _parentUI;
+
     [SerializeField]
     protected float _minimumRotation;
 
@@ -17,7 +21,7 @@ public class RadialGauge_UI : MonoBehaviour
 
     IEnumerator SlerpCoroutine(float targetRotationZ, float rotationSpeed){
         Quaternion currentRotation = gameObject.transform.rotation;
-        Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, targetRotationZ);
+        Quaternion targetRotation = Quaternion.Euler(0.0f, 180.0f, targetRotationZ);
         
         // 현재 오브젝트의 회전값과 목표 회전값을 비교 (근사값 비교)
         while(!Mathf.Approximately(currentRotation.z,targetRotationZ)){
@@ -40,7 +44,7 @@ public class RadialGauge_UI : MonoBehaviour
     }
     IEnumerator LerpCoroutine(float targetRotationZ, float rotationSpeed){
         Quaternion currentRotation = gameObject.transform.rotation;
-        Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, targetRotationZ);
+        Quaternion targetRotation = Quaternion.Euler(0.0f, 180.0f, targetRotationZ);
         
         // 현재 오브젝트의 회전값과 목표 회전값을 비교 (근사값 비교)
         while(!Mathf.Approximately(currentRotation.z,targetRotationZ)){
@@ -76,7 +80,7 @@ public class RadialGauge_UI : MonoBehaviour
         // 지금 오브젝트의 회전값 가져오기
         Quaternion currentRotation = gameObject.transform.rotation;
         // 오브젝트의 목표 회전값 지정
-        Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, targetRotationZ);
+        Quaternion targetRotation = Quaternion.Euler(0.0f, 180.0f, targetRotationZ);
         Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
         Vector3 eulerAngles = newRotation.eulerAngles;
         eulerAngles.z = Mathf.Clamp(eulerAngles.z, _minimumRotation, _maximumRotation);
@@ -91,7 +95,7 @@ public class RadialGauge_UI : MonoBehaviour
         // 지금 오브젝트의 회전값 가져오기
         Quaternion currentRotation = gameObject.transform.rotation;
         // 오브젝트의 목표 회전값 지정
-        Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, targetRotationZ);
+        Quaternion targetRotation = Quaternion.Euler(0.0f, 180.0f, targetRotationZ);
         Quaternion newRotation = Quaternion.Lerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
         Vector3 eulerAngles = newRotation.eulerAngles;
         eulerAngles.z = Mathf.Clamp(eulerAngles.z, _minimumRotation, _maximumRotation);

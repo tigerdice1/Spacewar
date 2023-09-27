@@ -88,7 +88,6 @@ public class PowerGenerator : MonoBehaviour
         get{return _load; }
     }
     
-
     public bool GetGeneratorState(){
         return _isPowered;
     }
