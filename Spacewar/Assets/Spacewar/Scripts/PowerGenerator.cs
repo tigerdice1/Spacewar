@@ -87,7 +87,15 @@ public class PowerGenerator : MonoBehaviour
         set{_load = value; }
         get{return _load; }
     }
-    
+    public float Fuel{
+        set{_fuel = value; }
+        get{return _fuel; }
+    }
+
+    public float MaxFuel{
+        set{_maxFuel = value; }
+        get{return _maxFuel; }
+    }
     public bool GetGeneratorState(){
         return _isPowered;
     }

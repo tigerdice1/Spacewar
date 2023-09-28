@@ -65,15 +65,15 @@ public class RadialGauge_UI : MonoBehaviour
             yield return null;
         }
     }
-    public void StaticRotationBySlerp(float targetRotation, float rotationSpeed){
+    public void RotationBySlerp(float targetRotation, float rotationSpeed){
         _playingCoroutine = StartCoroutine(SlerpCoroutine(targetRotation, rotationSpeed));
     }
 
-    public void StaticRotationByLerp(float targetRotation, float rotationSpeed){
+    public void RotationByLerp(float targetRotation, float rotationSpeed){
         _playingCoroutine = StartCoroutine(LerpCoroutine(targetRotation, rotationSpeed));
     }
 
-    public void DynamicRotationBySlerp(float targetRotationZ, float rotationSpeed){
+    public void SyncRotationBySlerp(float targetRotationZ, float rotationSpeed){
         if(_playingCoroutine != null){
             _playingCoroutine = null;
         }
@@ -88,7 +88,7 @@ public class RadialGauge_UI : MonoBehaviour
         gameObject.transform.rotation = clamppedRotation;
     }
 
-    public void DynamicRotationByLerp(float targetRotationZ, float rotationSpeed){
+    public void SyncRotationByLerp(float targetRotationZ, float rotationSpeed){
         if(_playingCoroutine != null){
             _playingCoroutine = null;
         }
