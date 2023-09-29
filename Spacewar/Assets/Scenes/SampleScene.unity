@@ -904,6 +904,7 @@ GameObject:
   - component: {fileID: 786437397}
   - component: {fileID: 786437399}
   - component: {fileID: 786437398}
+  - component: {fileID: 786437400}
   m_Layer: 5
   m_Name: GeneratorUI_ProgressBar
   m_TagString: Untagged
@@ -969,6 +970,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786437396}
   m_CullTransparentMesh: 1
+--- !u!114 &786437400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786437396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165b77a767c3ed94ea1f6ad0351e9cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentUI: {fileID: 1316116115}
+  _progressBarInnerUI: {fileID: 725764744}
 --- !u!1 &832315739
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,8 @@ using UnityEngine;
 public class ProgressBar_UI : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _parentUI;
+    [Tooltip("해당 UI의 가장 상위 UI 오브젝트 지정")]
+    protected GameObject _parentUI;
     [SerializeField]
     private Transform _progressBarInnerUI;
 
@@ -14,7 +15,23 @@ public class ProgressBar_UI : MonoBehaviour
     public void SyncProgressBarBySlerp(float targetPercent, float updateSpeed){
         Vector3 targetScale = new Vector3(targetPercent, 1.0f, 1.0f);
         Vector3 currentScale = _progressBarInnerUI.localScale;
-        _progressBarInnerUI.localScale = Vector3.Slerp(currentScale, targetScale, Time.deltaTime);
+        if(!Mathf.Approximately(targetScale.x, currentScale.x)){
+            _progressBarInnerUI.localScale = Vector3.Slerp(currentScale, targetScale, Time.deltaTime);
+        }
+        else{
+            _progressBarInnerUI.localScale = targetScale;
+        }
+    }
+
+    public void SyncProgressBarByLerp(float targetPercent, float updateSpeed){
+        Vector3 targetScale = new Vector3(targetPercent, 1.0f, 1.0f);
+        Vector3 currentScale = _progressBarInnerUI.localScale;
+        if(!Mathf.Approximately(targetScale.x, currentScale.x)){
+            _progressBarInnerUI.localScale = Vector3.Lerp(currentScale, targetScale, Time.deltaTime);
+        }
+        else{
+            _progressBarInnerUI.localScale = targetScale;
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -25,6 +42,6 @@ public class ProgressBar_UI : MonoBehaviour
     // Update is called once per frame
      protected virtual void Update()
     {
-        SyncProgressBarBySlerp(_parentUI.GetComponent<PowerGeneratorUI>().GetPowerGenerator().Fuel / _parentUI.GetComponent<PowerGeneratorUI>().GetPowerGenerator().MaxFuel, 1.0f);
+        
     }
 }
