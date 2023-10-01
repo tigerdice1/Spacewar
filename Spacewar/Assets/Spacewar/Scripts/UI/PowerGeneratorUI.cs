@@ -8,23 +8,18 @@ public class PowerGeneratorUI : MonoBehaviour
     [Tooltip("대상 발전기")]
     private PowerGenerator _powerGenerator;
 
-
     [SerializeField]
     [Tooltip("전원 버튼")]
     private Toggle _powerGeneratorBtn;
-    private Coroutine _initCoroutine;
     public void ToggleOnclick(bool isOn){
-        if(isOn){
-            _powerGenerator.SetGeneratorState(isOn);
-        }
-        else if(!isOn){
-            _powerGenerator.SetGeneratorState(isOn);
-        }
+        _powerGenerator.SetGeneratorState(isOn);
     }
 
     public PowerGenerator GetPowerGenerator(){
         return _powerGenerator;
     }
+
+	// 발전기가 꺼져있는지 확인하고 꺼져있다면 전원 버튼도 off 상태로 변환
     void CheckIsGeneratorPowerd(){
         if(!_powerGenerator.GetGeneratorState()){
             _powerGeneratorBtn.isOn = false;
