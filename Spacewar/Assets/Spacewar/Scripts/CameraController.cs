@@ -16,8 +16,10 @@ public class CameraController : MonoBehaviour
     [Tooltip("카메라와 따라갈 물체 사이의 거리")]
     private Vector3 _offset;
 
+	[Tooltip("카메라가 해당 물체를 따라가게 할지 선택합니다")]
     private bool _isFollowingTarget;
-    
+
+
     void SetFollowingState(bool isFollowingTarget){
         _isFollowingTarget = isFollowingTarget;
     }
