@@ -8,6 +8,7 @@ public class ProgressBar_UI : MonoBehaviour
     [Tooltip("해당 UI의 가장 상위 UI 오브젝트 지정")]
     protected GameObject _parentUI;
     [SerializeField]
+    [Tooltip("해당 UI의 하위 UI 오브젝트 지정(움직이는부분)")]
     private Transform _progressBarInnerUI;
 
     protected Coroutine _playingCoroutine;

@@ -55,13 +55,8 @@ public class Electricity : MonoBehaviour
         }
     }
     public void SetPowerState(bool isOn){
-        _isPowered = isOn;
-        if(isOn){
-            _powerUsage = _powerIdle;
-        }
-        else if(!isOn){
-            
-        }
+        _isPowered = isOn; 
+        _powerUsage = isOn ? _powerIdle : 0.0f;
     }
     // Start is called before the first frame update
     void Start()

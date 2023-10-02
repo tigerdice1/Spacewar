@@ -36,12 +36,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         SetFollowingState(true);
-        Vector3 fixedPosition = new Vector3(
-            _followObject.transform.position.x + _offset.x,
-            _followObject.transform.position.y + _offset.y,
-            _followObject.transform.position.z + _offset.z
-        );
-        _cameraObject.transform.position = fixedPosition;
     }
 
     // Update is called once per frame

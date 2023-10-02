@@ -31,7 +31,7 @@ public class PowerGenerator : MonoBehaviour
 
     [SerializeField]
     [Tooltip("사용할 UI")]
-    private GameObject _generatorUserInterface;
+    private GameObject _generatorUI;
 
     /* 발전기 정보 */
     [SerializeField]
@@ -60,13 +60,13 @@ public class PowerGenerator : MonoBehaviour
 
     [SerializeField]
     [Tooltip("발전기의 현재 온도")]
-    private float _temperture;
+    private float _thermal;
     [SerializeField]
     [Tooltip("발전기의 임계 온도")]
-    private float _criticalTemperature;
+    private float _criticalThermal;
     [SerializeField]
     [Tooltip("발전기의 임계 온도가 유지된 시간")]
-    private float _criticalTemperatureTimer;
+    private float _criticalThermalTimer;
 
     private bool _isCritical;
 
@@ -80,7 +80,7 @@ public class PowerGenerator : MonoBehaviour
 
     /* 시간계산용 변수 */
     private float _fuelTimer;
-    private float _tempertureTimer;
+    private float _thermalTimer;
 
     /* Properties */
     public float Load{
@@ -134,16 +134,16 @@ public class PowerGenerator : MonoBehaviour
     }
 
     // 발전기의 온도를 체크해서 임계온도 도달 시 경고음 / 이상효과 / 시간 측정
-    void CheckGeneratorTemperture(){
-        if(_temperture > _criticalTemperature){
-            _tempertureTimer += Time.deltaTime;
+    void CheckGeneratorThermal(){
+        if(_thermal > _criticalThermal){
+            _thermalTimer += Time.deltaTime;
             _isCritical = true;
         }
-        else if(_temperture < _criticalTemperature){
-            _tempertureTimer = 0.0f;
+        else if(_thermal < _criticalThermal){
+            _thermalTimer = 0.0f;
             _isCritical = false;
         }
-        if(_tempertureTimer >= _criticalTemperatureTimer){
+        if(_thermalTimer >= _criticalThermalTimer){
             // 임계온도 도달 후 시간 경과 이후 액션
             //if (_lightController != null){
             //    _lightController.LightStateColor = LightController.LightState.Over;
@@ -178,7 +178,7 @@ public class PowerGenerator : MonoBehaviour
         if(_isPowered){
             CheckFuel();
             CalcFuelConsume();
-            CheckGeneratorTemperture();
+            CheckGeneratorThermal();
             
         }
         CheckGeneratorLight();
