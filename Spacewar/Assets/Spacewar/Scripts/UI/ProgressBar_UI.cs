@@ -14,8 +14,8 @@ public class ProgressBar_UI : MonoBehaviour
     protected Coroutine _playingCoroutine;
 
     public void SyncProgressBarBySlerp(float targetPercent, float updateSpeed){
-        Vector3 targetScale = new Vector3(targetPercent, 1.0f, 1.0f);
         Vector3 currentScale = _progressBarInnerUI.localScale;
+        Vector3 targetScale = new Vector3(currentScale.x, targetPercent, currentScale.z);
         if(!Mathf.Approximately(targetScale.x, currentScale.x)){
             _progressBarInnerUI.localScale = Vector3.Slerp(currentScale, targetScale, Time.deltaTime);
         }
@@ -25,8 +25,8 @@ public class ProgressBar_UI : MonoBehaviour
     }
 
     public void SyncProgressBarByLerp(float targetPercent, float updateSpeed){
-        Vector3 targetScale = new Vector3(targetPercent, 1.0f, 1.0f);
         Vector3 currentScale = _progressBarInnerUI.localScale;
+        Vector3 targetScale = new Vector3(currentScale.x, targetPercent, currentScale.z);
         if(!Mathf.Approximately(targetScale.x, currentScale.x)){
             _progressBarInnerUI.localScale = Vector3.Lerp(currentScale, targetScale, Time.deltaTime);
         }
