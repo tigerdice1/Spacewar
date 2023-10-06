@@ -83,6 +83,10 @@ public class PowerGenerator : MonoBehaviour
     private float _thermalTimer;
 
     /* Properties */
+    public float Power{
+        set{_power = value; }
+        get{return _power; }
+    }
     public float Load{
         set{_load = value; }
         get{return _load; }
