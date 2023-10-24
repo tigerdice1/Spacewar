@@ -5,24 +5,26 @@ using UnityEngine;
 public class Electricity : MonoBehaviour
 {
     [SerializeField]
-    private float _powerUsage;
+    private float _powerConsumption;
     [SerializeField]
     private float _powerIdle;
     [SerializeField]
     private float _powerActive;
-    private float _powerUpdateMultiplier;
     [SerializeField]
     private bool _isPowered;
-    private Coroutine _powerUsageCoroutine;
+    private bool _isInitalized;
+
+    private Coroutine _powerConsumptionCoroutine;
+
 
     /* Properties */
     public bool IsPowered{
         get { return _isPowered; }
         set { _isPowered = value; }
     }
-    public float PowerUsage{
-        get { return _powerUsage; }
-        set { _powerUsage = value; }
+    public float PowerConsumption{
+        get { return _powerConsumption; }
+        set { _powerConsumption = value; }
     }
     public float PowerIdle{
         get { return _powerIdle; }
@@ -33,30 +35,40 @@ public class Electricity : MonoBehaviour
         set { _powerActive = value; }
     }
     IEnumerator PowerOnCoroutine(){
-        if(_powerUsageCoroutine != null){
-            StopCoroutine(_powerUsageCoroutine);
+        if(_powerConsumptionCoroutine != null){
+            StopCoroutine(_powerConsumptionCoroutine);
         }
-        while(_powerUsage <= _powerActive){
-            float newPowerUsage = Mathf.Lerp(_powerUsage, _powerActive, Time.deltaTime);
-            _powerUsage = newPowerUsage;
+        while(_powerConsumption <= _powerActive){
+            float newpowerConsumption = Mathf.Lerp(_powerConsumption, _powerActive, Time.deltaTime);
+            _powerConsumption = newpowerConsumption;
 
             yield return null;
         }
     }
     IEnumerator PowerOffCoroutine(){
-        if(_powerUsageCoroutine != null){
-            StopCoroutine(_powerUsageCoroutine);
+        if(_powerConsumptionCoroutine != null){
+            StopCoroutine(_powerConsumptionCoroutine);
         }
-        while(_powerUsage <= 0){
-            float newPowerUsage = Mathf.Lerp(_powerUsage, 0, Time.deltaTime);
-            _powerUsage = newPowerUsage;
+        while(_powerConsumption <= 0){
+            float newpowerConsumption = Mathf.Lerp(_powerConsumption, 0, Time.deltaTime);
+            _powerConsumption = newpowerConsumption;
 
             yield return null;
         }
     }
     public void SetPowerState(bool isOn){
         _isPowered = isOn; 
-        _powerUsage = isOn ? _powerIdle : 0.0f;
+        _powerConsumption = _isPowered ? _powerIdle : 0.0f;
+    }
+
+    private void CheckPowerState(){
+        if(_isInitalized){
+            _powerConsumption = _isPowered ? _powerIdle : 0.0f;
+            _isInitalized = true;
+        }
+        if(!_isPowered){
+            _isInitalized = false;
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -64,9 +76,12 @@ public class Electricity : MonoBehaviour
 
     }
 
+    private void FixedUpdate(){
+        CheckPowerState();
+    }
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }

@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    /* Essential Variables */
+    // Specifies the main camera. If not, you may not be able to see the time point properly.
     [SerializeField]
     [Tooltip("카메라")]
     private Camera _cameraObject;
-
+    private bool _isCameraLoaded;
+    /* Optional Variables */
     [SerializeField]
     [Tooltip("따라갈 물체")]
     private GameObject _followObject;
@@ -19,12 +22,36 @@ public class CameraController : MonoBehaviour
 	[Tooltip("카메라가 해당 물체를 따라가게 할지 선택합니다")]
     private bool _isFollowingTarget;
 
+    private void Initalize(){
+        if(!_cameraObject){
+            Debug.Log("Camera is not initialized. The associated functions are disabled. Please Set the Camera. Location : " + gameObject);
+            _isCameraLoaded = false;
+        }
+        else{
+            _isCameraLoaded = true;
+        }
+    }
+
+    public void SetFollowTarget(GameObject target){
+        _followObject = target;
+    }
+    
+    public void MoveCameraToTarget(){
+        if(_isCameraLoaded){
+            Vector3 newPosition = new Vector3(
+            _followObject.transform.position.x + _offset.x,
+            _followObject.transform.position.y + _offset.y,
+            _followObject.transform.position.z + _offset.z
+            );
+            _cameraObject.transform.position = newPosition;
+        } 
+    }
 
     void SetFollowingState(bool isFollowingTarget){
         _isFollowingTarget = isFollowingTarget;
     }
 
-    void FollowTarget(){
+    void UpdateFollowingTarget(){
         if(_isFollowingTarget){
             Vector3 fixedPosition = new Vector3(
             _followObject.transform.position.x + _offset.x,
@@ -43,6 +70,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FollowTarget();
+        if(_isCameraLoaded){
+            UpdateFollowingTarget();
+        }
     }
 }

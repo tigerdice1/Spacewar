@@ -13,67 +13,91 @@ using UnityEngine;
 */
 public class PowerGenerator : MonoBehaviour
 {
+    /* Essential Variables */
+    // Specifies the ship that owns the generator.
     [SerializeField]
     [Tooltip("해당 발전기의 소유함선을 지정")]
     private GameObject _ownerShip;
+    private bool _isOwnerShipLoaded;
 
+    // Specifies the Junction connected to the generator. If not, an error will occur.
     [SerializeField]
-    [Tooltip("해당 발전기와 연결된 분배기를 지정")]
+    [Tooltip("해당 발전기와 연결된 정션을 지정")]
     private Junction _connectedJunction;
-
+    private bool _isJunctionLoaded;
+    
+    /*
+    The player's controller that can interact with this generator. 
+    It is automatically specified when the phone that the player manipulates comes into the trigger.
+    */ 
     [SerializeField]
     [Tooltip("현재 트리거 되어있는 컨트롤러")]
     private PlayerController _triggeredController;
 
+    /* Optional Variables */
+    // Lighting object to be used in various situations such as generator operation and errors. Not required and will Disabled if not specified.
     [SerializeField]
     [Tooltip("조명")]
     private Light _lightComponent;
-
+    private bool _isLightComponentLoaded;
+    
+    // UI to be used when interacting with the generator.Disabled if not specified.
     [SerializeField]
     [Tooltip("사용할 UI")]
     private GameObject _generatorUI;
+    private bool _isGeneratorUILoaded;
 
-    /* 발전기 정보 */
+    /* Generator Info */
+    // It's the efficiency of the generator. The more efficient, the higher the output under less load. Range 0 ~ 100
     [SerializeField]
     [Range(0, 100)]
     [Tooltip("발전기의 효율 설정 단위 : 백분율")]
     private float _efficiency;
 
+    // Current amount of fuel in the generator. Range 0 ~ _maxFuel
     [SerializeField]
     [Tooltip("현재 연료량")]
-    private float _fuel;
+    private float _currentFuel;
+    // Maximum amount of fuel in the generator. Range 0 ~ 
     [SerializeField]
       [Tooltip("최대 연료량")]
     private float _maxFuel;
 
+    // The amount of power currently being output.
     [SerializeField]
     [Tooltip("현재 출력중인 전력량")]
-    private float _power;
+    private float _powerOutput;
+    // Maximum output power.
     [SerializeField]
     [Tooltip("최대로 출력가능한 전력량")]
     private float _maxPower;
 
+    // Current load on the generator.
     [SerializeField]
     [Range(0, 100)]
     [Tooltip("발전기의 현재 부하량")]
     private float _load;
-
+    // Current Thermal on the generator.
     [SerializeField]
     [Tooltip("발전기의 현재 온도")]
-    private float _thermal;
+    private float _currentThermal;
+
+    // The critical temperature of the generator.
     [SerializeField]
     [Tooltip("발전기의 임계 온도")]
     private float _criticalThermal;
+    // The time the critical temperature of the generator was maintained. Usually, the action occurs after this time.
     [SerializeField]
     [Tooltip("발전기의 임계 온도가 유지된 시간")]
     private float _criticalThermalTimer;
-
     private bool _isCritical;
 
+    // A variable that indicates whether the generator is operating.
     [SerializeField]
     [Tooltip("발전기 작동여부")]
     private bool _isPowered;
-
+    
+    // Update cycle of the generator. Use to adjust the update rate for a particular action.
     [SerializeField]
     [Tooltip("업데이트 주기")]
     private float _updateCycleTime;
@@ -82,20 +106,50 @@ public class PowerGenerator : MonoBehaviour
     private float _fuelTimer;
     private float _thermalTimer;
 
+    private void Initalize(){
+        if(!_ownerShip){
+            Debug.Log("OwnerShip is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);
+            _isOwnerShipLoaded = false;
+        }
+        else{
+            _isOwnerShipLoaded = true;
+        }
+        if(!_connectedJunction){
+            Debug.Log("ConnectedJunction is not initialized. The associated functions are disabled. Please Set the ConnectedJunction. Location : " + gameObject);
+            _isJunctionLoaded = false;
+        }
+        else{
+            _isJunctionLoaded = true;
+        }
+        if(!_lightComponent){
+            Debug.Log("LightComponent is not initialized. The associated functions are disabled. Location : " + gameObject);
+            _isLightComponentLoaded = false;
+        }
+        else{
+            _isLightComponentLoaded = true;
+        }
+        if(!_generatorUI){
+            Debug.Log("GeneratorUI is not initialized. The associated functions are disabled. Location : " + gameObject);
+            _isGeneratorUILoaded = false;
+        }
+        else{
+            _isGeneratorUILoaded = true;
+        }       
+    }
+
     /* Properties */
-    public float Power{
-        set{_power = value; }
-        get{return _power; }
+    public float PowerOutput{
+        set{_powerOutput = value; }
+        get{return _powerOutput; }
     }
     public float Load{
         set{_load = value; }
         get{return _load; }
     }
-    public float Fuel{
-        set{_fuel = value; }
-        get{return _fuel; }
+    public float CurrentFuel{
+        set{_currentFuel = value; }
+        get{return _currentFuel; }
     }
-
     public float MaxFuel{
         set{_maxFuel = value; }
         get{return _maxFuel; }
@@ -106,15 +160,14 @@ public class PowerGenerator : MonoBehaviour
     public void SetGeneratorState(bool isOn){
         _isPowered = isOn;
     }
-
+    /* Essential Functions */
     public void SyncPower(float powerUsage){
         float targetLoad = (powerUsage / _maxPower) * 100.0f;
-        float clampedLoad = Mathf.Clamp(targetLoad, 0.0f, _maxPower);
-        _load = Mathf.Lerp(_load, clampedLoad, Time.deltaTime * 3.0f);
+        float clamppedLoad = Mathf.Clamp(targetLoad, 0.0f, _maxPower);
+        _load = Mathf.Lerp(_load, clamppedLoad, Time.deltaTime * 3.0f);
     }
-
-    bool CheckFuel(){
-        if(_fuel < 0.0f){
+    private bool CheckFuelAmount(){
+        if(_currentFuel < 0.0f){
              SetGeneratorState(false);
             return false;
         }
@@ -122,35 +175,18 @@ public class PowerGenerator : MonoBehaviour
             return true;
         }
     }
-
-    private void CheckGeneratorLight(){
-        if(_isPowered){
-            if(_isCritical){
-                _lightComponent.GetComponent<Electricity>().SetPowerState(true);
-                _lightComponent.GetComponent<LightController>().SetLightColor(Color.red);
-            }
-            else{
-                _lightComponent.gameObject.GetComponent<Electricity>().SetPowerState(true);
-                _lightComponent.GetComponent<LightController>().SetLightColor(Color.green);
-            }
-        }
-        else if(!_isPowered){
-            _lightComponent.gameObject.GetComponent<Electricity>().SetPowerState(false);
-        }
-    }
-
-    void CalcPowerOut(){
-        _fuel -= _load / Mathf.Pow(_efficiency, 2);
-        _power = _maxPower / 100.0f * _load;
+    private void CalcPowerOutput(){
+        _currentFuel -= _load / Mathf.Pow(_efficiency, 2);
+        _powerOutput = _maxPower / 100.0f * _load;
     }
 
     // 발전기의 온도를 체크해서 임계온도 도달 시 경고음 / 이상효과 / 시간 측정
     private void CheckGeneratorThermal(){
-        if(_thermal > _criticalThermal){
+        if(_currentThermal > _criticalThermal){
             _thermalTimer += Time.deltaTime;
             _isCritical = true;
         }
-        else if(_thermal < _criticalThermal){
+        else if(_currentThermal < _criticalThermal){
             _thermalTimer = 0.0f;
             _isCritical = false;
         }
@@ -162,7 +198,6 @@ public class PowerGenerator : MonoBehaviour
             //}
         }
     }
-
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Player") && _triggeredController == null){
             _triggeredController = other.GetComponent<PlayerHuman>().PlayerController;
@@ -170,16 +205,33 @@ public class PowerGenerator : MonoBehaviour
         }
 
     }
-
     private void OnTriggerExit(Collider other) {
         if(other.CompareTag("Player") && _triggeredController != null){
             _triggeredController.TriggerObject = null;
             _triggeredController = null;
         }
     }
+
+    /* Optional Functions */
+    private void UpdateGeneratorLight(){
+        if(_isPowered){
+            _lightComponent.GetComponent<Electricity>().SetPowerState(true);
+            if(_isCritical){
+                _lightComponent.GetComponent<LightController>().SetLightColor(Color.red);
+            }
+            else{
+                _lightComponent.GetComponent<LightController>().SetLightColor(Color.green);
+            }
+        }
+        else if(!_isPowered){
+            _lightComponent.gameObject.GetComponent<Electricity>().SetPowerState(false);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Initalize();
         SetGeneratorState(false);
     }
 
@@ -187,11 +239,12 @@ public class PowerGenerator : MonoBehaviour
     void Update()
     {
         if(_isPowered){
-            CheckFuel();
-            CalcPowerOut();
+            CheckFuelAmount();
+            CalcPowerOutput();
             CheckGeneratorThermal();
-            
         }
-        CheckGeneratorLight();
+        if(_isLightComponentLoaded){
+            UpdateGeneratorLight();
+        }
     }
 }
