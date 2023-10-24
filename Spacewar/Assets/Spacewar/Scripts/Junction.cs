@@ -11,6 +11,7 @@ public class Junction : MonoBehaviour
     [SerializeField]
     private Electricity[] _connectedObjectsList;
  	// 총 전력 소비량   
+    [SerializeField]
 	private float _totalPower;
     
 
@@ -18,14 +19,13 @@ public class Junction : MonoBehaviour
     void UpdatePowerUsage(){
         _totalPower = 0.0f;
         foreach(Electricity connectedObject in _connectedObjectsList){
-            _totalPower += connectedObject.PowerUsage; 
+            _totalPower += connectedObject.PowerUsage;
         }
     }
 	// 총 전력 소비량보다 파워 생산량이 적을 경우 파워에 로드율을 올리게끔 요청
     void SyncPowerUsage(){
-        if(_generator.Power -_totalPower < 0.0f){
+        _generator.SyncPower(_totalPower);
 
-        }
     }
  	// Start is called before the first frame update   
 	void Start()
@@ -34,11 +34,12 @@ public class Junction : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        UpdatePowerUsage();    
+           
     }
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_totalPower);
+        UpdatePowerUsage();
+        SyncPowerUsage();
     }
 }

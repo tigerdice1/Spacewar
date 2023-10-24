@@ -43,7 +43,7 @@ public class PowerGenerator : MonoBehaviour
     [Tooltip("현재 연료량")]
     private float _fuel;
     [SerializeField]
-    [Tooltip("최대 연료량")]
+      [Tooltip("최대 연료량")]
     private float _maxFuel;
 
     [SerializeField]
@@ -107,6 +107,12 @@ public class PowerGenerator : MonoBehaviour
         _isPowered = isOn;
     }
 
+    public void SyncPower(float powerUsage){
+        float targetLoad = (powerUsage / _maxPower) * 100.0f;
+        float clampedLoad = Mathf.Clamp(targetLoad, 0.0f, _maxPower);
+        _load = Mathf.Lerp(_load, clampedLoad, Time.deltaTime * 3.0f);
+    }
+
     bool CheckFuel(){
         if(_fuel < 0.0f){
              SetGeneratorState(false);
@@ -117,7 +123,7 @@ public class PowerGenerator : MonoBehaviour
         }
     }
 
-    void CheckGeneratorLight(){
+    private void CheckGeneratorLight(){
         if(_isPowered){
             if(_isCritical){
                 _lightComponent.GetComponent<Electricity>().SetPowerState(true);
@@ -132,13 +138,14 @@ public class PowerGenerator : MonoBehaviour
             _lightComponent.gameObject.GetComponent<Electricity>().SetPowerState(false);
         }
     }
-    void CalcFuelConsume(){
+
+    void CalcPowerOut(){
         _fuel -= _load / Mathf.Pow(_efficiency, 2);
         _power = _maxPower / 100.0f * _load;
     }
 
     // 발전기의 온도를 체크해서 임계온도 도달 시 경고음 / 이상효과 / 시간 측정
-    void CheckGeneratorThermal(){
+    private void CheckGeneratorThermal(){
         if(_thermal > _criticalThermal){
             _thermalTimer += Time.deltaTime;
             _isCritical = true;
@@ -181,7 +188,7 @@ public class PowerGenerator : MonoBehaviour
     {
         if(_isPowered){
             CheckFuel();
-            CalcFuelConsume();
+            CalcPowerOut();
             CheckGeneratorThermal();
             
         }
