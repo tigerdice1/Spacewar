@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-
     // 단일개체
     [SerializeField]
     [Tooltip("왼쪽 문")]
     private Transform _leftDoor;
+    
     [SerializeField]
     [Tooltip("오른쪽 문")]
     private Transform _rightDoor;
 
+    private Transform[] _doors = new Transform[2];
+    private bool[] _isDoorLoaded = new bool[2];
+    private bool _isElectricityLoaded;
     public PowerGenerator _powerGenerator;
 
     public float _doorOpenDistance; // 문이 열리는 거리
@@ -29,6 +32,11 @@ public class Door : MonoBehaviour
     private float _autoCloseTimer; // 문이 자동으로 닫히는 시간을 카운트
     private float _totalDistance; // 문이 열리는 총 거리
     private Coroutine _doorCoroutine; // 문 이동 코루틴
+
+    private void Initalize(){
+
+    }
+
     private void Start()
     {
         
@@ -51,7 +59,6 @@ public class Door : MonoBehaviour
     {
         if (_powerGenerator.GetGeneratorState())
         {
-            
             // 지금 문의 위치를 저장
             _doorCurrentPosition = _leftDoor.localPosition;
             // 자동문 타이머 0으로 설정

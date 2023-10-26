@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     [Tooltip("카메라")]
     private Camera _cameraObject;
-    private bool _isCameraLoaded;
+    private bool _isCameraLoaded = false;
     /* Optional Variables */
     [SerializeField]
     [Tooltip("따라갈 물체")]
@@ -31,11 +31,12 @@ public class CameraController : MonoBehaviour
             _isCameraLoaded = true;
         }
     }
-
+    // Change the target to follow
     public void SetFollowTarget(GameObject target){
         _followObject = target;
     }
     
+    // Move the location of the camera to the target location.
     public void MoveCameraToTarget(){
         if(_isCameraLoaded){
             Vector3 newPosition = new Vector3(
@@ -46,7 +47,7 @@ public class CameraController : MonoBehaviour
             _cameraObject.transform.position = newPosition;
         } 
     }
-
+    // Select whether the camera tracks the target.
     void SetFollowingState(bool isFollowingTarget){
         _isFollowingTarget = isFollowingTarget;
     }
@@ -64,6 +65,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Initalize();
         SetFollowingState(true);
     }
 
