@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerUsage: 0
+  _powerConsumption: 0
   _powerIdle: 0
   _powerActive: 0
   _isPowered: 0
@@ -578,12 +578,12 @@ MonoBehaviour:
   _lightComponent: {fileID: 403041394}
   _generatorUI: {fileID: 0}
   _efficiency: 90
-  _fuel: 100
+  _currentFuel: 0
   _maxFuel: 150
-  _power: 0
+  _powerOutput: 0
   _maxPower: 0
   _load: 50
-  _thermal: 0
+  _currentThermal: 0
   _criticalThermal: 0
   _criticalThermalTimer: 0
   _isPowered: 0
@@ -2534,6 +2534,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 832315740}
   _playerSpeed: 5
+  _playerHealthPoint: 0
+  _playerCurrentHealthPoint: 0
 --- !u!136 &2026724708
 CapsuleCollider:
   m_ObjectHideFlags: 0
