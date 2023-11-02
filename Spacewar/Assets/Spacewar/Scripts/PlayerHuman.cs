@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerHuman : MonoBehaviour
 {
-    public HPSystem _hpSystem;
 
     [SerializeField]
     [Tooltip("플레이어 컨트롤러")]
     private PlayerController _playerController;
+    [SerializeField]
+    [Tooltip("HP")]
+    private HPSystem _hpSystem;
 
     [SerializeField]
     [Tooltip("플레이어 속도")]
@@ -16,11 +18,11 @@ public class PlayerHuman : MonoBehaviour
 
     [SerializeField]
     [Tooltip("플레이어 체력")]
-    private float _playerMaxHealthPoint;
+    private float _playerMaxHP;
 
     [SerializeField]
     [Tooltip("플레이어 현재체력")]
-    private float _playerCurrentHealthPoint;
+    private float _playerCurrentHP;
 
     /* Properties */
     public PlayerController PlayerController{
@@ -31,38 +33,37 @@ public class PlayerHuman : MonoBehaviour
         get{return _playerSpeed;}
         set{_playerSpeed = value;}
     }
-    public float PlayerMaxHealthPoint { 
-        get{return _playerMaxHealthPoint;}
-        set{_playerMaxHealthPoint = value;}
+    public float PlayerMaxHP { 
+        get{return _playerMaxHP;}
+        set{_playerMaxHP = value;}
     }
-    public float PlayerCurrentHealthPoint { 
-        get{return _playerCurrentHealthPoint;}
-        set{_playerCurrentHealthPoint = value;}
+    public float PlayerCurrentHP { 
+        get{return _playerCurrentHP;}
+        set{_playerCurrentHP = value;}
     }
 
-
+    void Initalize(){
+        _hpSystem = gameObject.GetComponent<HPSystem>();
+        _playerMaxHP = 100.0f;
+        _playerCurrentHP = _playerMaxHP;
+        _hpSystem.SetMaxHP(_playerMaxHP);
+    }
     // Start is called before the first frame update
-    void Start()
-    {
-        PlayerMaxHealthPoint = 100.0f;
-        PlayerCurrentHealthPoint = PlayerMaxHealthPoint;
-        _hpSystem.SetMaxHealth(PlayerMaxHealthPoint);
-
+    void Start(){
+        Initalize();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)) 
-        {
+        //DEBUG_CODE
+        if(Input.GetKeyDown(KeyCode.Space)){
             TakeDamage(20.0f);
         }
     }
 
-    void TakeDamage(float damage)
-    {
-        PlayerCurrentHealthPoint -= damage;
-
-        _hpSystem.SetHealth(_playerCurrentHealthPoint);
+    void TakeDamage(float damage){
+        _playerCurrentHP -= damage;
+        _hpSystem.SetHP(_playerCurrentHP);
     }
 }

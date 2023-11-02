@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Electricity : MonoBehaviour
 {
+    /* Power consumption refers to the total power consumption of an object using electricity */
     [SerializeField]
     private float _powerConsumption;
     [SerializeField]

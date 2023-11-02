@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Door_Double : MonoBehaviour{
+    
     // 단일개체
-
     [SerializeField]
     private Transform[] _doors = new Transform[2];
     private bool[] _isDoorLoaded = new bool[2];
@@ -77,8 +77,7 @@ public class Door_Double : MonoBehaviour{
         if (gameObject.GetComponent<Electricity>().IsPowered){
             float currentDistance = Vector3.Distance(_doorCurrentPosition[0], _doorClosedPosition[0]);
             float elapsedTime = (currentDistance / _totalDistance) * _doorOpenSpeed;
-            while (elapsedTime < _doorOpenSpeed)
-            {
+            while (elapsedTime < _doorOpenSpeed){
                 //if (_electricity.PowerUsage <= _electricity.PowerActive)
                 //{
                 //    _electricity.PowerUsage += Time.deltaTime * _doorOpenSpeed * 10;
@@ -101,8 +100,7 @@ public class Door_Double : MonoBehaviour{
         if (gameObject.GetComponent<Electricity>().IsPowered){
             //_electricity.IsActive = true;
             float elapsedTime = 0f;
-            while (elapsedTime < _doorOpenSpeed)
-            {
+            while (elapsedTime < _doorOpenSpeed){
                 //if (_electricity.PowerUsage <= _electricity.PowerActive)
                 //{
                 //    _electricity.PowerUsage += Time.deltaTime * _doorOpenSpeed * 10;

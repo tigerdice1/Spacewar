@@ -26,11 +26,22 @@ public class PlayerController : MonoBehaviour
         set { _triggerObject = value; }
     }
     // Start is called before the first frame update
+
+    void Initailize(){
+        if(_userInterface.Find("MainUI")){
+            _userInterface.Find("MainUI").gameObject.GetComponent<CanvasGroup>().alpha = 1.0f;
+            _userInterface.Find("MainUI").gameObject.GetComponent<CanvasGroup>().interactable = true;
+        };
+
+    }
     void Start()
     {
+        Initailize();
+        /*
         GameObject generatorUI = _userInterface.Find("GeneratorUI").gameObject;
         generatorUI.GetComponent<CanvasGroup>().alpha = 0.0f;
         generatorUI.GetComponent<CanvasGroup>().interactable = false;
+        */
 
     }
 
@@ -40,6 +51,7 @@ public class PlayerController : MonoBehaviour
             generatorUI.GetComponent<CanvasGroup>().alpha = 0.0f;
             generatorUI.GetComponent<CanvasGroup>().interactable = false;
         }
+        
     }
     void CheckUserInput(){
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){

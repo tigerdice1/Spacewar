@@ -135,6 +135,9 @@ public class PowerGenerator : MonoBehaviour
         else{
             _isGeneratorUILoaded = true;
         }       
+        if(!gameObject.GetComponent<BoxCollider>().isTrigger){
+            Debug.Log("BoxCollider's trigger is missing. Please add it in the editor. Location : " + gameObject);
+        }
     }
 
     /* Properties */
