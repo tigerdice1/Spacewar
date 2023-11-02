@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     [Tooltip("플레이어의 고유 ID")]
-    private int _id;    
 
     /* Properties */
     public GameObject TriggerObject{
