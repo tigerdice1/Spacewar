@@ -163,6 +163,9 @@ public class PowerGenerator : MonoBehaviour
     public void SetGeneratorState(bool isOn){
         _isPowered = isOn;
     }
+    public GameObject GetUI(){
+        return _generatorUI;
+    }
     /* Essential Functions */
     public void SyncPower(float powerUsage){
         float targetLoad = (powerUsage / _maxPower) * 100.0f;

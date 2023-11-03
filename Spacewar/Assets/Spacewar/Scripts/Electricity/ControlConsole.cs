@@ -7,7 +7,7 @@ public class ControlConsole : MonoBehaviour
     [SerializeField]
     private GameObject _ownerShip;
     private bool _isOwnerShipLoaded;
-    private PlayerController _triggerdController;
+    private PlayerController _triggeredController;
     private bool _isInterative;
 
     [SerializeField]
@@ -43,6 +43,21 @@ public class ControlConsole : MonoBehaviour
             _hasElectricity = true;
         }
     }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Player") && _triggeredController == null){
+            _triggeredController = other.GetComponent<PlayerHuman>().PlayerController;
+            _triggeredController.TriggerObject = gameObject;
+        }
+
+    }
+    private void OnTriggerExit(Collider other) {
+        if(other.CompareTag("Player") && _triggeredController != null){
+            _triggeredController.TriggerObject = null;
+            _triggeredController = null;
+        }
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
