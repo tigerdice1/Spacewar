@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     [Tooltip("플레이어가 접촉한 오브젝트")]
     private GameObject _triggerObject;
     private UIManager _uiManager;
-    private GameObject _otherUI;
-    private bool _isOtherUIActivated;
 
     [SerializeField]
     [Tooltip("플레이어의 고유 ID")]
@@ -30,23 +28,17 @@ public class PlayerController : MonoBehaviour
     }
     
     private void CheckOnTriggerExit(){
-        if(_triggerObject == null && _isOtherUIActivated){
-            _uiManager.SetUIState(_otherUI, false);
-            _otherUI = null;
-            _isOtherUIActivated = false;
+        if(_triggerObject == null && _uiManager.GetUIActivated()){
+            _uiManager.ReleaseUI();
         }
     }
     private void CheckKeyInput(){
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            if(_triggerObject.GetComponent<PowerGenerator>() && !_isOtherUIActivated){
-                _otherUI = _triggerObject.GetComponent<PowerGenerator>().GetUI();
-                _uiManager.SetUIState(_otherUI, true);
-                _isOtherUIActivated = true;
+            if(_triggerObject.GetComponent<PowerGenerator>() && !_uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGenerator>().GetUI(), true);
             }
-            else if(_triggerObject.GetComponent<PowerGenerator>() && _isOtherUIActivated){
-                _otherUI = _triggerObject.GetComponent<PowerGenerator>().GetUI();
-                _uiManager.SetUIState(_otherUI, false);
-                _isOtherUIActivated = false;
+            else if(_triggerObject.GetComponent<PowerGenerator>() && _uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGenerator>().GetUI(), false);
             }
         }
     }

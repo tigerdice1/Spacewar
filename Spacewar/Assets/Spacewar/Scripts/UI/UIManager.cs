@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private CanvasGroup _playerUI;
-    private CanvasGroup _canvasGroup;
+    private CanvasGroup _otherUI;
     private bool _isUIActivated;
     // Start is called before the first frame update
     void Start(){
@@ -26,17 +26,31 @@ public class UIManager : MonoBehaviour
             _playerUI.alpha = 0.0f;
         }
     }
+
+    public bool GetUIActivated(){
+        return _isUIActivated;
+    }
+
+    public void ReleaseUI(){
+        if(_isUIActivated){
+            _otherUI.interactable = false;
+            _otherUI.alpha = 0.0f;
+            _isUIActivated = false;
+            _otherUI = null;
+        }
+    }
     public void SetUIState(GameObject ui, bool state){
-        if(_canvasGroup = ui.GetComponent<CanvasGroup>()){
+        if(_otherUI = ui.GetComponent<CanvasGroup>()){
             if(state){
-                _canvasGroup.interactable = true;
-                _canvasGroup.alpha = 1.0f;
+                _otherUI.interactable = true;
+                _otherUI.alpha = 1.0f;
                 _isUIActivated = true;
             }
             else if(!state){
-                _canvasGroup.interactable = false;
-                _canvasGroup.alpha = 0.0f;
+                _otherUI.interactable = false;
+                _otherUI.alpha = 0.0f;
                 _isUIActivated = false;
+                _otherUI = null;
             }
         }
         
