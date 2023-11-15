@@ -164,7 +164,10 @@ public class PowerGenerator : MonoBehaviour
         _isPowered = isOn;
     }
     public GameObject GetUI(){
-        return _generatorUI;
+        if(_isGeneratorUILoaded){
+            return _generatorUI;
+        }
+        else return null;
     }
     /* Essential Functions */
     public void SyncPower(float powerUsage){
@@ -198,10 +201,6 @@ public class PowerGenerator : MonoBehaviour
         }
         if(_thermalTimer >= _criticalThermalTimer){
             // 임계온도 도달 후 시간 경과 이후 액션
-            //if (_lightController != null){
-            //    _lightController.LightStateColor = LightController.LightState.Over;
-            //    Debug.Log("Critical");
-            //}
         }
     }
     private void OnTriggerEnter(Collider other) {

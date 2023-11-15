@@ -21,6 +21,12 @@ public class PlayerController : MonoBehaviour
         get { return _triggerObject; }
         set { _triggerObject = value; }
     }
+
+    public GameObject ControlObject{
+        get {return _controlObject; }
+        set {_controlObject = value;}
+    }
+
     private void Initailize(){
         // MainUI always visible
         _uiManager = gameObject.AddComponent<UIManager>();
@@ -39,6 +45,12 @@ public class PlayerController : MonoBehaviour
             }
             else if(_triggerObject.GetComponent<PowerGenerator>() && _uiManager.GetUIActivated()){
                 _uiManager.SetUIState(_triggerObject.GetComponent<PowerGenerator>().GetUI(), false);
+            }
+            if(_triggerObject.GetComponent<ControlConsole>() && !_uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<ControlConsole>().GetUI(), true);
+            }
+            else if(_triggerObject.GetComponent<ControlConsole>() && _uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<ControlConsole>().GetUI(), false);
             }
         }
     }

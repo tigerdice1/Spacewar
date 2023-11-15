@@ -7,6 +7,12 @@ public class ControlConsole : MonoBehaviour
     [SerializeField]
     private GameObject _ownerShip;
     private bool _isOwnerShipLoaded;
+    // 컨트롤 할 오브젝트
+    [SerializeField]
+    private GameObject _objectToControl;
+    // 현재 엑세스 중인 오브젝트
+    private GameObject _handlingObject;
+    private bool _isObjectToControlLoaded;
     private PlayerController _triggeredController;
     private bool _isInterative;
 
@@ -25,8 +31,15 @@ public class ControlConsole : MonoBehaviour
         else{
             _isOwnerShipLoaded = true;
         }
+        if(!_objectToControl){
+            Debug.Log("ObjectToControl is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);
+            _isObjectToControlLoaded = false;
+        }
+        else{
+            _isObjectToControlLoaded = true;
+        }
         if(!_consoleUI){
-            Debug.Log("consoleUI is not initialized. The associated functions are disabled. Location : " + gameObject);
+            Debug.Log("ConsoleUI is not initialized. The associated functions are disabled. Location : " + gameObject);
             _isConsoleUILoaded = false;
         }
         else{
@@ -49,13 +62,31 @@ public class ControlConsole : MonoBehaviour
             _triggeredController = other.GetComponent<PlayerHuman>().PlayerController;
             _triggeredController.TriggerObject = gameObject;
         }
-
     }
     private void OnTriggerExit(Collider other) {
         if(other.CompareTag("Player") && _triggeredController != null){
             _triggeredController.TriggerObject = null;
             _triggeredController = null;
         }
+    }
+
+    public void SwapContorlObject(){
+        if(_isInterative){
+            _handlingObject = _triggeredController.ControlObject;
+            _triggeredController.ControlObject = gameObject;
+            _isInterative = false;
+        }
+        else if(!_isInterative){
+            _triggeredController.ControlObject = _handlingObject;
+            _handlingObject = null;
+            _isInterative = true;
+        }
+    }
+    public GameObject GetUI(){
+        if(_isConsoleUILoaded){
+            return _consoleUI;
+        }
+        else return null;
     }
     
     // Start is called before the first frame update
