@@ -19,10 +19,12 @@ public class UIManager : MonoBehaviour
     public void SetPlayerUIState(bool state){
         if(_playerUI && state){
             _playerUI.interactable = state;
+            _playerUI.blocksRaycasts = state;
             _playerUI.alpha = 1.0f;
         }
         else if(_playerUI && !state){
             _playerUI.interactable = state;
+            _playerUI.blocksRaycasts = state;
             _playerUI.alpha = 0.0f;
         }
     }
@@ -36,6 +38,7 @@ public class UIManager : MonoBehaviour
             _otherUI.interactable = false;
             _otherUI.alpha = 0.0f;
             _isUIActivated = false;
+            _playerUI.blocksRaycasts= false;
             _otherUI = null;
         }
     }
@@ -43,11 +46,13 @@ public class UIManager : MonoBehaviour
         if(_otherUI = ui.GetComponent<CanvasGroup>()){
             if(state){
                 _otherUI.interactable = true;
+                _otherUI.blocksRaycasts = true;
                 _otherUI.alpha = 1.0f;
                 _isUIActivated = true;
             }
             else if(!state){
                 _otherUI.interactable = false;
+                _otherUI.blocksRaycasts = false;
                 _otherUI.alpha = 0.0f;
                 _isUIActivated = false;
                 _otherUI = null;

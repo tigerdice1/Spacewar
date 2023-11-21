@@ -160,7 +160,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4999307536091605590}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PowerGeneratorUI, Assembly-CSharp
         m_MethodName: ToggleOnclick
         m_Mode: 0
@@ -724,7 +724,6 @@ GameObject:
   - component: {fileID: 3239274379204856975}
   - component: {fileID: 1767498369265691231}
   - component: {fileID: 8387831978431781193}
-  - component: {fileID: 4999307536091605590}
   - component: {fileID: 4289369671188675605}
   m_Layer: 5
   m_Name: GeneratorUI
@@ -794,21 +793,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4999307536091605590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9158393081604404341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18499a118600f04a99b1f3a4e498162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _powerGenerator: {fileID: 0}
-  _powerGeneratorBtn: {fileID: 976390316709398624}
-  _diode: {fileID: 7506176663799796787}
 --- !u!225 &4289369671188675605
 CanvasGroup:
   m_ObjectHideFlags: 0
