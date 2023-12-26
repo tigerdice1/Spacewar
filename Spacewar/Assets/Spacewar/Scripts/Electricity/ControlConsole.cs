@@ -14,7 +14,7 @@ public class ControlConsole : MonoBehaviour
     private GameObject _handlingObject;
     private bool _isObjectToControlLoaded;
     private PlayerController _triggeredController;
-    private bool _isInterative;
+    private bool _isInterative = true;
 
     [SerializeField]
     [Tooltip("UI to use if someone interacts")]
@@ -73,11 +73,13 @@ public class ControlConsole : MonoBehaviour
     public void SwapContorlObject(){
         if(_isInterative){
             _handlingObject = _triggeredController.ControlObject;
-            _triggeredController.ControlObject = gameObject;
+            _triggeredController.ControlObject = _objectToControl;
+            _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_objectToControl);
             _isInterative = false;
         }
         else if(!_isInterative){
             _triggeredController.ControlObject = _handlingObject;
+            _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_handlingObject);
             _handlingObject = null;
             _isInterative = true;
         }

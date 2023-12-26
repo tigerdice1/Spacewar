@@ -22,9 +22,6 @@ public class HPSystem : MonoBehaviour{
 
     public void SetHP(float _health){
         _slider.value = _health; 
-
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
-
-
 }

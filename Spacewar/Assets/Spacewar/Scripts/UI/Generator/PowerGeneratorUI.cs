@@ -17,12 +17,10 @@ public class PowerGeneratorUI : MonoBehaviour
     private SpriteChanger_UI _diode;
     public void ToggleOnclick(bool isOn){
         _powerGenerator.SetGeneratorState(isOn);
-
         if (isOn){
             RectTransform rectTransform = _powerGeneratorBtn.GetComponent<Image>().rectTransform;
             Vector3 currentScale = rectTransform.localScale;
             rectTransform.localScale = new Vector3(currentScale.x, -currentScale.y, currentScale.z);
-
         }
         else{
             RectTransform rectTransform = _powerGeneratorBtn.GetComponent<Image>().rectTransform;

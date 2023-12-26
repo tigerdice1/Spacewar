@@ -47,10 +47,12 @@ public class PlayerController : MonoBehaviour
                 _uiManager.SetUIState(_triggerObject.GetComponent<PowerGenerator>().GetUI(), false);
             }
             if(_triggerObject.GetComponent<ControlConsole>() && !_uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<ControlConsole>().GetUI(), true);
+                //_uiManager.SetUIState(_triggerObject.GetComponent<ControlConsole>().GetUI(), true);
+                _triggerObject.GetComponent<ControlConsole>().SwapContorlObject();
             }
             else if(_triggerObject.GetComponent<ControlConsole>() && _uiManager.GetUIActivated()){
                 _uiManager.SetUIState(_triggerObject.GetComponent<ControlConsole>().GetUI(), false);
+                _triggerObject.GetComponent<ControlConsole>().SwapContorlObject();
             }
         }
     }
@@ -74,6 +76,39 @@ public class PlayerController : MonoBehaviour
             Vector3 velocity = new Vector3(x, 0, z);
             velocity *= _controlObject.GetComponent<PlayerHuman>().PlayerSpeed;
             rid.velocity = velocity;
-        }   
+        }
+        else if(_controlObject.CompareTag("MainShip")){
+            if (Input.GetKey(KeyCode.W)){
+                rid.AddRelativeForce(Vector3.forward * 10.0f);
+            }
+            if (Input.GetKey(KeyCode.A)){
+                rid.AddRelativeTorque(Vector3.down * 10.0f);
+            }
+            if (Input.GetKey(KeyCode.S)){
+                rid.AddRelativeForce(Vector3.back * 10.0f);
+            }
+            if (Input.GetKey(KeyCode.D)){
+                rid.AddRelativeTorque(Vector3.up * 10.0f);
+            }  
+            float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
+            if(rid.velocity.x > MaxVelocity){
+                rid.velocity = new Vector3(MaxVelocity, rid.velocity.y, rid.velocity.z);
+            }
+            if(rid.velocity.x < (MaxVelocity * - 1)){
+                rid.velocity = new Vector3(MaxVelocity * -1, rid.velocity.y, rid.velocity.z);
+            }
+            if(rid.velocity.y > MaxVelocity){
+                rid.velocity = new Vector3(rid.velocity.x, MaxVelocity, rid.velocity.z);
+            }
+            if(rid.velocity.y < (MaxVelocity * - 1)){
+                rid.velocity = new Vector3(rid.velocity.x, MaxVelocity  * -1, rid.velocity.z);
+            } 
+            if(rid.velocity.z > MaxVelocity){
+                rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity);
+            }
+            if(rid.velocity.z < (MaxVelocity * - 1)){
+                rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity  * -1);
+            }
+        }
     }
 }

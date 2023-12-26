@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
             _otherUI.interactable = false;
             _otherUI.alpha = 0.0f;
             _isUIActivated = false;
-            _playerUI.blocksRaycasts= false;
+            _otherUI.blocksRaycasts= false;
             _otherUI = null;
         }
     }

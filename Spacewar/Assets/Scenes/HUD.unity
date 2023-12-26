@@ -404,8 +404,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controlObject: {fileID: 1144992006}
   _triggerObject: {fileID: 0}
-  _userInterface: {fileID: 81028548}
-  _id: 0
 --- !u!4 &85998014
 Transform:
   m_ObjectHideFlags: 0
@@ -698,11 +696,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94761ce40650d404e895f265fa15d32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpSystem: {fileID: 46443394}
   _playerController: {fileID: 85998013}
+  _hpSystem: {fileID: 46443394}
   _playerSpeed: 5
-  _playerMaxHealthPoint: 0
-  _playerCurrentHealthPoint: 0
+  _playerMaxHP: 100
+  _playerCurrentHP: 0
 --- !u!54 &1144992008
 Rigidbody:
   m_ObjectHideFlags: 0
