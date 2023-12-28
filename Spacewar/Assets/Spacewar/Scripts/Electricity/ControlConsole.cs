@@ -71,17 +71,21 @@ public class ControlConsole : MonoBehaviour
     }
 
     public void SwapContorlObject(){
-        if(_isInterative){
-            _handlingObject = _triggeredController.ControlObject;
-            _triggeredController.ControlObject = _objectToControl;
-            _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_objectToControl);
-            _isInterative = false;
-        }
-        else if(!_isInterative){
-            _triggeredController.ControlObject = _handlingObject;
-            _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_handlingObject);
-            _handlingObject = null;
-            _isInterative = true;
+        if(_hasElectricity){
+            if(gameObject.GetComponent<Electricity>().IsPowered){
+                if(_isInterative){
+                    _handlingObject = _triggeredController.ControlObject;
+                    _triggeredController.ControlObject = _objectToControl;
+                    _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_objectToControl);
+                    _isInterative = false;
+                }
+                else if(!_isInterative){
+                    _triggeredController.ControlObject = _handlingObject;
+                    _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_handlingObject);
+                    _handlingObject = null;
+                    _isInterative = true;
+                }
+            }
         }
     }
     public GameObject GetUI(){

@@ -141,6 +141,10 @@ public class PowerGenerator : MonoBehaviour
     }
 
     /* Properties */
+    public bool IsPowered{
+        set{_isPowered = value; }
+        get{return _isPowered; }
+    }
     public float PowerOutput{
         set{_powerOutput = value; }
         get{return _powerOutput; }

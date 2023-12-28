@@ -17,6 +17,15 @@ public class Junction : MonoBehaviour
  	// Total power consumption
 	private float _totalPowerConsumption;
     
+    void Initailize(){
+        if(!_generator){
+            Debug.Log("PowerGenerator is not Loaded. Please add Generator. Location : " + gameObject);
+            _isGeneratorLoaded = false;
+        }
+        else{
+            _isGeneratorLoaded = true;
+        }
+    }
     /* Custom Functions */
 	// Store the combined power consumption of the objects in the list.
     void UpdatePowerConsumption(){
@@ -28,6 +37,24 @@ public class Junction : MonoBehaviour
         }
     }
 
+    void CheckPowerState(){
+        if(_isGeneratorLoaded){
+            if(_generator.IsPowered){
+                foreach(Electricity connectedObject in _connectedObjectsList){
+                    if(connectedObject != null){
+                    connectedObject.SetPowerState(true);
+                    }
+                }
+            }
+            else if(!_generator.IsPowered){
+                foreach(Electricity connectedObject in _connectedObjectsList){
+                    if(connectedObject != null){
+                    connectedObject.SetPowerState(false);
+                    }
+                }
+            }
+        }
+    }
 	/* 
     Calls the load adjustment function of the generator 
     if the amount of power produced is less or greater than the amount of power consumed. 
@@ -39,10 +66,7 @@ public class Junction : MonoBehaviour
  	// Start is called before the first frame update   
 	void Start()
     {
-        if(_generator == null){
-            Debug.Log("PowerGenerator is not Loaded. Please add Electricity Module. Location : " + gameObject);
-            _isGeneratorLoaded = false;
-        }
+        Initailize();
     }
 
     // Update is called once per frame
@@ -51,6 +75,7 @@ public class Junction : MonoBehaviour
         UpdatePowerConsumption();
         if(_isGeneratorLoaded){
             SyncPowerFromGenerator();
+            CheckPowerState();
         }
     }
 }
