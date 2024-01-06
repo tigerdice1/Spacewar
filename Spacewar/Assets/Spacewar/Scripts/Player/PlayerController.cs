@@ -79,17 +79,24 @@ public class PlayerController : MonoBehaviour
         }
         else if(_controlObject.CompareTag("MainShip")){
             if (Input.GetKey(KeyCode.W)){
+                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
                 rid.AddRelativeForce(Vector3.forward * 10.0f);
             }
             if (Input.GetKey(KeyCode.A)){
+                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
                 rid.AddRelativeTorque(Vector3.down * 10.0f);
             }
             if (Input.GetKey(KeyCode.S)){
+                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
                 rid.AddRelativeForce(Vector3.back * 10.0f);
             }
             if (Input.GetKey(KeyCode.D)){
+                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
                 rid.AddRelativeTorque(Vector3.up * 10.0f);
-            }  
+            }
+            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W)){
+                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = true;
+            } 
             float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
             if(rid.velocity.x > MaxVelocity){
                 rid.velocity = new Vector3(MaxVelocity, rid.velocity.y, rid.velocity.z);
