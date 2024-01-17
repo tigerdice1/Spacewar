@@ -46,10 +46,7 @@ public class MainShip : MonoBehaviour{
 
     void ReverseThruster(){
         Rigidbody rid = gameObject.GetComponent<Rigidbody>();
-        //Debug.Log(rid.velocity.magnitude);
-        //Debug.Log(rid.transform.forward);
         if(_isReverseThrusterActive){
-            Vector3 relativeForwardVelocity = transform.InverseTransformDirection(rid.velocity);
             ReverseThrusterRotate(rid);
             ReverseThrusterForward(rid);
         }
@@ -57,7 +54,7 @@ public class MainShip : MonoBehaviour{
 
     void ReverseThrusterRotate(Rigidbody rb){
         float fixedTorque = Mathf.Lerp(_currentAngularSpeed * 0.2f, 0.0f, Time.deltaTime);
-        if(_axis.y > -0.0f){
+        if(_axis.y > 0.0f){
             rb.AddRelativeTorque(Vector3.down * fixedTorque);
         }
         else if(_axis.y < 0.0f){
@@ -77,96 +74,23 @@ public class MainShip : MonoBehaviour{
     우측(1.0f, 0.0f, 0.0f)
 */
     void ReverseThrusterForward(Rigidbody rb){
-        Debug.Log(rb.velocity);
-        Debug.Log(rb.transform.forward);
-        
-        float fixedSpeed = 10.0f;//Mathf.Lerp(rb.velocity.magnitude, 0.0f, Time.deltaTime);
-        
-        if(rb.velocity.z > 0.0f){ // 상단으로 이동하는 상황
-            if(rb.transform.forward.z > 0.0f){ // 함선의 머리가 상단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.back * fixedSpeed);
-                Debug.Log("상단이동 상단");
-            }
-            else if(rb.transform.forward.z < 0.0f){ // 함선의 머리가 하단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.forward * fixedSpeed);
-                Debug.Log("상단이동 하단");
-            }
-            if(rb.transform.forward.x > 0.0f){ // 함선의 머리가 우측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.right * fixedSpeed);
-                Debug.Log("상단이동 우측");
-            }
-            if(rb.transform.forward.x < 0.0f){ // 함선의 머리가 좌측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.left * fixedSpeed);
-                Debug.Log("상단이동 좌측");
-            }
+        if(rb.velocity.z > 0.0f){ // 게임화면 기준 상단이동
+            rb.AddRelativeForce(Vector3.back * rb.transform.forward.z * rb.velocity.magnitude);
+            rb.AddRelativeForce(Vector3.right * rb.transform.forward.x * rb.velocity.magnitude);
         }
-        else if(rb.velocity.z < 0.0f){ // 하단으로 이동하는 상황
-            if(rb.transform.forward.z > 0.0f){ // 함선의 머리가 상단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.forward * fixedSpeed);
-                Debug.Log("하단이동 상단");
-            }
-            else if(rb.transform.forward.z < 0.0f){ // 함선의 머리가 하단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.back * fixedSpeed);
-                Debug.Log("하단이동 하단");
-            }
-            if(rb.transform.forward.x > 0.0f){ // 함선의 머리가 우측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.left * fixedSpeed);
-                Debug.Log("하단이동 우측");
-            }
-            if(rb.transform.forward.x < 0.0f){ // 함선의 머리가 좌측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.right * fixedSpeed);
-                Debug.Log("하단이동 좌측");
-            }
+        if(rb.velocity.z < 0.0f){ // 게임화면 기준 하단이동
+            rb.AddRelativeForce(Vector3.forward * rb.transform.forward.z * rb.velocity.magnitude);
+            rb.AddRelativeForce(Vector3.left * rb.transform.forward.x * rb.velocity.magnitude);
         }
-        if(rb.velocity.x > 0.0f){ // 우측으로 이동하는 상황
-            if(rb.transform.forward.z > 0.0f){ // 함선의 머리가 상단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.right * fixedSpeed);
-                Debug.Log("우측이동 상단");
-            }
-            else if(rb.transform.forward.z < 0.0f){ // 함선의 머리가 하단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.left * fixedSpeed);
-                Debug.Log("우측이동 하단");
-            }
-            if(rb.transform.forward.x > 0.0f){ // 함선의 머리가 우측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.back * fixedSpeed);
-                Debug.Log("우측이동 우측");
-            }
-            if(rb.transform.forward.x < 0.0f){ // 함선의 머리가 좌측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.forward * fixedSpeed);
-                Debug.Log("우측이동 좌측");
-            }
+        if(rb.velocity.x < 0.0f){ // 게임화면 기준 좌측이동
+            rb.AddRelativeForce(Vector3.right * rb.transform.forward.z * rb.velocity.magnitude);
+            rb.AddRelativeForce(Vector3.forward * rb.transform.forward.x * rb.velocity.magnitude);
         }
-        else if(rb.velocity.x < 0.0f){ // 좌측으로 이동하는 상황
-            if(rb.transform.forward.z > 0.0f){ // 함선의 머리가 상단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.left * fixedSpeed);
-                Debug.Log("좌측이동 상단");
-            }
-            else if(rb.transform.forward.z < 0.0f){ // 함선의 머리가 하단을 향해 있을 떄
-                rb.AddRelativeForce(Vector3.right * fixedSpeed);
-                Debug.Log("좌측이동 하단");
-            }
-            if(rb.transform.forward.x > 0.0f){ // 함선의 머리가 우측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.forward * fixedSpeed);
-                Debug.Log("좌측이동 우측");
-            }
-            if(rb.transform.forward.x < 0.0f){ // 함선의 머리가 좌측을 향해 있을 때
-                rb.AddRelativeForce(Vector3.back * fixedSpeed);
-                Debug.Log("좌측이동 좌측");
-            }
+        if(rb.velocity.x > 0.0f){ // 게임화면 기준 우측이동
+            rb.AddRelativeForce(Vector3.left * rb.transform.forward.z * rb.velocity.magnitude);
+            rb.AddRelativeForce(Vector3.back * rb.transform.forward.x * rb.velocity.magnitude);
         }
     }
-    void ReverseThrusterSlide(Rigidbody rb){
-        float fixedSpeed = Mathf.Lerp(rb.velocity.magnitude, 0.0f, Time.deltaTime);
-        if(rb.transform.forward.x < 0.0f && rb.velocity.z > 0.0f){
-            rb.AddRelativeForce(Vector3.left * fixedSpeed);
-        }
-        else if(rb.transform.forward.x > 0.0f  && rb.velocity.z < 0.0f){
-            
-            rb.AddRelativeForce(Vector3.right * fixedSpeed);
-        }
-    }
-
-
     
     // Start is called before the first frame update
     void Start()
