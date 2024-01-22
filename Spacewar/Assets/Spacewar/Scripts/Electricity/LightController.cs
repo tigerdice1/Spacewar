@@ -18,6 +18,16 @@ public class LightController : MonoBehaviour
             _lightComponent.color = color;
         }
     }
+
+    public void SetHexColor(string hexCode)
+        {
+            if(_isLightComponentLoaded){
+                Color color;
+                if ( ColorUtility.TryParseHtmlString(hexCode, out color)){
+                    _lightComponent.color = color;
+                }
+            }
+        }
     
     private void Initalize(){
         if(!_lightComponent){
