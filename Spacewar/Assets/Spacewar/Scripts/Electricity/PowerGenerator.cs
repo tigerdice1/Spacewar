@@ -26,13 +26,6 @@ public class PowerGenerator : MonoBehaviour
     private Junction _connectedJunction;
     private bool _isJunctionLoaded;
 
-    // Specifies the generator. If not, an error will occur.
-    [SerializeField]
-    [Tooltip("해당 발전기와 연결된 몸체 지정")]
-    private GameObject _connectedGeneratorBody;
-    private bool _isGeneratorBodyLoaded;
-    
-    
     /*
     The player's controller that can interact with this generator. 
     It is automatically specified when the phone that the player manipulates comes into the trigger.
@@ -128,13 +121,6 @@ public class PowerGenerator : MonoBehaviour
         else{
             _isJunctionLoaded = true;
         }
-        if(!_connectedGeneratorBody){
-            Debug.Log("GeneratorBody is not initialized. The associated functions are disabled. Please Set the GeneratorBody. Location : " + gameObject);
-            _isGeneratorBodyLoaded = false;
-        }
-        else{
-            _isJunctionLoaded = true;
-        }
         if(!_lightComponent){
             Debug.Log("LightComponent is not initialized. The associated functions are disabled. Location : " + gameObject);
             _isLightComponentLoaded = false;
@@ -187,6 +173,10 @@ public class PowerGenerator : MonoBehaviour
         }
         else return null;
     }
+    public bool GetIsCritical(){
+        return _isCritical;
+    }
+
     /* Essential Functions */
     public void SyncPower(float powerUsage){
         float targetLoad = (powerUsage / _maxPower) * 100.0f;
@@ -251,20 +241,6 @@ public class PowerGenerator : MonoBehaviour
         }
     }
 
-    private void UpdateGeneratorBody(){
-        if(_isPowered){
-            _connectedGeneratorBody.GetComponent<Electricity>().SetPowerState(true);
-            if(_isCritical){
-                _connectedGeneratorBody.GetComponent<LightController>().SetHexColor("00FFFA");
-            }
-            else{
-                _connectedGeneratorBody.GetComponent<LightController>().SetHexColor("FF0000");
-            }
-        }
-        else{
-            _connectedGeneratorBody.GetComponent<Electricity>().SetPowerState(false);
-        }
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -282,9 +258,6 @@ public class PowerGenerator : MonoBehaviour
         }
         if(_isLightComponentLoaded){
             UpdateGeneratorLight();
-        }
-        if(_isGeneratorBodyLoaded){
-            UpdateGeneratorBody();
         }
     }
 }

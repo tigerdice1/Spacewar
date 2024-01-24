@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -404,7 +404,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c98fd346fc4b5542b60987851b8e20f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1925010523}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c98fd346fc4b5542b60987851b8e20f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 541483664}
   m_SourcePrefab: {fileID: 100100000, guid: 4c98fd346fc4b5542b60987851b8e20f, type: 3}
 --- !u!1001 &311587209
 PrefabInstance:
@@ -803,7 +806,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ownerShip: {fileID: 536481482}
   _connectedJunction: {fileID: 1350521196}
-  _connectedGeneratorBody: {fileID: 541483662}
   _triggeredController: {fileID: 0}
   _lightComponent: {fileID: 403041394}
   _generatorUI: {fileID: 1316116115}
@@ -922,6 +924,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c98fd346fc4b5542b60987851b8e20f, type: 3}
   m_PrefabInstance: {fileID: 295002304}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &541483664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541483662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81cc0fb8198a7477f8f899d81ae5abdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _generatorController: {fileID: 536481484}
+  _generatorInnerSpinner: {fileID: 1522720014}
+  _generatorInnerLight: {fileID: 1925010522}
 --- !u!1 &638885949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,6 +2211,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!1 &1522720014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8513859187771203891, guid: 4c98fd346fc4b5542b60987851b8e20f, type: 3}
+  m_PrefabInstance: {fileID: 295002304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1659874738
 PrefabInstance:
   m_ObjectHideFlags: 0
