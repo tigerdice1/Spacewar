@@ -8,7 +8,7 @@ public class Junction : MonoBehaviour
 	// Generators connected to the junction. If not specified, it will not be executed.
     [SerializeField]
     [Tooltip("Generators connected to the junction. If not specified, it will not be executed.")]
-    private PowerGenerator _generator;
+    private PowerGeneratorController _generator;
     private bool _isGeneratorLoaded;
 	// Power consuming objects connected to the junction. All objects containing the Electricity script are shown here.
     [SerializeField]

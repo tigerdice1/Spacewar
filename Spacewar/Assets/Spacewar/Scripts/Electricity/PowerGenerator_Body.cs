@@ -5,7 +5,7 @@ using UnityEngine;
 public class PowerGenerator_Body : MonoBehaviour
 {
     [SerializeField]
-    private PowerGenerator _generatorController;
+    private PowerGeneratorController _generatorController;
     [SerializeField]
     private GameObject _generatorInnerSpinner;
     [SerializeField]

@@ -40,11 +40,11 @@ public class PlayerController : MonoBehaviour
     }
     private void CheckKeyInput(){
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            if(_triggerObject.GetComponent<PowerGenerator>() && !_uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGenerator>().GetUI(), true);
+            if(_triggerObject.GetComponent<PowerGeneratorController>() && !_uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGeneratorController>().GetUI(), true);
             }
-            else if(_triggerObject.GetComponent<PowerGenerator>() && _uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGenerator>().GetUI(), false);
+            else if(_triggerObject.GetComponent<PowerGeneratorController>() && _uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGeneratorController>().GetUI(), false);
             }
             if(_triggerObject.GetComponent<ControlConsole>() && !_uiManager.GetUIActivated()){
                 //_uiManager.SetUIState(_triggerObject.GetComponent<ControlConsole>().GetUI(), true);
