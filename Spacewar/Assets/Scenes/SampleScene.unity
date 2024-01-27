@@ -205,8 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerConsumption: 0
-  _powerIdle: 0
-  _powerActive: 0
+  _powerIdle: 10
+  _powerActive: 100
   _isPowered: 1
 --- !u!114 &188613204
 MonoBehaviour:
@@ -3126,7 +3126,7 @@ PrefabInstance:
       objectReference: {fileID: 536481484}
     - target: {fileID: 7283840312914768437, guid: a76b92d7e46bb6540ba0cdef445d5271, type: 3}
       propertyPath: m_LocalScale.y
-      value: -0.47
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 7283840312914768437, guid: a76b92d7e46bb6540ba0cdef445d5271, type: 3}
       propertyPath: m_LocalPosition.z

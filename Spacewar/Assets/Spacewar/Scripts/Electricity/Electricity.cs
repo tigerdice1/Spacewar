@@ -19,7 +19,7 @@ public class Electricity : MonoBehaviour
     [SerializeField]
     private bool _isPowered;
 
-    private State _state;
+    private State _state = State.OFF;
 
     /* Properties */
     public bool IsPowered{
@@ -49,15 +49,17 @@ public class Electricity : MonoBehaviour
     }
     public void SetActiveState(State state){
         _state = state;
-        if(_state == State.OFF){
-            SetPowerState(false);
-        }
-        else if(_state == State.IDLE){
-            SetPowerState(true);
-        }
-        else if(_state == State.ACTIVE){
-            SetPowerState(true);
-            _powerConsumption = _powerActive;
+        switch(_state){
+            case State.OFF:
+                SetPowerState(false);
+            break;
+            case State.IDLE:
+                SetPowerState(true);
+            break;
+            case State.ACTIVE:
+                SetPowerState(true);
+                _powerConsumption = _powerActive;
+            break;
         }
     }
 
