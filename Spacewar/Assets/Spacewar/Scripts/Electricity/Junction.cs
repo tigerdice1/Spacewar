@@ -42,14 +42,22 @@ public class Junction : MonoBehaviour
             if(_generatorConsole.IsPowered){
                 foreach(Electricity connectedObject in _connectedObjectsList){
                     if(connectedObject != null){
-                    connectedObject.SetPowerState(true);
+                        if(connectedObject.GetState() == Electricity.State.OFF){
+                            connectedObject.SetActiveState(Electricity.State.IDLE);
+                        }
+                        else if(connectedObject.GetState() == Electricity.State.ACTIVE){
+                            connectedObject.SetActiveState(Electricity.State.ACTIVE);
+                        }
+                        else if(connectedObject.GetState() == Electricity.State.IDLE){
+                            connectedObject.SetActiveState(Electricity.State.IDLE);
+                        }
                     }
                 }
             }
             else if(!_generatorConsole.IsPowered){
                 foreach(Electricity connectedObject in _connectedObjectsList){
                     if(connectedObject != null){
-                    connectedObject.SetPowerState(false);
+                    connectedObject.SetActiveState(Electricity.State.OFF);
                     }
                 }
             }

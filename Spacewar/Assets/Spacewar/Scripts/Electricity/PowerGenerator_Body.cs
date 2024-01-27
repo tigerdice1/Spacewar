@@ -26,7 +26,7 @@ public class PowerGenerator_Body : MonoBehaviour
     void UpdateGeneratorState(){
         if(_generatorConsole.GetGeneratorState()){
                 _generatorInnerLight.GetComponent<LightController>().SetHexColor("#00FFFA");
-            _generatorInnerLight.GetComponent<Electricity>().SetPowerState(true);
+            _generatorInnerLight.GetComponent<Electricity>().SetActiveState(Electricity.State.ACTIVE);
             if(_generatorConsole.GetIsCritical()){
                 _generatorInnerLight.GetComponent<LightController>().SetHexColor("#FF0000");
             }
@@ -35,7 +35,7 @@ public class PowerGenerator_Body : MonoBehaviour
             }
         }
         else{
-            _generatorInnerLight.GetComponent<Electricity>().SetPowerState(false);
+            _generatorInnerLight.GetComponent<Electricity>().SetActiveState(Electricity.State.OFF);
         }
     }
     void Start()

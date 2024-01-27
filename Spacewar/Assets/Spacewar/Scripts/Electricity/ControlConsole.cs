@@ -74,12 +74,14 @@ public class ControlConsole : MonoBehaviour
         if(_hasElectricity){
             if(gameObject.GetComponent<Electricity>().IsPowered){
                 if(_isInterative){
+                    gameObject.GetComponent<Electricity>().SetActiveState(Electricity.State.ACTIVE);
                     _handlingObject = _triggeredController.ControlObject;
                     _triggeredController.ControlObject = _objectToControl;
                     _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_objectToControl);
                     _isInterative = false;
                 }
                 else if(!_isInterative){
+                    gameObject.GetComponent<Electricity>().SetActiveState(Electricity.State.IDLE);
                     _triggeredController.ControlObject = _handlingObject;
                     _triggeredController.gameObject.GetComponent<CameraController>().SetFollowTarget(_handlingObject);
                     _handlingObject = null;

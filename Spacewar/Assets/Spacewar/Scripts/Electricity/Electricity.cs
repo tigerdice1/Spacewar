@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Electricity : MonoBehaviour
 {
+    public enum State{
+        OFF,
+        IDLE,
+        ACTIVE
+    }
     /* Power consumption refers to the total power consumption of an object using electricity */
     [SerializeField]
     private float _powerConsumption;
@@ -13,10 +18,8 @@ public class Electricity : MonoBehaviour
     private float _powerActive;
     [SerializeField]
     private bool _isPowered;
-    private bool _isInitalized;
 
-    private Coroutine _powerConsumptionCoroutine;
-
+    private State _state;
 
     /* Properties */
     public bool IsPowered{
@@ -35,41 +38,31 @@ public class Electricity : MonoBehaviour
         get { return _powerActive; }
         set { _powerActive = value; }
     }
-    IEnumerator PowerOnCoroutine(){
-        if(_powerConsumptionCoroutine != null){
-            StopCoroutine(_powerConsumptionCoroutine);
-        }
-        while(_powerConsumption <= _powerActive){
-            float newpowerConsumption = Mathf.Lerp(_powerConsumption, _powerActive, Time.deltaTime);
-            _powerConsumption = newpowerConsumption;
 
-            yield return null;
-        }
+    public State GetState(){
+        return _state;
     }
-    IEnumerator PowerOffCoroutine(){
-        if(_powerConsumptionCoroutine != null){
-            StopCoroutine(_powerConsumptionCoroutine);
-        }
-        while(_powerConsumption <= 0){
-            float newpowerConsumption = Mathf.Lerp(_powerConsumption, 0, Time.deltaTime);
-            _powerConsumption = newpowerConsumption;
 
-            yield return null;
-        }
-    }
-    public void SetPowerState(bool isOn){
+    private void SetPowerState(bool isOn){
         _isPowered = isOn; 
         _powerConsumption = _isPowered ? _powerIdle : 0.0f;
     }
+    public void SetActiveState(State state){
+        _state = state;
+        if(_state == State.OFF){
+            SetPowerState(false);
+        }
+        else if(_state == State.IDLE){
+            SetPowerState(true);
+        }
+        else if(_state == State.ACTIVE){
+            SetPowerState(true);
+            _powerConsumption = _powerActive;
+        }
+    }
 
-    private void CheckPowerState(){
-        if(_isInitalized){
-            _powerConsumption = _isPowered ? _powerIdle : 0.0f;
-            _isInitalized = true;
-        }
-        if(!_isPowered){
-            _isInitalized = false;
-        }
+    private void CheckActiveState(){
+        SetActiveState(_state);
     }
     // Start is called before the first frame update
     void Start()
@@ -78,11 +71,11 @@ public class Electricity : MonoBehaviour
     }
 
     private void FixedUpdate(){
-        CheckPowerState();
+
     }
     // Update is called once per frame
     void Update()
     {
-        
+        CheckActiveState();
     }
 }

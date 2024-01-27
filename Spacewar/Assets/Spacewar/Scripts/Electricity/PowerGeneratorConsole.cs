@@ -228,7 +228,7 @@ public class PowerGeneratorConsole : MonoBehaviour
     /* Optional Functions */
     private void UpdateGeneratorLight(){
         if(_isPowered){
-            _lightComponent.GetComponent<Electricity>().SetPowerState(true);
+            _lightComponent.GetComponent<Electricity>().SetActiveState(Electricity.State.ACTIVE);
             if(_isCritical){
                 _lightComponent.GetComponent<LightController>().SetLightColor(Color.red);
             }
@@ -237,7 +237,7 @@ public class PowerGeneratorConsole : MonoBehaviour
             }
         }
         else if(!_isPowered){
-            _lightComponent.gameObject.GetComponent<Electricity>().SetPowerState(false);
+            _lightComponent.gameObject.GetComponent<Electricity>().SetActiveState(Electricity.State.OFF);
         }
     }
 
