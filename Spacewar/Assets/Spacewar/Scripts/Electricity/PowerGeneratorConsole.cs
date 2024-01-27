@@ -11,7 +11,7 @@ using UnityEngine;
     임계온도 초과시 화재
     화재 후 일정시간 경과시 폭발
 */
-public class PowerGeneratorController : MonoBehaviour
+public class PowerGeneratorConsole : MonoBehaviour
 {
     /* Essential Variables */
     // Specifies the ship that owns the generator.

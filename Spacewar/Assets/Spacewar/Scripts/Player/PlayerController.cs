@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [SerializeField]
+    [Tooltip("기본 컨트롤 오브젝트")]
+    private GameObject _defaultControlObject;
     [SerializeField]
     [Tooltip("플레이어가 컨트롤 할 오브젝트")]
     private GameObject _controlObject;
@@ -37,14 +41,17 @@ public class PlayerController : MonoBehaviour
         if(_triggerObject == null && _uiManager.GetUIActivated()){
             _uiManager.ReleaseUI();
         }
+        if(_triggerObject == null && !_controlObject.CompareTag("Player")){
+            _controlObject = _defaultControlObject;
+        }
     }
     private void CheckKeyInput(){
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            if(_triggerObject.GetComponent<PowerGeneratorController>() && !_uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGeneratorController>().GetUI(), true);
+            if(_triggerObject.GetComponent<PowerGeneratorConsole>() && !_uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGeneratorConsole>().GetUI(), true);
             }
-            else if(_triggerObject.GetComponent<PowerGeneratorController>() && _uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGeneratorController>().GetUI(), false);
+            else if(_triggerObject.GetComponent<PowerGeneratorConsole>() && _uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<PowerGeneratorConsole>().GetUI(), false);
             }
             if(_triggerObject.GetComponent<ControlConsole>() && !_uiManager.GetUIActivated()){
                 //_uiManager.SetUIState(_triggerObject.GetComponent<ControlConsole>().GetUI(), true);

@@ -8,8 +8,8 @@ public class Junction : MonoBehaviour
 	// Generators connected to the junction. If not specified, it will not be executed.
     [SerializeField]
     [Tooltip("Generators connected to the junction. If not specified, it will not be executed.")]
-    private PowerGeneratorController _generator;
-    private bool _isGeneratorLoaded;
+    private PowerGeneratorConsole _generatorConsole;
+    private bool _isGeneratorConsoleLoaded;
 	// Power consuming objects connected to the junction. All objects containing the Electricity script are shown here.
     [SerializeField]
     [Tooltip("Power consuming objects connected to the junction. All objects containing the Electricity script are shown here.")]
@@ -18,12 +18,12 @@ public class Junction : MonoBehaviour
 	private float _totalPowerConsumption;
     
     void Initailize(){
-        if(!_generator){
-            Debug.Log("PowerGenerator is not Loaded. Please add Generator. Location : " + gameObject);
-            _isGeneratorLoaded = false;
+        if(!_generatorConsole){
+            Debug.Log("PowerGeneratorConsole is not Loaded. Please add GeneratorConsole. Location : " + gameObject);
+            _isGeneratorConsoleLoaded = false;
         }
         else{
-            _isGeneratorLoaded = true;
+            _isGeneratorConsoleLoaded = true;
         }
     }
     /* Custom Functions */
@@ -38,15 +38,15 @@ public class Junction : MonoBehaviour
     }
 
     void CheckPowerState(){
-        if(_isGeneratorLoaded){
-            if(_generator.IsPowered){
+        if(_isGeneratorConsoleLoaded){
+            if(_generatorConsole.IsPowered){
                 foreach(Electricity connectedObject in _connectedObjectsList){
                     if(connectedObject != null){
                     connectedObject.SetPowerState(true);
                     }
                 }
             }
-            else if(!_generator.IsPowered){
+            else if(!_generatorConsole.IsPowered){
                 foreach(Electricity connectedObject in _connectedObjectsList){
                     if(connectedObject != null){
                     connectedObject.SetPowerState(false);
@@ -61,7 +61,7 @@ public class Junction : MonoBehaviour
     */
     
     void SyncPowerFromGenerator(){
-        _generator.SyncPower(_totalPowerConsumption);
+        _generatorConsole.SyncPower(_totalPowerConsumption);
     }
  	// Start is called before the first frame update   
 	void Start()
@@ -73,7 +73,7 @@ public class Junction : MonoBehaviour
     void Update()
     {
         UpdatePowerConsumption();
-        if(_isGeneratorLoaded){
+        if(_isGeneratorConsoleLoaded){
             SyncPowerFromGenerator();
             CheckPowerState();
         }

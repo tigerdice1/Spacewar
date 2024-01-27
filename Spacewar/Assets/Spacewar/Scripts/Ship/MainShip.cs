@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class MainShip : MonoBehaviour{
 
     [SerializeField]
@@ -32,16 +31,13 @@ public class MainShip : MonoBehaviour{
         get{return _currentAngularSpeed;}
     }
 
-    void CalcAngularSpeed(){ 
+    void CalcAngularSpeed(){
         Quaternion currentRotation = transform.rotation;
         Quaternion deltaRotation = currentRotation * Quaternion.Inverse(_previousRotation);
 
-
         deltaRotation.ToAngleAxis(out _angle, out _axis);
         _currentAngularSpeed = _angle / Time.deltaTime;
-
         _previousRotation = transform.rotation;
-        //Debug.Log(_currentAngularSpeed);
     }
 
     void ReverseThruster(){
@@ -56,7 +52,7 @@ public class MainShip : MonoBehaviour{
         float fixedTorque = Mathf.Lerp(_currentAngularSpeed * 0.2f, 0.0f, Time.deltaTime);
         if(_axis.y > 0.0f){
             rb.AddRelativeTorque(Vector3.down * fixedTorque);
-        }
+        } 
         else if(_axis.y < 0.0f){
             rb.AddRelativeTorque(Vector3.up * fixedTorque);
         }

@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
     private Transform[] _doors = new Transform[2];
     private bool[] _isDoorLoaded = new bool[2];
     private bool _isElectricityLoaded;
-    public PowerGeneratorController _powerGenerator;
+    public PowerGeneratorConsole _powerGenerator;
 
     public float _doorOpenDistance; // 문이 열리는 거리
     public float _doorOpenSpeed; // 문이 열리는 속도

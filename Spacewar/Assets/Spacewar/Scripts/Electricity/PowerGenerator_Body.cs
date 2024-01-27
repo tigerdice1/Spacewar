@@ -5,21 +5,32 @@ using UnityEngine;
 public class PowerGenerator_Body : MonoBehaviour
 {
     [SerializeField]
-    private PowerGeneratorController _generatorController;
+    private PowerGeneratorConsole _generatorConsole;
     [SerializeField]
     private GameObject _generatorInnerSpinner;
+    private float _currentTorque = 0.0f;
     [SerializeField]
     private GameObject _generatorInnerLight;
     // Start is called before the first frame update
 
+    void UpdateGeneratorActiveAnim(){
+        Rigidbody generatorSpinnerRB = _generatorInnerSpinner.GetComponent<Rigidbody>();
+        if(_generatorConsole.GetGeneratorState()){
+            _currentTorque = Mathf.Lerp(_currentTorque, 15000.0f,Time.deltaTime * 0.2f);
+            generatorSpinnerRB.AddRelativeTorque(Vector3.forward * _currentTorque);
+        }
+        else if(!_generatorConsole.GetGeneratorState()){
+            _currentTorque = Mathf.Lerp(_currentTorque, 0.0f,Time.deltaTime);
+        }
+    }
     void UpdateGeneratorState(){
-        if(_generatorController.GetGeneratorState()){
+        if(_generatorConsole.GetGeneratorState()){
                 _generatorInnerLight.GetComponent<LightController>().SetHexColor("#00FFFA");
             _generatorInnerLight.GetComponent<Electricity>().SetPowerState(true);
-            if(_generatorController.GetIsCritical()){
+            if(_generatorConsole.GetIsCritical()){
                 _generatorInnerLight.GetComponent<LightController>().SetHexColor("#FF0000");
             }
-            else if(!_generatorController.GetIsCritical()){
+            else if(!_generatorConsole.GetIsCritical()){
                 _generatorInnerLight.GetComponent<LightController>().SetHexColor("#00FFFA");
             }
         }
@@ -36,5 +47,9 @@ public class PowerGenerator_Body : MonoBehaviour
     void Update()
     {
         UpdateGeneratorState();
+    }
+    void FixedUpdate(){
+
+        UpdateGeneratorActiveAnim();
     }
 }
