@@ -41,10 +41,10 @@ public class MainShip : MonoBehaviour{
     }
 
     void ReverseThruster(){
-        Rigidbody rid = gameObject.GetComponent<Rigidbody>();
+        Rigidbody shipRigidBody = gameObject.GetComponent<Rigidbody>();
         if(_isReverseThrusterActive){
-            ReverseThrusterRotate(rid);
-            ReverseThrusterForward(rid);
+            ReverseThrusterRotate(shipRigidBody);
+            ReverseThrusterForward(shipRigidBody);
         }
     }
 
