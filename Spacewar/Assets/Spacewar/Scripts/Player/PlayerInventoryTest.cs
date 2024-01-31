@@ -15,6 +15,17 @@ public class PlayerInventoryTest : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            _inventory.Save();
+        }
+        if(Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            _inventory.Load();
+        }
+    }
     //게임을 끄면 인벤토리 내 아이템 모두 정리.
     private void OnApplicationQuit()
     {
