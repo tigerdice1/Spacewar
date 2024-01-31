@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Console : MonoBehaviour
+public class ConsoleBase : MonoBehaviour
 {
     [SerializeField]
     protected MainShip _ownerShip;
@@ -13,7 +13,7 @@ public class Console : MonoBehaviour
     protected PlayerController _triggeredController;
     protected bool _isInteractive = true;
     [SerializeField]
-    protected ConsoleUI _consoleUI;
+    protected GameObject _consoleUI;
     protected bool _isElectricityLoaded;
 
     protected void Initalize(){
@@ -49,7 +49,7 @@ public class Console : MonoBehaviour
             _triggeredController = null;
         }
     }
-    public ConsoleUI GetUI(){
+    public GameObject GetUI(){
         if(_consoleUI){
             return _consoleUI;
         }
@@ -57,13 +57,13 @@ public class Console : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }

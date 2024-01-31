@@ -8,7 +8,7 @@ public class Junction : MonoBehaviour
 	// Generators connected to the junction. If not specified, it will not be executed.
     [SerializeField]
     [Tooltip("Generators connected to the junction. If not specified, it will not be executed.")]
-    private PowerGeneratorConsole _generatorConsole;
+    private Console_PowerGenerator _generatorConsole;
     private bool _isGeneratorConsoleLoaded;
 	// Power consuming objects connected to the junction. All objects containing the Electricity script are shown here.
     [SerializeField]
@@ -19,7 +19,7 @@ public class Junction : MonoBehaviour
     
     void Initailize(){
         if(!_generatorConsole){
-            Debug.Log("PowerGeneratorConsole is not Loaded. Please add GeneratorConsole. Location : " + gameObject);
+            Debug.Log("Console_PowerGenerator is not Loaded. Please add GeneratorConsole. Location : " + gameObject);
             _isGeneratorConsoleLoaded = false;
         }
         else{

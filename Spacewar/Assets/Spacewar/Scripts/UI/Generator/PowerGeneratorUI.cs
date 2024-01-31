@@ -6,7 +6,7 @@ public class PowerGeneratorUI : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("대상 발전기")]
-    private PowerGeneratorConsole _powerGenerator;
+    private Console_PowerGenerator _powerGenerator;
 
     [SerializeField]
     [Tooltip("전원 버튼")]
@@ -30,7 +30,7 @@ public class PowerGeneratorUI : MonoBehaviour
         _diode.ChangeImage();
     }
 
-    public PowerGeneratorConsole GetPowerGeneratorConsole(){
+    public Console_PowerGenerator GetPowerGenerator(){
         return _powerGenerator;
     }
 
