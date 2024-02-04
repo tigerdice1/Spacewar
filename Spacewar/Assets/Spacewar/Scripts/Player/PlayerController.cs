@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     [Tooltip("플레이어의 고유 ID")]
 
+    private float _mouseX;
+    private float _mouseY;
+    private float _sensitivity = 50.0f;
+
     /* Properties */
     public GameObject TriggerObject{
         get { return _triggerObject; }
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     private void CheckKeyInput(){
+        
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
             if(_triggerObject.GetComponent<Console_PowerGenerator>() && !_uiManager.GetUIActivated()){
                 _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), true);
@@ -76,6 +81,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate(){
         Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Camera.main.nearClipPlane;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 lookDir = worldPos - transform.position;
+        lookDir.y = 0; // y 값 고정
+        Quaternion rotation = Quaternion.LookRotation(lookDir);
+        
+        // 회전 적용
+        _controlObject.transform.rotation = rotation;
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
             float x = Input.GetAxisRaw("Horizontal");

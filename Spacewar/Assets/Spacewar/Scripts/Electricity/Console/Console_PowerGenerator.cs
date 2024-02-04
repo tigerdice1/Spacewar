@@ -108,10 +108,10 @@ public class Console_PowerGenerator : ConsoleBase
     private void UpdateThermal(){
         if(_isPowered){
             if(_load < 50.0f){
-                _currentThermal = Mathf.Lerp(_currentThermal, 2500.0f, Time.deltaTime * 0.5f);
+                _currentThermal = Mathf.Lerp(_currentThermal, 2500.0f, Time.deltaTime * (_load * 0.01f));
             }
             else if(_load >= 50.0f){
-                _currentThermal = Mathf.Lerp(_currentThermal, 3500.0f, Time.deltaTime * 0.1f);
+                _currentThermal = Mathf.Lerp(_currentThermal, 3500.0f, Time.deltaTime * (_load * 0.01f));
             }
         }
         else if(!_isPowered){
