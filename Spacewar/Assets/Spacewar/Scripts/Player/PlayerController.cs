@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     [Tooltip("플레이어의 고유 ID")]
+    private int _ID;
 
     private float _mouseX;
     private float _mouseY;
@@ -48,6 +49,21 @@ public class PlayerController : MonoBehaviour
         if(_triggerObject == null && !_controlObject.CompareTag("Player")){
             _controlObject = _defaultControlObject;
         }
+    }
+
+    private void LookCursor(){
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Camera.main.nearClipPlane;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 lookDir = worldPos - _controlObject.transform.position;
+        lookDir.y = 0; // y 값 고정
+        Quaternion rotation = Quaternion.LookRotation(lookDir);
+        // 회전 적용
+        _controlObject.transform.rotation = rotation;
+    }
+
+    private void MovePlayer(){
+
     }
     private void CheckKeyInput(){
         
@@ -81,22 +97,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate(){
         Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.nearClipPlane;
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector3 lookDir = worldPos - transform.position;
-        lookDir.y = 0; // y 값 고정
-        Quaternion rotation = Quaternion.LookRotation(lookDir);
-        
-        // 회전 적용
-        _controlObject.transform.rotation = rotation;
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
+            
+            
             Vector3 velocity = new Vector3(x, 0, z);
             velocity *= _controlObject.GetComponent<PlayerHuman>().PlayerSpeed;
             rid.velocity = velocity;
+            LookCursor();
         }
         else if(_controlObject.CompareTag("MainShip")){
             if (Input.GetKey(KeyCode.W)){

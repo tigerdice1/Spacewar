@@ -22,6 +22,9 @@ public class CameraController : MonoBehaviour
 	[Tooltip("카메라가 해당 물체를 따라가게 할지 선택합니다")]
     private bool _isFollowingTarget;
 
+    public Camera GetCamera(){
+        return _cameraObject;
+    }
     private void Initalize(){
         if(!_cameraObject){
             Debug.Log("Camera is not initialized. The associated functions are disabled. Please Set the Camera. Location : " + gameObject);
