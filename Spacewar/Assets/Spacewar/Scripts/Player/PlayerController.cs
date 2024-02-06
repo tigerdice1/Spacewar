@@ -74,8 +74,49 @@ public class PlayerController : MonoBehaviour
         float moveZ = Input.GetAxis("Vertical");
         _controlObject.transform.Translate(new Vector3(moveX, 0, moveZ)* Time.deltaTime * _controlObject.GetComponent<PlayerHuman>().PlayerSpeed, Space.World);
     }
+
+    private void MoveShip(){
+        Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
+        if (Input.GetKey(KeyCode.W)){
+            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
+            rid.AddRelativeForce(Vector3.forward * 10.0f);
+        }
+        if (Input.GetKey(KeyCode.A)){
+            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
+            rid.AddRelativeTorque(Vector3.down * 10.0f);
+        }
+        if (Input.GetKey(KeyCode.S)){
+            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
+            rid.AddRelativeForce(Vector3.back * 10.0f);
+        }
+        if (Input.GetKey(KeyCode.D)){
+            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
+            rid.AddRelativeTorque(Vector3.up * 10.0f);
+        }
+        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W)){
+            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = true;
+        } 
+        float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
+        if(rid.velocity.x > MaxVelocity){
+            rid.velocity = new Vector3(MaxVelocity, rid.velocity.y, rid.velocity.z);
+        }
+        if(rid.velocity.x < (MaxVelocity * - 1)){
+            rid.velocity = new Vector3(MaxVelocity * -1, rid.velocity.y, rid.velocity.z);
+        }
+        if(rid.velocity.y > MaxVelocity){
+            rid.velocity = new Vector3(rid.velocity.x, MaxVelocity, rid.velocity.z);
+        }
+        if(rid.velocity.y < (MaxVelocity * - 1)){
+            rid.velocity = new Vector3(rid.velocity.x, MaxVelocity  * -1, rid.velocity.z);
+        } 
+        if(rid.velocity.z > MaxVelocity){
+            rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity);
+        }
+        if(rid.velocity.z < (MaxVelocity * - 1)){
+            rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity  * -1);
+        }
+    }
     private void CheckKeyInput(){
-        
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
             if(_triggerObject.GetComponent<Console_PowerGenerator>() && !_uiManager.GetUIActivated()){
                 _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), true);
@@ -105,51 +146,14 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate(){
-        Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
+        
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
             LookCursor();
             MovePlayer();
         }
         else if(_controlObject.CompareTag("MainShip")){
-            if (Input.GetKey(KeyCode.W)){
-                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-                rid.AddRelativeForce(Vector3.forward * 10.0f);
-            }
-            if (Input.GetKey(KeyCode.A)){
-                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-                rid.AddRelativeTorque(Vector3.down * 10.0f);
-            }
-            if (Input.GetKey(KeyCode.S)){
-                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-                rid.AddRelativeForce(Vector3.back * 10.0f);
-            }
-            if (Input.GetKey(KeyCode.D)){
-                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-                rid.AddRelativeTorque(Vector3.up * 10.0f);
-            }
-            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W)){
-                _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = true;
-            } 
-            float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
-            if(rid.velocity.x > MaxVelocity){
-                rid.velocity = new Vector3(MaxVelocity, rid.velocity.y, rid.velocity.z);
-            }
-            if(rid.velocity.x < (MaxVelocity * - 1)){
-                rid.velocity = new Vector3(MaxVelocity * -1, rid.velocity.y, rid.velocity.z);
-            }
-            if(rid.velocity.y > MaxVelocity){
-                rid.velocity = new Vector3(rid.velocity.x, MaxVelocity, rid.velocity.z);
-            }
-            if(rid.velocity.y < (MaxVelocity * - 1)){
-                rid.velocity = new Vector3(rid.velocity.x, MaxVelocity  * -1, rid.velocity.z);
-            } 
-            if(rid.velocity.z > MaxVelocity){
-                rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity);
-            }
-            if(rid.velocity.z < (MaxVelocity * - 1)){
-                rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity  * -1);
-            }
+            MoveShip();
         }
     }
 }
