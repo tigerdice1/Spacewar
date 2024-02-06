@@ -52,18 +52,27 @@ public class PlayerController : MonoBehaviour
     }
 
     private void LookCursor(){
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.nearClipPlane;
+        Ray ray = gameObject.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitResult;
+        if(Physics.Raycast(ray, out hitResult)){
+            Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
+            _controlObject.transform.forward = mouseDir;
+        }
+        /*
+        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1f);
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 lookDir = worldPos - _controlObject.transform.position;
-        lookDir.y = 0; // y 값 고정
-        Quaternion rotation = Quaternion.LookRotation(lookDir);
-        // 회전 적용
-        _controlObject.transform.rotation = rotation;
+        Debug.Log(worldPos);
+        lookDir.y = 0;
+        Quaternion lookRotation = Quaternion.LookRotation(lookDir);
+        _controlObject.transform.rotation = lookRotation;
+        */
     }
 
     private void MovePlayer(){
-
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+        _controlObject.transform.Translate(new Vector3(moveX, 0, moveZ)* Time.deltaTime * _controlObject.GetComponent<PlayerHuman>().PlayerSpeed, Space.World);
     }
     private void CheckKeyInput(){
         
@@ -99,14 +108,8 @@ public class PlayerController : MonoBehaviour
         Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
-            float x = Input.GetAxisRaw("Horizontal");
-            float z = Input.GetAxisRaw("Vertical");
-            
-            
-            Vector3 velocity = new Vector3(x, 0, z);
-            velocity *= _controlObject.GetComponent<PlayerHuman>().PlayerSpeed;
-            rid.velocity = velocity;
             LookCursor();
+            MovePlayer();
         }
         else if(_controlObject.CompareTag("MainShip")){
             if (Input.GetKey(KeyCode.W)){

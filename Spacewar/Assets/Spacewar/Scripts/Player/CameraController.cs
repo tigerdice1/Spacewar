@@ -62,6 +62,7 @@ public class CameraController : MonoBehaviour
             _followObject.transform.position.y + _offset.y,
             _followObject.transform.position.z + _offset.z
             );
+            //_cameraObject.transform.position = fixedPosition;
             _cameraObject.transform.position = Vector3.Lerp(_cameraObject.transform.position, fixedPosition, Time.deltaTime * 8);
         }
     }
