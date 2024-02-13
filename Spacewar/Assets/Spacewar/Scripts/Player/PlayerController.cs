@@ -21,10 +21,6 @@ public class PlayerController : MonoBehaviour
     [Tooltip("플레이어의 고유 ID")]
     private int _ID;
 
-    private float _mouseX;
-    private float _mouseY;
-    private float _sensitivity = 50.0f;
-
     /* Properties */
     public GameObject TriggerObject{
         get { return _triggerObject; }
@@ -56,7 +52,9 @@ public class PlayerController : MonoBehaviour
         RaycastHit hitResult;
         if(Physics.Raycast(ray, out hitResult)){
             Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
-            _controlObject.transform.forward = mouseDir;
+            _controlObject.transform.forward = Vector3.LerpUnclamped(_controlObject.transform.forward, mouseDir.normalized, Time.deltaTime * 10f);
+            Debug.Log("mouseDir " + mouseDir);
+            Debug.Log("_controlObject.transform.forward " + _controlObject.transform.forward);
         }
         /*
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1f);
@@ -83,7 +81,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A)){
             _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-            rid.AddRelativeTorque(Vector3.down * 10.0f);
+            rid.AddRelativeForce(Vector3.right * 10.0f);
         }
         if (Input.GetKey(KeyCode.S)){
             _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
@@ -91,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D)){
             _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-            rid.AddRelativeTorque(Vector3.up * 10.0f);
+            rid.AddRelativeForce(Vector3.left * 10.0f);
         }
         if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W)){
             _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = true;
@@ -153,6 +151,7 @@ public class PlayerController : MonoBehaviour
             MovePlayer();
         }
         else if(_controlObject.CompareTag("MainShip")){
+            LookCursor();
             MoveShip();
         }
     }
