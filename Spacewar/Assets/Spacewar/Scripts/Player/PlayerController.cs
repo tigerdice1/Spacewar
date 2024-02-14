@@ -49,18 +49,21 @@ public class PlayerController : MonoBehaviour
     private RaycastHit GetCursorRaycastResult(){
         Ray ray = gameObject.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
         RaycastHit hitResult;
-        if(Physics.Raycast(ray, out hitResult)){
-            return hitResult;
+        if(!Physics.Raycast(ray, out hitResult)){
+            
         }
-        else{
-            return hitResult;
-        }
+        return hitResult;
+        
     }
     private void LookCursor(){
         RaycastHit hitResult = GetCursorRaycastResult();
             Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
-            _controlObject.transform.forward = mouseDir;
+            Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
+            float currentRotationSpeed = Quaternion.Angle(_controlObject.transform.rotation, lookRotation) / Time.deltaTime;
+            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, 5f);
+            _controlObject.transform.rotation = Quaternion.RotateTowards(_controlObject.transform.rotation, lookRotation, limitedRotationSpeed * Time.deltaTime);
         /*
+            _controlObject.transform.forward = mouseDir;
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1f);
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 lookDir = worldPos - _controlObject.transform.position;
