@@ -102,6 +102,6 @@ public class MainShip : MonoBehaviour{
     }
     void FixedUpdate(){
         CalcAngularSpeed();
-        ReverseThruster();
+        //ReverseThruster();
     }
 }

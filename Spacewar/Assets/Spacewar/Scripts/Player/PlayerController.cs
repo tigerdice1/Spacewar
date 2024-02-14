@@ -60,8 +60,9 @@ public class PlayerController : MonoBehaviour
             Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
             Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
             float currentRotationSpeed = Quaternion.Angle(_controlObject.transform.rotation, lookRotation) / Time.deltaTime;
-            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, 5f);
-            _controlObject.transform.rotation = Quaternion.RotateTowards(_controlObject.transform.rotation, lookRotation, limitedRotationSpeed * Time.deltaTime);
+            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, 1f);
+            _controlObject.transform.rotation = Quaternion.Slerp(_controlObject.transform.rotation, lookRotation,limitedRotationSpeed * Time.deltaTime);
+           //_controlObject.transform.rotation = Quaternion.RotateTowards(_controlObject.transform.rotation, lookRotation, limitedRotationSpeed * Time.deltaTime);
         /*
             _controlObject.transform.forward = mouseDir;
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1f);
