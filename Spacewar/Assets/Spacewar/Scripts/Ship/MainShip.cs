@@ -11,6 +11,9 @@ public class MainShip : MonoBehaviour{
     [Tooltip("")]
     private float _speed;
 
+    [SerializeField]
+    [Tooltip("")]
+    private float _rotationSpeed;
     private float _currentAngularSpeed;
     private Quaternion _previousRotation;
     private Vector3 _axis = Vector3.zero;
@@ -25,6 +28,11 @@ public class MainShip : MonoBehaviour{
     public float Speed{
         get{ return _speed;}
         set{ _speed = value;}
+    }
+
+    public float RotationSpeed{
+        get{ return _rotationSpeed;}
+        set{ _rotationSpeed = value;}
     }
 
     public float GetAngularSpeed{

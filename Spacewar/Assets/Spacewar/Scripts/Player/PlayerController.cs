@@ -55,12 +55,12 @@ public class PlayerController : MonoBehaviour
         return hitResult;
         
     }
-    private void LookCursor(){
+    private void LookCursor(float maxRotationSpeed){
         RaycastHit hitResult = GetCursorRaycastResult();
             Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
             Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
             float currentRotationSpeed = Quaternion.Angle(_controlObject.transform.rotation, lookRotation) / Time.deltaTime;
-            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, 1f);
+            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, maxRotationSpeed);
             _controlObject.transform.rotation = Quaternion.Slerp(_controlObject.transform.rotation, lookRotation,limitedRotationSpeed * Time.deltaTime);
            //_controlObject.transform.rotation = Quaternion.RotateTowards(_controlObject.transform.rotation, lookRotation, limitedRotationSpeed * Time.deltaTime);
         /*
@@ -155,11 +155,11 @@ public class PlayerController : MonoBehaviour
         
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
-            LookCursor();
+            LookCursor(_controlObject.GetComponent<PlayerHuman>().PlayerRotationSpeed);
             MovePlayer();
         }
         else if(_controlObject.CompareTag("MainShip")){
-            LookCursor();
+            LookCursor(_controlObject.GetComponent<MainShip>().RotationSpeed);
             MoveShip();
         }
     }

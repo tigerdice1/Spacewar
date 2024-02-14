@@ -17,6 +17,10 @@ public class PlayerHuman : MonoBehaviour
     private float _playerSpeed;
 
     [SerializeField]
+    [Tooltip("플레이어 회전")]
+    private float _playerRotationSpeed;
+
+    [SerializeField]
     [Tooltip("플레이어 체력")]
     private float _playerMaxHP;
 
@@ -32,6 +36,10 @@ public class PlayerHuman : MonoBehaviour
     public float PlayerSpeed { 
         get{return _playerSpeed;}
         set{_playerSpeed = value;}
+    }
+    public float PlayerRotationSpeed { 
+        get{return _playerRotationSpeed;}
+        set{_playerRotationSpeed = value;}
     }
     public float PlayerMaxHP { 
         get{return _playerMaxHP;}
