@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerInventoryTest : MonoBehaviour
 {
     public InventoryObject _inventory;
-    //¾ÆÀÌÅÛÀÌ ´êÀ¸¸é InventoryObject¿¡ Ãß°¡ ¹× ¹èÄ¡ µÈ ¾ÆÀÌÅÛ »èÁ¦
+    //ì•„ì´í…œì´ ë‹¿ìœ¼ë©´ InventoryObjectì— ì¶”ê°€ ë° ë°°ì¹˜ ëœ ì•„ì´í…œ ì‚­ì œ
     public void OnTriggerEnter(Collider other)
     {
-        var item = other.GetComponent<Item>();
+        var item = other.GetComponent<GroundItem>();
         if(item)
         {
-            _inventory.AddItem(item._item, 1);
+            _inventory.AddItem(new Item(item._item), 1);
             Destroy(other.gameObject);
         }
     }
@@ -26,9 +26,9 @@ public class PlayerInventoryTest : MonoBehaviour
             _inventory.Load();
         }
     }
-    //°ÔÀÓÀ» ²ô¸é ÀÎº¥Åä¸® ³» ¾ÆÀÌÅÛ ¸ğµÎ Á¤¸®.
+    //ê²Œì„ì„ ë„ë©´ ì¸ë²¤í† ë¦¬ ë‚´ ì•„ì´í…œ ëª¨ë‘ ì •ë¦¬.
     private void OnApplicationQuit()
     {
-        _inventory.Container.Clear();
+       // _inventory.Container.Clear();
     }
 }

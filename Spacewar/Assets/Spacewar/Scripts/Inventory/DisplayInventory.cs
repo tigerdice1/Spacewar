@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -6,48 +6,50 @@ using UnityEngine.UIElements;
 
 public class DisplayInventory : MonoBehaviour
 {
-    //ÀÎº¥Åä¸®¸¦ Ã£±â À§ÇØ ÇÃ·¹ÀÌ¾î¿¡ ¿¬°á ÇÒ ÇÊ¿ä ¾ø°í ÆíÁı±â ³»¿¡¼­
-    //°¢°¢ÀÇ ÀÎº¥Åä¸®¿¡ Á÷Á¢ ¿¬°á ÇÒ ¼ö ÀÖ´Ù.
-    public InventoryObject inventory;
+    public GameObject _inventoryPrefab;
+    //ì¸ë²¤í† ë¦¬ë¥¼ ì°¾ê¸° ìœ„í•´ í”Œë ˆì´ì–´ì— ì—°ê²° í•  í•„ìš” ì—†ê³  í¸ì§‘ê¸° ë‚´ì—ì„œ
+    //ê°ê°ì˜ ì¸ë²¤í† ë¦¬ì— ì§ì ‘ ì—°ê²° í•  ìˆ˜ ìˆë‹¤.
+    public InventoryObject _inventory;
 
-    public int X_START; //¾ÆÀÌÅÛ ½ÃÀÛÀ§Ä¡
-    public int Y_START;
-    public int X_SPACE_BETWEEN_ITEM; //¾ÆÀÌÅÛ »çÀÌÀÇ °£°İ
-    public int NUMBER_OF_COLUMN;
-    public int Y_SPACE_BETWEEN_ITEMS;
-    Dictionary<InventorySlot,GameObject> itemsDisplayed = new Dictionary<InventorySlot,GameObject>(); // ¾ÆÀÌÅÛÃß°¡ ½Ã
+    public int _X_START; //ì•„ì´í…œ ì‹œì‘ìœ„ì¹˜
+    public int _Y_START;
+    public int _X_SPACE_BETWEEN_ITEM; //ì•„ì´í…œ ì‚¬ì´ì˜ ê°„ê²©
+    public int _NUMBER_OF_COLUMN;
+    public int _Y_SPACE_BETWEEN_ITEMS;
+    Dictionary<InventorySlot,GameObject> _itemsDisplayed = new Dictionary<InventorySlot,GameObject>(); // ì•„ì´í…œì¶”ê°€ ì‹œ
 
-    // Start is called before the first frame update
-    void Start(){
-        CreateDisplay();
-    }
+//    // Start is called before the first frame update
+//    void Start(){
+//        CreateDisplay();
+//    }
 
-    // Update is called once per frame
-    void Update(){
-        UpdateDisplay();
-    }
-    public void UpdateDisplay(){
-        for (int i = 0; i< inventory.Container.Count; i++){
-            if (itemsDisplayed.ContainsKey(inventory.Container[i])){
-                itemsDisplayed[inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
-            }
-            else{
-                var obj = Instantiate(inventory.Container[i]._item._prefab, Vector3.zero, Quaternion.identity, transform);
-                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
-                itemsDisplayed.Add(inventory.Container[i], obj);
-            }
-        }
-    }
-    public void CreateDisplay(){ 
-        for (int i = 0;i<inventory.Container.Count; i++){
-            var obj = Instantiate(inventory.Container[i]._item._prefab,Vector3.zero,Quaternion.identity,transform);
-            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
-            itemsDisplayed.Add(inventory.Container[i], obj);
-        }
-    }
-    public Vector3 GetPosition(int i){
-        return new Vector3(X_START +(X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START+(-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);
-    }
+//    // Update is called once per frame
+//    void Update(){
+//        UpdateDisplay();
+//    }
+//    public void UpdateDisplay(){
+//        for (int i = 0; i< inventory.Container.Count; i++){
+//            if (itemsDisplayed.ContainsKey(inventory.Container[i])){
+//                itemsDisplayed[inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
+//            }
+//            else{
+//                var obj = Instantiate(_inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+//                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite - 
+//                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+//                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
+//                itemsDisplayed.Add(inventory.Container[i], obj);
+//            }
+//        }
+//    }
+//    public void CreateDisplay(){ 
+//        for (int i = 0;i<inventory.Container.Count; i++){
+//            var obj = Instantiate(inventory.Container[i]._item._prefab,Vector3.zero,Quaternion.identity,transform);
+//            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+//            obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
+//            itemsDisplayed.Add(inventory.Container[i], obj);
+//        }
+//    }
+//    public Vector3 GetPosition(int i){
+//        return new Vector3(X_START +(X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START+(-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);
+//    }
 }
