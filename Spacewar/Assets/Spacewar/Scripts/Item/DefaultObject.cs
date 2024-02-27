@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//±âº» ¿ÀºêÁ§Æ® ¿¡¼Â¸Ş´º »ı¼º
+//ê¸°ë³¸ ì˜¤ë¸Œì íŠ¸ ì—ì…‹ë©”ë‰´ ìƒì„±
 [CreateAssetMenu(fileName = "New Default Object",menuName = "Inventory System/Items/Default")]
 public class DefaultObject: ItemObject
 {

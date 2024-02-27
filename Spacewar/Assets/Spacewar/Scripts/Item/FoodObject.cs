@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Food ¿¡¼Â¸Ş´º »ı¼º
+//Food ì—ì…‹ë©”ë‰´ ìƒì„±
 [CreateAssetMenu(fileName = "New Food Object", menuName = "Inventory System/Items/Food")]
 public class FoodObject : ItemObject
 {

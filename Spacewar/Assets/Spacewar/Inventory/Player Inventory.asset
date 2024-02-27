@@ -15,19 +15,4 @@ MonoBehaviour:
   _savePath: /inventory.Save
   _database: {fileID: 11400000, guid: 2c13ee900934a8948aebf419c5c845c8, type: 2}
   _container:
-    _items:
-    - _id: 0
-      _item: {fileID: 0}
-      _itemAmount: 0
-    - _id: 0
-      _item: {fileID: 0}
-      _itemAmount: 0
-    - _id: 0
-      _item: {fileID: 0}
-      _itemAmount: 0
-    - _id: 0
-      _item: {fileID: 0}
-      _itemAmount: 0
-    - _id: 0
-      _item: {fileID: 0}
-      _itemAmount: 0
+    _items: []
