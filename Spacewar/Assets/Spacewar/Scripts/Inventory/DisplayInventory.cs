@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -18,38 +18,51 @@ public class DisplayInventory : MonoBehaviour
     public int _Y_SPACE_BETWEEN_ITEMS;
     Dictionary<InventorySlot,GameObject> _itemsDisplayed = new Dictionary<InventorySlot,GameObject>(); // 아이템추가 시
 
-//    // Start is called before the first frame update
-//    void Start(){
-//        CreateDisplay();
-//    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        CreateDisplay();
+    }
 
-//    // Update is called once per frame
-//    void Update(){
-//        UpdateDisplay();
-//    }
-//    public void UpdateDisplay(){
-//        for (int i = 0; i< inventory.Container.Count; i++){
-//            if (itemsDisplayed.ContainsKey(inventory.Container[i])){
-//                itemsDisplayed[inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
-//            }
-//            else{
-//                var obj = Instantiate(_inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
-//                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite - 
-//                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-//                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
-//                itemsDisplayed.Add(inventory.Container[i], obj);
-//            }
-//        }
-//    }
-//    public void CreateDisplay(){ 
-//        for (int i = 0;i<inventory.Container.Count; i++){
-//            var obj = Instantiate(inventory.Container[i]._item._prefab,Vector3.zero,Quaternion.identity,transform);
-//            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-//            obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i]._itemAmount.ToString("n0");
-//            itemsDisplayed.Add(inventory.Container[i], obj);
-//        }
-//    }
-//    public Vector3 GetPosition(int i){
-//        return new Vector3(X_START +(X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START+(-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);
-//    }
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateDisplay();
+    }
+    public void UpdateDisplay()
+    {
+        for (int i = 0; i < _inventory._container._items.Count; i++)
+        {
+            InventorySlot slot = _inventory._container._items[i];
+            if (_itemsDisplayed.ContainsKey(slot))
+            {
+                _itemsDisplayed[slot].GetComponentInChildren<TextMeshProUGUI>().text = slot._itemAmount.ToString("n0");
+            }
+            else
+            {
+                var obj = Instantiate(_inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _inventory._database._getItem[slot._item._id]._uiDisplay;
+                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = slot._itemAmount.ToString("n0");
+                _itemsDisplayed.Add(slot, obj);
+            }
+        }
+    }
+    public void CreateDisplay()
+    {
+        for (int i = 0; i < _inventory._container._items.Count; i++)
+        {
+            InventorySlot slot = _inventory._container._items[i];
+            var obj = Instantiate(_inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+            obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _inventory._database._getItem[slot._item._id]._uiDisplay;
+            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            obj.GetComponentInChildren<TextMeshProUGUI>().text = slot._itemAmount.ToString("n0");
+
+            _itemsDisplayed.Add(slot, obj);
+        }
+    }
+    public Vector3 GetPosition(int i)
+    {
+        return new Vector3(_X_START + (_X_SPACE_BETWEEN_ITEM * (i % _NUMBER_OF_COLUMN)), _Y_START + (-_Y_SPACE_BETWEEN_ITEMS * (i / _NUMBER_OF_COLUMN)), 0f);
+    }
 }
