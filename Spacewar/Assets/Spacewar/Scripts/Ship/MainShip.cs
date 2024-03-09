@@ -13,6 +13,8 @@ public class MainShip : MonoBehaviour{
 
     [SerializeField]
     [Tooltip("")]
+
+    private float _shipHP;
     private float _rotationSpeed;
     private float _currentAngularSpeed;
     private Quaternion _previousRotation;
@@ -24,6 +26,11 @@ public class MainShip : MonoBehaviour{
     public bool IsReverseThrusterActive{
         get {return _isReverseThrusterActive;}
         set {_isReverseThrusterActive = value;}
+    }
+
+    public float ShipHP{
+        get { return _shipHP;}
+        set {_shipHP = value;}
     }
     public float Speed{
         get{ return _speed;}
