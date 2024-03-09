@@ -29,6 +29,6 @@ public class PlayerInventoryTest : MonoBehaviour
     //게임을 끄면 인벤토리 내 아이템 모두 정리.
     private void OnApplicationQuit()
     {
-       // _inventory.Container.Clear();
+       _inventory._container._items.Clear();
     }
 }
