@@ -2057,6 +2057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 0}
   _speed: 10
+  _rotationSpeed: 0
 --- !u!65 &1098628931
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2939,6 +2940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 0}
   _speed: 10
+  _rotationSpeed: 5
 --- !u!54 &1520532420
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3718,6 +3720,7 @@ MonoBehaviour:
   _playerController: {fileID: 832315740}
   _hpSystem: {fileID: 2026724713}
   _playerSpeed: 5
+  _playerRotationSpeed: 10
   _playerMaxHP: 100
   _playerCurrentHP: 100
 --- !u!136 &2026724708
@@ -4010,7 +4013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7283840312914768437, guid: a76b92d7e46bb6540ba0cdef445d5271, type: 3}
       propertyPath: m_LocalScale.y
-      value: -0.47
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 7283840312914768437, guid: a76b92d7e46bb6540ba0cdef445d5271, type: 3}
       propertyPath: m_LocalPosition.z
