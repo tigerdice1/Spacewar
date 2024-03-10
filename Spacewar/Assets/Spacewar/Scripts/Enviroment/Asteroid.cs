@@ -27,7 +27,7 @@ public class Asteroid : MonoBehaviour
 
         }
         else if(overlappedObject.CompareTag("Projectile")){
-
+            
         }
     }
     // Start is called before the first frame update

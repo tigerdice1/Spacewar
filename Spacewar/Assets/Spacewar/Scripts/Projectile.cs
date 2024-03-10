@@ -2,19 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManager : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
-    public void Damage(Asteroid ast, MainShip mship){
-
-    }
-
-    public void Damage(Asteroid ast, PlayerHuman phuman){
-
-    }
-
-    public void Damage(Projectile pj, Asteroid ast){
-        
-    }
     // Start is called before the first frame update
     void Start()
     {
