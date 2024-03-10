@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class DisplayInventory : MonoBehaviour
 {
@@ -41,6 +41,7 @@ public class DisplayInventory : MonoBehaviour
             else
             {
                 var obj = Instantiate(_inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+                Debug.Log(_inventory._database._getItem[slot._item._id]._uiDisplay != null ? "Valid display sprite" : "Display sprite is null");
                 obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _inventory._database._getItem[slot._item._id]._uiDisplay;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = slot._itemAmount.ToString("n0");

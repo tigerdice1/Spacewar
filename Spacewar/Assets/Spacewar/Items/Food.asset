@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3595e92c0b08943bb385b482783de2, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 6739926267903826291, guid: 5f6ab7dbd96841b41acda35544248b62, type: 3}
+  _id: 1
+  _uiDisplay: {fileID: 21300000, guid: 62a6a20ff3cd4394f9a327f536092365, type: 3}
   type: 0
   _description: Oishikunare moemoekyun
   _restoreHealthValue: 20

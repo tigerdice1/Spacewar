@@ -16,7 +16,7 @@ public class InventoryObject : ScriptableObject
     public void AddItem(Item item, int amount){
         // 이미 인벤토리에 같은 아이템이 있다면, 그 아이템의 수량만 증가
         for (int i = 0; i < _container._items.Count; i++){
-            if (_container._items[i]._item == item){
+            if (_container._items[i]._item._id == item._id){
                 _container._items[i].AddAmount(amount);
                 return;
             }

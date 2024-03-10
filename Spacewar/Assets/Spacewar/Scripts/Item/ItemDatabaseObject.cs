@@ -14,14 +14,14 @@ public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiv
     // 역직렬화 후에 호출되는 메서드. 아이템 오브젝트와 그에 해당하는 ID를 사전에 추가
     public void OnAfterDeserialize()
     {
-        if (_items != null)
-        {
+        //if (_items != null)
+        //{
             for (int i = 0; i < _items.Length; i++)
             {
                 _items[i]._id = i;
                 _getItem.Add(i, _items[i]);
             }
-        }
+        //}
     }
 
     public void OnBeforeSerialize()

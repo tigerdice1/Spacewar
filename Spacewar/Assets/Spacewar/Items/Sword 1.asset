@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12f278a290ed524abf5a675348ccc55, type: 3}
   m_Name: Sword 1
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 3910814006373557821, guid: 8fd8b8d53b6e17146b259702c6ee7d2e, type: 3}
+  _id: 3
+  _uiDisplay: {fileID: 21300000, guid: 62a6a20ff3cd4394f9a327f536092365, type: 3}
   type: 1
   _description: Mr.Choi's third leg.
   _atkBonus: 10

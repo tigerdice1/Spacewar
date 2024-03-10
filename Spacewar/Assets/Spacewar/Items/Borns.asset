@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df0e4169f8419dc4fb97aafe3c729235, type: 3}
   m_Name: Borns
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 5816476478512353047, guid: dcf2b0ad20dca46459c3d5433a85f1b0, type: 3}
+  _id: 0
+  _uiDisplay: {fileID: 21300000, guid: 62a6a20ff3cd4394f9a327f536092365, type: 3}
   type: 2
   _description: 
