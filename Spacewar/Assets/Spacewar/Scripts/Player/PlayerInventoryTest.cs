@@ -5,16 +5,27 @@ using UnityEngine;
 public class PlayerInventoryTest : MonoBehaviour
 {
     public InventoryObject _inventory;
-    //아이템이 닿으면 InventoryObject에 추가 및 배치 된 아이템 삭제
-    public void OnTriggerEnter(Collider other)
+
+    [SerializeField]
+    [Tooltip("플레이어 컨트롤러")]
+    private PlayerController _playerController;
+
+    public PlayerController PlayerController
     {
+        get { return _playerController; }
+        set { _playerController = value; }
+    }
+
+    //아이템이 닿으면 InventoryObject에 추가 및 배치 된 아이템 삭제
+    public void OnTriggerStay(Collider other){
         var item = other.GetComponent<GroundItem>();
-        if(item)
+        if (item&&Input.GetKey(KeyCode.E))
         {
             _inventory.AddItem(new Item(item._item), 1);
             Destroy(other.gameObject);
-        }
+        } 
     }
+ 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
