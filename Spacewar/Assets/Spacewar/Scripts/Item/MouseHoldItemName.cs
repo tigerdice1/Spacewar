@@ -11,11 +11,11 @@ public class MouseHoldItemName : MonoBehaviour
     void Update()
     {
         // 마우스 커서의 위치를 가져옴
-        Vector3 mousePosition = Input.mousePosition;
+        //Vector3 mousePosition = Input.mousePosition;
         // UI 좌표로 변환
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(itemNameText.rectTransform.parent as RectTransform, mousePosition, Camera.main, out Vector3 worldPosition);
+        //RectTransformUtility.ScreenPointToWorldPointInRectangle(itemNameText.rectTransform.parent as RectTransform, mousePosition, Camera.main, out Vector3 worldPosition);
         // UI 텍스트 위치 설정
-        itemNameText.transform.position = worldPosition;
+        //itemNameText.transform.position = worldPosition;
     }
 
     void OnMouseEnter()
