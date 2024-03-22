@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerInventoryTest : MonoBehaviour
 {
     public InventoryObject _inventory;
+
+    public TMP_Text showItemName;
 
     [SerializeField]
     [Tooltip("플레이어 컨트롤러")]
@@ -21,6 +24,7 @@ public class PlayerInventoryTest : MonoBehaviour
         var item = other.GetComponent<GroundItem>();
         if (item&&Input.GetKey(KeyCode.E))
         {
+            showItemName.gameObject.SetActive(false);
             _inventory.AddItem(new Item(item._item), 1);
             Destroy(other.gameObject);
         } 
