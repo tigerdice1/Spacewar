@@ -18,21 +18,13 @@ public class MissileRoom : MonoBehaviour
     Transform _outerDoorLeft;
     [SerializeField]
     Transform _outerDoorRight;
-    [SerializeField]
     Vector3 _innerDoorLeftClosedPosition;
-    [SerializeField]
     Vector3 _innerDoorRightClosedPosition;
-    [SerializeField]
     Vector3 _outerDoorLeftClosedPosition;
-    [SerializeField]
     Vector3 _outerDoorRightClosedPosition;
-    [SerializeField]
     Vector3 _innerDoorLeftOpenPosition;
-    [SerializeField]
     Vector3 _innerDoorRightOpenPosition;
-    [SerializeField]
     Vector3 _outerDoorLeftOpenPosition;
-    [SerializeField]
     Vector3 _outerDoorRightOpenPosition;
 
     void Initalize(){
@@ -85,10 +77,6 @@ public class MissileRoom : MonoBehaviour
             _doorTimer += Time.deltaTime;
             _innerDoorLeft.position = Vector3.Lerp(_innerDoorLeft.position, _innerDoorLeftClosedPosition, Time.deltaTime);
             _innerDoorRight.position = Vector3.Lerp(_innerDoorRight.position, _innerDoorRightClosedPosition, Time.deltaTime);
-            if(_doorTimer >= 5f){
-                _outerDoorLeft.position = Vector3.Lerp(_outerDoorLeft.position, _outerDoorLeftOpenPosition, Time.deltaTime);
-                _outerDoorRight.position = Vector3.Lerp(_outerDoorRight.position, _outerDoorRightOpenPosition, Time.deltaTime);
-            }
             if(_doorTimer >= 10){
                 _isMissileLoaded = true;
                 _doorTimer = 0f;
