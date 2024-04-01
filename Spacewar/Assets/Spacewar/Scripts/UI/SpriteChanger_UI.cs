@@ -5,27 +5,16 @@ using UnityEngine.UI;
 public class SpriteChanger_UI : MonoBehaviour
 {
     [SerializeField]
-    protected Sprite oldSprite;
+    protected Sprite _oldSprite;
     [SerializeField]
-    protected Sprite newSprite;
+    protected Sprite _newSprite;
 
     public void ChangeImage(){
-        if(gameObject.GetComponent<Image>().sprite == oldSprite){
-            gameObject.GetComponent<Image>().sprite = newSprite;
+        if(gameObject.GetComponent<Image>().sprite == _oldSprite){
+            gameObject.GetComponent<Image>().sprite = _newSprite;
         }
-        else if(gameObject.GetComponent<Image>().sprite == newSprite){
-            gameObject.GetComponent<Image>().sprite = oldSprite;
+        else if(gameObject.GetComponent<Image>().sprite == _newSprite){
+            gameObject.GetComponent<Image>().sprite = _oldSprite;
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -12,10 +12,11 @@ public class MainShip : MonoBehaviour{
     private float _speed;
 
     [SerializeField]
+    private GameObject __missileSpawnBase;
     [Tooltip("")]
 
     private float _shipHP;
-    private float _rotationSpeed;
+    private float _rotationSpeed = 1f;
     private float _currentAngularSpeed;
     private Quaternion _previousRotation;
     private Vector3 _axis = Vector3.zero;
