@@ -78,6 +78,12 @@ public class CameraController : MonoBehaviour
     {
         if(_isCameraLoaded){
             UpdateFollowingTarget();
+            if(gameObject.GetComponent<PlayerController>().ControlObject.CompareTag("Player")){
+                _offset = new Vector3(0f, 15f, 0f);
+            }
+            else if(gameObject.GetComponent<PlayerController>().ControlObject.CompareTag("MainShip")){
+                _offset = new Vector3(0f, 350f, 0f);
+            }
         }
     }
 }

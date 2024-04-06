@@ -27,6 +27,9 @@ public class MissileRoom : MonoBehaviour
     Vector3 _outerDoorLeftOpenPosition;
     Vector3 _outerDoorRightOpenPosition;
 
+    [SerializeField]
+    GameObject _missileSpawn;
+
     void Initalize(){
         _innerDoorLeft = transform.Find("Room_Missile_InnerDoorLeft");
         _innerDoorRight = transform.Find("Room_Missile_InnerDoorRight");
@@ -49,6 +52,14 @@ public class MissileRoom : MonoBehaviour
             _innerDoorLeft.position = _innerDoorLeftOpenPosition;
             _innerDoorRight.position = _innerDoorRightOpenPosition;
             _missileLoadSeq = false;
+        }
+    }
+    public void LaunchMissile(){
+        MissileLaunchSeq();
+    }
+    private void MissileLaunchSeq(){
+        if(_isMissileLoaded){
+
         }
     }
     // Start is called before the first frame update

@@ -12,7 +12,7 @@ public class MainShip : MonoBehaviour{
     private float _speed;
 
     [SerializeField]
-    private GameObject __missileSpawnBase;
+    private MissileRoom[] __missileRooms;
     [Tooltip("")]
 
     private float _shipHP;
