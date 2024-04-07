@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerHuman : MonoBehaviour
 {
+
+    public InventoryObject _inventory;
+
+    public TMP_Text showItemName;
+
+    private bool hasPressedE = false;
 
     [SerializeField]
     [Tooltip("플레이어 컨트롤러")]
@@ -50,6 +57,19 @@ public class PlayerHuman : MonoBehaviour
         set{_playerCurrentHP = value;}
     }
 
+    public void OnTriggerStay(Collider other){
+        if (hasPressedE || !Input.GetKey(KeyCode.E)) return;
+
+        var item = other.GetComponent<GroundItem>();
+        if (item){
+            showItemName.gameObject.SetActive(false);
+            _inventory.AddItem(new Item(item._item), 1);
+            Destroy(other.gameObject);
+
+            hasPressedE = true;
+        } 
+    }
+
     void Initalize(){
         _playerMaxHP = 100.0f;
         _playerCurrentHP = _playerMaxHP;
@@ -67,10 +87,25 @@ public class PlayerHuman : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             TakeDamage(20.0f);
         }
+        if(Input.GetKeyDown(KeyCode.Space)){
+            _inventory.Save();
+        }
+        if(Input.GetKeyDown(KeyCode.KeypadEnter)){
+            _inventory.Load();
+        }
+        //중복 방지 예외처리
+        if (Input.GetKeyUp(KeyCode.E)){
+            hasPressedE = false;
+        }
     }
 
     void TakeDamage(float damage){
         _playerCurrentHP -= damage;
         _hpSystem.SetHP(_playerCurrentHP);
+    }
+
+    //게임을 끄면 인벤토리 내 아이템 모두 정리.
+    private void OnApplicationQuit(){
+       _inventory._container._items.Clear();
     }
 }
