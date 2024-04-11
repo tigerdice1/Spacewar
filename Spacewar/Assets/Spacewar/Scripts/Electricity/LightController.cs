@@ -7,7 +7,7 @@ using UnityEngine;
 public class LightController : MonoBehaviour
 {
     [SerializeField]
-    private Light _lightComponent;
+    private Light[] _lightComponent;
     private bool _isLightComponentLoaded;
 
     private bool _hasElectricity;
@@ -15,7 +15,9 @@ public class LightController : MonoBehaviour
     /* Properties */
     public void SetLightColor(Color color){
         if(_isLightComponentLoaded){
-            _lightComponent.color = color;
+            foreach(var elem in _lightComponent){
+                elem.color = color;
+            }
         }
     }
 
@@ -23,20 +25,16 @@ public class LightController : MonoBehaviour
         {
             if(_isLightComponentLoaded){
                 Color color;
-                if ( ColorUtility.TryParseHtmlString(hexCode, out color)){
-                    _lightComponent.color = color;
+                if (ColorUtility.TryParseHtmlString(hexCode, out color)){
+                    foreach(var elem in _lightComponent){
+                        elem.color = color;
+                    }
                 }
             }
         }
     
     private void Initalize(){
-        if(!_lightComponent){
-            Debug.Log("LightComponent is not Loaded. The associated functions are disabled. Please Set the LightComponent. Location : " + gameObject);
-            _isLightComponentLoaded = false;
-        }
-        else{
-            _isLightComponentLoaded = true;
-        }
+        _lightComponent = gameObject.GetComponentsInChildren<Light>();
         if(!gameObject.GetComponent<Electricity>()){
             Debug.Log("Electricity is not Loaded. Please add Electricity Module. Location : " + gameObject);
             _hasElectricity = false;
@@ -46,14 +44,14 @@ public class LightController : MonoBehaviour
         }
     }
     private void SyncOnState(){
-        _lightComponent.enabled = gameObject.GetComponent<Electricity>().IsPowered;
+        foreach(var elem in _lightComponent){
+            elem.enabled = gameObject.GetComponent<Electricity>().IsPowered;
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
         Initalize();
-        //SetLightState(false);
-        //LightStateColor = LightState.On;
     }
 
     // Update is called once per frame
@@ -63,49 +61,4 @@ public class LightController : MonoBehaviour
             SyncOnState();
         }
     }
-
-    /*
-    public enum LightState{
-        Off,
-        On,
-        Critical
-    };
-    
-    private LightState _lightStateColor;
-    public void SetLightState(bool isOn)
-    {
-        if (_lightComponent != null){
-            _lightComponent.enabled = isOn;
-            gameObject.GetComponent<Electricity>().SetPowerState(isOn);
-
-            if (_lightStateColor == LightState.On){
-                LightStateColor = LightState.On;
-            }
-            else if (_lightStateColor == LightState.Critical){
-                LightStateColor = LightState.Critical;
-            }
-        }
-    }
-    public LightState LightStateColor
-    {
-        get => _lightStateColor;
-        set
-        {
-            switch(value)
-            {
-                case LightState.Off:
-                    break;
-                case LightState.On:
-                    _lightComponent.color = Color.green;
-                    Debug.Log("Yes");
-                    break;
-                case LightState.Critical:
-                    _lightComponent.color = Color.red;
-                    Debug.Log("NO");
-                    break;
-            }
-            _lightStateColor = value;
-        }
-    }
-    */
 }
