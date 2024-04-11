@@ -95,24 +95,17 @@ public class PlayerController : MonoBehaviour
     private void MoveShip(){
         Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
         if (Input.GetKey(KeyCode.W)){
-            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-            rid.AddRelativeForce(Vector3.forward * 10.0f);
+            rid.AddRelativeForce(Vector3.forward * _controlObject.GetComponent<MainShip>().Speed);
         }
         if (Input.GetKey(KeyCode.A)){
-            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-            rid.AddRelativeForce(Vector3.right * 10.0f);
+            rid.AddRelativeForce(Vector3.left * _controlObject.GetComponent<MainShip>().Speed);
         }
         if (Input.GetKey(KeyCode.S)){
-            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-            rid.AddRelativeForce(Vector3.back * 10.0f);
+            rid.AddRelativeForce(Vector3.back * _controlObject.GetComponent<MainShip>().Speed);
         }
         if (Input.GetKey(KeyCode.D)){
-            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = false;
-            rid.AddRelativeForce(Vector3.left * 10.0f);
+            rid.AddRelativeForce(Vector3.right * _controlObject.GetComponent<MainShip>().Speed);
         }
-        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W)){
-            _controlObject.GetComponent<MainShip>().IsReverseThrusterActive = true;
-        } 
         float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
         if(rid.velocity.x > MaxVelocity){
             rid.velocity = new Vector3(MaxVelocity, rid.velocity.y, rid.velocity.z);

@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 0}
-  _speed: 10
+  _speed: 20
   _missileRooms:
   - {fileID: 1094366505}
   - {fileID: 585456380}
@@ -486,7 +486,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255129303}
   serializedVersion: 4
-  m_Mass: 100
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -500,8 +500,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1332,6 +1332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e99faf902720d4784be615255abc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ownerShip: {fileID: 255129304}
   _doorTimer: 0
   _missileLoadSeq: 0
   _isMissileLoaded: 0
@@ -2793,9 +2794,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e99faf902720d4784be615255abc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ownerShip: {fileID: 255129304}
   _doorTimer: 0
   _missileLoadSeq: 0
-  _isMissileLoaded: 0
+  _isMissileLoaded: 1
   _innerDoorLeft: {fileID: 0}
   _innerDoorRight: {fileID: 0}
   _outerDoorLeft: {fileID: 0}
@@ -5491,7 +5493,7 @@ Transform:
   m_GameObject: {fileID: 2026724706}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.21, z: 0}
+  m_LocalPosition: {x: 0, y: 2.21, z: 35.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:

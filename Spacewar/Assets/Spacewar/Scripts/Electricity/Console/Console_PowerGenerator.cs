@@ -183,7 +183,7 @@ public class Console_PowerGenerator : ConsoleBase
     // Start is called before the first frame update
     protected override void Start(){
         base.Initalize();
-        SetGeneratorState(false);
+        SetGeneratorState(true);
     }
 
     // Update is called once per frame

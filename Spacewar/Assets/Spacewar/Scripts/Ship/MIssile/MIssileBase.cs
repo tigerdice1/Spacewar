@@ -15,23 +15,24 @@ public class MissileBase : MonoBehaviour
         set { _ownerShip = value; }
     }
     protected void Initailze(){
+        gameObject.transform.SetParent(null);
         _missileDamage = 1.0f;
-        _missileVelocity = 10.0f;
-        _isLaunched = false;
+        _missileVelocity = 50.0f;
+        _isLaunched = true;
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        gameObject.transform.SetParent(null);
+        Initailze();
     }
 
     // Update is called once per frame
-    protected virtual void Update()
+    protected void Update()
     {
         if(_isLaunched){
             Rigidbody rid = gameObject.GetComponent<Rigidbody>();
-            rid.AddRelativeForce(Vector3.forward * _missileVelocity);
+            rid.AddRelativeForce(Vector3.up * _missileVelocity);
         }
     }
 }
