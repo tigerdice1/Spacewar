@@ -5,6 +5,8 @@ using UnityEngine;
 public class MissileRoom : MonoBehaviour
 {
     [SerializeField]
+    MainShip _ownerShip;
+    [SerializeField]
     float _doorTimer;
     [SerializeField]
     bool _missileLoadSeq;
@@ -29,6 +31,13 @@ public class MissileRoom : MonoBehaviour
 
     [SerializeField]
     GameObject _missileSpawn;
+    [SerializeField]
+    GameObject _loadedMissile;
+
+    public bool IsMissileLoaded{
+        get { return _isMissileLoaded; }
+        set { _isMissileLoaded = value; }
+    }
 
     void Initalize(){
         _innerDoorLeft = transform.Find("Room_Missile_InnerDoorLeft");
@@ -59,7 +68,9 @@ public class MissileRoom : MonoBehaviour
     }
     private void MissileLaunchSeq(){
         if(_isMissileLoaded){
-
+            _loadedMissile.GetComponent<MissileBase>().OwnerShip = _ownerShip;
+            Instantiate(_loadedMissile,_missileSpawn.transform);  
+            _isMissileLoaded = false;
         }
     }
     // Start is called before the first frame update

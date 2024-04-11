@@ -469,9 +469,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 0}
   _speed: 10
-  __missileRooms:
+  _missileRooms:
   - {fileID: 1094366505}
   - {fileID: 585456380}
+  _loadedMissileRooms: []
 --- !u!4 &255129305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c868a489781d0b341889304fe33a9631, type: 3}
@@ -925,7 +926,7 @@ Transform:
   m_GameObject: {fileID: 349827727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -49.1, y: 0, z: -51.8}
+  m_LocalPosition: {x: -49.1, y: 13.29, z: -51.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1016,7 +1017,6 @@ GameObject:
   m_Component:
   - component: {fileID: 359084268}
   - component: {fileID: 359084269}
-  - component: {fileID: 359084270}
   m_Layer: 0
   m_Name: Spot Light (2)
   m_TagString: Untagged
@@ -1101,22 +1101,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &359084270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359084267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _powerConsumption: 0
-  _powerIdle: 0
-  _powerActive: 30
-  _isPowered: 0
 --- !u!1 &457435104 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2465449337164320472, guid: 4376d69a7c22db9438e74d0c6e4a64e3, type: 3}
@@ -1203,7 +1187,6 @@ GameObject:
   m_Component:
   - component: {fileID: 534195635}
   - component: {fileID: 534195634}
-  - component: {fileID: 534195636}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -1288,22 +1271,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2138794003}
   m_LocalEulerAnglesHint: {x: 45.67, y: 90, z: 90}
---- !u!114 &534195636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534195633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _powerConsumption: 0
-  _powerIdle: 0
-  _powerActive: 30
-  _isPowered: 0
 --- !u!1 &535887901 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1239893254666033006, guid: b72d4025015999c41a45ff036f2131dc, type: 3}
@@ -1352,7 +1319,7 @@ MonoBehaviour:
   _connectedObjectsList:
   - {fileID: 188613203}
   - {fileID: 1840942393}
-  - {fileID: 0}
+  - {fileID: 2138794004}
 --- !u!114 &585456380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1373,6 +1340,7 @@ MonoBehaviour:
   _outerDoorLeft: {fileID: 0}
   _outerDoorRight: {fileID: 0}
   _missileSpawn: {fileID: 0}
+  _loadedMissile: {fileID: 0}
 --- !u!1001 &599070145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2357,7 +2325,6 @@ GameObject:
   m_Component:
   - component: {fileID: 961101276}
   - component: {fileID: 961101277}
-  - component: {fileID: 961101278}
   m_Layer: 0
   m_Name: Spot Light (1)
   m_TagString: Untagged
@@ -2442,22 +2409,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &961101278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961101275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _powerConsumption: 0
-  _powerIdle: 0
-  _powerActive: 30
-  _isPowered: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2850,6 +2801,7 @@ MonoBehaviour:
   _outerDoorLeft: {fileID: 0}
   _outerDoorRight: {fileID: 0}
   _missileSpawn: {fileID: 349827727}
+  _loadedMissile: {fileID: 1911224202041631092, guid: a81d93773e3eec940a322c73a9dfcf29, type: 3}
 --- !u!4 &1094366506 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b72d4025015999c41a45ff036f2131dc, type: 3}
@@ -5886,6 +5838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2138794003}
   - component: {fileID: 2138794005}
+  - component: {fileID: 2138794004}
   m_Layer: 0
   m_Name: Corridor_LightGroup
   m_TagString: Untagged
@@ -5911,6 +5864,22 @@ Transform:
   - {fileID: 359084268}
   m_Father: {fileID: 1896548183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2138794004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138794002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerConsumption: 0
+  _powerIdle: 0
+  _powerActive: 30
+  _isPowered: 0
 --- !u!114 &2138794005
 MonoBehaviour:
   m_ObjectHideFlags: 0

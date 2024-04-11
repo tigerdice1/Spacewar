@@ -12,7 +12,10 @@ public class MainShip : MonoBehaviour{
     private float _speed;
 
     [SerializeField]
-    private MissileRoom[] __missileRooms;
+    private MissileRoom[] _missileRooms;
+
+    [SerializeField]
+    private List<MissileRoom> _loadedMissileRooms;
     [Tooltip("")]
 
     private float _shipHP;
@@ -47,6 +50,20 @@ public class MainShip : MonoBehaviour{
         get{return _currentAngularSpeed;}
     }
 
+    public List<MissileRoom> LoadedMissileRooms{
+        get{ return _loadedMissileRooms;}
+    }
+
+    void ChcekLoadedMissileRooms(){
+        foreach(MissileRoom elem in _missileRooms){
+            if(elem.IsMissileLoaded && !_loadedMissileRooms.Contains(elem)){
+                _loadedMissileRooms.Add(elem);
+            }
+            if(!elem.IsMissileLoaded && _loadedMissileRooms.Contains(elem)){
+                _loadedMissileRooms.Remove(elem);
+            }
+        }
+    }
     void CalcAngularSpeed(){
         Quaternion currentRotation = transform.rotation;
         Quaternion deltaRotation = currentRotation * Quaternion.Inverse(_previousRotation);
@@ -113,7 +130,7 @@ public class MainShip : MonoBehaviour{
     // Update is called once per frame
     void Update()
     {
-        
+        ChcekLoadedMissileRooms();
         
     }
     void FixedUpdate(){

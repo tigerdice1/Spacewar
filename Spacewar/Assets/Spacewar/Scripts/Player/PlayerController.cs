@@ -55,6 +55,17 @@ public class PlayerController : MonoBehaviour
         return hitResult;
         
     }
+
+    private void MouseClickEvent(){
+        if(Input.GetMouseButtonDown(0)){
+            if(_controlObject.CompareTag("MainShip")){
+                foreach(MissileRoom elem in _controlObject.GetComponent<MainShip>().LoadedMissileRooms){
+                    elem.LaunchMissile();
+                }
+            }
+        }
+    }
+
     private void LookCursor(float maxRotationSpeed){
         RaycastHit hitResult = GetCursorRaycastResult();
             Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
@@ -135,7 +146,7 @@ public class PlayerController : MonoBehaviour
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
             else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetUIActivated()){
-                //wwww_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI(), false);
+                //_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI(), false);
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
         }
@@ -149,6 +160,7 @@ public class PlayerController : MonoBehaviour
     void Update(){
         CheckKeyInput();
         CheckOnTriggerExit();
+        MouseClickEvent();
     }
 
     void FixedUpdate(){
@@ -157,6 +169,7 @@ public class PlayerController : MonoBehaviour
         if(_controlObject.CompareTag("Player")){
             LookCursor(_controlObject.GetComponent<PlayerHuman>().PlayerRotationSpeed);
             MovePlayer();
+            
         }
         else if(_controlObject.CompareTag("MainShip")){
             LookCursor(_controlObject.GetComponent<MainShip>().RotationSpeed);
