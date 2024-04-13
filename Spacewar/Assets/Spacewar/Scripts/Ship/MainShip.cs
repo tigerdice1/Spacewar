@@ -18,6 +18,8 @@ public class MainShip : MonoBehaviour{
     private List<MissileRoom> _loadedMissileRooms;
     [Tooltip("")]
 
+    private GameObject _targetObject;
+
     private float _shipHP;
     private float _rotationSpeed = 1f;
     private float _currentAngularSpeed;
@@ -52,6 +54,11 @@ public class MainShip : MonoBehaviour{
 
     public List<MissileRoom> LoadedMissileRooms{
         get{ return _loadedMissileRooms;}
+    }
+
+    public GameObject TargetObject{
+        set {_targetObject = value;}
+        get {return _targetObject;}
     }
 
     void ChcekLoadedMissileRooms(){

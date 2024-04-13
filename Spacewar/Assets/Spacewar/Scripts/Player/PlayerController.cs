@@ -135,13 +135,14 @@ public class PlayerController : MonoBehaviour
                 _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), false);
             }
             if(_triggerObject.GetComponent<Console_ControlPanel>() && !_uiManager.GetUIActivated()){
-                //_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI(), true);
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
             else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetUIActivated()){
-                //_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI(), false);
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
+        }
+        if(Input.GetKeyDown(KeyCode.T)){
+
         }
     }
     // Start is called before the first frame update
@@ -157,7 +158,6 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate(){
-        
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
             LookCursor(_controlObject.GetComponent<PlayerHuman>().PlayerRotationSpeed);
@@ -167,6 +167,9 @@ public class PlayerController : MonoBehaviour
         else if(_controlObject.CompareTag("MainShip")){
             LookCursor(_controlObject.GetComponent<MainShip>().RotationSpeed);
             MoveShip();
+        }
+        else if(_controlObject.CompareTag("Turret")){
+            LookCursor(_controlObject.GetComponent<Turret>().RotationSpeed);
         }
     }
 }

@@ -9,6 +9,10 @@ public class MissileBase : MonoBehaviour
     protected float _missileVelocity;
     protected float _missileDamage;
 
+    protected float _rotationSpeed;
+
+    protected GameObject _tgt;
+
     protected bool _isLaunched;
 
     public MainShip OwnerShip{
@@ -18,6 +22,7 @@ public class MissileBase : MonoBehaviour
         gameObject.transform.SetParent(null);
         _missileDamage = 1.0f;
         _missileVelocity = 50.0f;
+        _rotationSpeed = 2.0f;
         _isLaunched = true;
     }
 
@@ -33,6 +38,7 @@ public class MissileBase : MonoBehaviour
         if(_isLaunched){
             Rigidbody rid = gameObject.GetComponent<Rigidbody>();
             rid.AddRelativeForce(Vector3.up * _missileVelocity);
+            //rid.AddRelativeTorque(Vector3.up * _rotationSpeed);
         }
     }
 }
