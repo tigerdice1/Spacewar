@@ -63,10 +63,19 @@ public class PlayerController : MonoBehaviour
                     elem.LaunchMissile();
                 }
             }
+            if(_controlObject.CompareTag("Turret")){
+                _controlObject.GetComponent<Turret>().IsFire = true;
+            }
+            
+        }
+        if(Input.GetMouseButtonUp(0)){
+            if(_controlObject.CompareTag("Turret")){
+                _controlObject.GetComponent<Turret>().IsFire = false;
+            }
         }
     }
 
-    private void LookCursor(float maxRotationSpeed){
+    private void LookCursorBySlerp(float maxRotationSpeed){
         RaycastHit hitResult = GetCursorRaycastResult();
             Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
             Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
@@ -84,6 +93,15 @@ public class PlayerController : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(lookDir);
         _controlObject.transform.rotation = lookRotation;
         */
+    }
+
+    private void LookCursor(float maxRotationSpeed){
+        RaycastHit hitResult = GetCursorRaycastResult();
+            Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
+            Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
+            float currentRotationSpeed = Quaternion.Angle(_controlObject.transform.rotation, lookRotation) / Time.deltaTime;
+            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, maxRotationSpeed);
+            _controlObject.transform.rotation = Quaternion.Lerp(_controlObject.transform.rotation, lookRotation,limitedRotationSpeed * Time.deltaTime);
     }
 
     private void MovePlayer(){
@@ -160,13 +178,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate(){
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
-            LookCursor(_controlObject.GetComponent<PlayerHuman>().PlayerRotationSpeed);
             MovePlayer();
-            
+            LookCursorBySlerp(_controlObject.GetComponent<PlayerHuman>().PlayerRotationSpeed);
         }
         else if(_controlObject.CompareTag("MainShip")){
-            LookCursor(_controlObject.GetComponent<MainShip>().RotationSpeed);
             MoveShip();
+            LookCursorBySlerp(_controlObject.GetComponent<MainShip>().RotationSpeed);
         }
         else if(_controlObject.CompareTag("Turret")){
             LookCursor(_controlObject.GetComponent<Turret>().RotationSpeed);
