@@ -69,7 +69,8 @@ public class MissileRoom : MonoBehaviour
     private void MissileLaunchSeq(){
         if(_isMissileLoaded){
             _loadedMissile.GetComponent<MissileBase>().OwnerShip = _ownerShip;
-            Instantiate(_loadedMissile,_missileSpawn.transform);  
+            Instantiate(_loadedMissile,_missileSpawn.transform);
+            
             _isMissileLoaded = false;
         }
     }
