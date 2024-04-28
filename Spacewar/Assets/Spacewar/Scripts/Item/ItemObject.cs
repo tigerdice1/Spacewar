@@ -42,6 +42,7 @@ public class Item
         _name = item.name;
         _id = item._id;
         _buffs = new ItemBuff[item._buffs.Length];
+
         for(int i = 0;i < _buffs.Length;i++)
         {
             _buffs[i] = new ItemBuff(item._buffs[i]._min, item._buffs[i]._max)
@@ -49,6 +50,7 @@ public class Item
                 _attribute = item._buffs[i]._attribute
             };
         }
+        
     }
 }
 [System.Serializable]
