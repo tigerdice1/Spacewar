@@ -8,8 +8,7 @@ public class MouseHoldItemName : MonoBehaviour
     public TMP_Text itemNameText; // UI Text 요소
 
     private bool bCheck;
-    void Update()
-    {
+    void Update(){
         if (bCheck)
         {
             // 오브젝트의 로컬 좌표계를 기준으로 텍스트 위치를 업데이트
@@ -20,27 +19,23 @@ public class MouseHoldItemName : MonoBehaviour
         
     }
 
-    void OnMouseEnter()
-    {
+    void OnMouseEnter(){
         // 마우스 커서가 오브젝트 위에 올라갔을 때
         itemNameText.text = gameObject.name; // 오브젝트의 이름을 UI 텍스트에 표시
         bCheck = true;
     }
 
-    void OnMouseExit()
-    {
+    void OnMouseExit(){
         // 마우스 커서가 오브젝트를 벗어났을 때
         HideText(); // UI 텍스트 비활성화
         bCheck = false;
     }
 
-    void ShowText()
-    {
+    void ShowText(){
         itemNameText.gameObject.SetActive(true); // TextMeshPro를 활성화하여 표시
     }
 
-    void HideText()
-    {
+    void HideText(){
         itemNameText.gameObject.SetActive(false); // TextMeshPro를 비활성화하여 숨김
     }
 }

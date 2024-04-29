@@ -5,9 +5,11 @@ using TMPro;
 
 public class PlayerInventoryTest : MonoBehaviour
 {
-    public InventoryObject _inventory;
+    [SerializeField]
+    [Tooltip("인벤토리")]
+    private InventoryObject _inventory;
 
-    public TMP_Text showItemName;
+    public TMP_Text _showItemName;
 
     private bool hasPressedE = false;
 
@@ -20,6 +22,28 @@ public class PlayerInventoryTest : MonoBehaviour
         get { return _playerController; }
         set { _playerController = value; }
     }
+    
+    [SerializeField]
+    [Tooltip("플레이어 회전")]
+    private float _playerRotationSpeed;
+
+    public float PlayerRotationSpeed { 
+        get{return _playerRotationSpeed;}
+        set{_playerRotationSpeed = value;}
+    }
+
+    [SerializeField]
+    [Tooltip("플레이어 속도")]
+    private float _playerSpeed;
+
+    public float PlayerSpeed { 
+        get{return _playerSpeed;}
+        set{_playerSpeed = value;}
+    }
+    public InventoryObject Inventory{
+        get{return _inventory;}
+        set{_inventory = value;}
+    }
 
     //아이템이 닿으면 InventoryObject에 추가 및 배치 된 아이템 삭제
     public void OnTriggerStay(Collider other){
@@ -28,8 +52,8 @@ public class PlayerInventoryTest : MonoBehaviour
         var item = other.GetComponent<GroundItem>();
         if (item)
         {
-            showItemName.gameObject.SetActive(false);
-            _inventory.AddItem(new Item(item._item), 1);
+            _showItemName.gameObject.SetActive(false);
+            Inventory.AddItem(new Item(item.Item), 1);
             Destroy(other.gameObject);
 
             hasPressedE = true;
@@ -40,11 +64,11 @@ public class PlayerInventoryTest : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            _inventory.Save();
+            Inventory.Save();
         }
         if(Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            _inventory.Load();
+            Inventory.Load();
         }
         //중복 방지 예외처리
         if (Input.GetKeyUp(KeyCode.E))
@@ -55,6 +79,6 @@ public class PlayerInventoryTest : MonoBehaviour
     //게임을 끄면 인벤토리 내 아이템 모두 정리.
     private void OnApplicationQuit()
     {
-       _inventory._container._items.Clear();
+       Inventory.Container._items.Clear();
     }
 }

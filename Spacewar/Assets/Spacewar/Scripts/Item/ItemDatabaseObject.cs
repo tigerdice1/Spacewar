@@ -8,6 +8,7 @@ public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiv
 {
     // 게임을 포함하려는 모든 장면에 아이템 데이터베이스를 드래그앤 드롭 할 필요없다.
     public ItemObject[] _items;
+
     // 아이템 오브젝트와 그에 해당하는 정수 ID를 매핑하는 사전. 각 아이템에 고유한 ID를 할당하는 데 사용
     
     public Dictionary<int, ItemObject> _getItem = new Dictionary<int,ItemObject>();

@@ -5,17 +5,21 @@ using TMPro;
 
 public class PlayerHuman : MonoBehaviour
 {
-
-    public InventoryObject _inventory;
-
-    public TMP_Text showItemName;
-
+    [Tooltip("아이템 주울 때 예외처리")]
     private bool hasPressedE = false;
 
     [SerializeField]
     [Tooltip("플레이어 컨트롤러")]
     private PlayerController _playerController;
+
     [SerializeField]
+    [Tooltip("인벤토리")]
+    private InventoryObject _inventory;
+
+    [SerializeField]
+    [Tooltip("아이템표시 기능 & 아이템 비활성화 시 예외처리에 사용 될 변수")]
+    private TMP_Text _showItemName;
+
     [Tooltip("HP")]
     private HPSystem _hpSystem;
 
@@ -57,13 +61,23 @@ public class PlayerHuman : MonoBehaviour
         set{_playerCurrentHP = value;}
     }
 
-    public void OnTriggerStay(Collider other){
+    public InventoryObject Inventory{
+        get{return _inventory;}
+        set{_inventory = value;}
+    }
+
+    public TMP_Text ShowItemName{
+        get{return _showItemName;}
+        set{_showItemName = value;}
+    }
+
+    void OnTriggerStay(Collider other){
         if (hasPressedE || !Input.GetKey(KeyCode.E)) return;
 
         var item = other.GetComponent<GroundItem>();
         if (item){
-            showItemName.gameObject.SetActive(false);
-            _inventory.AddItem(new Item(item._item), 1);
+            ShowItemName.gameObject.SetActive(false);
+            Inventory.AddItem(new Item(item.Item), 1);
             Destroy(other.gameObject);
 
             hasPressedE = true;
@@ -93,7 +107,7 @@ public class PlayerHuman : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.KeypadEnter)){
             _inventory.Load();
         }
-        //중복 방지 예외처리
+        //아이템 습득 중복 방지 예외처리
         if (Input.GetKeyUp(KeyCode.E)){
             hasPressedE = false;
         }
@@ -105,7 +119,7 @@ public class PlayerHuman : MonoBehaviour
     }
 
     //게임을 끄면 인벤토리 내 아이템 모두 정리.
-    private void OnApplicationQuit(){
-       _inventory._container._items.Clear();
+    void OnApplicationQuit(){
+       _inventory.Container._items.Clear();
     }
 }

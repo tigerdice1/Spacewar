@@ -6,17 +6,26 @@ using System.IO;
 using System.Runtime.Serialization;
 
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
-public class InventoryObject : ScriptableObject
-{
+public class InventoryObject : ScriptableObject{
     public string _savePath;
-    public ItemDatabaseObject _database;
-    public Inventory _container;
+    [SerializeField]
+    private ItemDatabaseObject _database;
+    [SerializeField]
+    private Inventory _container;
+
+    public ItemDatabaseObject Database{
+        get{return _database;}
+        set{_database = value;}
+    }
+    public Inventory Container{
+        get{return _container;}
+        set{_container = value;}
+    }
 
     //인벤토리에 항목 추가 함수
     public void AddItem(Item item, int amount){
         //버프가 있다면 수량증가 시키지않음 (EpicItem)
-        if(item._buffs.Length > 0)
-        {
+        if(item._buffs.Length > 0){
             _container._items.Add(new InventorySlot(item._id,item,amount));
             return;
         }
@@ -32,14 +41,7 @@ public class InventoryObject : ScriptableObject
             _container._items.Add(new InventorySlot(item._id,item, amount));
     }
     [ContextMenu("Save")]
-    public void Save()
-    {
-        //string saveData = JsonUtility.ToJson(this, true);
-        //BinaryFormatter bf = new BinaryFormatter();
-        //FileStream file = File.Create(string.Concat(Application.persistentDataPath, _savePath));
-        //bf.Serialize(file, saveData);
-        //file.Close();
-
+    public void Save(){
         //저장하면 AppData\LocalLow\DefaultCompany\Spacewar에 저장됨.
         IFormatter formatter = new BinaryFormatter();
         Stream _stream = new FileStream(string.Concat(Application.persistentDataPath, _savePath), FileMode.Create, FileAccess.Write);
@@ -47,14 +49,8 @@ public class InventoryObject : ScriptableObject
         _stream.Close();
     }
     [ContextMenu("Load")]
-    public void Load()
-    {
+    public void Load(){
         if (File.Exists(string.Concat(Application.persistentDataPath, _savePath))){
-            //BinaryFormatter bf  = new BinaryFormatter();
-            //FileStream file = File.Open(string.Concat(Application.persistentDataPath, _savePath), System.IO.FileMode.Open);
-            //JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), this);
-            //file.Close();
-
             IFormatter formatter = new BinaryFormatter();
             Stream _stream = new FileStream(string.Concat(Application.persistentDataPath, _savePath), FileMode.Open, FileAccess.Read);
             _container = (Inventory)formatter.Deserialize(_stream);
@@ -62,8 +58,7 @@ public class InventoryObject : ScriptableObject
         }
     }
     [ContextMenu("Clear")]
-    public void clear()
-    {
+    public void clear(){
         _container = new Inventory();
     }
 
@@ -72,8 +67,7 @@ public class InventoryObject : ScriptableObject
 
 }
 [System.Serializable]
-public class Inventory
-{
+public class Inventory{
     public List<InventorySlot> _items = new List<InventorySlot>();
 }
 [System.Serializable]
