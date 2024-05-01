@@ -85,6 +85,7 @@ public class PlayerHuman : MonoBehaviour
     }
 
     void Initalize(){
+        _hpSystem = gameObject.GetComponent<HPSystem>();
         _playerMaxHP = 100.0f;
         _playerCurrentHP = _playerMaxHP;
         _hpSystem.SetMaxHP(_playerMaxHP);

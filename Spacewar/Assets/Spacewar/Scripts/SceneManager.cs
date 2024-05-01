@@ -13,10 +13,11 @@ public class SceneManager : MonoBehaviour
     
     [SerializeField]
     private int _maxAsteroidAreas;
+
     [SerializeField]
-    private List<GameObject> _asteroidAreas;
+    private AsteroidArea _asteroidArea;
     [SerializeField]
-    private Asteroid _ast;
+    private List<AsteroidArea> _asteroidAreas;
 
     public int MapSizeX{
         get { return _mapSize_X; }
@@ -30,9 +31,7 @@ public class SceneManager : MonoBehaviour
     {
         int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
         for(int i = 0; i < astCount; i++){
-            _asteroidAreas.Add(new GameObject("AsteroidArea", typeof(AsteroidArea)));
-            _asteroidAreas[i].GetComponent<AsteroidArea>()._maxX = _mapSize_X;
-            _asteroidAreas[i].GetComponent<AsteroidArea>()._maxZ = _mapSize_Z;
+            _asteroidAreas.Add(Instantiate(_asteroidArea));
         }
     }
 

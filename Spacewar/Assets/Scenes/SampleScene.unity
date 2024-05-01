@@ -2684,7 +2684,6 @@ GameObject:
   - component: {fileID: 969274127}
   - component: {fileID: 969274126}
   - component: {fileID: 969274129}
-  - component: {fileID: 969274130}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -2788,19 +2787,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &969274130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969274124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ebe467dfc68856498b5a867e482d70d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lightComponent: []
 --- !u!1001 &995146947
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5006,6 +4992,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565344654}
+  - component: {fileID: 1565344655}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -5032,6 +5019,24 @@ Transform:
   - {fileID: 1177776217}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1565344655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565344653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ea9cc102cc16e499e4847316d2e5bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapSize_X: 500
+  _mapSize_Z: 500
+  _minAsteroidAreas: 10
+  _maxAsteroidAreas: 20
+  _asteroidAreas: []
+  _ast: {fileID: 0}
 --- !u!1001 &1576020123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6013,11 +6018,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryPrefab: {fileID: 239564453840366259, guid: 33963317f37c30b46904a99f283f51f1, type: 3}
   _inventory: {fileID: 11400000, guid: ff7098ef39ddfc24dbc28ea0fe7a10f1, type: 2}
-  _X_START: -360
-  _Y_START: 1
-  _X_SPACE_BETWEEN_ITEM: 100
-  _NUMBER_OF_COLUMN: 4
-  _Y_SPACE_BETWEEN_ITEMS: 100
 --- !u!114 &1968500032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6171,10 +6171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94761ce40650d404e895f265fa15d32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: ff7098ef39ddfc24dbc28ea0fe7a10f1, type: 2}
-  showItemName: {fileID: 833349613}
   _playerController: {fileID: 832315740}
-  _hpSystem: {fileID: 2026724713}
+  _inventory: {fileID: 11400000, guid: ff7098ef39ddfc24dbc28ea0fe7a10f1, type: 2}
+  _showItemName: {fileID: 0}
   _playerSpeed: 5
   _playerRotationSpeed: 10
   _playerMaxHP: 100
