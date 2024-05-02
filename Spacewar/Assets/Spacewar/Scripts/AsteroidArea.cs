@@ -23,7 +23,7 @@ public class AsteroidArea : MonoBehaviour
                 gameObject.transform.localPosition.x + Random.Range(-1f * _areaRadius.x, _areaRadius.x),
                 0f,
                 gameObject.transform.localPosition.z + Random.Range(-1f * _areaRadius.z, _areaRadius.z));
-            Instantiate(_asteroids[Random.Range(0,_asteroids.Count - 1)], _fixedTransform);
+            Instantiate(_asteroids[Random.Range(0,_asteroids.Count)], _fixedTransform);
         }
     }
     void Awake() {
