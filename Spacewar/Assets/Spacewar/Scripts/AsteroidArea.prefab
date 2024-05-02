@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1f730a38233724d946c06114363c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneManager: {fileID: 0}
   _asteroids:
-  - {fileID: 2648887705626189874, guid: 97a16d6ad7963b44b8d0ed44e5265816, type: 3}
+  - {fileID: 8398005463148101936, guid: 369b9adc6d3499945bfc36c8f76f2df1, type: 3}
+  - {fileID: 2711642980101012978, guid: 960628b6f97d4e84c853c799854c1b40, type: 3}
+  _areaRadius: {x: 100, y: 0, z: 100}

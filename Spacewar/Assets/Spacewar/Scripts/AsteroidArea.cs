@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class AsteroidArea : MonoBehaviour
 {
-    [SerializeField]
     private SceneManager _sceneManager;
     [SerializeField]
     private List<Asteroid> _asteroids;
     [SerializeField]
     private Vector3 _areaRadius;
-    [SerializeField]
     private Transform _fixedTransform;
     // Start is called before the first frame update
     void Start() {
         _fixedTransform = gameObject.transform;
         _sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
-        _areaRadius = new Vector3(100f, 0f, 100f);
         gameObject.transform.position = new Vector3(Random.Range(-1f * _sceneManager.MapSizeX, _sceneManager.MapSizeX),
         0f,
         Random.Range(-1f * _sceneManager.MapSizeZ, _sceneManager.MapSizeZ));
@@ -26,8 +23,6 @@ public class AsteroidArea : MonoBehaviour
                 gameObject.transform.localPosition.x + Random.Range(-1f * _areaRadius.x, _areaRadius.x),
                 0f,
                 gameObject.transform.localPosition.z + Random.Range(-1f * _areaRadius.z, _areaRadius.z));
-            
-            Debug.Log(_fixedTransform.position);
             Instantiate(_asteroids[Random.Range(0,_asteroids.Count - 1)], _fixedTransform);
         }
     }

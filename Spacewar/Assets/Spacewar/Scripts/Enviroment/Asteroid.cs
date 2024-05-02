@@ -15,10 +15,10 @@ public class Asteroid : MonoBehaviour
         if(!gameObject.GetComponent<MeshCollider>()){
             Debug.Log("MeshCollider Not Contained");
         }
-        float scale = Random.Range(100f, 5000f);
+        float scale = Random.Range(1f, 50f);
         gameObject.transform.localScale = new Vector3(scale, scale, scale);
-        _damageManager = new DamageManager();
-        _moveSpeed = Random.Range(0f, 100f);
+        //_damageManager = new DamageManager();
+        _moveSpeed = Random.Range(0f, 1000f);
         _moveDirection = new Vector3(Random.Range(0f,1f), 0f, Random.Range(0f,1f));
         gameObject.GetComponent<Rigidbody>().AddForce(_moveDirection * _moveSpeed);
         gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
