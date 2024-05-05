@@ -7,6 +7,7 @@ using UnityEngine;
 public class LightController : MonoBehaviour
 {
     [SerializeField]
+    [Tooltip("자동으로 자식 오브젝트를 할당하니 직접할당할 필요없음")]
     private Light[] _lightComponent;
 
     /* Properties */
