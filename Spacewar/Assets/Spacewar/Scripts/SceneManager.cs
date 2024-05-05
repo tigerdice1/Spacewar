@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
+    private static SceneManager _instance;
+    public bool _IsDebugMode;
     [SerializeField]
     private int _mapSize_X;
     [SerializeField]
@@ -19,19 +21,28 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     private List<AsteroidArea> _asteroidAreas;
 
+
     public int MapSizeX{
-        get { return _mapSize_X; }
+        get { return _instance._mapSize_X; }
     }
 
     public int MapSizeZ{
-        get { return _mapSize_Z; }
+        get { return _instance._mapSize_Z; }
+    }
+    
+    public SceneManager Instance(){
+        return _instance;
+    }
+    void Awake(){
+        if(_instance == null){
+            _instance = this;
+        }
     }
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
         for(int i = 0; i < astCount; i++){
-            _asteroidAreas.Add(Instantiate(_asteroidArea));
+            _instance._asteroidAreas.Add(Instantiate(_asteroidArea));
         }
     }
 
