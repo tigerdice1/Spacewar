@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ConsoleUI : MonoBehaviour
 {
     [SerializeField]
-    private ControlConsole _controlConsole;
+    private ConsoleBase _controlConsole;
     
     [SerializeField]
     private Toggle _consoleBtn;

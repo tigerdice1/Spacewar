@@ -123,7 +123,7 @@ public class Console_PowerGenerator : ConsoleBase
         }
     }
     // 전력출력 동기화 함수 
-    // 필요한 전력량에 맞춰 로드율을 자동으로 계산해서 조정합니다.
+    // 필요한 전력량에 맞춰 로드율을 자동으로 계산해서 조정합니다. Junction 스크립트에서만 호출합니다.
     public void SyncPower(float powerUsage){
         // 목표로드율을 구합니다.
         // 목표로드율은 0% 보다 낮거나 100% 보다 클 수 없으므로 Clamp로 범위를 제한합니다.
@@ -164,23 +164,6 @@ public class Console_PowerGenerator : ConsoleBase
         }
         if(_thermalTimer >= _criticalThermalTimer){
             // 임계온도 도달 후 시간 경과 이후 액션
-        }
-    }
-    // 트리거 존 함수
-    private void OnTriggerEnter(Collider other) {
-        // 트리거 존에 들어온 오브젝트가 플레이어 태그를 가지고 있고 먼저 들어와있는 사람이 없다면, 트리거 컨트롤러에 해당 플레이어 컨트롤러 할당
-        if(other.CompareTag("Player") && _triggeredController == null){
-            _triggeredController = other.GetComponent<PlayerHuman>().PlayerController;
-            _triggeredController.TriggerObject = gameObject;
-        }
-
-    }
-    // 트리거 존 함수
-    private void OnTriggerExit(Collider other) {
-        // 트리거 존에서 나간 오브젝트가 플레이어 태그를 가지고 있고 먼저 들어와있는 사람이 있었다면, 트리거 컨트롤러 할당 해제
-        if(other.CompareTag("Player") && _triggeredController != null){
-            _triggeredController.TriggerObject = null;
-            _triggeredController = null;
         }
     }
 

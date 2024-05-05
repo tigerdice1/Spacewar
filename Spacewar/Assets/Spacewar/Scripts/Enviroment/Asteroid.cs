@@ -12,9 +12,12 @@ public class Asteroid : MonoBehaviour
     private DamageManager _damageManager;
 
     private void Initalize(){
-        if(!gameObject.GetComponent<MeshCollider>()){
-            Debug.Log("MeshCollider Not Contained");
+        if(SceneManager.Instance().IsDebugMode()){
+            if(!gameObject.GetComponent<MeshCollider>()){
+                Debug.Log("MeshCollider Not Contained");
+            }
         }
+        
         float scale = Random.Range(1f, 50f);
         gameObject.transform.localScale = new Vector3(scale, scale, scale);
         //_damageManager = new DamageManager();

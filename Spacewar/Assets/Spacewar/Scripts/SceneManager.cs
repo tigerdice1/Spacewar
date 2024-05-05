@@ -5,7 +5,8 @@ using UnityEngine;
 public class SceneManager : MonoBehaviour
 {
     private static SceneManager _instance;
-    public bool _IsDebugMode;
+    [SerializeField]
+    private bool _isDebugMode;
     [SerializeField]
     private int _mapSize_X;
     [SerializeField]
@@ -30,8 +31,12 @@ public class SceneManager : MonoBehaviour
         get { return _instance._mapSize_Z; }
     }
     
-    public SceneManager Instance(){
+    public static SceneManager Instance(){
         return _instance;
+    }
+
+    public bool IsDebugMode(){
+        return _instance._isDebugMode;
     }
     void Awake(){
         if(_instance == null){

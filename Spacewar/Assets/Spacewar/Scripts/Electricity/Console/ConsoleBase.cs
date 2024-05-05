@@ -21,28 +21,24 @@ public class ConsoleBase : MonoBehaviour
     [SerializeField]
     [Tooltip("콘솔 접근 시 사용할 UI를 지정합니다. 따로 없을경우 지정하지 않아도 됩니다.")]
     protected GameObject _consoleUI;
-    // 해당 콘솔 프리펩에 Electricity 스크립트가 로드되어있는지 확인합니다.
-    protected bool _isElectricityLoaded;
 
     protected void Initalize(){
-        if(!_ownerShip){
-            Debug.Log("OwnerShip is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);
-        }
-        if(!_objectToControl){
-            Debug.Log("ObjectToControl is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);
-        }
-        if(!_consoleUI){
-            Debug.Log("ConsoleUI is not initialized. The associated functions are disabled. Location : " + gameObject);
+        if(SceneManager.Instance().IsDebugMode()){
+            if(!_ownerShip){
+                Debug.Log("OwnerShip is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);
             }
-        if(!gameObject.GetComponent<BoxCollider>().isTrigger){
-            Debug.Log("BoxCollider's trigger is missing. Please add it in the editor. Location : " + gameObject);
-        }
-        if(!gameObject.GetComponent<Electricity>()){
-            Debug.Log("Electricity is not Loaded. Please add Electricity Module. Location : " + gameObject);
-            _isElectricityLoaded = false;
-        }
-        else{
-            _isElectricityLoaded = true;
+            if(!_objectToControl){
+                Debug.Log("ObjectToControl is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);
+            }
+            if(!_consoleUI){
+                Debug.Log("ConsoleUI is not initialized. The associated functions are disabled. Location : " + gameObject);
+                }
+            if(!gameObject.GetComponent<BoxCollider>().isTrigger){
+                Debug.Log("BoxCollider's trigger is missing. Please add it in the editor. Location : " + gameObject);
+            }
+            if(!gameObject.GetComponent<Electricity>()){
+                Debug.Log("Electricity is not Loaded. Please add Electricity Module. Location : " + gameObject);
+            }
         }
     }
     protected void OnTriggerEnter(Collider other) {
