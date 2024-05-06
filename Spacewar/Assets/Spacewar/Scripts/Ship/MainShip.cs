@@ -12,7 +12,7 @@ public class MainShip : MonoBehaviour{
     private float _speed;
 
     [SerializeField]
-    private MissileRoom[] _missileRooms;
+    private List<MissileRoom> _missileRooms;
 
     [SerializeField]
     private List<MissileRoom> _loadedMissileRooms;

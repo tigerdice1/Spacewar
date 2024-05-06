@@ -19,7 +19,6 @@ public class SceneManager : MonoBehaviour
 
     [SerializeField]
     private AsteroidArea _asteroidArea;
-    [SerializeField]
     private List<AsteroidArea> _asteroidAreas;
 
 

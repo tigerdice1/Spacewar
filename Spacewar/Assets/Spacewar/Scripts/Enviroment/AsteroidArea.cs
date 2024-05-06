@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class AsteroidArea : MonoBehaviour
 {
-    private SceneManager _sceneManager;
     [SerializeField]
+    [Tooltip("해당 리스트에 할당된 소행성이 랜덤 생성됩니다.")]
     private List<Asteroid> _asteroids;
+
     [SerializeField]
+    [Tooltip("소행성지대의 범위를 지정합니다.")]
     private Vector3 _areaRadius;
-    private Transform _fixedTransform;
+
+    [Tooltip("소행성을 소행성 지대 범위 안에 랜덤하게 지정하기 위한 Transform 변수입니다.")]
+    private Transform _asteroidInstTransform;
     // Start is called before the first frame update
     void Start() {
-        _fixedTransform = gameObject.transform;
-        _sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
-        gameObject.transform.position = new Vector3(Random.Range(-1f * _sceneManager.MapSizeX, _sceneManager.MapSizeX),
+        _asteroidInstTransform = this.transform;
+        
+        this.transform.position = new Vector3(Random.Range(-1f * SceneManager.Instance().MapSizeX, SceneManager.Instance().MapSizeX),
         0f,
-        Random.Range(-1f * _sceneManager.MapSizeZ, _sceneManager.MapSizeZ));
+        Random.Range(-1f * SceneManager.Instance().MapSizeZ, SceneManager.Instance().MapSizeZ));
         
         for(int i = 0; i < Random.Range(1, 50); i++){
-            _fixedTransform.position = new Vector3(
-                gameObject.transform.localPosition.x + Random.Range(-1f * _areaRadius.x, _areaRadius.x),
+            _asteroidInstTransform.position = new Vector3(
+                this.transform.localPosition.x + Random.Range(-1f * _areaRadius.x, _areaRadius.x),
                 0f,
-                gameObject.transform.localPosition.z + Random.Range(-1f * _areaRadius.z, _areaRadius.z));
-            Instantiate(_asteroids[Random.Range(0,_asteroids.Count)], _fixedTransform);
+                this.transform.localPosition.z + Random.Range(-1f * _areaRadius.z, _areaRadius.z));
+            Instantiate(_asteroids[Random.Range(0,_asteroids.Count)], _asteroidInstTransform);
         }
     }
     void Awake() {
