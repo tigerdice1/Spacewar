@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
         get { return _ownerShip; }
     }
     protected void Initailze(){
-        gameObject.transform.SetParent(null);
+        this.transform.SetParent(null);
         _isLaunched = true;
     }
 
@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour
     {
         Initailze();
         if(_isLaunched){
-            Rigidbody rid = gameObject.GetComponent<Rigidbody>();
+            Rigidbody rid = this.GetComponent<Rigidbody>();
             rid.AddRelativeForce(Vector3.up * _projectileVelocity * 20f);
             Destroy(gameObject,_destoryTimer);
         }
