@@ -20,15 +20,6 @@ public class DisplayInventory : MonoBehaviour{
 
     Dictionary<InventorySlot,GameObject> _itemsDisplayed = new Dictionary<InventorySlot,GameObject>(); // 아이템추가 시
 
-    // Start is called before the first frame update
-    void Start(){
-        CreateDisplay();
-    }
-
-    // Update is called once per frame
-    void Update(){
-        UpdateDisplay();
-    }
     void UpdateDisplay(){
         for (int i = 0; i < _inventory.Container._items.Count; i++){
             InventorySlot slot = _inventory.Container._items[i];
@@ -63,5 +54,14 @@ public class DisplayInventory : MonoBehaviour{
         _ySpaceBetweenItems = 0;
         _numberOfColumn = 4; //줄당 아이템 수
         return new Vector3(_xStart + (_xSpaceBetweenItem * (i % _numberOfColumn)), _yStart + (-_ySpaceBetweenItems * (i / _numberOfColumn)), 0f);
+    }
+    // Start is called before the first frame update
+    void Start(){
+        CreateDisplay();
+    }
+
+    // Update is called once per frame
+    void Update(){
+        UpdateDisplay();
     }
 }

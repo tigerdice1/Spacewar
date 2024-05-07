@@ -22,7 +22,7 @@ public class ConsoleBase : MonoBehaviour
     [Tooltip("콘솔 접근 시 사용할 UI를 지정합니다. 따로 없을경우 지정하지 않아도 됩니다.")]
     protected GameObject _consoleUI;
 
-    protected void Initalize(){
+    protected virtual void Initalize(){
         if(SceneManager.Instance().IsDebugMode()){
             if(!_ownerShip){
                 Debug.Log("OwnerShip is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);

@@ -11,6 +11,9 @@ public class Console_PowerGenerator : ConsoleBase
     [SerializeField]
     [Tooltip("조명")]
     private Light _lightSource;
+
+    private LightController _lightController;
+    private Electricity _lightElectricity;
     
      /* Generator Info */
     // It's the efficiency of the generator. The more efficient, the higher the output under less load. Range 0 ~ 100
@@ -175,21 +178,29 @@ public class Console_PowerGenerator : ConsoleBase
         // 임계온도 이하로 떨어지면 기존 색상으로 변경
         // 전원이 꺼진 상태라면 광원의 Electricity 스크립트에서 작동상태 변경
         if(_isPowered){
-            _lightSource.GetComponent<Electricity>().SetActiveState(Electricity.State.ACTIVE);
+            _lightElectricity.SetActiveState(Electricity.State.ACTIVE);
             if(_isCritical){
-                _lightSource.GetComponent<LightController>().SetLightColor(Color.red);
+                _lightController.SetLightColor(Color.red);
             }
             else{
-                _lightSource.GetComponent<LightController>().SetLightColor(Color.green);
+                _lightController.SetLightColor(Color.green);
             }
         }
         else if(!_isPowered){
-            _lightSource.gameObject.GetComponent<Electricity>().SetActiveState(Electricity.State.OFF);
+            _lightElectricity.SetActiveState(Electricity.State.OFF);
+        }
+    }
+
+    protected override void Initalize(){
+        if(_lightSource){
+            _lightController = _lightSource.GetComponent<LightController>();
+            _lightElectricity = _lightSource.GetComponent<Electricity>();
         }
     }
     // Start is called before the first frame update
     protected override void Start(){
         base.Initalize();
+        Initalize();
         // 디버그용 
         SetGeneratorState(true);
     }

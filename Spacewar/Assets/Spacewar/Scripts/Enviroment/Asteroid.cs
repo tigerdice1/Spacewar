@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+    [Tooltip("소행성의 초기 방향을 지정하는 변수입니다. 자동으로 지정됩니다.")]
     private Vector3 _moveDirection;
+    [Tooltip("소행성의 초기 속도입니다.")]
     private float _moveSpeed;
 
+    [Tooltip("소행성의 초기 체력입니다.")]
     private float _asteroidHP;
-
-    private DamageManager _damageManager;
 
     private void Initalize(){
         if(SceneManager.Instance().IsDebugMode()){
@@ -36,8 +37,7 @@ public class Asteroid : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         Initalize();
     }
 

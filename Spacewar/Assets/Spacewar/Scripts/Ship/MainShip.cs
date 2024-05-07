@@ -62,14 +62,14 @@ public class MainShip : MonoBehaviour{
     }
 
     void ChcekLoadedMissileRooms(){
-        foreach(MissileRoom elem in _missileRooms){
-            if(elem.IsMissileLoaded && !_loadedMissileRooms.Contains(elem)){
-                _loadedMissileRooms.Add(elem);
+        for(int i = 0; i < _missileRooms.Count; i++){
+            if(_missileRooms[i] && !_loadedMissileRooms.Contains(_missileRooms[i])){
+                _loadedMissileRooms.Add(_missileRooms[i]);
             }
-            if(!elem.IsMissileLoaded && _loadedMissileRooms.Contains(elem)){
-                _loadedMissileRooms.Remove(elem);
+            if(!_missileRooms[i].IsMissileLoaded && _loadedMissileRooms.Contains(_missileRooms[i])){
+                _loadedMissileRooms.Remove(_missileRooms[i]);
             }
-        }
+        } 
     }
     void CalcAngularSpeed(){
         Quaternion currentRotation = transform.rotation;

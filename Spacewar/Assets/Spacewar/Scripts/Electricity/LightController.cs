@@ -7,32 +7,41 @@ using UnityEngine;
 public class LightController : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("자동으로 자식 오브젝트를 할당하니 직접할당할 필요없음")]
-    private Light[] _lightComponent;
+    [Tooltip("조명 오브젝트들을 담아두는 함수입니다. 자동으로 자식오브젝트들이 할당됩니다.")]
+    private List<Light> _lightComponent;
+    private Electricity _lightElectricity;
 
     /* Properties */
     public void SetLightColor(Color color){
-        foreach(var elem in _lightComponent){
-            elem.color = color;
+        for(int i = 0; i < _lightComponent.Count; i++){
+            _lightComponent[i].color = color;
         }
     }
 
     public void SetHexColor(string hexCode){
         Color color;
         if (ColorUtility.TryParseHtmlString(hexCode, out color)){
-            foreach(var elem in _lightComponent){
-                elem.color = color;
-                }
+            for(int i = 0; i < _lightComponent.Count; i++){
+            _lightComponent[i].color = color;
             }
         }
-    
+    }
     
     private void Initalize(){
-        _lightComponent = gameObject.GetComponentsInChildren<Light>();
+        if(SceneManager.Instance().IsDebugMode()){
+            if(_lightComponent == null){
+                Debug.Log("_lightComponent is not Loaded. Location : " + gameObject);
+            }
+            if(!_lightElectricity){
+                Debug.Log("_lightElectricity is not Loaded. Location : " + gameObject);
+            }
+        }
+        _lightComponent = new List<Light>(this.GetComponentsInChildren<Light>());
+        _lightElectricity = this.GetComponent<Electricity>();
     }
     private void SyncOnState(){
-        foreach(var elem in _lightComponent){
-            elem.enabled = gameObject.GetComponent<Electricity>().IsPowered;
+        for(int i = 0; i < _lightComponent.Count; i++){
+            _lightComponent[i].enabled = _lightElectricity.IsPowered;
         }
     }
     // Start is called before the first frame update

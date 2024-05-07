@@ -7,13 +7,14 @@ public class Junction : MonoBehaviour
     /* Essential Variables */
 	// Generators connected to the junction. If not specified, it will not be executed.
     [SerializeField]
-    [Tooltip("Generators connected to the junction. If not specified, it will not be executed.")]
+    [Tooltip("해당 분배기에 사용할 발전기를 연결합니다. 수동으로 지정해줘야 합니다.")]
     private Console_PowerGenerator _generatorConsole;
 	// Power consuming objects connected to the junction. All objects containing the Electricity script are shown here.
     [SerializeField]
-    [Tooltip("Power consuming objects connected to the junction. All objects containing the Electricity script are shown here.")]
+    [Tooltip("전력을 사용하는 오브젝트들을 지정하는 리스트입니다. Electricity 스크립트가 있어야 추가할 수 있습니다.")]
     private List<Electricity> _connectedObjectsList;
  	// Total power consumption
+    [Tooltip("전력 사용량 총합.")]
 	private float _totalPowerConsumption;
     
     void Initailize(){
@@ -25,6 +26,7 @@ public class Junction : MonoBehaviour
     }
     /* Custom Functions */
 	// Store the combined power consumption of the objects in the list.
+    // 전력 사용량 총합을 계산하는 함수.
     private void UpdatePowerConsumption(){
         _totalPowerConsumption = 0.0f;
         for(int i = 0; i < _connectedObjectsList.Count; i++){
@@ -33,28 +35,23 @@ public class Junction : MonoBehaviour
             }
         }
     }
-    
 
     void CheckPowerState(){
         if(_generatorConsole && _generatorConsole.IsPowered){
-            foreach(Electricity connectedObject in _connectedObjectsList){
-                if(connectedObject != null){
-                    switch(connectedObject.GetState()){
-                        case Electricity.State.OFF:
-                            connectedObject.SetActiveState(Electricity.State.IDLE);
-                        break;
-                    }
-                }
-            }        
-        }
-            else if(!_generatorConsole.IsPowered){
-                foreach(Electricity connectedObject in _connectedObjectsList){
-                    if(connectedObject != null){
-                    connectedObject.SetActiveState(Electricity.State.OFF);
+            for(int i = 0; i < _connectedObjectsList.Count; i++){
+                switch(_connectedObjectsList[i].GetState()){
+                    case Electricity.State.OFF:
+                        _connectedObjectsList[i].SetActiveState(Electricity.State.IDLE);
+                    break;
                     }
                 }
             }
+        else if(!_generatorConsole.IsPowered){
+            for(int i = 0; i < _connectedObjectsList.Count; i++){
+                _connectedObjectsList[i].SetActiveState(Electricity.State.OFF);
+            }
         }
+    }
     
 	/* 
     Calls the load adjustment function of the generator 
@@ -70,11 +67,9 @@ public class Junction : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         UpdatePowerConsumption();
         SyncPowerFromGenerator();
         CheckPowerState();
-        
     }
 }

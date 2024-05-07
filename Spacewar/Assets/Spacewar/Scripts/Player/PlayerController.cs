@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     private RaycastHit GetCursorRaycastResult(){
-        Ray ray = gameObject.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
+        Ray ray = this.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
         RaycastHit hitResult;
         if(!Physics.Raycast(ray, out hitResult)){
             
@@ -59,14 +59,13 @@ public class PlayerController : MonoBehaviour
     private void MouseClickEvent(){
         if(Input.GetMouseButtonDown(0)){
             if(_controlObject.CompareTag("MainShip")){
-                foreach(MissileRoom elem in _controlObject.GetComponent<MainShip>().LoadedMissileRooms){
-                    elem.LaunchMissile();
+                for(int i = 0; _controlObject.GetComponent<MainShip>().LoadedMissileRooms.Count < 0; i++){
+                    _controlObject.GetComponent<MainShip>().LoadedMissileRooms[i].LaunchMissile();
                 }
             }
             if(_controlObject.CompareTag("Turret")){
                 _controlObject.GetComponent<Turret>().IsFire = true;
             }
-            
         }
         if(Input.GetMouseButtonUp(0)){
             if(_controlObject.CompareTag("Turret")){
