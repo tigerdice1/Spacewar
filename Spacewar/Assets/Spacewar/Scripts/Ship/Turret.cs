@@ -21,18 +21,18 @@ public class Turret : MonoBehaviour
 
     private float _time = 0f;
     public float RotationSpeed{
-        set { _rotationSpeed = value; }
-        get { return _rotationSpeed; }
+        set => _rotationSpeed = value;
+        get => _rotationSpeed;
     }
 
     public List<GameObject> BulletSpawn{
-        set { _bulletSpawn = value; }
-        get { return _bulletSpawn; }
+        set => _bulletSpawn = value;
+        get => _bulletSpawn;
     }
 
     public bool IsFire{
-        set { _isFire = value; }
-        get { return _isFire; }
+        set => _isFire = value; 
+        get => _isFire; 
     }
     private void Fire(){
         _time += Time.deltaTime;

@@ -18,8 +18,8 @@ public class Projectile : MonoBehaviour
     private float _timer;
 
     public MainShip OwnerShip{
-        set { _ownerShip = value; }
-        get { return _ownerShip; }
+        set =>  value = _ownerShip;
+        get => _ownerShip;
     }
     protected void Initailze(){
         this.transform.SetParent(null);

@@ -35,8 +35,8 @@ public class MissileRoom : MonoBehaviour
     GameObject _loadedMissile;
 
     public bool IsMissileLoaded{
-        get { return _isMissileLoaded; }
-        set { _isMissileLoaded = value; }
+        set => _isMissileLoaded = value;
+        get => _isMissileLoaded;
     }
 
     void Initalize(){

@@ -14,12 +14,12 @@ public class InventoryObject : ScriptableObject{
     private Inventory _container;
 
     public ItemDatabaseObject Database{
-        get{return _database;}
-        set{_database = value;}
+        set => _database = value;
+        get => _database;
     }
     public Inventory Container{
-        get{return _container;}
-        set{_container = value;}
+        get => _container;
+        set => _container = value;
     }
 
     //인벤토리에 항목 추가 함수

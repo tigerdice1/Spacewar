@@ -23,13 +23,13 @@ public class TestPlayerController : MonoBehaviour
 
     /* Properties */
     public GameObject TriggerObject{
-        get { return _triggerObject; }
-        set { _triggerObject = value; }
+        set => _triggerObject = value; 
+        get => _triggerObject; 
     }
 
     public GameObject ControlObject{
-        get {return _controlObject; }
-        set {_controlObject = value;}
+        set => _controlObject = value;
+        get => _controlObject; 
     }
 
     private void Initailize(){
@@ -47,7 +47,7 @@ public class TestPlayerController : MonoBehaviour
         }
     }
     private RaycastHit GetCursorRaycastResult(){
-        Ray ray = gameObject.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
+        Ray ray = gameObject.GetComponent<CameraController>().GetCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitResult;
         if(!Physics.Raycast(ray, out hitResult)){
             

@@ -39,7 +39,7 @@ public class Junction : MonoBehaviour
     void CheckPowerState(){
         if(_generatorConsole && _generatorConsole.IsPowered){
             for(int i = 0; i < _connectedObjectsList.Count; i++){
-                switch(_connectedObjectsList[i].GetState()){
+                switch(_connectedObjectsList[i].GetState){
                     case Electricity.State.OFF:
                         _connectedObjectsList[i].SetActiveState(Electricity.State.IDLE);
                     break;

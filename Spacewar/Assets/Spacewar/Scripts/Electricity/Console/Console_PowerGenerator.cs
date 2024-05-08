@@ -76,34 +76,34 @@ public class Console_PowerGenerator : ConsoleBase
 
   /* Properties */
     public bool IsPowered{
-        set{_isPowered = value; }
-        get{return _isPowered; }
+        set => _isPowered = value;
+        get => _isPowered;
     }
     public float PowerOutput{
-        set{_outputPower = value; }
-        get{return _outputPower; }
+        set => _outputPower = value;
+        get => _outputPower;
     }
     public float Load{
-        set{_load = value; }
-        get{return _load; }
+        set => _load = value;
+        get => _load;
     }
     public float CurrentFuel{
-        set{_currentFuel = value; }
-        get{return _currentFuel; }
+        set => _currentFuel = value;
+        get => _currentFuel;
     }
     public float MaxFuel{
-        set{_maxFuel = value; }
-        get{return _maxFuel; }
+        set => _maxFuel = value;
+        get => _maxFuel; 
     }
-    public bool GetGeneratorState(){
-        return _isPowered;
+    public bool GetGeneratorState{
+        get => _isPowered;
     }
     public void SetGeneratorState(bool isOn){
         _isPowered = isOn;
     }
 
-    public bool GetIsCritical(){
-        return _isCritical;
+    public bool GetIsCritical{
+        get => _isCritical;
     }
 
     /* Essential Functions */

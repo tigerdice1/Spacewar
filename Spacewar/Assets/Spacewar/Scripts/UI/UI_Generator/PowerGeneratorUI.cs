@@ -37,13 +37,13 @@ public class PowerGeneratorUI : MonoBehaviour
         }
     }
 
-    public Console_PowerGenerator GetPowerGenerator(){
-        return _powerGenerator;
+    public Console_PowerGenerator GetPowerGenerator{
+        get => _powerGenerator;
     }
 
 	// 발전기가 꺼져있는지 확인하고 꺼져있다면 전원 버튼도 off 상태로 변환
     void CheckIsGeneratorPowerd(){
-        if(!_powerGenerator.GetGeneratorState()){
+        if(!_powerGenerator.GetGeneratorState){
             _powerGeneratorBtn.isOn = false;
         }
     }
@@ -57,7 +57,7 @@ public class PowerGeneratorUI : MonoBehaviour
     void Update()
     {
         CheckIsGeneratorPowerd();
-        if(_powerGenerator.GetGeneratorState()){
+        if(_powerGenerator.GetGeneratorState){
         }
     }
 }

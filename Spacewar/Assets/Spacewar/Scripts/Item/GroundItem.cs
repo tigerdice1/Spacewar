@@ -8,7 +8,7 @@ public class GroundItem : MonoBehaviour
     private ItemObject _item;
 
     public ItemObject Item{
-        get{return _item;}
-        set{_item = value;}
+        set => _item = value;
+        get => _item;
     }
 }

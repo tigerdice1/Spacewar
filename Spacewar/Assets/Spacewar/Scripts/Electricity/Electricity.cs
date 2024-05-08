@@ -36,24 +36,24 @@ public class Electricity : MonoBehaviour
 
     /* Properties */
     public bool IsPowered{
-        get { return _isPowered; }
-        set { _isPowered = value; }
+        set => _isPowered = value;
+        get => _isPowered;
     }
     public float PowerConsumption{
-        get { return _powerConsumption; }
-        set { _powerConsumption = value; }
+        set => _powerConsumption = value;
+        get => _powerConsumption;
     }
     public float PowerIdle{
-        get { return _powerIdle; }
-        set { _powerIdle = value; }
+        set => _powerIdle = value;
+        get => _powerIdle;
     }
     public float PowerActive{
-        get { return _powerActive; }
-        set { _powerActive = value; }
+        set => _powerActive = value;
+        get => _powerActive;
     }
 
-    public State GetState(){
-        return _state;
+    public State GetState{
+        get => _state;
     }
 
     // 전원의 켜고 끔을 지정하는 함수입니다. 외부에서 호출되지 않습니다.

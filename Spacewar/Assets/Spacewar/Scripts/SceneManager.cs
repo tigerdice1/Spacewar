@@ -23,11 +23,11 @@ public class SceneManager : MonoBehaviour
 
 
     public int MapSizeX{
-        get { return _instance._mapSize_X; }
+        get => _instance._mapSize_X;
     }
 
     public int MapSizeZ{
-        get { return _instance._mapSize_Z; }
+        get => _instance._mapSize_Z;
     }
     
     public static SceneManager Instance(){

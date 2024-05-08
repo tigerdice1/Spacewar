@@ -41,34 +41,34 @@ public class PlayerHuman : MonoBehaviour
 
     /* Properties */
     public PlayerController PlayerController{
-        get{return _playerController;}
-        set{_playerController = value;}
+        set => _playerController = value;
+        get => _playerController;
     }
     public float PlayerSpeed { 
-        get{return _playerSpeed;}
-        set{_playerSpeed = value;}
+        set => _playerSpeed = value;
+        get => _playerSpeed;
     }
     public float PlayerRotationSpeed { 
-        get{return _playerRotationSpeed;}
-        set{_playerRotationSpeed = value;}
+        set => _playerRotationSpeed = value;
+        get => _playerRotationSpeed;
     }
     public float PlayerMaxHP { 
-        get{return _playerMaxHP;}
-        set{_playerMaxHP = value;}
+        set => _playerMaxHP = value;
+        get => _playerMaxHP;
     }
     public float PlayerCurrentHP { 
-        get{return _playerCurrentHP;}
-        set{_playerCurrentHP = value;}
+        set => _playerCurrentHP = value;
+        get => _playerCurrentHP;
     }
 
     public InventoryObject Inventory{
-        get{return _inventory;}
-        set{_inventory = value;}
+        set => _inventory = value;
+        get => _inventory;
     }
 
     public TMP_Text ShowItemName{
-        get{return _showItemName;}
-        set{_showItemName = value;}
+        set => _showItemName = value;
+        get => _showItemName;
     }
 
     void OnTriggerStay(Collider other){

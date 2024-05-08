@@ -17,10 +17,9 @@ public class PlayerInventoryTest : MonoBehaviour
     [Tooltip("플레이어 컨트롤러")]
     private PlayerController _playerController;
 
-    public PlayerController PlayerController
-    {
-        get { return _playerController; }
-        set { _playerController = value; }
+    public PlayerController PlayerController{
+        set => _playerController = value; 
+        get => _playerController; 
     }
     
     [SerializeField]
@@ -28,8 +27,8 @@ public class PlayerInventoryTest : MonoBehaviour
     private float _playerRotationSpeed;
 
     public float PlayerRotationSpeed { 
-        get{return _playerRotationSpeed;}
-        set{_playerRotationSpeed = value;}
+        set => _playerRotationSpeed = value;
+        get => _playerRotationSpeed;
     }
 
     [SerializeField]

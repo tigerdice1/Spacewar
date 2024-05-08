@@ -30,35 +30,35 @@ public class MainShip : MonoBehaviour{
     private bool _isReverseThrusterActive = true;
 
     public bool IsReverseThrusterActive{
-        get {return _isReverseThrusterActive;}
-        set {_isReverseThrusterActive = value;}
+        set => _isReverseThrusterActive = value;
+        get => _isReverseThrusterActive;
     }
 
     public float ShipHP{
-        get { return _shipHP;}
-        set {_shipHP = value;}
+        set => _shipHP = value;
+        get => _shipHP;
     }
     public float Speed{
-        get{ return _speed;}
-        set{ _speed = value;}
+        set => _speed = value;
+        get => _speed;
     }
 
     public float RotationSpeed{
-        get{ return _rotationSpeed;}
-        set{ _rotationSpeed = value;}
+        set => _rotationSpeed = value;
+        get => _rotationSpeed;
     }
 
     public float GetAngularSpeed{
-        get{return _currentAngularSpeed;}
+        get => _currentAngularSpeed;
     }
 
-    public List<MissileRoom> LoadedMissileRooms{
-        get{ return _loadedMissileRooms;}
+    public List<MissileRoom> GetLoadedMissileRooms{
+        get => _loadedMissileRooms;
     }
 
     public GameObject TargetObject{
-        set {_targetObject = value;}
-        get {return _targetObject;}
+        set => _targetObject = value;
+        get => _targetObject;
     }
 
     void ChcekLoadedMissileRooms(){

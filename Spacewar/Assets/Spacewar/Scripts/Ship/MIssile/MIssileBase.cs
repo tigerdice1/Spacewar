@@ -16,7 +16,8 @@ public class MissileBase : MonoBehaviour
     protected bool _isLaunched;
 
     public MainShip OwnerShip{
-        set { _ownerShip = value; }
+        set => _ownerShip = value;
+        get => _ownerShip;
     }
     protected virtual void Initailze(){
         this.transform.SetParent(null);

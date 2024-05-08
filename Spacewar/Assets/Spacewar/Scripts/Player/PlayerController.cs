@@ -23,13 +23,13 @@ public class PlayerController : MonoBehaviour
 
     /* Properties */
     public GameObject TriggerObject{
-        get { return _triggerObject; }
-        set { _triggerObject = value; }
+        set => _triggerObject = value; 
+        get => _triggerObject; 
     }
 
     public GameObject ControlObject{
-        get {return _controlObject; }
-        set {_controlObject = value;}
+        set => _controlObject = value;
+        get => _controlObject; 
     }
 
     private void Initailize(){
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     private RaycastHit GetCursorRaycastResult(){
-        Ray ray = this.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
+        Ray ray = this.GetComponent<CameraController>().GetCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitResult;
         if(!Physics.Raycast(ray, out hitResult)){
             
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
     private void MouseClickEvent(){
         if(Input.GetMouseButtonDown(0)){
             if(_controlObject.CompareTag("MainShip")){
-                for(int i = 0; _controlObject.GetComponent<MainShip>().LoadedMissileRooms.Count < 0; i++){
-                    _controlObject.GetComponent<MainShip>().LoadedMissileRooms[i].LaunchMissile();
+                for(int i = 0; _controlObject.GetComponent<MainShip>().GetLoadedMissileRooms.Count < 0; i++){
+                    _controlObject.GetComponent<MainShip>().GetLoadedMissileRooms[i].LaunchMissile();
                 }
             }
             if(_controlObject.CompareTag("Turret")){
