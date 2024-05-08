@@ -24,16 +24,14 @@ public class RadialGauge_UI : MonoBehaviour
     protected bool _isHalf;
     protected Coroutine _playingCoroutine;
 
-    protected static bool IsApproximatelyEqual(float a, float b, float tolerance)
-{
+    protected static bool IsApproximatelyEqual(float a, float b, float tolerance){
     // 두 숫자 사이의 차이를 계산하고 절대값을 취합니다.
     float difference = Mathf.Abs(a - b);
     
     // 허용 오차(tolerance) 내에 있는지 확인합니다.
     return difference <= tolerance;
 }
-    protected static bool AreQuaternionsApproximatelyEqual(Quaternion quat1, Quaternion quat2, float maxAngleDifference)
-    {
+    protected static bool AreQuaternionsApproximatelyEqual(Quaternion quat1, Quaternion quat2, float maxAngleDifference){
         // Quaternion.Angle 함수를 사용하여 두 Quaternion 간의 각도를 계산
         float angleDifference = Quaternion.Angle(quat1, quat2);
 

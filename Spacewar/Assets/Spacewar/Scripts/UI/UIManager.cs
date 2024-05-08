@@ -29,8 +29,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public bool GetUIActivated(){
-        return _isUIActivated;
+    public bool GetIsUIActivated{
+        get => _isUIActivated;
     }
 
     public void ReleaseUI(){

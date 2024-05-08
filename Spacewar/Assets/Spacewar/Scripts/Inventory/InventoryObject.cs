@@ -18,27 +18,28 @@ public class InventoryObject : ScriptableObject{
         get => _database;
     }
     public Inventory Container{
-        get => _container;
         set => _container = value;
+        get => _container;
     }
 
     //인벤토리에 항목 추가 함수
     public void AddItem(Item item, int amount){
         //버프가 있다면 수량증가 시키지않음 (EpicItem)
+        //if(item._buffs.Count > 0){
         if(item._buffs.Length > 0){
-            _container._items.Add(new InventorySlot(item._id,item,amount));
+            _container._items.Add(new InventorySlot(item._id, item, amount));
             return;
         }
 
         // 이미 인벤토리에 같은 아이템이 있다면, 그 아이템의 수량만 증가
         for (int i = 0; i < _container._items.Count; i++){
-            if (_container._items[i]._item._id == item._id){
+            if (_container._items[i].GetItem._id == item._id){
                 _container._items[i].AddAmount(amount);
                 return;
             }
         }
         //같은 아이템이 인벤토리에 없다면, 새로운 슬롯을 생성하여 추가
-            _container._items.Add(new InventorySlot(item._id,item, amount));
+        _container._items.Add(new InventorySlot(item._id, item, amount));
     }
     [ContextMenu("Save")]
     public void Save(){
@@ -72,22 +73,34 @@ public class Inventory{
 }
 [System.Serializable]
 public class InventorySlot{
-
-    public int _id;
-    public Item _item;
+    private int _id = -1;
+    private Item _item;
 
     //아이템의 양
-    public int _itemAmount;
+    private int _itemAmount;
 
     //인벤토리슬롯이 생성될때 일부 값을 설정하는 생성자
-    public InventorySlot(int id,Item item, int amount){
-        _id = id;
-        _item = item;
-        _itemAmount = amount;
+    public InventorySlot(int id, Item item, int amount){
+        this._id = id;
+        this._item = item;
+        this._itemAmount = amount;
         
     }
+    public int ID{
+        set {_id = _id == -1 ? value : _id; }
+        get {if(_id != -1) return _id; else return -1; }
+    }
+
+    public Item GetItem{
+        get => _item;
+    }
+
+    public int GetItemAmount{
+        get => _itemAmount;
+    }
+
     public void AddAmount(int value){
-        _itemAmount += value; 
+        this._itemAmount += value; 
     }
 }
 

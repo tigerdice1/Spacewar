@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     }
     
     private void CheckOnTriggerExit(){
-        if(_triggerObject == null && _uiManager.GetUIActivated()){
+        if(_triggerObject == null && _uiManager.GetIsUIActivated){
             _uiManager.ReleaseUI();
         }
         if(_triggerObject == null && !_controlObject.CompareTag("Player")){
@@ -111,19 +111,20 @@ public class PlayerController : MonoBehaviour
 
     private void MoveShip(){
         Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
+        MainShip ship = _controlObject.GetComponent<MainShip>();
         if (Input.GetKey(KeyCode.W)){
-            rid.AddRelativeForce(Vector3.forward * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.forward * ship.Speed);
         }
         if (Input.GetKey(KeyCode.A)){
-            rid.AddRelativeForce(Vector3.left * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.left * ship.Speed);
         }
         if (Input.GetKey(KeyCode.S)){
-            rid.AddRelativeForce(Vector3.back * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.back * ship.Speed);
         }
         if (Input.GetKey(KeyCode.D)){
-            rid.AddRelativeForce(Vector3.right * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.right * ship.Speed);
         }
-        float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
+        float MaxVelocity = ship.Speed;
         if(rid.velocity.x > MaxVelocity){
             rid.velocity = new Vector3(MaxVelocity, rid.velocity.y, rid.velocity.z);
         }
@@ -145,16 +146,16 @@ public class PlayerController : MonoBehaviour
     }
     private void CheckKeyInput(){
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            if(_triggerObject.GetComponent<Console_PowerGenerator>() && !_uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), true);
+            if(_triggerObject.GetComponent<Console_PowerGenerator>() && !_uiManager.GetIsUIActivated){
+                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI, true);
             }
-            else if(_triggerObject.GetComponent<Console_PowerGenerator>() && _uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), false);
+            else if(_triggerObject.GetComponent<Console_PowerGenerator>() && _uiManager.GetIsUIActivated){
+                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI, false);
             }
-            if(_triggerObject.GetComponent<Console_ControlPanel>() && !_uiManager.GetUIActivated()){
+            if(_triggerObject.GetComponent<Console_ControlPanel>() && !_uiManager.GetIsUIActivated){
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
-            else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetUIActivated()){
+            else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetIsUIActivated){
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
         }

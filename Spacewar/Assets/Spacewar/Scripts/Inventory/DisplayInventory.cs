@@ -24,14 +24,14 @@ public class DisplayInventory : MonoBehaviour{
         for (int i = 0; i < _inventory.Container._items.Count; i++){
             InventorySlot slot = _inventory.Container._items[i];
             if (_itemsDisplayed.ContainsKey(slot)){
-                _itemsDisplayed[slot].GetComponentInChildren<TextMeshProUGUI>().text = slot._itemAmount.ToString("n0");
+                _itemsDisplayed[slot].GetComponentInChildren<TextMeshProUGUI>().text = slot.GetItemAmount.ToString("n0");
             }
             else{
                 var obj = Instantiate(_inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
                 //Debug.Log(_inventory._database._getItem[slot._item._id]._uiDisplay != null ? "Valid display sprite" : "Display sprite is null");
-                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _inventory.Database._getItem[slot._item._id]._uiDisplay;
+                obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _inventory.Database._getItem[slot.ID]._uiDisplay;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-                obj.GetComponentInChildren<TextMeshProUGUI>().text = slot._itemAmount.ToString("n0");
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.GetItemAmount.ToString("n0");
                 _itemsDisplayed.Add(slot, obj);
             }
         }
@@ -40,9 +40,9 @@ public class DisplayInventory : MonoBehaviour{
         for (int i = 0; i < _inventory.Container._items.Count; i++){
             InventorySlot slot = _inventory.Container._items[i];
             var obj = Instantiate(_inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
-            obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _inventory.Database._getItem[slot._item._id]._uiDisplay;
+            obj.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _inventory.Database._getItem[slot.ID]._uiDisplay;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = slot._itemAmount.ToString("n0");
+            obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.GetItemAmount.ToString("n0");
 
             _itemsDisplayed.Add(slot, obj);
         }

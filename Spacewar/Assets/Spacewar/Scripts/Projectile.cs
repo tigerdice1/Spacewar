@@ -27,13 +27,12 @@ public class Projectile : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    protected virtual void Start()
-    {
+    protected virtual void Start(){
         Initailze();
         if(_isLaunched){
             Rigidbody rid = this.GetComponent<Rigidbody>();
             rid.AddRelativeForce(Vector3.up * _projectileVelocity * 20f);
-            Destroy(gameObject,_destoryTimer);
+            Destroy(this.gameObject,_destoryTimer);
         }
         
     }
