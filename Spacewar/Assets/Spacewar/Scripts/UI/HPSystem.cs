@@ -14,14 +14,14 @@ public class HPSystem : MonoBehaviour{
     [SerializeField]
     private Image _fill;
 
-    public void SetMaxHP(float health){
-        _slider.maxValue = health;
-        _slider.value = health;
+    public void SetMaxHP(float _health){
+        _slider.maxValue = _health;
+        _slider.value = _health;
         _fill.color = _gradient.Evaluate(1f);
     }
 
-    public void SetHP(float health){
-        _slider.value = health; 
+    public void SetHP(float _health){
+        _slider.value = _health; 
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
 }

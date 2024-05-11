@@ -53,11 +53,11 @@ public class ConsoleBase : MonoBehaviour
             _triggeredController = null;
         }
     }
-    public GameObject GetUI{
-        get {
-            if(_consoleUI) return _consoleUI;
-            else return null;
+    public GameObject GetUI(){
+        if(_consoleUI){
+            return _consoleUI;
         }
+        else return null;
     }
 
     // Start is called before the first frame update

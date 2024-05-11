@@ -39,7 +39,7 @@ public class TestPlayerController : MonoBehaviour
     }
     
     private void CheckOnTriggerExit(){
-        if(_triggerObject == null && _uiManager.GetIsUIActivated){
+        if(_triggerObject == null && _uiManager.GetUIActivated()){
             _uiManager.ReleaseUI();
         }
         if(_triggerObject == null && !_controlObject.CompareTag("Player")){
@@ -113,18 +113,18 @@ public class TestPlayerController : MonoBehaviour
     }
     private void CheckKeyInput(){
         if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            if(_triggerObject.GetComponent<Console_PowerGenerator>() && !_uiManager.GetIsUIActivated){
-                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI, true);
+            if(_triggerObject.GetComponent<Console_PowerGenerator>() && !_uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), true);
             }
-            else if(_triggerObject.GetComponent<Console_PowerGenerator>() && _uiManager.GetIsUIActivated){
-                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI, false);
+            else if(_triggerObject.GetComponent<Console_PowerGenerator>() && _uiManager.GetUIActivated()){
+                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), false);
             }
-            if(_triggerObject.GetComponent<Console_ControlPanel>() && !_uiManager.GetIsUIActivated){
-                //_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI, true);
+            if(_triggerObject.GetComponent<Console_ControlPanel>() && !_uiManager.GetUIActivated()){
+                //_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI(), true);
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
-            else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetIsUIActivated){
-                //wwww_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI, false);
+            else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetUIActivated()){
+                //wwww_uiManager.SetUIState(_triggerObject.GetComponent<Console_ControlPanel>().GetUI(), false);
                 _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
             }
         }

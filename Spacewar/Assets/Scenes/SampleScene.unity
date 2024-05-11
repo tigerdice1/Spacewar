@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.01067214, g: 0.006167673, b: 0.019328833, a: 1}
+  m_IndirectSpecularColor: {r: 0.010761151, g: 0.0062604337, b: 0.019418867, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4843,6 +4843,7 @@ MonoBehaviour:
   _minAsteroidAreas: 10
   _maxAsteroidAreas: 20
   _asteroidArea: {fileID: 8275125540175564271, guid: c3f3fbd724f82ca4f8b449761e5abba4, type: 3}
+  _asteroidAreas: []
 --- !u!1001 &1576020123
 PrefabInstance:
   m_ObjectHideFlags: 0

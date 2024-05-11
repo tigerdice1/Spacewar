@@ -19,15 +19,18 @@ public class PowerGeneratorUI : MonoBehaviour
     public void ToggleOnclick(bool isOn){
         _powerGenerator.SetGeneratorState(isOn);
         if(_powerGeneratorBtn){
-            RectTransform rectTransform = _powerGeneratorBtn.GetComponent<Image>().rectTransform;
-            Vector3 currentScale = rectTransform.localScale;
             if (isOn){
+                RectTransform rectTransform = _powerGeneratorBtn.GetComponent<Image>().rectTransform;
+                Vector3 currentScale = rectTransform.localScale;
                 rectTransform.localScale = new Vector3(currentScale.x, -currentScale.y, currentScale.z);
             }
             else{
+                RectTransform rectTransform = _powerGeneratorBtn.GetComponent<Image>().rectTransform;
+                Vector3 currentScale = rectTransform.localScale;
                 rectTransform.localScale = new Vector3(currentScale.x, Mathf.Abs(currentScale.y), currentScale.z);
             }
         }
+        
         
         if(_diode){
             _diode.ChangeImage();
@@ -40,15 +43,19 @@ public class PowerGeneratorUI : MonoBehaviour
 
 	// 발전기가 꺼져있는지 확인하고 꺼져있다면 전원 버튼도 off 상태로 변환
     void CheckIsGeneratorPowerd(){
-        _powerGeneratorBtn.isOn = _powerGenerator.GetGeneratorState;
+        if(!_powerGenerator.GetGeneratorState){
+            _powerGeneratorBtn.isOn = false;
+        }
     }
     // Start is called before the first frame update
-    void Start(){
+    void Start()
+    {
         Initalize();
     }
 
     // Update is called once per frame
-    void Update(){
+    void Update()
+    {
         CheckIsGeneratorPowerd();
         if(_powerGenerator.GetGeneratorState){
         }
