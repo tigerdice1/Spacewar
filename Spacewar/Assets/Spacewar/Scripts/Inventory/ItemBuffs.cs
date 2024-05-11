@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemBuffs : MonoBehaviour{
-    private Attributes _attribute;
+    //private Attributes _attribute;
     private int _value;
     private int _min;
     private int _max;

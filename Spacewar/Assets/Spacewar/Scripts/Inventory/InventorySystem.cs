@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventorySystem : MonoBehaviour{
-    private ItemDB _db;
+    //private ItemDB _db;
 }

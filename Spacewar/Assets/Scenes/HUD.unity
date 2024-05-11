@@ -1724,14 +1724,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1144992006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dd5b2af07b1dd74cbb1a1ec16a3e672, type: 3}
+  m_Script: {fileID: 11500000, guid: 94761ce40650d404e895f265fa15d32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: ff7098ef39ddfc24dbc28ea0fe7a10f1, type: 2}
-  _showItemName: {fileID: 1377919352}
-  _playerController: {fileID: 85998013}
-  _playerRotationSpeed: 1
-  _playerSpeed: 5
+  _playerController: {fileID: 0}
+  _showItemName: {fileID: 0}
+  _playerSpeed: 0
+  _playerRotationSpeed: 0
+  _playerMaxHP: 0
+  _playerCurrentHP: 0
 --- !u!1 &1181927991
 GameObject:
   m_ObjectHideFlags: 0

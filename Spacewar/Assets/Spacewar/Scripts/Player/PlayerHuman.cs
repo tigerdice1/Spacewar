@@ -12,9 +12,9 @@ public class PlayerHuman : MonoBehaviour
     [Tooltip("플레이어 컨트롤러")]
     private PlayerController _playerController;
 
-    [SerializeField]
-    [Tooltip("인벤토리")]
-    private InventoryObject _inventory;
+    // [SerializeField]
+    // [Tooltip("인벤토리")]
+    // private InventoryObject _inventory;
 
     [SerializeField]
     [Tooltip("아이템표시 기능 & 아이템 비활성화 시 예외처리에 사용 될 변수")]
@@ -61,28 +61,28 @@ public class PlayerHuman : MonoBehaviour
         get => _playerCurrentHP;
     }
 
-    public InventoryObject Inventory{
-        set => _inventory = value;
-        get => _inventory;
-    }
+    // public InventoryObject Inventory{
+    //     set => _inventory = value;
+    //     get => _inventory;
+    // }
 
     public TMP_Text ShowItemName{
         set => _showItemName = value;
         get => _showItemName;
     }
 
-    void OnTriggerStay(Collider other){
-        if (hasPressedE || !Input.GetKey(KeyCode.E)) return;
+    // void OnTriggerStay(Collider other){
+    //     if (hasPressedE || !Input.GetKey(KeyCode.E)) return;
 
-        var item = other.GetComponent<GroundItem>();
-        if (item){
-            ShowItemName.gameObject.SetActive(false);
-            Inventory.AddItem(new Item(item.Item), 1);
-            Destroy(other.gameObject);
+    //     var item = other.GetComponent<GroundItem>();
+    //     if (item){
+    //         ShowItemName.gameObject.SetActive(false);
+    //         Inventory.AddItem(new Item(item.Item), 1);
+    //         Destroy(other.gameObject);
 
-            hasPressedE = true;
-        } 
-    }
+    //         hasPressedE = true;
+    //     } 
+    // }
 
     void Initalize(){
         _hpSystem = this.GetComponent<HPSystem>();
@@ -98,20 +98,20 @@ public class PlayerHuman : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //DEBUG_CODE
-        if(Input.GetKeyDown(KeyCode.Space)){
-            TakeDamage(20.0f);
-        }
-        if(Input.GetKeyDown(KeyCode.Space)){
-            _inventory.Save();
-        }
-        if(Input.GetKeyDown(KeyCode.KeypadEnter)){
-            _inventory.Load();
-        }
-        //아이템 습득 중복 방지 예외처리
-        if (Input.GetKeyUp(KeyCode.E)){
-            hasPressedE = false;
-        }
+        // //DEBUG_CODE
+        // if(Input.GetKeyDown(KeyCode.Space)){
+        //     TakeDamage(20.0f);
+        // }
+        // if(Input.GetKeyDown(KeyCode.Space)){
+        //     _inventory.Save();
+        // }
+        // if(Input.GetKeyDown(KeyCode.KeypadEnter)){
+        //     _inventory.Load();
+        // }
+        // //아이템 습득 중복 방지 예외처리
+        // if (Input.GetKeyUp(KeyCode.E)){
+        //     hasPressedE = false;
+        // }
     }
 
     void TakeDamage(float damage){
@@ -120,7 +120,7 @@ public class PlayerHuman : MonoBehaviour
     }
 
     //게임을 끄면 인벤토리 내 아이템 모두 정리.
-    void OnApplicationQuit(){
-       _inventory.Container._items.Clear();
-    }
+    // void OnApplicationQuit(){
+    //    _inventory.Container._items.Clear();
+    // }
 }
