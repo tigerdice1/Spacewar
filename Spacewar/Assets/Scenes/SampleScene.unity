@@ -900,7 +900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5aac69db5065334cbbeb68e187bac37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemNameText: {fileID: 833349613}
 --- !u!65 &343206600
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -934,7 +933,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa73ab8ba815ada48893f23fdd13c88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 11400000, guid: f2430edfbbcb96e4db2dfe903c729404, type: 2}
 --- !u!1 &349827727
 GameObject:
   m_ObjectHideFlags: 0
@@ -4379,7 +4377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5aac69db5065334cbbeb68e187bac37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemNameText: {fileID: 833349613}
 --- !u!65 &1454063758
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4413,7 +4410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa73ab8ba815ada48893f23fdd13c88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 11400000, guid: f2430edfbbcb96e4db2dfe903c729404, type: 2}
 --- !u!1 &1463453665
 GameObject:
   m_ObjectHideFlags: 0
@@ -5816,8 +5812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45313d9ee91b284cbf20d68c17a28d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventoryPrefab: {fileID: 239564453840366259, guid: 33963317f37c30b46904a99f283f51f1, type: 3}
-  _inventory: {fileID: 11400000, guid: ff7098ef39ddfc24dbc28ea0fe7a10f1, type: 2}
 --- !u!114 &1968500032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6120,7 +6114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 832315740}
-  _inventory: {fileID: 11400000, guid: ff7098ef39ddfc24dbc28ea0fe7a10f1, type: 2}
   _showItemName: {fileID: 0}
   _playerSpeed: 5
   _playerRotationSpeed: 10

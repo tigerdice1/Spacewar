@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer(){
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        _controlObject.transform.Translate(new Vector3(moveX, 0, moveZ)* Time.deltaTime * _controlObject.GetComponent<PlayerHuman>().PlayerSpeed, Space.World);
+        _controlObject.transform.Translate(new Vector3(moveX, 0, moveZ)* Time.deltaTime * _controlObject.GetComponent<Human>().PlayerSpeed, Space.World);
     }
 
     private void MoveShip(){
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
             MovePlayer();
-            LookCursorBySlerp(_controlObject.GetComponent<PlayerHuman>().PlayerRotationSpeed);
+            LookCursorBySlerp(_controlObject.GetComponent<Human>().PlayerRotationSpeed);
         }
         else if(_controlObject.CompareTag("MainShip")){
             MoveShip();

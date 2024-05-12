@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerHuman : MonoBehaviour
+public class Human : PlayerBase
 {
     [Tooltip("아이템 주울 때 예외처리")]
     private bool hasPressedE = false;
-
-    [SerializeField]
-    [Tooltip("플레이어 컨트롤러")]
-    private PlayerController _playerController;
 
     // [SerializeField]
     // [Tooltip("인벤토리")]
@@ -22,44 +18,6 @@ public class PlayerHuman : MonoBehaviour
 
     [Tooltip("HP")]
     private HPSystem _hpSystem;
-
-    [SerializeField]
-    [Tooltip("플레이어 속도")]
-    private float _playerSpeed;
-
-    [SerializeField]
-    [Tooltip("플레이어 회전")]
-    private float _playerRotationSpeed;
-
-    [SerializeField]
-    [Tooltip("플레이어 체력")]
-    private float _playerMaxHP;
-
-    [SerializeField]
-    [Tooltip("플레이어 현재체력")]
-    private float _playerCurrentHP;
-
-    /* Properties */
-    public PlayerController PlayerController{
-        set => _playerController = value;
-        get => _playerController;
-    }
-    public float PlayerSpeed { 
-        set => _playerSpeed = value;
-        get => _playerSpeed;
-    }
-    public float PlayerRotationSpeed { 
-        set => _playerRotationSpeed = value;
-        get => _playerRotationSpeed;
-    }
-    public float PlayerMaxHP { 
-        set => _playerMaxHP = value;
-        get => _playerMaxHP;
-    }
-    public float PlayerCurrentHP { 
-        set => _playerCurrentHP = value;
-        get => _playerCurrentHP;
-    }
 
     // public InventoryObject Inventory{
     //     set => _inventory = value;
@@ -85,10 +43,7 @@ public class PlayerHuman : MonoBehaviour
     // }
 
     void Initalize(){
-        _hpSystem = this.GetComponent<HPSystem>();
-        _playerMaxHP = 100.0f;
-        _playerCurrentHP = _playerMaxHP;
-        _hpSystem.SetMaxHP(_playerMaxHP);
+        
     }
     // Start is called before the first frame update
     void Start(){

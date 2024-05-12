@@ -8,7 +8,7 @@ public class DamageManager : MonoBehaviour
 
     }
 
-    public void Damage(Asteroid ast, PlayerHuman phuman){
+    public void Damage(Asteroid ast, PlayerBase player){
 
     }
 

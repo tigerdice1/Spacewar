@@ -19,6 +19,7 @@ public class SceneManager : MonoBehaviour
 
     [SerializeField]
     private AsteroidArea _asteroidArea;
+    [SerializeField]
     private List<AsteroidArea> _asteroidAreas;
 
 
@@ -46,7 +47,7 @@ public class SceneManager : MonoBehaviour
     void Start(){
         int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
         for(int i = 0; i < astCount; i++){
-            _instance._asteroidAreas.Add(Instantiate(_asteroidArea));
+            _asteroidAreas.Add(Instantiate(_asteroidArea));
         }
     }
 

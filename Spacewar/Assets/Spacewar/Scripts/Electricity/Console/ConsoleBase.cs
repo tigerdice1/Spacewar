@@ -43,7 +43,7 @@ public class ConsoleBase : MonoBehaviour
     }
     protected void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Player") && _triggeredController == null){
-            _triggeredController = other.GetComponent<PlayerHuman>().PlayerController;
+            _triggeredController = other.GetComponent<Human>().PlayerController;
             _triggeredController.TriggerObject = this.gameObject;
         }
     }
