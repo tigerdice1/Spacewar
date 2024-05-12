@@ -6092,6 +6092,8 @@ GameObject:
   - component: {fileID: 2026724709}
   - component: {fileID: 2026724708}
   - component: {fileID: 2026724712}
+  - component: {fileID: 2026724715}
+  - component: {fileID: 2026724714}
   - component: {fileID: 2026724707}
   - component: {fileID: 2026724713}
   m_Layer: 0
@@ -6114,11 +6116,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 832315740}
-  _showItemName: {fileID: 0}
   _playerSpeed: 5
   _playerRotationSpeed: 10
   _playerMaxHP: 100
   _playerCurrentHP: 100
+  _hpSystem: {fileID: 0}
+  _showItemName: {fileID: 0}
 --- !u!136 &2026724708
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6279,37 +6282,45 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _fill: {fileID: 1145897597}
---- !u!1 &2033763279
-GameObject:
+--- !u!114 &2026724714
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2033763280}
-  m_Layer: 0
-  m_Name: NetworkManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2033763280
-Transform:
+  m_GameObject: {fileID: 2026724706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &2026724715
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033763279}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7287297, y: 20.350616, z: -11.854362}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 2026724706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 2026724714}
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2050652590 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6705541365060353781, guid: 4376d69a7c22db9438e74d0c6e4a64e3, type: 3}
@@ -7252,4 +7263,3 @@ SceneRoots:
   - {fileID: 1606326514327766662}
   - {fileID: 5601505708151808325}
   - {fileID: 1972991090}
-  - {fileID: 2033763280}
