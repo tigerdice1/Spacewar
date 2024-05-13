@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour
 {
-    public void Damage(Asteroid ast, MainShip mship){
-
-    }
-
-    public void Damage(Asteroid ast, PlayerBase player){
-
-    }
-
-    public void Damage(Projectile pj, Asteroid ast){
-        
+    public void Damage(GameObject attacker, GameObject victim){
+        if(attacker.GetComponent<Projectile>() && victim.GetComponent<Asteroid>()){
+            victim.GetComponent<Asteroid>().AsteroidHP -= attacker.GetComponent<Projectile>().ProjectileDamage;
+        }
     }
     // Start is called before the first frame update
     void Start()

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Human : PlayerBase
-{
+public class Human : PlayerBase{
     [Tooltip("아이템 주울 때 예외처리")]
     private bool hasPressedE = false;
 
@@ -12,22 +11,11 @@ public class Human : PlayerBase
     // [Tooltip("인벤토리")]
     // private InventoryObject _inventory;
 
-    [SerializeField]
-    [Tooltip("아이템표시 기능 & 아이템 비활성화 시 예외처리에 사용 될 변수")]
-    private TMP_Text _showItemName;
-
-    [Tooltip("HP")]
-    private HPSystem _hpSystem;
 
     // public InventoryObject Inventory{
     //     set => _inventory = value;
     //     get => _inventory;
     // }
-
-    public TMP_Text ShowItemName{
-        set => _showItemName = value;
-        get => _showItemName;
-    }
 
     // void OnTriggerStay(Collider other){
     //     if (hasPressedE || !Input.GetKey(KeyCode.E)) return;

@@ -21,6 +21,11 @@ public class Projectile : MonoBehaviour
         set =>  value = _ownerShip;
         get => _ownerShip;
     }
+
+    public float ProjectileDamage{
+        set =>  value = _projectileDamage;
+        get => _projectileDamage;
+    }
     protected void Initailze(){
         this.transform.SetParent(null);
         _isLaunched = true;

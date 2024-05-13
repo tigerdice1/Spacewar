@@ -12,7 +12,7 @@ public class ConsoleBase : MonoBehaviour
     protected GameObject _objectToControl;
 
     [Tooltip("해당 오브젝트를 사용중인 오브젝트입니다. 자동으로 지정됩니다.")]
-    protected GameObject _handlingObject;
+    protected PlayerBase _handlingObject;
 
     [Tooltip("접근 가능구역에 들어온 오브젝트입니다. 트리거 안에 오브젝트가 들어오면 자동으로 지정됩니다.")]
     protected PlayerController _triggeredController;

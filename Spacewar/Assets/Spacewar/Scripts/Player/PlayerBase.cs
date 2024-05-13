@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -23,8 +24,12 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("플레이어 현재체력")]
     protected float _playerCurrentHP;
 
+    
     [SerializeField]
-    [Tooltip("hpSystem")]
+    [Tooltip("아이템표시 기능 & 아이템 비활성화 시 예외처리에 사용 될 변수")]
+    protected TMP_Text _showItemName;
+
+    [Tooltip("HP")]
     protected HPSystem _hpSystem;
 
     /* Properties */
@@ -47,6 +52,11 @@ public class PlayerBase : MonoBehaviour
     public float PlayerCurrentHP { 
         set => _playerCurrentHP = value;
         get => _playerCurrentHP;
+    }
+    
+    public TMP_Text ShowItemName{
+        set => _showItemName = value;
+        get => _showItemName;
     }
 
     protected virtual void Initalize(){

@@ -12,11 +12,17 @@ public class Asteroid : MonoBehaviour
     [Tooltip("소행성의 초기 체력입니다.")]
     private float _asteroidHP;
 
+    public float AsteroidHP{
+        set => _asteroidHP = value;
+        get => _asteroidHP;
+    }
+
     private void Initalize(){
         if(SceneManager.Instance().IsDebugMode()){
             if(!this.GetComponent<MeshCollider>()){
                 Debug.Log("MeshCollider Not Contained");
             }
+            _asteroidHP = 100f;
         }
         
         float scale = Random.Range(1f, 50f);
@@ -33,6 +39,9 @@ public class Asteroid : MonoBehaviour
 
         }
         else if(overlappedObject.CompareTag("Projectile")){
+            Debug.Log("ddd");
+            DamageManager damageMgr = new DamageManager();
+            damageMgr.Damage(overlappedObject.transform.gameObject, this.gameObject);
             
         }
     }
@@ -44,6 +53,8 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(this._asteroidHP <= 0){
+            Destroy(this);
+        }
     }
 }
