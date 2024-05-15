@@ -6,6 +6,8 @@ public class ItemBase : MonoBehaviour{
     private string _name;
     private int _id;
     private List<ItemBuffs> _buffs;
+
+    
     // private Item(ItemBase item){
     //     this._name = item.name;
     //     this._id = item._id;
