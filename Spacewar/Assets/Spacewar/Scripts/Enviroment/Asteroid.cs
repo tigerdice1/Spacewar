@@ -35,11 +35,12 @@ public class Asteroid : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider overlappedObject){
+        Debug.Log("ddd");
         if(overlappedObject.CompareTag("MainShip")){
 
         }
         else if(overlappedObject.CompareTag("Projectile")){
-            Debug.Log("ddd");
+            
             DamageManager damageMgr = new DamageManager();
             damageMgr.Damage(overlappedObject.transform.gameObject, this.gameObject);
             

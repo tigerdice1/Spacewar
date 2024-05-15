@@ -42,14 +42,17 @@ public class Turret : MonoBehaviour
                     _fireOrder = 0;
                 }
                 _bullet.GetComponent<Projectile>().OwnerShip = _ownerShip;
-                Instantiate(_bullet,_bulletSpawn[_fireOrder].transform);
+                Debug.Log(_bulletSpawn[_fireOrder].transform.position);
+                Instantiate(_bullet, _bulletSpawn[_fireOrder].transform);
+                //Instantiate(_bullet, new Vector3(_bulletSpawn[_fireOrder].transform.position.x ,_bulletSpawn[_fireOrder].transform.position.y, _bulletSpawn[_fireOrder].transform.position.z), _bullet.transform.localRotation, _bulletSpawn[_fireOrder].transform);
                 _time = 0f;
                 _fireOrder++;
         }
     }
     void Initailize(){
-        foreach(GameObject bulletSpawn in GameObject.FindGameObjectsWithTag("BulletSpawn")){
-            _bulletSpawn.Add(bulletSpawn);
+        List<GameObject> bulletSpawn = new List<GameObject>(GameObject.FindGameObjectsWithTag("BulletSpawn"));
+        for(int i = 0; i < bulletSpawn.Count; i++){
+            _bulletSpawn.Add(bulletSpawn[i]);
         }
     }
     // Start is called before the first frame update
