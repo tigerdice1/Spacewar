@@ -111,17 +111,18 @@ public class PlayerController : MonoBehaviour
 
     private void MoveShip(){
         Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
+        float spd = _controlObject.GetComponent<MainShip>().Speed;
         if (Input.GetKey(KeyCode.W)){
-            rid.AddRelativeForce(Vector3.forward * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.forward * spd);
         }
         if (Input.GetKey(KeyCode.A)){
-            rid.AddRelativeForce(Vector3.left * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.left * spd);
         }
         if (Input.GetKey(KeyCode.S)){
-            rid.AddRelativeForce(Vector3.back * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.back * spd);
         }
         if (Input.GetKey(KeyCode.D)){
-            rid.AddRelativeForce(Vector3.right * _controlObject.GetComponent<MainShip>().Speed);
+            rid.AddRelativeForce(Vector3.right * spd);
         }
         float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
         if(rid.velocity.x > MaxVelocity){
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(_controlObject.CompareTag("MainShip")){
             MoveShip();
-            LookCursorBySlerp(_controlObject.GetComponent<MainShip>().RotationSpeed);
+            LookCursorBySlerp(_controlObject.GetComponent<MainShip>().ShipRotationSpeed);
         }
         else if(_controlObject.CompareTag("Turret")){
             LookCursor(_controlObject.GetComponent<Turret>().RotationSpeed);

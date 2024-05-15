@@ -44,7 +44,7 @@ public class ShipBase : MonoBehaviour
         get => _speed;
     }
 
-    public float RotationSpeed{
+    public float ShipRotationSpeed{
         set => _rotationSpeed = value;
         get => _rotationSpeed;
     }
