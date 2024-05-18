@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -22,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_LocalRotation.x
@@ -30,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_LocalRotation.z
@@ -42,20 +54,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       propertyPath: m_Name
       value: BULLET
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
+      propertyPath: m_TagString
+      value: Projectile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1287423910120678594}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6771128646348217595}
@@ -68,6 +91,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f8969a63faf9c94593ebd0275248db6, type: 3}
   m_PrefabInstance: {fileID: 3184812575598203392}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1287423910120678594
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374474490671755089}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.020000003, y: 0.020000001, z: 0.04861944}
+  m_Center: {x: 0.0000000013969839, y: -0.0000000018626451, z: -0.025056656}
 --- !u!54 &6771128646348217595
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -108,6 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ownerShip: {fileID: 0}
-  _projectileVelocity: 1900
+  _projectileVelocity: 5000
   _projectileDamage: 5
   _destoryTimer: 5

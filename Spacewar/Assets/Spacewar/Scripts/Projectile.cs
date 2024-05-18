@@ -43,4 +43,8 @@ public class Projectile : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter(Collision other) {
+        Debug.Log(other);
+    }
 }

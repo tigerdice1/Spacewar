@@ -34,18 +34,23 @@ public class Asteroid : MonoBehaviour
         this.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
     }
 
-    private void OnTriggerEnter(Collider overlappedObject){
-        Debug.Log("ddd");
-        if(overlappedObject.CompareTag("MainShip")){
+    private void OnCollisionEnter(Collision overlappedObject){
+        Debug.Log("asdasda");
+        if(overlappedObject.collider.CompareTag("MainShip")){
 
         }
-        else if(overlappedObject.CompareTag("Projectile")){
+        else if(overlappedObject.collider.CompareTag("Projectile")){
             
             DamageManager damageMgr = new DamageManager();
             damageMgr.Damage(overlappedObject.transform.gameObject, this.gameObject);
             
         }
     }
+
+    private void OnCollisionStay(Collision overlappedObject){
+        Debug.Log("Stay");
+    }
+
     // Start is called before the first frame update
     void Start(){
         Initalize();
