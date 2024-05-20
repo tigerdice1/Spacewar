@@ -18,12 +18,9 @@ public class Asteroid : MonoBehaviour
     }
 
     private void Initalize(){
-        if(SceneManager.Instance().IsDebugMode()){
-            if(!this.GetComponent<MeshCollider>()){
-                Debug.Log("MeshCollider Not Contained");
-            }
-            _asteroidHP = 100f;
-        }
+        this.transform.SetParent(null);
+        _asteroidHP = 100f;
+        
         
         float scale = Random.Range(1f, 50f);
         this.transform.localScale = new Vector3(scale, scale, scale);
@@ -34,21 +31,20 @@ public class Asteroid : MonoBehaviour
         this.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
     }
 
-    private void OnCollisionEnter(Collision overlappedObject){
+    private void OnCollisionEnter(Collision other){
         Debug.Log("asdasda");
-        if(overlappedObject.collider.CompareTag("MainShip")){
+        if(other.collider.CompareTag("MainShip")){
 
         }
-        else if(overlappedObject.collider.CompareTag("Projectile")){
+        else if(other.collider.CompareTag("Projectile")){
             
             DamageManager damageMgr = new DamageManager();
-            damageMgr.Damage(overlappedObject.transform.gameObject, this.gameObject);
+            damageMgr.Damage(other.transform.gameObject, this.gameObject);
             
         }
     }
 
-    private void OnCollisionStay(Collision overlappedObject){
-        Debug.Log("Stay");
+    private void OnCollisionStay(Collision overlappedObject){ 
     }
 
     // Start is called before the first frame update
