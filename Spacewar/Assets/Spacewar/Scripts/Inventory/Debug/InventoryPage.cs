@@ -18,7 +18,27 @@ public class InventoryPage : MonoBehaviour
             InventoryItem _item = Instantiate(_itemPrefab,Vector3.zero,Quaternion.identity);
             _item.transform.SetParent(_contentPanel);
             _listOfItems.Add(_item);
+            _item.OnItemClicked += HandleItemSelection;
+            _item.OnItemBeginDrag += HandleBeginDrag;
+            _item.OnItemDroppedOn += HandleSwap;
+            _item.OnItemEndDrag += HandleEndDrag;
+            _item.OnRightMouseBtnClick += HandleShowItemActions;
         }
+    }
+    private void HandleShowItemActions(InventoryItem obj){
+
+    }
+    private void HandleEndDrag(InventoryItem obj){
+
+    }
+    private void HandleSwap(InventoryItem obj){
+
+    }
+    private void HandleBeginDrag(InventoryItem obj){
+
+    }
+    private void HandleItemSelection(InventoryItem obj){
+
     }
     //인벤토리창 on/off
     public void Show()
