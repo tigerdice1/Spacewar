@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
     protected void Initailze(){
         this.transform.SetParent(null);
         Rigidbody rid = this.GetComponent<Rigidbody>();
-        rid.AddRelativeForce(Vector3.forward * _projectileVelocity * rid.mass);
+        rid.AddRelativeForce(Vector3.forward * _projectileVelocity * rid.mass * 10f);
         Destroy(gameObject,_destoryTimer);
     }
 

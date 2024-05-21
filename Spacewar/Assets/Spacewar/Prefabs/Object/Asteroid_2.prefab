@@ -100,7 +100,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6693457787121837269}
   serializedVersion: 4
-  m_Mass: 200
+  m_Mass: 700
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -131,3 +131,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84aac2cb6752404e86c0a44aa78147d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _asteroidHP: 0

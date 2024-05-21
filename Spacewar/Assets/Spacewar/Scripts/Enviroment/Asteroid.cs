@@ -8,9 +8,11 @@ public class Asteroid : MonoBehaviour
     private Vector3 _moveDirection;
     [Tooltip("소행성의 초기 속도입니다.")]
     private float _moveSpeed;
-
+    [SerializeField]
     [Tooltip("소행성의 초기 체력입니다.")]
     private float _asteroidHP;
+
+    private DamageManager _damageManager;
 
     public float AsteroidHP{
         set => _asteroidHP = value;
@@ -18,13 +20,12 @@ public class Asteroid : MonoBehaviour
     }
 
     private void Initalize(){
-        this.transform.SetParent(null);
-        _asteroidHP = 100f;
-        
         
         float scale = Random.Range(1f, 50f);
+        this.gameObject.GetComponent<Rigidbody>().mass = scale * 100f;
+        _asteroidHP = this.gameObject.GetComponent<Rigidbody>().mass;
         this.transform.localScale = new Vector3(scale, scale, scale);
-        //_damageManager = new DamageManager();
+        _damageManager = this.gameObject.AddComponent<DamageManager>();
         _moveSpeed = Random.Range(0f, 1000f);
         _moveDirection = new Vector3(Random.Range(0f,1f), 0f, Random.Range(0f,1f));
         this.GetComponent<Rigidbody>().AddForce(_moveDirection * _moveSpeed);
@@ -32,14 +33,11 @@ public class Asteroid : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other){
-        Debug.Log("asdasda");
         if(other.collider.CompareTag("MainShip")){
 
         }
         else if(other.collider.CompareTag("Projectile")){
-            
-            DamageManager damageMgr = new DamageManager();
-            damageMgr.Damage(other.transform.gameObject, this.gameObject);
+            _damageManager.Damage(other.transform.gameObject, this.gameObject);
             
         }
     }
@@ -56,7 +54,7 @@ public class Asteroid : MonoBehaviour
     void Update()
     {
         if(this._asteroidHP <= 0){
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

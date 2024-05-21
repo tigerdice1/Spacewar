@@ -36,8 +36,9 @@ public class Turret : MonoBehaviour
     }
     private void Fire(){
         _time += Time.deltaTime;
-        float rpm = _rpm * 0.000167f;
-            if(_bullet != null && _time >= rpm){
+        float rpm = _rpm / 60;
+        float spr = 1 / rpm;
+            if(_bullet != null && _time >= spr){
                 if(_fireOrder >= _bulletSpawn.Count){
                     _fireOrder = 0;
                 }

@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Initailize(){
         // MainUI always visible
-        _uiManager = gameObject.AddComponent<UIManager>();
+        _uiManager = this.gameObject.AddComponent<UIManager>();
         _uiManager.SetPlayerUIState(true);
     }
     

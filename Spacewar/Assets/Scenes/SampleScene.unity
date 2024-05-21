@@ -606,7 +606,7 @@ MonoBehaviour:
   _bulletSpawn:
   - {fileID: 433633288}
   - {fileID: 1316426940}
-  _rpm: 600
+  _rpm: 100
   _bullet: {fileID: 2374474490671755089, guid: 752d9ca28d44f144697acbac694397b6, type: 3}
 --- !u!54 &281472720
 Rigidbody:
@@ -630,10 +630,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!1 &294587032 stripped
 GameObject:
@@ -1051,7 +1051,7 @@ Transform:
   m_GameObject: {fileID: 433633288}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6540009, y: 0.33200034, z: 5.664}
+  m_LocalPosition: {x: 0.6540009, y: 0.33200034, z: 5.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2713,6 +2713,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b72d4025015999c41a45ff036f2131dc, type: 3}
   m_PrefabInstance: {fileID: 2025002046}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1094366507
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094366504}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.2479029, y: 3.1587586, z: 2.4536147}
+  m_Center: {x: -1.9946748, y: 2.3066645, z: 4.402529}
 --- !u!1 &1145897595
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,7 +3192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c868a489781d0b341889304fe33a9631, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.2
+      value: -17.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c868a489781d0b341889304fe33a9631, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3806,7 +3827,7 @@ Transform:
   m_GameObject: {fileID: 1316426940}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.64899904, y: 0.33200034, z: 5.568999}
+  m_LocalPosition: {x: -0.64899904, y: 0.33200034, z: 5.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4477,10 +4498,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isDebugMode: 0
-  _mapSize_X: 500
-  _mapSize_Z: 500
-  _minAsteroidAreas: 10
-  _maxAsteroidAreas: 20
+  _mapSize_X: 250
+  _mapSize_Z: 250
+  _minAsteroidAreas: 5
+  _maxAsteroidAreas: 10
   _asteroidArea: {fileID: 8275125540175564271, guid: c3f3fbd724f82ca4f8b449761e5abba4, type: 3}
   _asteroidAreas: []
 --- !u!1001 &1576020123
@@ -4819,6 +4840,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e4f01cb61f76ec34eb25f3af9054d3b7, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 92fbdcd1a20fe704d9c006558764ad7d, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5697,6 +5722,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b72d4025015999c41a45ff036f2131dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1094366507}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b72d4025015999c41a45ff036f2131dc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1094366505}
