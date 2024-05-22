@@ -15,4 +15,8 @@ public class MissileLoader : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter(Collider other) {
+        
+    }
 }

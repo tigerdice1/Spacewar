@@ -13,7 +13,7 @@ public class InventoryPage : MonoBehaviour
 
     public void InitializeInventory(int inventorysize)
     {
-        for(int i =0;i<inventorysize; i++)
+        for(int i =0; i < inventorysize; i++)
         {
             InventoryItem _item = Instantiate(_itemPrefab,Vector3.zero,Quaternion.identity);
             _item.transform.SetParent(_contentPanel);
