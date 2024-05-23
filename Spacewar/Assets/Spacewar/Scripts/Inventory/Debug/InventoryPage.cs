@@ -13,6 +13,9 @@ public class InventoryPage : MonoBehaviour
     [SerializeField]
     private InventoryDescription _itemDescription;
 
+    [SerializeField]
+    private MouseFollower _mouseFollower;
+
     List<InventoryItem> _listOfItems = new List<InventoryItem>();
 
     //테스트 용 코드 1
@@ -22,6 +25,7 @@ public class InventoryPage : MonoBehaviour
 
     private void Awake(){
         Hide();
+        _mouseFollower.Toggle(false);
         _itemDescription.ResetDescription();
     }
 
@@ -42,13 +46,14 @@ public class InventoryPage : MonoBehaviour
 
     }
     private void HandleEndDrag(InventoryItem obj){
-
+        _mouseFollower.Toggle(false);
     }
     private void HandleSwap(InventoryItem obj){
 
     }
     private void HandleBeginDrag(InventoryItem obj){
-
+        _mouseFollower.Toggle(true);
+        _mouseFollower.SetData(_image,_quantity);
     }
     private void HandleItemSelection(InventoryItem obj){
         _itemDescription.SetDescription(_image,_title,_description); //test 1
