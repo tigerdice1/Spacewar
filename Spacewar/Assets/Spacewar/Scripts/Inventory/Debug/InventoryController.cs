@@ -10,16 +10,23 @@ public class InventoryController : MonoBehaviour
     public int inventorySize = 4; // 임시
 
     private void Start(){
-        _inventoryUI.InitializeInventory(inventorySize);
+        _inventoryUI.Initialize(inventorySize);
     }
-    public void Update(){
+    private void Update(){ //작동 테스트
         if(Input.GetKeyDown(KeyCode.I)){
-            if(_inventoryUI.isActiveAndEnabled == false){
-                _inventoryUI.Show();
-            }
-            else{
-                _inventoryUI.Hide();
-            }
+            ToggleInventory();
+        }
+    }
+    public void ToggleInventory()
+    {
+        if (!_inventoryUI.isActiveAndEnabled)
+        {
+            _inventoryUI.Show();
+        }
+        else
+        {
+            _inventoryUI.Hide();
         }
     }
 }
+
