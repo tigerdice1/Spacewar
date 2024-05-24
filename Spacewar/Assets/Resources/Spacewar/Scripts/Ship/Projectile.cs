@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Projectile : MonoBehaviour
 {
@@ -30,7 +32,7 @@ public class Projectile : MonoBehaviour
         this.transform.SetParent(null);
         Rigidbody rid = this.GetComponent<Rigidbody>();
         rid.AddRelativeForce(Vector3.forward * _projectileVelocity * rid.mass * 10f);
-        Destroy(gameObject,_destoryTimer);
+        
     }
 
     // Start is called before the first frame update
@@ -41,7 +43,10 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        _timer += Time.deltaTime;
+        if(_timer >= _destoryTimer){
+            PhotonNetwork.Destroy(this.gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision other) {
