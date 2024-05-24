@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,10 +19,14 @@ public class InventoryPage : MonoBehaviour
 
     List<InventoryItem> _listOfItems = new List<InventoryItem>();
 
-    //테스트 용 코드 1
-    public Sprite _image;
-    public int _quantity;
-    public string _title, _description;
+    private int _currentlyDraggedItemIndex = -1;
+
+    public event Action<int> OnDescriptionRequested,
+            OnItemActionRequested,
+            OnStartDragging;
+
+    public event Action<int,int> OnSwapItems;
+
 
     private void Awake(){
         Hide();
@@ -42,33 +47,75 @@ public class InventoryPage : MonoBehaviour
             _item.OnRightMouseBtnClick += HandleShowItemActions;
         }
     }
-    private void HandleShowItemActions(InventoryItem obj){
+
+    public void UpdateData(int itemIndex,Sprite itemImage, int itemQuantity){
+        if(_listOfItems.Count > itemIndex)
+        {
+            _listOfItems[itemIndex].SetData(itemImage,itemQuantity);
+        }
+    }
+
+    private void HandleShowItemActions(InventoryItem inventoryItemUI){
 
     }
-    private void HandleEndDrag(InventoryItem obj){
+
+    private void HandleEndDrag(InventoryItem inventoryItemUI){
+        ResetDraggedItem();
+    }
+
+    private void HandleSwap(InventoryItem inventoryItemUI){
+        int _index = _listOfItems.IndexOf(inventoryItemUI);
+        if(_index == -1){
+            return;
+        }
+        OnSwapItems?.Invoke(_currentlyDraggedItemIndex,_index);
+    }
+
+    public void ResetDraggedItem(){
         _mouseFollower.Toggle(false);
+        _currentlyDraggedItemIndex = -1;
     }
-    private void HandleSwap(InventoryItem obj){
 
+    private void HandleBeginDrag(InventoryItem inventoryItemUI){
+        int _index = _listOfItems.IndexOf(inventoryItemUI);
+        if(_index == -1){
+            return;
+        }
+        _currentlyDraggedItemIndex = _index;
+        HandleItemSelection(inventoryItemUI);
+        OnStartDragging?.Invoke(_index);
     }
-    private void HandleBeginDrag(InventoryItem obj){
+
+    public void CreateDraggedItem(Sprite sprite, int quantity){
         _mouseFollower.Toggle(true);
-        _mouseFollower.SetData(_image,_quantity);
+        _mouseFollower.SetData(sprite,quantity);
     }
-    private void HandleItemSelection(InventoryItem obj){
-        _itemDescription.SetDescription(_image,_title,_description); //test 1
-        _listOfItems[0].Select();
+
+    private void HandleItemSelection(InventoryItem inventoryItemUI){
+        int _index = _listOfItems.IndexOf(inventoryItemUI);
+        if (_index == -1)
+                return;
+        OnDescriptionRequested?.Invoke(_index);
     }
     //인벤토리창 on/off
     public void Show()
     {
         gameObject.SetActive(true);
-        _itemDescription.ResetDescription();
+        ResetSelection();
+    }
 
-        _listOfItems[0].SetData(_image,_quantity); // test 1
+    private void ResetSelection(){
+        _itemDescription.ResetDescription();
+        DeselectAllItems();
+    }
+    private void DeselectAllItems(){
+        foreach(InventoryItem item in _listOfItems){
+            item.Deselect();
+        }
     }
     public void Hide()
     {
         gameObject.SetActive(false);
+        ResetDraggedItem();
     }
 }

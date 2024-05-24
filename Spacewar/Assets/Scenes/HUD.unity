@@ -2144,6 +2144,10 @@ PrefabInstance:
       value: asd
       objectReference: {fileID: 0}
     - target: {fileID: 1868653080806934541, guid: 5689ced04c3d21f40b1dfe4b95af1845, type: 3}
+      propertyPath: _image2
+      value: 
+      objectReference: {fileID: 21300000, guid: 74b6736e634cf5d48a0e8050ffd4cf82, type: 3}
+    - target: {fileID: 1868653080806934541, guid: 5689ced04c3d21f40b1dfe4b95af1845, type: 3}
       propertyPath: _quantity
       value: 1
       objectReference: {fileID: 0}
@@ -2159,6 +2163,18 @@ PrefabInstance:
       propertyPath: _itemDescription
       value: 
       objectReference: {fileID: 324596826}
+    - target: {fileID: 4576641040483686751, guid: 5689ced04c3d21f40b1dfe4b95af1845, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627975545815056690, guid: 5689ced04c3d21f40b1dfe4b95af1845, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630327696470805340, guid: 5689ced04c3d21f40b1dfe4b95af1845, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6647382161626808379, guid: 5689ced04c3d21f40b1dfe4b95af1845, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
