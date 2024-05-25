@@ -48,6 +48,12 @@ public class InventoryPage : MonoBehaviour
         }
     }
 
+    public void UpdateDescription(int itemIndex, Sprite itemImage, string name, string description){
+        _itemDescription.SetDescription(itemImage,name,description);
+        DeselectAllItems();
+        _listOfItems[itemIndex].Select();
+    }
+
     public void UpdateData(int itemIndex,Sprite itemImage, int itemQuantity){
         if(_listOfItems.Count > itemIndex)
         {
@@ -104,7 +110,7 @@ public class InventoryPage : MonoBehaviour
         ResetSelection();
     }
 
-    private void ResetSelection(){
+    public void ResetSelection(){
         _itemDescription.ResetDescription();
         DeselectAllItems();
     }
