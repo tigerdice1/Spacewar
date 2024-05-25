@@ -22,7 +22,8 @@ public class ShipBase : MonoBehaviour
     protected GameObject _targetObject;
 
     protected float _shipHP;
-    protected float _rotationSpeed = 1f;
+    [SerializeField]
+    protected float _rotationSpeed;
     protected float _currentAngularSpeed;
     protected Quaternion _previousRotation;
     protected Vector3 _axis = Vector3.zero;

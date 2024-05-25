@@ -5,8 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class MenuController : MonoBehaviour
-{
+public class MenuController : MonoBehaviour{
+
+    private NetWorkManager _netManager;
+    private GameObject _loginPanel;
+    private Gameobject _hostGamePanel;
+    private GameObject _joinGamePanel;
     [Header("Levels To Load")]
     public string _newGameLevel;
     //private string levelToLoad;

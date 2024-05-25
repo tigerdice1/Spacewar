@@ -5836,13 +5836,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2286945840663872881, guid: a8d56de6eef328745bfa6cd8b07ddae0, type: 3}
+      propertyPath: m_Mass
+      value: 150000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2286945840663872881, guid: a8d56de6eef328745bfa6cd8b07ddae0, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5168192117858895503, guid: a8d56de6eef328745bfa6cd8b07ddae0, type: 3}
       propertyPath: sceneViewId
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6662999809792700242, guid: a8d56de6eef328745bfa6cd8b07ddae0, type: 3}
       propertyPath: _speed
-      value: 5000
+      value: 3570000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662999809792700242, guid: a8d56de6eef328745bfa6cd8b07ddae0, type: 3}
+      propertyPath: _rotationSpeed
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6662999809792700242, guid: a8d56de6eef328745bfa6cd8b07ddae0, type: 3}
       propertyPath: '_missileRooms.Array.data[0]'

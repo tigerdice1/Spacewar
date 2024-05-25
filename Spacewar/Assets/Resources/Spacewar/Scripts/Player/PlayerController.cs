@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
     private void MoveShip(){
         Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
         float spd = _controlObject.GetComponent<MainShip>().Speed;
+        
         if (Input.GetKey(KeyCode.W)){
             rid.AddRelativeForce(Vector3.forward * spd);
         }
