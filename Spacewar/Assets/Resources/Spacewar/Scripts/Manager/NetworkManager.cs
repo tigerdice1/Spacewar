@@ -14,10 +14,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private byte _maxPlayers;
 
     private bool _isLoggedIn = false;
+    private bool _isHost = false;
     private Text _connectionStatus;
 
     public static NetworkManager Instance(){
         return _instance;
+    }
+
+    public bool IsHost{
+        get => _isHost;
     }
 
     public void SetPlayerName(string playerName){
@@ -34,9 +39,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         this._maxPlayers = mp;
     }
     public override void OnConnectedToMaster(){
+        base.OnConnectedToMaster();
         print("서버 접속 완료");
-        PhotonNetwork.LocalPlayer.NickName = _playerName;
-        PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions { MaxPlayers = 6}, null);
+        PhotonNetwork.ConnectUsingSettings();
+        //PhotonNetwork.LocalPlayer.NickName = _playerName;
+        //PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions { MaxPlayers = 6}, null);
+    }
+
+    public override void OnConnected(){
+        CreateRoom();
     }
 
     public override void OnJoinedLobby(){
@@ -46,23 +57,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void OnLoginButtonClicked(){
         if(!_playerName.Equals("")){
             PhotonNetwork.LocalPlayer.NickName = _playerName;
-            PhotonNetwork.ConnectUsingSettings();
+            
             _isLoggedIn = true;
         }
         else{
             Debug.LogError("Player Name is invalid.");
         }
     }
-
-    public void OnCreateRoomButtonClicked()
-    {
+    public void OnCreatedRoom(){
+        _isHost = true;
+    }
+    public void CreateRoom(){
         _serverName = (_serverName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : _serverName;
-
-        _maxPlayers = (byte) Mathf.Clamp(_maxPlayers, 2, 8);
-
+        _maxPlayers = (byte) Mathf.Clamp(_maxPlayers, 2, 10);
         RoomOptions options = new RoomOptions {MaxPlayers = _maxPlayers, PlayerTtl = 10000 };
-
         PhotonNetwork.CreateRoom(_serverName, options, null);
+        
+        //
+        
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();
 

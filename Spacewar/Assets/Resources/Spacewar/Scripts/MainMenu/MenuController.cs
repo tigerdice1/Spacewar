@@ -7,9 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour{
 
-    private NetWorkManager _netManager;
+    [SerializeField]
+    private NetworkManager _netManager;
+    [SerializeField]
     private GameObject _loginPanel;
-    private Gameobject _hostGamePanel;
+    [SerializeField]
+    private GameObject _hostGamePanel;
+    
+    [SerializeField]
+    private GameObject _hostLobbyPanel;
+    [SerializeField]
     private GameObject _joinGamePanel;
     [Header("Levels To Load")]
     public string _newGameLevel;
@@ -36,5 +43,12 @@ public class MenuController : MonoBehaviour{
     public void ExitButton()
     {
         Application.Quit();
+    }
+
+    private void Update(){
+        if(_netManager.IsHost){
+            _hostGamePanel.SetActive(false);
+            _hostLobbyPanel.SetActive(true); //
+        }
     }
 }
