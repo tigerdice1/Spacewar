@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class MenuController : MonoBehaviour{
 
     [SerializeField]
     private NetworkManager _netManager;
+    [SerializeField]
+    private GameObject _mainBtnGroupPanel;
     [SerializeField]
     private GameObject _loginPanel;
     [SerializeField]
@@ -17,7 +20,10 @@ public class MenuController : MonoBehaviour{
     [SerializeField]
     private GameObject _hostLobbyPanel;
     [SerializeField]
+    private TextMeshProUGUI _hostLobbyPanelText;
+    [SerializeField]
     private GameObject _joinGamePanel;
+
     [Header("Levels To Load")]
     public string _newGameLevel;
     //private string levelToLoad;
@@ -46,9 +52,14 @@ public class MenuController : MonoBehaviour{
     }
 
     private void Update(){
+        if(!_netManager.IsLoggedIn){
+            _mainBtnGroupPanel.SetActive(false);
+            _loginPanel.SetActive(true);
+        }
         if(_netManager.IsHost){
             _hostGamePanel.SetActive(false);
-            _hostLobbyPanel.SetActive(true); //
+            _hostLobbyPanel.SetActive(true);
+            _hostLobbyPanelText.text = _netManager.GetServerName;
         }
     }
 }

@@ -25,12 +25,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         get => _isHost;
     }
 
+    public bool IsLoggedIn{
+        get => _isLoggedIn;
+    }
+
     public void SetPlayerName(string playerName){
         this._playerName = playerName;
     }
 
     public void SetServerName(string serverName){
         this._serverName = serverName;
+    }
+
+    public string GetServerName{
+        get => _serverName;
     }
 
     public void SetMaxPlayer(string maxPlayers){
@@ -40,14 +48,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster(){
         base.OnConnectedToMaster();
-        print("서버 접속 완료");
-        PhotonNetwork.ConnectUsingSettings();
-        //PhotonNetwork.LocalPlayer.NickName = _playerName;
-        //PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions { MaxPlayers = 6}, null);
+        print("마스터 서버 접속 완료");
+        CreateRoom();
     }
 
+    public void Connect(){
+        PhotonNetwork.ConnectUsingSettings();
+        print("서버 접속 중...");
+    }
     public override void OnConnected(){
-        CreateRoom();
+        print("접속 완료");
     }
 
     public override void OnJoinedLobby(){
@@ -55,6 +65,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public void OnLoginButtonClicked(){
+        if(_playerName == null){
+            Debug.LogError("Player Name is Empty!.");
+            return;
+        }
         if(!_playerName.Equals("")){
             PhotonNetwork.LocalPlayer.NickName = _playerName;
             
@@ -64,19 +78,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.LogError("Player Name is invalid.");
         }
     }
-    public void OnCreatedRoom(){
+    public override void OnCreatedRoom(){
+        print("호스트 서버 생성 완료");
         _isHost = true;
     }
     public void CreateRoom(){
+        print("호스트 서버 생성 중");
         _serverName = (_serverName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : _serverName;
         _maxPlayers = (byte) Mathf.Clamp(_maxPlayers, 2, 10);
-        RoomOptions options = new RoomOptions {MaxPlayers = _maxPlayers, PlayerTtl = 10000 };
+        RoomOptions options = new RoomOptions {MaxPlayers = _maxPlayers, PlayerTtl = 10000, IsVisible = true, IsOpen = true};
         PhotonNetwork.CreateRoom(_serverName, options, null);
         
-        //
+        
         
     }
-    public void Connect() => PhotonNetwork.ConnectUsingSettings();
 
     public override void OnJoinedRoom(){
         //UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
