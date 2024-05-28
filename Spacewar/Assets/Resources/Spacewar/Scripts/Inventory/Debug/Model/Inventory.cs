@@ -17,6 +17,8 @@ namespace PlayerInven.Model
             get => _size;
         }
 
+        public event Action<Dictionary<int,ItemSlot>> OnInventoryUpdated;
+
         public void Initialize(){
             _inventoryItems = new List<ItemSlot>();
             for (int i =0;i<_size;i++)
@@ -32,8 +34,14 @@ namespace PlayerInven.Model
                         Item = item,
                         Quantity= quantity
                     };
+                    return;
                 }
             }
+        }
+
+        public void AddItem(ItemSlot item)
+        {
+            AddItem(item.Item,item.Quantity);
         }
 
         public Dictionary<int, ItemSlot> GetCurrentInventoryState(){
@@ -48,6 +56,17 @@ namespace PlayerInven.Model
         }
         public ItemSlot GetItemAt(int itemIndex){
             return _inventoryItems[itemIndex];
+        }
+
+        public void SwapItems(int itemIndex_1,int itemIndex_2){
+            ItemSlot item1 = _inventoryItems[itemIndex_1];
+            _inventoryItems[itemIndex_1] = _inventoryItems[itemIndex_2];
+            _inventoryItems[itemIndex_2] = item1;
+            InformAboutChange(); // 변경됐다는것을 알리는 함수
+        }
+
+        private void InformAboutChange(){
+            OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
         }
     }
     [Serializable]

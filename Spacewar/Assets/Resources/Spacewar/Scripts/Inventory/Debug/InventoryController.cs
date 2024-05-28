@@ -15,11 +15,33 @@ namespace PlayerInven
         [SerializeField]
         private Inventory _inventoryData;
 
+        [SerializeField]
+        private List<ItemSlot> _initialSlots = new List<ItemSlot>();
+
         private void Start(){
             PrepareUI();
-            //_inventoryData.Initialize();
+            PrepareInvenData();
         }
 
+        private void PrepareInvenData(){
+            _inventoryData.Initialize();
+            _inventoryData.OnInventoryUpdated += UpdateInventoryUI;
+            foreach(var item in _initialSlots)
+            {
+                if(item.GetIsEmpty)
+                    continue;
+                _inventoryData.AddItem(item);
+            }
+        }
+        private void UpdateInventoryUI(Dictionary<int, ItemSlot>inventoryState){
+            _inventoryUI.ResetAllItems();
+            foreach(var item in inventoryState)
+            {
+                _inventoryUI.UpdateData(item.Key,
+                item.Value.Item.ItemImage,
+                item.Value.Quantity);
+            }
+        }
         private void PrepareUI()
         {
             _inventoryUI.Initialize(_inventoryData.GetSize);
@@ -33,11 +55,14 @@ namespace PlayerInven
         }
 
         private void HandleDragging(int itemIndex){
-
+            ItemSlot _itemSlot = _inventoryData.GetItemAt(itemIndex);
+            if(_itemSlot.GetIsEmpty)
+                return;
+            _inventoryUI.CreateDraggedItem(_itemSlot.Item.ItemImage,_itemSlot.Quantity);
         }
 
         private void HandleSwapItems(int itemIndex_1, int itemIndex_2){
-
+            _inventoryData.SwapItems(itemIndex_1,itemIndex_2);
         }
 
         private void HandleDescriptionRequest(int itemIndex){

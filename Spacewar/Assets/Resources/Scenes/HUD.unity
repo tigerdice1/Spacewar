@@ -890,7 +890,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3275258587653508534, guid: 33963317f37c30b46904a99f283f51f1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -918,7 +919,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0.5
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &854493786
 GameObject:
@@ -1265,6 +1266,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryUI: {fileID: 1094436841}
   _inventoryData: {fileID: 11400000, guid: d3ad58902eae9694f9297a7c2ee32ad0, type: 2}
+  _initialSlots:
+  - _quantity: 5
+    _item: {fileID: 11400000, guid: 6c1091e30f3737b4eb3c4521a32fb432, type: 2}
+  - _quantity: 2
+    _item: {fileID: 11400000, guid: 6c1091e30f3737b4eb3c4521a32fb432, type: 2}
+  - _quantity: 0
+    _item: {fileID: 0}
+  - _quantity: 0
+    _item: {fileID: 0}
 --- !u!1 &1181927991
 GameObject:
   m_ObjectHideFlags: 0

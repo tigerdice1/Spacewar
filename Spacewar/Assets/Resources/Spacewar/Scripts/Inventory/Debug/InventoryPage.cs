@@ -50,6 +50,14 @@ namespace PlayerInven.UI
             }
         }
 
+        public void ResetAllItems(){
+            foreach(var item in _listOfItems)
+            {
+                item.ResetData();
+                item.Deselect();
+            }
+        }
+
         public void UpdateDescription(int itemIndex, Sprite itemImage, string name, string description){
             _itemDescription.SetDescription(itemImage,name,description);
             DeselectAllItems();
@@ -77,6 +85,7 @@ namespace PlayerInven.UI
                 return;
             }
             OnSwapItems?.Invoke(_currentlyDraggedItemIndex,_index);
+            HandleItemSelection(inventoryItemUI);
         }
 
         public void ResetDraggedItem(){
