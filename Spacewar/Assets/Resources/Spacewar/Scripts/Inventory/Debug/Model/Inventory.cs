@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace PlayerInven.Model
@@ -27,16 +28,67 @@ namespace PlayerInven.Model
             }
         }
 
-        public void AddItem(Item item,int quantity){
-            for (int i =0;i<_inventoryItems.Count;i++){
-                if(_inventoryItems[i].GetIsEmpty){
-                    _inventoryItems[i] = new ItemSlot{
-                        Item = item,
-                        Quantity= quantity
-                    };
-                    return;
+        public int AddItem(Item item,int quantity){
+            if(!item.GetIsStackable)
+            {
+                for (int i =0;i<_inventoryItems.Count;i++){
+                    while(quantity > 0 && !IsInventoryFull()){
+                        quantity -= AddItemToFirstFreeSlot(item,1);
+                    }
+                    InformAboutChange();
+                    return quantity;
                 }
             }
+            quantity = AddStackableItem(item,quantity);
+            InformAboutChange();
+            return quantity;
+        }
+
+        private int AddItemToFirstFreeSlot(Item item,int quantity){
+            ItemSlot newItem = new ItemSlot{
+                Item = item,
+                Quantity= quantity
+            };
+            
+            for(int i =0;i<_inventoryItems.Count;i++){
+                if(_inventoryItems[i].GetIsEmpty){
+                    _inventoryItems[i] = newItem;
+                    return quantity;
+                }
+            }
+            return 0;
+        }
+
+        private bool IsInventoryFull()
+            => !_inventoryItems.Where(Item =>Item.GetIsEmpty).Any();
+
+        private int AddStackableItem(Item item, int quantity){
+            for(int i =0;i<_inventoryItems.Count;i++){
+                if(_inventoryItems[i].GetIsEmpty){
+                    continue;
+                }
+                if(_inventoryItems[i].Item.GetID == item.GetID){
+                    int amountPossibleToTake =
+                    _inventoryItems[i].Item.MaxStackSize - _inventoryItems[i].Quantity;
+                    if(quantity>amountPossibleToTake){
+                        _inventoryItems[i] = _inventoryItems[i]
+                            .ChangeQuantity(_inventoryItems[i].Item.MaxStackSize);
+                        quantity -= amountPossibleToTake;
+                    }
+                    else{
+                        _inventoryItems[i] = _inventoryItems[i]
+                            .ChangeQuantity(_inventoryItems[i].Quantity + quantity);
+                        InformAboutChange();
+                        return 0;
+                    }
+                }
+            }
+            while(quantity>0 && !IsInventoryFull()){
+                int newQuantity = Mathf.Clamp(quantity,0,item.MaxStackSize);
+                quantity -= newQuantity;
+                AddItemToFirstFreeSlot(item,newQuantity);
+            }
+            return quantity;
         }
 
         public void AddItem(ItemSlot item)
@@ -54,6 +106,7 @@ namespace PlayerInven.Model
             }
             return returnValue;
         }
+
         public ItemSlot GetItemAt(int itemIndex){
             return _inventoryItems[itemIndex];
         }
