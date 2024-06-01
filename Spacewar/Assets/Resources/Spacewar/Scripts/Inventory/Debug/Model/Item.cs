@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace PlayerInven.Model
 {
-    [CreateAssetMenu]
-    public class Item : ScriptableObject
+    public abstract class Item : ScriptableObject
     {
         [SerializeField]
         private bool _isStackable;

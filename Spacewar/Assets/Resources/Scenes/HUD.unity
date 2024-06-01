@@ -1328,15 +1328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryUI: {fileID: 1094436841}
   _inventoryData: {fileID: 11400000, guid: d3ad58902eae9694f9297a7c2ee32ad0, type: 2}
-  _initialSlots:
-  - _quantity: 5
-    _item: {fileID: 11400000, guid: 6c1091e30f3737b4eb3c4521a32fb432, type: 2}
-  - _quantity: 2
-    _item: {fileID: 11400000, guid: 6c1091e30f3737b4eb3c4521a32fb432, type: 2}
-  - _quantity: 0
-    _item: {fileID: 0}
-  - _quantity: 0
-    _item: {fileID: 0}
+  _initialSlots: []
 --- !u!114 &1144992015
 MonoBehaviour:
   m_ObjectHideFlags: 0
