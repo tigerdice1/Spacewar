@@ -59,6 +59,10 @@ namespace PlayerInven
             if(itemAction != null){
                 itemAction.PerformAction(gameObject);
             }
+            IDestroyableItem destroyableItem = _itemSlot.Item as IDestroyableItem;
+            if(destroyableItem != null){
+                _inventoryData.RemoveItem(itemIndex,1);
+            }
         }
 
         private void HandleDragging(int itemIndex){

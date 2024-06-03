@@ -22,15 +22,30 @@ namespace PlayerInven.Model
 
         public void Initialize(){
             _inventoryItems = new List<ItemSlot>();
-            for (int i =0;i<_size;i++)
-            {
+            for (int i =0;i<_size;i++){
                 _inventoryItems.Add(ItemSlot.GetEmptyItem());
             }
         }
 
+        public void RemoveItem(int itemIndex,int amount){
+            if(_inventoryItems.Count > itemIndex){
+                if(_inventoryItems[itemIndex].GetIsEmpty){
+                    return;
+                }
+                int reminder = _inventoryItems[itemIndex].Quantity - amount;
+                if(reminder<=0){
+                    _inventoryItems[itemIndex] = ItemSlot.GetEmptyItem();
+                }
+                else{
+                    _inventoryItems[itemIndex] = _inventoryItems[itemIndex]
+                        .ChangeQuantity(reminder);
+                }
+                InformAboutChange();
+            }
+        }
+
         public int AddItem(Item item,int quantity){
-            if(!item.GetIsStackable)
-            {
+            if(!item.GetIsStackable){
                 for (int i =0;i<_inventoryItems.Count;i++){
                     while(quantity > 0 && !IsInventoryFull()){
                         quantity -= AddItemToFirstFreeSlot(item,1);
@@ -115,10 +130,10 @@ namespace PlayerInven.Model
             ItemSlot item1 = _inventoryItems[itemIndex_1];
             _inventoryItems[itemIndex_1] = _inventoryItems[itemIndex_2];
             _inventoryItems[itemIndex_2] = item1;
-            InformAboutChange(); // 변경됐다는것을 알리는 함수
+            InformAboutChange(); 
         }
 
-        private void InformAboutChange(){
+        private void InformAboutChange(){ // 변경됐다는것을 UI에 알리는 함수
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
         }
     }
