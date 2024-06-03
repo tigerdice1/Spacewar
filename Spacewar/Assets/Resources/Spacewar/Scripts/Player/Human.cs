@@ -30,21 +30,19 @@ public class Human : PlayerBase{
     //     } 
     // }
 
-    void Initalize(){
-        
-    }
     // Start is called before the first frame update
     void Start(){
-        Initalize();
+        Debug.Log("start");
+        Initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // //DEBUG_CODE
-        // if(Input.GetKeyDown(KeyCode.Space)){
-        //     TakeDamage(20.0f);
-        // }
+         //DEBUG_CODE
+        if(Input.GetKeyDown(KeyCode.Space)){
+            TakeDamage(20.0f);
+        }
         // if(Input.GetKeyDown(KeyCode.Space)){
         //     _inventory.Save();
         // }
@@ -60,6 +58,19 @@ public class Human : PlayerBase{
     void TakeDamage(float damage){
         _playerCurrentHP -= damage;
         _hpSystem.SetHP(_playerCurrentHP);
+    }
+
+    public void AddHealth(int val){
+        if(_playerCurrentHP>=_playerMaxHP)
+            return;
+        _playerCurrentHP += (float)val;
+        _hpSystem.SetHP(_playerCurrentHP);
+    }
+    public void Initialize(){
+        Debug.Log("초기화");
+        _playerMaxHP = 100.0f;
+        _playerCurrentHP = _playerMaxHP;
+        _hpSystem.SetMaxHP(_playerMaxHP);
     }
 
     //게임을 끄면 인벤토리 내 아이템 모두 정리.

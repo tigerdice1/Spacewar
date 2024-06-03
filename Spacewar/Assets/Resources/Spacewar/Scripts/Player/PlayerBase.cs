@@ -29,8 +29,6 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("아이템표시 기능 & 아이템 비활성화 시 예외처리에 사용 될 변수")]
     protected TMP_Text _showItemName;
 
-    [Tooltip("HP")]
-    protected HPSystem _hpSystem;
 
     /* Properties */
     public PlayerController PlayerController{
@@ -59,16 +57,12 @@ public class PlayerBase : MonoBehaviour
         get => _showItemName;
     }
 
-    protected virtual void Initalize(){
-        _hpSystem = this.GetComponent<HPSystem>();
-        _playerMaxHP = 100.0f;
-        _playerCurrentHP = _playerMaxHP;
-        _hpSystem.SetMaxHP(_playerMaxHP);
-    }
+    [SerializeField]
+    protected HPSystem _hpSystem;
 
     // Start is called before the first frame update
     protected virtual void Start(){
-        
+
     }
 
     // Update is called once per frame

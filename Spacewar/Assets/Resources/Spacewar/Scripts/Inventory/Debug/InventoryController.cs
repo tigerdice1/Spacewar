@@ -51,7 +51,14 @@ namespace PlayerInven
             this._inventoryUI.OnItemActionRequested += HandleItemActionRequest;
         }
         private void HandleItemActionRequest(int itemIndex){
-
+            ItemSlot _itemSlot = _inventoryData.GetItemAt(itemIndex);
+            if(_itemSlot.GetIsEmpty){
+                return;
+            }
+            IItemAction itemAction = _itemSlot.Item as IItemAction;
+            if(itemAction != null){
+                itemAction.PerformAction(gameObject);
+            }
         }
 
         private void HandleDragging(int itemIndex){

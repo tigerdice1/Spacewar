@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharStatHPMod : CharacterStatModifier
 {
     public override void AffectCharacter(GameObject character,float val){
-        HP health =  character.GetComponent<HP>();
+        Human health =  character.GetComponent<Human>();
         if(health != null)
         {
             health.AddHealth((int)val);

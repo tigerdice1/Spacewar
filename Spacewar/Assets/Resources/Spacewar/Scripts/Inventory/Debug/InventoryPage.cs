@@ -72,7 +72,11 @@ namespace PlayerInven.UI
         }
 
         private void HandleShowItemActions(InventoryItem inventoryItemUI){
-
+            int _index = _listOfItems.IndexOf(inventoryItemUI);
+            if(_index == -1){
+                return;
+            }
+            OnItemActionRequested?.Invoke(_index);
         }
 
         private void HandleEndDrag(InventoryItem inventoryItemUI){

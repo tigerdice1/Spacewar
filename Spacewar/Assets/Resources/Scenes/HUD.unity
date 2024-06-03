@@ -727,6 +727,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2473117967911166819, guid: d2191d15cd820c94f876683fe1d038e4, type: 3}
+      propertyPath: _invenItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 22f846eed3d23de41a5a5e9f8773dc04, type: 2}
     - target: {fileID: 3339953667871407574, guid: d2191d15cd820c94f876683fe1d038e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.98
@@ -1311,9 +1315,10 @@ MonoBehaviour:
   _playerController: {fileID: 85998013}
   _playerSpeed: 5
   _playerRotationSpeed: 1
-  _playerMaxHP: 0
-  _playerCurrentHP: 0
+  _playerMaxHP: 100
+  _playerCurrentHP: 100
   _showItemName: {fileID: 0}
+  _hpSystem: {fileID: 46443394}
 --- !u!114 &1144992014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,7 +1333,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryUI: {fileID: 1094436841}
   _inventoryData: {fileID: 11400000, guid: d3ad58902eae9694f9297a7c2ee32ad0, type: 2}
-  _initialSlots: []
+  _initialSlots:
+  - _quantity: 2
+    _item: {fileID: 11400000, guid: 22f846eed3d23de41a5a5e9f8773dc04, type: 2}
 --- !u!114 &1144992015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2212,6 +2219,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2473117967911166819, guid: d2191d15cd820c94f876683fe1d038e4, type: 3}
+      propertyPath: _invenItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 22f846eed3d23de41a5a5e9f8773dc04, type: 2}
     - target: {fileID: 3339953667871407574, guid: d2191d15cd820c94f876683fe1d038e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.98
