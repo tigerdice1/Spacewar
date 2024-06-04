@@ -3,6 +3,7 @@ using PlayerInven.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace PlayerInven
@@ -57,7 +58,7 @@ namespace PlayerInven
             }
             IItemAction itemAction = _itemSlot.Item as IItemAction;
             if(itemAction != null){
-                itemAction.PerformAction(gameObject);
+                itemAction.PerformAction(gameObject,null);
             }
             IDestroyableItem destroyableItem = _itemSlot.Item as IDestroyableItem;
             if(destroyableItem != null){
@@ -85,7 +86,21 @@ namespace PlayerInven
             }
                 
             Item _item = _itemSlot.Item;
-            _inventoryUI.UpdateDescription(itemIndex,_item.ItemImage,_item.Name,_item.Description);
+            string _description = PrepareDescription(_itemSlot);
+            _inventoryUI.UpdateDescription(itemIndex,_item.ItemImage,_item.Name,_description);
+        }
+
+        private string PrepareDescription(ItemSlot itemSlot){
+            StringBuilder sb =new StringBuilder();
+            sb.Append(itemSlot.Item.Description);
+            sb.AppendLine();
+            for(int i =0;i < itemSlot.ItemState.Count;i++){
+                sb.Append($"{itemSlot.ItemState[i].ItemParameter.ParamName}"+
+                $":{itemSlot.ItemState[i].Value}/" + 
+                $"{itemSlot.Item.DefaultParameterList[i].Value}");
+                sb.AppendLine();
+            }
+            return sb.ToString();
         }
 
         private void Update(){ //작동 테스트

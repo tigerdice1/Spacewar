@@ -728,9 +728,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2473117967911166819, guid: d2191d15cd820c94f876683fe1d038e4, type: 3}
+      propertyPath: _quantity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473117967911166819, guid: d2191d15cd820c94f876683fe1d038e4, type: 3}
       propertyPath: _invenItem
       value: 
-      objectReference: {fileID: 11400000, guid: 22f846eed3d23de41a5a5e9f8773dc04, type: 2}
+      objectReference: {fileID: 11400000, guid: 0d87202549bda1a4f89e13acd02e6ec9, type: 2}
     - target: {fileID: 3339953667871407574, guid: d2191d15cd820c94f876683fe1d038e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.98
@@ -1333,9 +1337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryUI: {fileID: 1094436841}
   _inventoryData: {fileID: 11400000, guid: d3ad58902eae9694f9297a7c2ee32ad0, type: 2}
-  _initialSlots:
-  - _quantity: 2
-    _item: {fileID: 11400000, guid: 22f846eed3d23de41a5a5e9f8773dc04, type: 2}
+  _initialSlots: []
 --- !u!114 &1144992015
 MonoBehaviour:
   m_ObjectHideFlags: 0

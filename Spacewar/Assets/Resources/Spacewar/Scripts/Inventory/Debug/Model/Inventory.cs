@@ -44,11 +44,11 @@ namespace PlayerInven.Model
             }
         }
 
-        public int AddItem(Item item,int quantity){
+        public int AddItem(Item item,int quantity,List<ItemParam> itemState = null){
             if(!item.GetIsStackable){
                 for (int i =0;i<_inventoryItems.Count;i++){
                     while(quantity > 0 && !IsInventoryFull()){
-                        quantity -= AddItemToFirstFreeSlot(item,1);
+                        quantity -= AddItemToFirstFreeSlot(item,1, itemState);
                     }
                     InformAboutChange();
                     return quantity;
@@ -59,10 +59,13 @@ namespace PlayerInven.Model
             return quantity;
         }
 
-        private int AddItemToFirstFreeSlot(Item item,int quantity){
+        private int AddItemToFirstFreeSlot(Item item,int quantity
+            ,List<ItemParam> itemState = null){
             ItemSlot newItem = new ItemSlot{
                 Item = item,
-                Quantity= quantity
+                Quantity= quantity,
+                ItemState = 
+                new List<ItemParam>(itemState == null ? item.DefaultParameterList : itemState)
             };
             
             for(int i =0;i<_inventoryItems.Count;i++){
@@ -144,6 +147,9 @@ namespace PlayerInven.Model
         private int _quantity;
         [SerializeField]
         private Item _item;
+        
+        public List<ItemParam> ItemState;
+
         private bool _isEmpty => _item == null;
 
         public int Quantity{
@@ -155,14 +161,14 @@ namespace PlayerInven.Model
             set => _item =value;
         }
         public bool GetIsEmpty{
-            get =>_isEmpty;
+            get => _isEmpty;
         }
-
 
         public ItemSlot ChangeQuantity(int newQuantity){
             return new ItemSlot{
                 _item = this._item,
                 _quantity = newQuantity,
+                ItemState = new List<ItemParam>(this.ItemState)
             };
         }
         
@@ -171,6 +177,7 @@ namespace PlayerInven.Model
             {
                 _item = null,
                 _quantity = 0,
+                ItemState = new List<ItemParam>()
             };
     }
 }

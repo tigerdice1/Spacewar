@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace PlayerInven.Model
 
         [SerializeField]
         private Sprite _itemImage;
+
+        public List<ItemParam> DefaultParameterList;
 
         public bool GetIsStackable{   
             get => _isStackable; 
@@ -51,6 +54,30 @@ namespace PlayerInven.Model
             get => _itemImage;
             set => _itemImage = value;
         }
+        
 
+    }
+
+    [Serializable]
+    public struct ItemParam : IEquatable<ItemParam>
+    {
+        [SerializeField]
+        private ItemParameter _itemParameter;
+        [SerializeField]
+        private float _value;
+
+        public bool Equals(ItemParam other){
+            return other._itemParameter ==_itemParameter;
+        }
+
+        public ItemParameter ItemParameter{
+            get => _itemParameter;
+            set => _itemParameter = value;
+        }
+
+        public float Value{
+            get => _value;
+            set => _value = value;
+        }
     }
 }

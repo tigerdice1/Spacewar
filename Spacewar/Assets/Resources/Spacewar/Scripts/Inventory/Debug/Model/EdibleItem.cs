@@ -20,7 +20,7 @@ namespace PlayerInven.Model
             set => _actionSFX = value;
         }
 
-        public bool PerformAction(GameObject character){
+        public bool PerformAction(GameObject character,List<ItemParam> itemState = null){
             foreach(ModifierData data in _modifierData){
                 data.StatModifier.AffectCharacter(character,data.Value);
             }
@@ -34,13 +34,9 @@ namespace PlayerInven.Model
 
     public interface IItemAction{
         
-        public string ActionName{
-            get;
-        }
-        public AudioClip ActionSFX{
-            get;
-        }
-        bool PerformAction(GameObject character);
+        public string ActionName{ get; }
+        public AudioClip ActionSFX{ get; }
+        bool PerformAction(GameObject character,List<ItemParam> itemState);
 
     }
 
