@@ -4860,6 +4860,7 @@ MonoBehaviour:
   _playerMaxHP: 100
   _playerCurrentHP: 100
   _showItemName: {fileID: 0}
+  _hpSystem: {fileID: 2026724713}
 --- !u!136 &2026724708
 CapsuleCollider:
   m_ObjectHideFlags: 0

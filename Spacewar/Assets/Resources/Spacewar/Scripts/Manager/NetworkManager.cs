@@ -29,6 +29,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         get => _isLoggedIn;
     }
 
+    public void ConnectToLobby(){
+        PhotonNetwork.JoinLobby();
+    }
     public void SetPlayerName(string playerName){
         this._playerName = playerName;
     }
@@ -49,7 +52,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster(){
         base.OnConnectedToMaster();
         print("마스터 서버 접속 완료");
-        CreateRoom();
     }
 
     public void Connect(){
@@ -61,6 +63,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinedLobby(){
+        base.OnJoinedLobby();
         print("로비 접속 완료");
     }
 
@@ -73,6 +76,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.NickName = _playerName;
             
             _isLoggedIn = true;
+            Connect();
         }
         else{
             Debug.LogError("Player Name is invalid.");

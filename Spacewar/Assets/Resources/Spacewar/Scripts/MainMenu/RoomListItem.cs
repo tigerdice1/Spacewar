@@ -13,7 +13,7 @@ public class RoomListItem : MonoBehaviour
 
     public void SetInfo(string roomName, int currPlayer, int maxPlayer){
         name = roomName;
-        roomInfo.text = roomName + '(' + currPlayer+ '/' + maxPlayer +')';
+        roomInfo.text = roomName + '(' + currPlayer + '/' + maxPlayer +')';
     }
     public void OnClick() {
         //만약 onDelegate 에 무언가 들어있다면 실행

@@ -16,6 +16,10 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Transform rtContent;
 
     Dictionary<string, RoomInfo> _dicRoomInfo = new Dictionary<string, RoomInfo>();
+
+    public void ConnectToLobby(){
+        PhotonNetwork.JoinLobby();
+    }
     // Start is called before the first frame update
     public override void OnRoomListUpdate(List<RoomInfo> roomList){
         base.OnRoomListUpdate(roomList);
@@ -25,7 +29,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     }
 
     void DeleteRoomListItem(){
-            Destroy(rtContent.gameObject);
+            //Destroy(rtContent.gameObject);
     }
 
     void UpdateRoomListItem(List<RoomInfo> roomList){
