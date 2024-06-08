@@ -29,6 +29,8 @@ namespace PlayerInven.UI
 
         public event Action<int,int> OnSwapItems;
 
+        [SerializeField]
+        private ItemActionPanel _actionPanel;
 
         private void Awake(){
             Hide();
@@ -129,10 +131,21 @@ namespace PlayerInven.UI
             _itemDescription.ResetDescription();
             DeselectAllItems();
         }
+
+        public void AddAction(string actionName, Action performAction){
+            _actionPanel.AddBtn(actionName,performAction);
+        }
+
+        public void ShowItemAction(int itemIndex){
+            _actionPanel.Toggle(true);
+            _actionPanel.transform.position = _listOfItems[itemIndex].transform.position;
+        }
+
         private void DeselectAllItems(){
             foreach(InventoryItem item in _listOfItems){
                 item.Deselect();
             }
+            _actionPanel.Toggle(false);
         }
         public void Hide()
         {

@@ -15,7 +15,13 @@ namespace PlayerInven.Model{
         }
 
         public bool PerformAction(GameObject character,List<ItemParam> itemState = null){
-            throw new System.NotImplementedException();
+            AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();
+            if(weaponSystem != null){
+                weaponSystem.SetWeapon(this, itemState == null ? 
+                    DefaultParameterList : itemState);
+                return true;
+            }
+            return false;
         }
     }
 }
