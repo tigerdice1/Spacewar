@@ -56,13 +56,13 @@ namespace PlayerInven
             if(_itemSlot.GetIsEmpty){
                 return;
             }
-            IItemAction itemAction = _itemSlot.Item as IItemAction;
-            if(itemAction != null){
-                itemAction.PerformAction(gameObject,null);
-            }
             IDestroyableItem destroyableItem = _itemSlot.Item as IDestroyableItem;
             if(destroyableItem != null){
                 _inventoryData.RemoveItem(itemIndex,1);
+            }
+            IItemAction itemAction = _itemSlot.Item as IItemAction;
+            if(itemAction != null){
+                itemAction.PerformAction(gameObject,_itemSlot.ItemState);
             }
         }
 
