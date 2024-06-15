@@ -3,17 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RoomListItem : MonoBehaviour
 {
-    public Text roomInfo;
+    public TextMeshProUGUI _roomInfo;
 
     //클릭되었을때 호출되는 함수
     public Action<string> onDelegate;
 
     public void SetInfo(string roomName, int currPlayer, int maxPlayer){
         name = roomName;
-        roomInfo.text = roomName + '(' + currPlayer + '/' + maxPlayer +')';
+        _roomInfo.text = roomName + '(' + currPlayer + '/' + maxPlayer +')';
     }
     public void OnClick() {
         //만약 onDelegate 에 무언가 들어있다면 실행

@@ -97,6 +97,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         
     }
 
+    public void JoinRoom(string serverName){
+        PhotonNetwork.JoinRoom(serverName);
+    }
+
     public override void OnJoinedRoom(){
         //UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }

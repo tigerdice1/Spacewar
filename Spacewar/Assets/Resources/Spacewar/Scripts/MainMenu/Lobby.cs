@@ -17,9 +17,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     Dictionary<string, RoomInfo> _dicRoomInfo = new Dictionary<string, RoomInfo>();
 
-    public void ConnectToLobby(){
-        PhotonNetwork.JoinLobby();
-    }
+    
     // Start is called before the first frame update
     public override void OnRoomListUpdate(List<RoomInfo> roomList){
         base.OnRoomListUpdate(roomList);
