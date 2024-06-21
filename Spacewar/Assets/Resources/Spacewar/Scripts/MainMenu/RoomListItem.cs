@@ -7,21 +7,18 @@ using TMPro;
 
 public class RoomListItem : MonoBehaviour
 {
+    public string _roomName;
     public TextMeshProUGUI _roomInfo;
 
     //클릭되었을때 호출되는 함수
     public Action<string> onDelegate;
 
     public void SetInfo(string roomName, int currPlayer, int maxPlayer){
-        name = roomName;
+        _roomName = roomName;
         _roomInfo.text = roomName + '(' + currPlayer + '/' + maxPlayer +')';
     }
     public void OnClick() {
-        //만약 onDelegate 에 무언가 들어있다면 실행
-        if (onDelegate != null)
-        {
-            onDelegate(name);
-        }
+        NetworkManager.Instance().JoinRoom(_roomName);
         ////InputRoomName 찾아오기
         //GameObject go =GameObject.Find("InputRoomName");
         ////찾아온 게임오브젝트에서 InputField 컴포넌트 가져오기

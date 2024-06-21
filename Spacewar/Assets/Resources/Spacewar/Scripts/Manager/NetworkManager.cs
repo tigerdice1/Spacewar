@@ -17,6 +17,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private bool _isHost = false;
     private Text _connectionStatus;
 
+    private string _onClickedRoomName;
+
     public static NetworkManager Instance(){
         return _instance;
     }
@@ -27,6 +29,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public bool IsLoggedIn{
         get => _isLoggedIn;
+    }
+
+    public string OnClickedRoomName{
+        set => _onClickedRoomName = value;
     }
 
     public void ConnectToLobby(){
@@ -97,8 +103,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         
     }
 
-    public void JoinRoom(string serverName){
-        PhotonNetwork.JoinRoom(serverName);
+    public void ClearClickedRoomName(){
+        _onClickedRoomName = " ";
+    }
+
+    public void JoinRoom(){
+        if(!_onClickedRoomName.Equals(" ")){
+            PhotonNetwork.JoinRoom(_onClickedRoomName);
+        }
     }
 
     public override void OnJoinedRoom(){
