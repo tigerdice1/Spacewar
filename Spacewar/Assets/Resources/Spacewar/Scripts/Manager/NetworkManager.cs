@@ -107,9 +107,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         _onClickedRoomName = " ";
     }
 
-    public void JoinRoom(){
-        if(!_onClickedRoomName.Equals(" ")){
-            PhotonNetwork.JoinRoom(_onClickedRoomName);
+    public void JoinRoom(string serverName){
+        if(!serverName.Equals(" ")){
+            PhotonNetwork.JoinRoom(serverName);
         }
     }
 
