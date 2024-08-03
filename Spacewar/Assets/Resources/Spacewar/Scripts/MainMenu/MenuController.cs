@@ -18,10 +18,6 @@ public class MenuController : MonoBehaviour{
     private GameObject _hostGamePanel;
     
     [SerializeField]
-    private GameObject _hostLobbyPanel;
-    [SerializeField]
-    private TextMeshProUGUI _hostLobbyPanelText;
-    [SerializeField]
     private GameObject _joinGamePanel;
 
     [Header("Levels To Load")]
@@ -51,15 +47,16 @@ public class MenuController : MonoBehaviour{
         Application.Quit();
     }
 
-    private void Update(){
-        if(!_netManager.IsLoggedIn){
+    private void Start(){
+        
+    }
+    private void Awake(){
+        if(!NetworkManager.Instance().IsLoggedIn){
             _mainBtnGroupPanel.SetActive(false);
             _loginPanel.SetActive(true);
         }
-        if(_netManager.IsHost){
-            _hostGamePanel.SetActive(false);
-            _hostLobbyPanel.SetActive(true);
-            _hostLobbyPanelText.text = _netManager.GetServerName;
-        }
+    }
+    private void Update(){
+        
     }
 }

@@ -21,7 +21,9 @@ public class SceneLoader : MonoBehaviourPunCallbacks{
         }
     }
 
-    void Start(){
-        _instance = this;
+    void Awake(){
+        if(_instance == null){  
+            _instance = this;
+        }
     }
 }

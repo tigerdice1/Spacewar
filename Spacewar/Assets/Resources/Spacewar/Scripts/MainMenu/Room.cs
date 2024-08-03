@@ -9,37 +9,48 @@ public class Room : MonoBehaviourPunCallbacks
     public Transform[] _teamListContents;
     public GameObject _playerListItem;
 
-
     public void UpdatePlayerList(){
-        foreach(Transform child in _teamListContents[0]){
-            Destroy(child.gameObject);
-        }
-        foreach(Transform child in _teamListContents[1]){
-            Destroy(child.gameObject);
-        }
-
         Player[] players = PhotonNetwork.PlayerList;
         foreach(Player player in players){
-            if(_teamListContents[0].childCount <= _teamListContents[1].childCount){
-                GameObject go = Instantiate(_playerListItem, _teamListContents[0]);
-                PlayerListItem item = go.GetComponent<PlayerListItem>();
-                item.SetPlayerInfo(player.NickName);
+            AddPlayerToTeam(player);
+        }
+    }
+    
+
+    public void AddPlayerToTeam(Player player){
+        foreach (Transform team in _teamListContents){
+            foreach (Transform child in team){
+                PlayerListItem item = child.GetComponent<PlayerListItem>();
+                if (item != null && item.Player == player){
+                    // 플레이어가 이미 목록에 있으면 업데이트하지 않음
+                    return;
+                }
             }
-            else{
-                GameObject go = Instantiate(_playerListItem, _teamListContents[1]);
-                PlayerListItem item = go.GetComponent<PlayerListItem>();
-                item.SetPlayerInfo(player.NickName);
+        }
+        Transform teamToAdd = _teamListContents[0].childCount <= _teamListContents[1].childCount ? _teamListContents[0] : _teamListContents[1];
+        GameObject go = Instantiate(_playerListItem, teamToAdd);
+        PlayerListItem newitem = go.GetComponent<PlayerListItem>();
+        newitem.Player = player;
+    }
+
+    public void RemovePlayerFromTeam(Player player){
+        foreach (Transform team in _teamListContents){
+            foreach (Transform child in team){
+                PlayerListItem item = child.GetComponent<PlayerListItem>();
+                if (item != null && item.Player == player){
+                    Destroy(child.gameObject);
+                    return;
+                }
             }
         }
     }
-
 
     public override void OnPlayerEnteredRoom(Player newPlayer){
         UpdatePlayerList();
     }   
 
     public override void OnPlayerLeftRoom(Player otherPlayer){
-        UpdatePlayerList();
+        RemovePlayerFromTeam(otherPlayer);
     }
     // Start is called before the first frame update
     void Start(){
@@ -47,8 +58,7 @@ public class Room : MonoBehaviourPunCallbacks
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         
     }
 }
