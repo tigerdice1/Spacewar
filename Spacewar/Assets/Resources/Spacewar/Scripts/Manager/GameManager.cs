@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    private static SceneManager _instance;
+    private static GameManager _instance;
     [SerializeField]
     private bool _isDebugMode;
     [SerializeField]
@@ -31,7 +31,7 @@ public class SceneManager : MonoBehaviour
         get => _instance._mapSize_Z;
     }
     
-    public static SceneManager Instance(){
+    public static GameManager Instance(){
         return _instance;
     }
 

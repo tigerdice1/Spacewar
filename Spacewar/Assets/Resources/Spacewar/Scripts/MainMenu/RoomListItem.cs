@@ -18,7 +18,8 @@ public class RoomListItem : MonoBehaviour
         _roomInfo.text = roomName + '(' + currPlayer + '/' + maxPlayer +')';
     }
     public void OnClick() {
-        NetworkManager.Instance().JoinRoom(_roomName);
+        NetworkManager.Instance().OnClickedRoomName = _roomName;
+        //NetworkManager.Instance().JoinRoom(_roomName);
         ////InputRoomName 찾아오기
         //GameObject go =GameObject.Find("InputRoomName");
         ////찾아온 게임오브젝트에서 InputField 컴포넌트 가져오기

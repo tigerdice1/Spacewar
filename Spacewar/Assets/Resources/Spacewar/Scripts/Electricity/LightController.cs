@@ -27,7 +27,7 @@ public class LightController : MonoBehaviour
     }
     
     private void Initalize(){
-        if(SceneManager.Instance().IsDebugMode()){
+        if(GameManager.Instance().IsDebugMode()){
             if(_lightComponent == null){
                 Debug.Log("_lightComponent is not Loaded. Location : " + gameObject);
             }

@@ -27,10 +27,28 @@ public class Lobby : MonoBehaviourPunCallbacks
     }
 
     void DeleteRoomListItem(){
-            //Destroy(rtContent.gameObject);
+        foreach(Transform child in rtContent){
+            Destroy(child.gameObject);
+        }
     }
 
     void UpdateRoomListItem(List<RoomInfo> roomList){
+        Dictionary<string, RoomInfo> newDicRoomInfo = new Dictionary<string, RoomInfo>();
+        foreach (RoomInfo roomInfo in roomList){
+            if (roomInfo.RemovedFromList){
+                // 방이 목록에서 제거된 경우
+                if (_dicRoomInfo.ContainsKey(roomInfo.Name)){
+                    _dicRoomInfo.Remove(roomInfo.Name);
+                }
+            }
+            else{
+                // 방 정보를 업데이트
+                newDicRoomInfo[roomInfo.Name] = roomInfo;
+            }
+        }
+    // 기존 _dicRoomInfo를 새로운 사전으로 교체
+    _dicRoomInfo = newDicRoomInfo;
+        /*
         for(int i = 0; i < roomList.Count; i++){
             if(_dicRoomInfo.ContainsKey(roomList[i].Name)){
                 if (roomList[i].RemovedFromList){
@@ -40,6 +58,7 @@ public class Lobby : MonoBehaviourPunCallbacks
             }
             _dicRoomInfo[roomList[i].Name] = roomList[i];
         }
+        */
     }
 
     void CreateRoomListItem(){

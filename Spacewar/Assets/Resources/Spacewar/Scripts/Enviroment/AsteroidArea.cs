@@ -18,9 +18,9 @@ public class AsteroidArea : MonoBehaviour
     void Start() {
         _asteroidInstTransform = this.transform;
         
-        this.transform.position = new Vector3(Random.Range(-1f * SceneManager.Instance().MapSizeX, SceneManager.Instance().MapSizeX),
+        this.transform.position = new Vector3(Random.Range(-1f * GameManager.Instance().MapSizeX, GameManager.Instance().MapSizeX),
         0f,
-        Random.Range(-1f * SceneManager.Instance().MapSizeZ, SceneManager.Instance().MapSizeZ));
+        Random.Range(-1f * GameManager.Instance().MapSizeZ, GameManager.Instance().MapSizeZ));
         
         for(int i = 0; i < Random.Range(1, 50); i++){
             _asteroidInstTransform.position = new Vector3(

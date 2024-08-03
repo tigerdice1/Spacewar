@@ -17,7 +17,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private bool _isHost = false;
     private Text _connectionStatus;
 
-    private string _onClickedRoomName;
+    public string _onClickedRoomName;
 
     public static NetworkManager Instance(){
         return _instance;
@@ -90,7 +90,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public override void OnCreatedRoom(){
         print("호스트 서버 생성 완료");
+        SceneLoader.Instance().LoadScene("Room");
         _isHost = true;
+        
     }
     public void CreateRoom(){
         print("호스트 서버 생성 중");
@@ -107,6 +109,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         _onClickedRoomName = " ";
     }
 
+    public void JoinClickedRoom(){
+        if(!_onClickedRoomName.Equals(" ")){
+            PhotonNetwork.JoinRoom(_onClickedRoomName);
+        }
+    }
+
     public void JoinRoom(string serverName){
         if(!serverName.Equals(" ")){
             PhotonNetwork.JoinRoom(serverName);
@@ -114,7 +122,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinedRoom(){
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+        SceneLoader.Instance().LoadScene("Room");
     }
 
     void Awake(){

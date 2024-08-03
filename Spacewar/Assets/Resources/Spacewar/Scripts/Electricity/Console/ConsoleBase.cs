@@ -23,7 +23,7 @@ public class ConsoleBase : MonoBehaviour
     protected GameObject _consoleUI;
 
     protected virtual void Initalize(){
-        if(SceneManager.Instance().IsDebugMode()){
+        if(GameManager.Instance().IsDebugMode()){
             if(!_ownerShip){
                 Debug.Log("OwnerShip is not initialized. The associated functions are disabled. Please Set the OwnerShip. Location : " + gameObject);
             }
