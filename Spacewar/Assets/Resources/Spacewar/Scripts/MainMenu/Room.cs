@@ -15,7 +15,6 @@ public class Room : MonoBehaviourPunCallbacks
             AddPlayerToTeam(player);
         }
     }
-    
 
     public void AddPlayerToTeam(Player player){
         foreach (Transform team in _teamListContents){
@@ -33,16 +32,24 @@ public class Room : MonoBehaviourPunCallbacks
         newitem.Player = player;
     }
 
-    public void RemovePlayerFromTeam(Player player){
+    public void AddPlayerToTeam(Player player, Transform teamToAdd){
+        GameObject go = Instantiate(_playerListItem, teamToAdd);
+        PlayerListItem newitem = go.GetComponent<PlayerListItem>();
+        newitem.Player = player;
+    }
+
+    public Transform RemovePlayerFromTeam(Player player){
         foreach (Transform team in _teamListContents){
             foreach (Transform child in team){
                 PlayerListItem item = child.GetComponent<PlayerListItem>();
                 if (item != null && item.Player == player){
                     Destroy(child.gameObject);
-                    return;
+                    Transform teamToAdd = _teamListContents[0] == team ? _teamListContents[1] : _teamListContents[0];
+                    return teamToAdd;
                 }
             }
         }
+        return null;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer){
@@ -51,6 +58,20 @@ public class Room : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer){
         RemovePlayerFromTeam(otherPlayer);
+    }
+
+    public void SwitchTeam(){
+        Player[] players = PhotonNetwork.PlayerList;
+         foreach(Player player in players){
+            if(player.IsLocal){
+                Transform teamToAdd = RemovePlayerFromTeam(player);
+                AddPlayerToTeam(player, teamToAdd);
+            }
+         }
+    }
+
+    public void StartBtnClicked(){
+        SceneLoader.Instance().LoadScene("MP_DefaultMap");
     }
     // Start is called before the first frame update
     void Start(){
