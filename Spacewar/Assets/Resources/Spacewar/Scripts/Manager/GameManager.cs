@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class GameManager : MonoBehaviour
+using Photon.Realtime;
+using Photon.Pun;
+public class GameManager : MonoBehaviourPunCallbacks
 {
     private static GameManager _instance;
     [SerializeField]
@@ -22,7 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<AsteroidArea> _asteroidAreas;
 
-
+    private Player[] _team1Player;
+    private Player[] _team2Player;
     public int MapSizeX{
         get => _instance._mapSize_X;
     }
