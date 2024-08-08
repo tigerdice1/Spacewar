@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 
-public class MenuController : MonoBehaviour{
+public class MainMenu : MonoBehaviour{
 
     [SerializeField]
     private NetworkManager _netManager;
