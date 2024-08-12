@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private List<AsteroidArea> _asteroidAreas;
 
-    private Player[] _team1Player;
-    private Player[] _team2Player;
+    private List<Player> _team1Player;
+    private List<Player> _team2Player;
     public int MapSizeX{
         get => _instance._mapSize_X;
     }
@@ -47,6 +47,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     // Start is called before the first frame update
     void Start(){
+        Player[] players = PhotonNetwork.PlayerList;
+        foreach(Player player in players){
+            if((int)player.CustomProperties["Team"] == 0){
+                _team1Player.Add(player);
+            }
+            else if((int)player.CustomProperties["Team"] == 1){
+                _team2Player.Add(player);
+            }
+        }
         int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
         for(int i = 0; i < astCount; i++){
             _asteroidAreas.Add(Instantiate(_asteroidArea));

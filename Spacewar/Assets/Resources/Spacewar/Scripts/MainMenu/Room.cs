@@ -10,7 +10,7 @@ public class Room : MonoBehaviourPunCallbacks
     public Transform[] _teamListContents;
     public GameObject _playerListItem;
 
-    public void UpdatePlayerPropertise(Transform team){
+    public void UpdatePlayerProperties(Transform team, Player targetPlayer){
         ExitGames.Client.Photon.Hashtable customPropertise = 
         team == _teamListContents[0] ? 
         new ExitGames.Client.Photon.Hashtable{
@@ -18,7 +18,7 @@ public class Room : MonoBehaviourPunCallbacks
         } : new ExitGames.Client.Photon.Hashtable{
             {"Team", 1}
         };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(customPropertise);
+        targetPlayer.SetCustomProperties(customPropertise);
     }
 
     public void UpdatePlayerList(){
@@ -41,14 +41,14 @@ public class Room : MonoBehaviourPunCallbacks
         Transform teamToAdd = _teamListContents[0].childCount <= _teamListContents[1].childCount ? _teamListContents[0] : _teamListContents[1];
         GameObject go = Instantiate(_playerListItem, teamToAdd);
         PlayerListItem newitem = go.GetComponent<PlayerListItem>();
-        UpdatePlayerPropertise(teamToAdd);
+        UpdatePlayerProperties(teamToAdd, player);
         newitem.Player = player;
     }
 
     public void AddPlayerToTeam(Player player, Transform teamToAdd){
         GameObject go = Instantiate(_playerListItem, teamToAdd);
         PlayerListItem newitem = go.GetComponent<PlayerListItem>();
-        UpdatePlayerPropertise(teamToAdd);
+        UpdatePlayerProperties(teamToAdd, player);
         newitem.Player = player;
     }
 
