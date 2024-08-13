@@ -16,6 +16,7 @@ public class AsteroidArea : MonoBehaviour
     private Transform _asteroidInstTransform;
     // Start is called before the first frame update
     void Start() {
+        /*
         _asteroidInstTransform = this.transform;
         
         this.transform.position = new Vector3(Random.Range(-1f * GameManager.Instance().MapSizeX, GameManager.Instance().MapSizeX),
@@ -29,6 +30,7 @@ public class AsteroidArea : MonoBehaviour
                 this.transform.localPosition.z + Random.Range(-1f * _areaRadius.z, _areaRadius.z));
             Instantiate(_asteroids[Random.Range(0,_asteroids.Count)], _asteroidInstTransform);
         }
+        */
     }
     void Awake() {
         

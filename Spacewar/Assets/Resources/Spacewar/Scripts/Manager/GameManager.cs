@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
+using CustomTypes;
+
 public class GameManager : MonoBehaviourPunCallbacks
 {
     private static GameManager _instance;
     [SerializeField]
     private bool _isDebugMode;
     [SerializeField]
-    private int _mapSize_X;
-    [SerializeField]
-    private int _mapSize_Z;
+    private CustomTypes.Coordniate2D _mapSize;
     [SerializeField]
     private int _minAsteroidAreas;
     
@@ -25,13 +25,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private List<Player> _team1Player;
     private List<Player> _team2Player;
-    public int MapSizeX{
-        get => _instance._mapSize_X;
-    }
-
-    public int MapSizeZ{
-        get => _instance._mapSize_Z;
-    }
     
     public static GameManager Instance(){
         return _instance;
@@ -45,8 +38,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             _instance = this;
         }
     }
-    // Start is called before the first frame update
-    void Start(){
+    private void SetPlayerTeam(){
         Player[] players = PhotonNetwork.PlayerList;
         foreach(Player player in players){
             if((int)player.CustomProperties["Team"] == 0){
@@ -56,6 +48,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                 _team2Player.Add(player);
             }
         }
+    }
+    // Start is called before the first frame update
+    void Start(){
+        SetPlayerTeam();
         int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
         for(int i = 0; i < astCount; i++){
             _asteroidAreas.Add(Instantiate(_asteroidArea));

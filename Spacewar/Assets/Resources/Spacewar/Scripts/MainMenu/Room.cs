@@ -10,7 +10,7 @@ public class Room : MonoBehaviourPunCallbacks
     public Transform[] _teamListContents;
     public GameObject _playerListItem;
 
-    public void UpdatePlayerProperties(Transform team, Player targetPlayer){
+    private void UpdatePlayerProperties(Transform team, Player targetPlayer){
         ExitGames.Client.Photon.Hashtable customPropertise = 
         team == _teamListContents[0] ? 
         new ExitGames.Client.Photon.Hashtable{
@@ -21,14 +21,14 @@ public class Room : MonoBehaviourPunCallbacks
         targetPlayer.SetCustomProperties(customPropertise);
     }
 
-    public void UpdatePlayerList(){
+    private void UpdatePlayerList(){
         Player[] players = PhotonNetwork.PlayerList;
         foreach(Player player in players){
             AddPlayerToTeam(player);
         }
     }
 
-    public void AddPlayerToTeam(Player player){
+    private void AddPlayerToTeam(Player player){
         foreach (Transform team in _teamListContents){
             foreach (Transform child in team){
                 PlayerListItem item = child.GetComponent<PlayerListItem>();
@@ -45,14 +45,14 @@ public class Room : MonoBehaviourPunCallbacks
         newitem.Player = player;
     }
 
-    public void AddPlayerToTeam(Player player, Transform teamToAdd){
+    private void AddPlayerToTeam(Player player, Transform teamToAdd){
         GameObject go = Instantiate(_playerListItem, teamToAdd);
         PlayerListItem newitem = go.GetComponent<PlayerListItem>();
         UpdatePlayerProperties(teamToAdd, player);
         newitem.Player = player;
     }
 
-    public Transform RemovePlayerFromTeam(Player player){
+    private Transform RemovePlayerFromTeam(Player player){
         foreach (Transform team in _teamListContents){
             foreach (Transform child in team){
                 PlayerListItem item = child.GetComponent<PlayerListItem>();
