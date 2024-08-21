@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public bool playerInSightRange,playerInAttackRange;
 
     private void Awake(){
-        player = GameObject.Find("PlayerOnj").transform;
+        player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
     }
     private void Uodate(){
