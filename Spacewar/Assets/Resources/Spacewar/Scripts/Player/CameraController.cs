@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
     }
     private void Initalize(){
         if(!_cameraObject){
-            Debug.Log("Camera is not initialized. The associated functions are disabled. Please Set the Camera. Location : " + gameObject);
+            Camera newCamera = Instantiate(new Camera(), _followObject.transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
         }
         _playerController = this.GetComponent<PlayerController>();
     }

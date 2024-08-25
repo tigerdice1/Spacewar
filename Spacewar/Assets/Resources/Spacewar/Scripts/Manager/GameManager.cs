@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private List<Player> _team1Player;
     private List<Player> _team2Player;
+
+    public GameObject[] _playerModels;
+    public GameObject _playerController;
     
     public static GameManager Instance(){
         return _instance;
@@ -48,6 +51,21 @@ public class GameManager : MonoBehaviourPunCallbacks
                 _team2Player.Add(player);
             }
         }
+    }
+
+    private void SpawnPlayer(){
+        // 플레이어 모델 선택 또는 할당 (예시로 랜덤 선택)
+            int modelIndex = Random.Range(0, _playerModels.Length);
+            string selectedModelName = _playerModels[modelIndex].name;
+
+            // Photon Custom Properties에 선택된 모델 저장
+            ExitGames.Client.Photon.Hashtable playerProps = new ExitGames.Client.Photon.Hashtable();
+            playerProps.Add("playerModel", selectedModelName);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(playerProps);
+
+            // 모델 인스턴스화
+            GameObject playerModel = PhotonNetwork.Instantiate(selectedModelName, Vector3.zero, Quaternion.identity);
+            // 추가로, 캐릭터 컨트롤러 등을 부착하는 코드를 여기에 작성
     }
     // Start is called before the first frame update
     void Start(){

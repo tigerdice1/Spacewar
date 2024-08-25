@@ -85,7 +85,7 @@ public class Room : MonoBehaviourPunCallbacks
     }
 
     public void StartBtnClicked(){
-        SceneLoader.Instance().LoadScene("MP_DefaultMap");
+        SceneLoader.Instance().LoadScene("MP_TestingChamber");
     }
     // Start is called before the first frame update
     void Start(){
