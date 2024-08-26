@@ -17,11 +17,11 @@ public class PlayerController : MonoBehaviour
     private GameObject _triggerObject;
     private UIManager _uiManager;
 
-    [SerializeField]
-    [Tooltip("플레이어의 고유 ID")]
-    private int _ID;
-
     /* Properties */
+    public GameObject DefaultControlObject{
+        set => _defaultControlObject = value; 
+        get => _defaultControlObject; 
+    }
     public GameObject TriggerObject{
         set => _triggerObject = value; 
         get => _triggerObject; 
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private void Initailize(){
         // MainUI always visible
         _uiManager = this.gameObject.AddComponent<UIManager>();
-        _uiManager.SetPlayerUIState(true);
+        _uiManager.SetPlayerUIState(true); 
     }
     
     private void CheckOnTriggerExit(){
