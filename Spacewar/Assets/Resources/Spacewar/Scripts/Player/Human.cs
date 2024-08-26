@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 
 public class Human : PlayerBase{
+    [SerializeField]
+    private Animator _animator;
     [Tooltip("아이템 주울 때 예외처리")]
     private bool hasPressedE = false;
 
@@ -33,12 +35,13 @@ public class Human : PlayerBase{
     // Start is called before the first frame update
     void Start(){
         Debug.Log("start");
-        Initialize();
+        //Initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //_animator.SetBool("isWalking", true);
          //DEBUG_CODE
         if(Input.GetKeyDown(KeyCode.Space)){
             TakeDamage(20.0f);
