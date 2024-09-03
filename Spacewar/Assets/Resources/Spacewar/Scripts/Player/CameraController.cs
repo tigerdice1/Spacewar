@@ -27,10 +27,18 @@ public class CameraController : MonoBehaviour
         get => _cameraObject;
     }
     private void Initalize(){
-        if(!_cameraObject){
-            Camera newCamera = Instantiate(new Camera(), _followObject.transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
-        }
         _playerController = this.GetComponent<PlayerController>();
+        if(_followObject == null){
+            _followObject = _playerController.DefaultControlObject;
+        }
+        if(!_cameraObject){
+            GameObject cameraObject = new GameObject("PlayerCamera");
+            Camera cameraComponent = cameraObject.AddComponent<Camera>();
+            cameraObject.transform.position = _followObject.transform.position;
+            cameraObject.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+            _cameraObject = cameraObject.GetComponent<Camera>();
+        }
+        
     }
     // Change the target to follow
     public void SetFollowTarget(GameObject target){

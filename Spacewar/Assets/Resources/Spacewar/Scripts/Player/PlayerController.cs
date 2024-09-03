@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     [Tooltip("플레이어가 컨트롤 할 오브젝트")]
     private GameObject _controlObject;
+    private Rigidbody _controlRigidBody;
     
     [SerializeField]
     [Tooltip("플레이어가 접촉한 오브젝트")]
@@ -36,6 +37,9 @@ public class PlayerController : MonoBehaviour
         // MainUI always visible
         _uiManager = this.gameObject.AddComponent<UIManager>();
         _uiManager.SetPlayerUIState(true); 
+        if(_controlObject == null){
+            _controlObject = _defaultControlObject;
+        }
     }
     
     private void CheckOnTriggerExit(){
@@ -104,45 +108,56 @@ public class PlayerController : MonoBehaviour
     }
 
     private void MovePlayer(){
+
+        _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        // Rigidbody의 속도를 설정하여 이동합니다.
+        _controlRigidBody.velocity = movement * 5.0f;
+        /*
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
         _controlObject.transform.Translate(new Vector3(moveX, 0, moveZ)* Time.deltaTime * _controlObject.GetComponent<Human>().PlayerSpeed, Space.World);
+        */
     }
 
     private void MoveShip(){
-        Rigidbody rid = _controlObject.GetComponent<Rigidbody>();
+        _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
         float spd = _controlObject.GetComponent<MainShip>().Speed;
         
         if (Input.GetKey(KeyCode.W)){
-            rid.AddRelativeForce(Vector3.forward * spd);
+            _controlRigidBody.AddRelativeForce(Vector3.forward * spd);
         }
         if (Input.GetKey(KeyCode.A)){
-            rid.AddRelativeForce(Vector3.left * spd);
+            _controlRigidBody.AddRelativeForce(Vector3.left * spd);
         }
         if (Input.GetKey(KeyCode.S)){
-            rid.AddRelativeForce(Vector3.back * spd);
+            _controlRigidBody.AddRelativeForce(Vector3.back * spd);
         }
         if (Input.GetKey(KeyCode.D)){
-            rid.AddRelativeForce(Vector3.right * spd);
+            _controlRigidBody.AddRelativeForce(Vector3.right * spd);
         }
         float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
-        if(rid.velocity.x > MaxVelocity){
-            rid.velocity = new Vector3(MaxVelocity, rid.velocity.y, rid.velocity.z);
+        if(_controlRigidBody.velocity.x > MaxVelocity){
+            _controlRigidBody.velocity = new Vector3(MaxVelocity, _controlRigidBody.velocity.y, _controlRigidBody.velocity.z);
         }
-        if(rid.velocity.x < (MaxVelocity * - 1)){
-            rid.velocity = new Vector3(MaxVelocity * -1, rid.velocity.y, rid.velocity.z);
+        if(_controlRigidBody.velocity.x < (MaxVelocity * - 1)){
+            _controlRigidBody.velocity = new Vector3(MaxVelocity * -1, _controlRigidBody.velocity.y, _controlRigidBody.velocity.z);
         }
-        if(rid.velocity.y > MaxVelocity){
-            rid.velocity = new Vector3(rid.velocity.x, MaxVelocity, rid.velocity.z);
+        if(_controlRigidBody.velocity.y > MaxVelocity){
+            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, MaxVelocity, _controlRigidBody.velocity.z);
         }
-        if(rid.velocity.y < (MaxVelocity * - 1)){
-            rid.velocity = new Vector3(rid.velocity.x, MaxVelocity  * -1, rid.velocity.z);
+        if(_controlRigidBody.velocity.y < (MaxVelocity * - 1)){
+            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, MaxVelocity  * -1, _controlRigidBody.velocity.z);
         } 
-        if(rid.velocity.z > MaxVelocity){
-            rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity);
+        if(_controlRigidBody.velocity.z > MaxVelocity){
+            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, _controlRigidBody.velocity.y, MaxVelocity);
         }
-        if(rid.velocity.z < (MaxVelocity * - 1)){
-            rid.velocity = new Vector3(rid.velocity.x, rid.velocity.y, MaxVelocity  * -1);
+        if(_controlRigidBody.velocity.z < (MaxVelocity * - 1)){
+            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, _controlRigidBody.velocity.y, MaxVelocity  * -1);
         }
     }
     private void CheckKeyInput(){
