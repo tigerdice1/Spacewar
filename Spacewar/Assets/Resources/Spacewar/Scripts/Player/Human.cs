@@ -5,15 +5,7 @@ using TMPro;
 
 public class Human : PlayerBase{
     [SerializeField]
-    private Animator _animator;
-    private Rigidbody _rigidbody;
-
-    private bool _isWalking;
-
-    public bool IsWalking{
-        set => _isWalking = value; 
-        get => _isWalking;
-    }
+    
     [Tooltip("아이템 주울 때 예외처리")]
     private bool hasPressedE = false;
 
@@ -39,25 +31,18 @@ public class Human : PlayerBase{
     //         hasPressedE = true;
     //     } 
     // }
+    
 
-    void UpdateAnimation(){
-        float speed = new Vector3(_rigidbody.velocity.x, 0, _rigidbody.velocity.z).magnitude;
-        Debug.Log(speed);
-        _animator.SetBool("isWalking", speed >= 0.2f);
-
-      
-    }
     // Start is called before the first frame update
     void Start(){
         Debug.Log("start");
-        _rigidbody = GetComponent<Rigidbody>();
+        
         //Initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateAnimation();
         //
          //DEBUG_CODE
         if(Input.GetKeyDown(KeyCode.Space)){
@@ -73,9 +58,6 @@ public class Human : PlayerBase{
         // if (Input.GetKeyUp(KeyCode.E)){
         //     hasPressedE = false;
         // }
-    }
-    void FixedUpdate(){
-        
     }
 
     void TakeDamage(float damage){

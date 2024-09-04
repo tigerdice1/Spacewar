@@ -50,6 +50,11 @@ public class PlayerController : MonoBehaviour
             _controlObject = _defaultControlObject;
         }
     }
+
+    private void UpdatePlayerAnim(){
+        float speed = new Vector3(_controlRigidBody.velocity.x, 0, _controlRigidBody.velocity.z).magnitude;
+        _controlObject.GetComponent<PlayerBase>().UpdateWalkingState(speed>0.0f, speed * .5f);
+    }
     private RaycastHit GetCursorRaycastResult(){
         Ray ray = this.GetComponent<CameraController>().GetCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitResult;
@@ -108,7 +113,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private void MovePlayer(){
-
         _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -195,7 +199,8 @@ public class PlayerController : MonoBehaviour
         // 태그가 플레이어일 경우
         if(_controlObject.CompareTag("Player")){
             MovePlayer();
-            LookCursorBySlerp(_controlObject.GetComponent<Human>().PlayerRotationSpeed);
+            UpdatePlayerAnim();
+            LookCursorBySlerp(_controlObject.GetComponent<PlayerBase>().PlayerRotationSpeed);
         }
         else if(_controlObject.CompareTag("MainShip")){
             MoveShip();

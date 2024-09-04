@@ -23,6 +23,16 @@ public class PlayerBase : MonoBehaviour
     [SerializeField]
     [Tooltip("플레이어 현재체력")]
     protected float _playerCurrentHP;
+    [SerializeField]
+    protected Animator _animator;
+    protected Rigidbody _rigidbody;
+
+    protected bool _isWalking;
+
+    public bool IsWalking{
+        set => _isWalking = value; 
+        get => _isWalking;
+    }
 
     
     [SerializeField]
@@ -59,10 +69,16 @@ public class PlayerBase : MonoBehaviour
 
     [SerializeField]
     protected HPSystem _hpSystem;
+    public void UpdateWalkingState(bool state, float animSpeed){
+        if(_animator != null){
+            _animator.SetBool("isWalking", state);
+            _animator.SetFloat("animSpeed", animSpeed);
+        }
+    }
 
     // Start is called before the first frame update
     protected virtual void Start(){
-
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
