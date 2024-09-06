@@ -69,10 +69,16 @@ public class PlayerBase : MonoBehaviour
 
     [SerializeField]
     protected HPSystem _hpSystem;
-    public void UpdateWalkingState(bool state, float animSpeed){
+    public void UpdateWalkingState(float forwardSpeed, float lateralSpeed){
         if(_animator != null){
-            _animator.SetBool("isWalking", state);
-            _animator.SetFloat("animSpeed", animSpeed);
+            if(forwardSpeed != 0.0f || lateralSpeed != 0.0f){
+                _animator.SetBool("isWalking", true);
+            }
+            else{
+                _animator.SetBool("isWalking", false);
+            }
+            _animator.SetFloat("walkingForwardSpeed", forwardSpeed);
+            _animator.SetFloat("walkingLateralSpeed", lateralSpeed);
         }
     }
 

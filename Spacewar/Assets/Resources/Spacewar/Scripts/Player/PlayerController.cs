@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
         _uiManager.SetPlayerUIState(true); 
         if(_controlObject == null){
             _controlObject = _defaultControlObject;
+            _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
         }
     }
     
@@ -52,8 +53,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void UpdatePlayerAnim(){
-        float speed = new Vector3(_controlRigidBody.velocity.x, 0, _controlRigidBody.velocity.z).magnitude;
-        _controlObject.GetComponent<PlayerBase>().UpdateWalkingState(speed>0.0f, speed * .5f);
+        Vector3 worldVelocity = _controlRigidBody.velocity;
+        // 로컬 좌표계로 변환 (오브젝트 기준 앞, 뒤, 좌, 우 속도)
+        Vector3 localVelocity = _controlRigidBody.transform.InverseTransformDirection(worldVelocity);
+        // 앞/뒤 속도 (z축)
+        float forwardSpeed = localVelocity.z;
+        // 좌/우 속도 (x축)
+        float lateralSpeed = localVelocity.x;
+        //Debug.Log("앞뒤 속도: " + forwardSpeed);
+        //Debug.Log("좌우 속도: " + lateralSpeed);
+        _controlObject.GetComponent<PlayerBase>().UpdateWalkingState(forwardSpeed, lateralSpeed);
     }
     private RaycastHit GetCursorRaycastResult(){
         Ray ray = this.GetComponent<CameraController>().GetCamera.ScreenPointToRay(Input.mousePosition);
@@ -113,14 +122,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void MovePlayer(){
-        _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
 
-        // Rigidbody의 속도를 설정하여 이동합니다.
         _controlRigidBody.velocity = movement * 5.0f;
+        
         /*
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
