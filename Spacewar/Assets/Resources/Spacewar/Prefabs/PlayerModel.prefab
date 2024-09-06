@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8872838953896793287}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.63296056, z: 0, w: 0.77418405}
   m_LocalPosition: {x: 0, y: 2.21, z: 35.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -301,8 +301,10 @@ MonoBehaviour:
   _playerRotationSpeed: 10
   _playerMaxHP: 100
   _playerCurrentHP: 100
+  _animator: {fileID: 0}
   _showItemName: {fileID: 0}
   _hpSystem: {fileID: 3098890529266514977}
+  hasPressedE: 0
 --- !u!114 &3098890529266514977
 MonoBehaviour:
   m_ObjectHideFlags: 0

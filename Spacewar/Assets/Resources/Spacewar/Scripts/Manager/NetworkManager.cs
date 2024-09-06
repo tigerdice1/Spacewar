@@ -102,7 +102,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom(){
         print("호스트 서버 생성 완료");
-        SceneLoader.Instance().LoadScene("Room");
+        SceneLoader.Instance().LoadLocalScene("Room");
     }
     // CreateRoom Function. Must ConnectedToMaster to be loaded//
     /* JoinRoom Function. Must ConnectedToMaster to be loaded*/
@@ -123,13 +123,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinedRoom(){
-        SceneLoader.Instance().LoadScene("Room");
+        SceneLoader.Instance().LoadLocalScene("Room");
     }
     // JoinRoom Function. Must ConnectedToMaster to be loaded//
 
     public override void OnLeftRoom(){
-        SceneLoader.Instance().LoadScene("MainMenu");
+        SceneLoader.Instance().LoadLocalScene("MainMenu");
     }
+    
     void Awake(){
         if(_instance == null){
             _instance = this;

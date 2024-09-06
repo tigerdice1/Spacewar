@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private List<AsteroidArea> _asteroidAreas;
 
-    private List<Player> _team1Player;
-    private List<Player> _team2Player;
+    private List<Player> _team1Player = new List<Player>();
+    private List<Player> _team2Player = new List<Player>();
 
     public GameObject[] _playerModels;
     public GameObject _playerController;
@@ -64,14 +64,17 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.SetCustomProperties(playerProps);
 
             // 모델 인스턴스화
-            GameObject playerModel = PhotonNetwork.Instantiate(selectedModelName, Vector3.zero, Quaternion.identity);
+            GameObject playerModel = PhotonNetwork.Instantiate("Spacewar/Scripts/NewPlayer/DefaultPlayerModel", Vector3.zero, Quaternion.identity);
             // 추가로, 캐릭터 컨트롤러 등을 부착하는 코드를 여기에 작성
             playerModel.transform.SetParent(null);
-            GameObject playerController = Instantiate(_playerController,Vector3.zero, Quaternion.identity);
+            
+            GameObject playerController = PhotonNetwork.Instantiate("Spacewar/Prefabs/PlayerContoller",Vector3.zero, Quaternion.identity);
+            playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
     }
     // Start is called before the first frame update
     void Start(){
         SetPlayerTeam();
+        SpawnPlayer();
         int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
         for(int i = 0; i < astCount; i++){
             _asteroidAreas.Add(Instantiate(_asteroidArea));

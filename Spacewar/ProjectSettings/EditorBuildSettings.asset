@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/MP_DefaultMap.unity
     guid: f1962257fffca554eadd56c4c22365bf
+  - enabled: 1
+    path: Assets/Resources/Scenes/MP_TestingChamber.unity
+    guid: 4b2e630c751ab404a9794e19fe25f804
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

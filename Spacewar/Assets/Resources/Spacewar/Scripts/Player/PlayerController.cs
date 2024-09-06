@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Realtime;
+using Photon.Pun;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
 
     [SerializeField]
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
         _uiManager.SetPlayerUIState(true); 
         if(_controlObject == null){
             _controlObject = _defaultControlObject;
+            _controlObject.GetComponent<PlayerBase>().PlayerController = gameObject.GetComponent<PlayerController>();
             _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
         }
     }
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour
         _controlObject.GetComponent<PlayerBase>().UpdateWalkingState(forwardSpeed, lateralSpeed);
     }
     private RaycastHit GetCursorRaycastResult(){
-        Ray ray = this.GetComponent<CameraController>().GetCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = this.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
         RaycastHit hitResult;
         if(!Physics.Raycast(ray, out hitResult)){
             
@@ -199,24 +202,28 @@ public class PlayerController : MonoBehaviour
     }
     // Update is called once per frame
     void Update(){
-        CheckKeyInput();
-        CheckOnTriggerExit();
-        MouseClickEvent();
+        if(photonView.IsMine){
+            CheckKeyInput();
+            CheckOnTriggerExit();
+            MouseClickEvent();
+        }
     }
 
     void FixedUpdate(){
-        // 태그가 플레이어일 경우
-        if(_controlObject.CompareTag("Player")){
-            MovePlayer();
-            UpdatePlayerAnim();
-            LookCursorBySlerp(_controlObject.GetComponent<PlayerBase>().PlayerRotationSpeed);
-        }
-        else if(_controlObject.CompareTag("MainShip")){
-            MoveShip();
-            LookCursorBySlerp(_controlObject.GetComponent<MainShip>().ShipRotationSpeed);
-        }
-        else if(_controlObject.CompareTag("Turret")){
-            LookCursor(_controlObject.GetComponent<Turret>().RotationSpeed);
+        if(photonView.IsMine){
+            // 태그가 플레이어일 경우
+            if(_controlObject.CompareTag("Player")){
+                MovePlayer();
+                UpdatePlayerAnim();
+                LookCursorBySlerp(_controlObject.GetComponent<PlayerBase>().PlayerRotationSpeed);
+            }
+            else if(_controlObject.CompareTag("MainShip")){
+                MoveShip();
+                LookCursorBySlerp(_controlObject.GetComponent<MainShip>().ShipRotationSpeed);
+            }
+            else if(_controlObject.CompareTag("Turret")){
+                LookCursor(_controlObject.GetComponent<Turret>().RotationSpeed);
+            }
         }
     }
 }

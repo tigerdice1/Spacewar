@@ -12,18 +12,18 @@ public class SceneLoader : MonoBehaviourPunCallbacks{
         return _instance;
     }
 
-    public void LoadScene(string sceneName){
+    public void LoadPhotonNetworkScene(string sceneName){
         if (PhotonNetwork.IsConnected){
             PhotonNetwork.LoadLevel(sceneName);
         }
-        else{
-            SceneManager.LoadScene(sceneName);
-        }
     }
-
+    public void LoadLocalScene(string sceneName){
+        SceneManager.LoadScene(sceneName);
+    }
     void Awake(){
         if(_instance == null){  
             _instance = this;
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
     }
 }
