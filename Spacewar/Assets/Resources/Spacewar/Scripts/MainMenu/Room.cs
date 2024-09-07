@@ -74,6 +74,10 @@ public class Room : MonoBehaviourPunCallbacks
         RemovePlayerFromTeam(otherPlayer);
     }
 
+    public override void OnJoinedRoom(){
+        UpdatePlayerList();
+    }
+
     public void SwitchTeam(){
         Player[] players = PhotonNetwork.PlayerList;
          foreach(Player player in players){

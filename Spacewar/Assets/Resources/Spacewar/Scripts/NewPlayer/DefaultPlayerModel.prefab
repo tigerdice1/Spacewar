@@ -77,6 +77,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: f3c5583d9f1e923409af8154bff58414, type: 2}
     - target: {fileID: 5866666021909216657, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
@@ -97,6 +105,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8371212967672352269}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -127171922972706785}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2948331816084915214}
@@ -133,7 +144,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!64 &2774375564666835262
@@ -177,14 +188,30 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isWalking
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: walkingForwardSpeed
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: walkingLateralSpeed
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
+--- !u!114 &-127171922972706785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730015404637598603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &2948331816084915214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,11 +227,12 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8371212967672352269}
+  - {fileID: -127171922972706785}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

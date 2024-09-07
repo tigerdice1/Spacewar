@@ -135,8 +135,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if(_instance == null){
             _instance = this;
         }
-        PhotonNetwork.SendRate = 60;
-        PhotonNetwork.SerializationRate = 60;
+        PhotonNetwork.SendRate = 120;
+        PhotonNetwork.SerializationRate = 120;
         if(!PhotonNetwork.LocalPlayer.NickName.Equals("")){
             _isLoggedIn = true;
         }

@@ -76,23 +76,27 @@ public class CameraController : MonoBehaviourPunCallbacks
     }
     // Start is called before the first frame update
     void Start(){
-        Initalize();
-        SetFollowingState(true);
+        if(photonView.IsMine){
+            Initalize();
+            SetFollowingState(true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(photonView.IsMine){
         UpdateFollowingTarget();
-        if(_playerController.ControlObject.CompareTag("Player")){
-            _offset = new Vector3(0f, 15f, 0f);
-        }
-        else if(_playerController.ControlObject.CompareTag("MainShip")){
-            _offset = new Vector3(0f, 350f, 0f);
-        }
-        else if(_playerController.ControlObject.CompareTag("Turret")){
-            _offset = new Vector3(0f, 350f, 0f);
-            
+            if(_playerController.ControlObject.CompareTag("Player")){
+                _offset = new Vector3(0f, 15f, 0f);
+            }
+            else if(_playerController.ControlObject.CompareTag("MainShip")){
+                _offset = new Vector3(0f, 350f, 0f);
+            }
+            else if(_playerController.ControlObject.CompareTag("Turret")){
+                _offset = new Vector3(0f, 350f, 0f);
+                
+            }
         }
     }
 }
