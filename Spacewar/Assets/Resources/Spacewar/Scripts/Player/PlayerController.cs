@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
 
     [SerializeField]
-    [Tooltip("기본 컨트롤 오브젝트")]
+    [Tooltip("기본 컨트롤 오브젝트.")]
     private GameObject _defaultControlObject;
     [SerializeField]
     [Tooltip("플레이어가 컨트롤 할 오브젝트")]
@@ -121,17 +121,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
             float currentRotationSpeed = Quaternion.Angle(_controlObject.transform.rotation, lookRotation) / Time.deltaTime;
             float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, maxRotationSpeed);
-            _controlObject.transform.rotation = Quaternion.Lerp(_controlObject.transform.rotation, lookRotation,limitedRotationSpeed * Time.deltaTime);
+            _controlObject.transform.rotation = Quaternion.Lerp(_controlObject.transform.rotation, lookRotation, limitedRotationSpeed * Time.deltaTime);
     }
 
     private void MovePlayer(){
-
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
-
-        _controlRigidBody.velocity = movement * 5.0f;
+        float magnitude = Mathf.Sqrt(moveHorizontal * moveHorizontal + moveVertical * moveVertical);
+        if (magnitude > 1) {
+            moveHorizontal /= magnitude;
+            moveVertical /= magnitude;
+        }
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        Debug.Log(movement);
+        
+        //_controlRigidBody.velocity = Vector3.Lerp(_controlRigidBody.velocity, movement * _controlObject.GetComponent<PlayerBase>().PlayerSpeed, 10f * Time.deltaTime);
+        _controlRigidBody.velocity = movement * _controlObject.GetComponent<PlayerBase>().PlayerSpeed;
         
         /*
         float moveX = Input.GetAxis("Horizontal");
@@ -206,6 +211,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             CheckKeyInput();
             CheckOnTriggerExit();
             MouseClickEvent();
+            
         }
     }
 

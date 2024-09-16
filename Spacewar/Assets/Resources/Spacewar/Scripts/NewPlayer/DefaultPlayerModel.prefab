@@ -104,10 +104,10 @@ PrefabInstance:
       addedObject: {fileID: 2774375564666835262}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8371212967672352269}
+      addedObject: {fileID: -127171922972706785}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -127171922972706785}
+      addedObject: {fileID: 8371212967672352269}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2948331816084915214}
@@ -169,6 +169,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4311566983292452419, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+--- !u!114 &-127171922972706785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730015404637598603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &8371212967672352269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,22 +212,6 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
---- !u!114 &-127171922972706785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2730015404637598603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &2948331816084915214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,10 +229,10 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 1
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 8371212967672352269}
   - {fileID: -127171922972706785}
+  - {fileID: 8371212967672352269}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 0}
-  _playerSpeed: 50
+  _playerSpeed: 10
   _playerRotationSpeed: 10
   _playerMaxHP: 10
   _playerCurrentHP: 0
