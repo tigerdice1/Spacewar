@@ -18,7 +18,7 @@ public class Junction : MonoBehaviour
 	private float _totalPowerConsumption;
     
     void Initailize(){
-        if(GameManager.Instance().IsDebugMode()){
+        if(GameManager.Instance().IsDebugMode){
             if(!_generatorConsole){
                 Debug.Log("Console_PowerGenerator is not Loaded. Please add GeneratorConsole. Location : " + gameObject);
             }

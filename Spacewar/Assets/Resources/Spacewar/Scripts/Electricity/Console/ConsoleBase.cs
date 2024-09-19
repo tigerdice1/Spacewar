@@ -60,7 +60,7 @@ public class ConsoleBase : MonoBehaviour
 
     // Start is called before the first frame update
     protected virtual void Start(){
-        if(GameManager.Instance().IsDebugMode()){
+        if(GameManager.Instance().IsDebugMode){
             OnDebugMode();
         }
     }

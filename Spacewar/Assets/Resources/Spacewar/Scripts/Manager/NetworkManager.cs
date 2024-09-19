@@ -18,6 +18,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private Text _connectionStatus;
 
     public string _onClickedRoomName;
+
+    public MainMenu _mainMenu;
     //Variables//
 
     /*Properties*/
@@ -31,13 +33,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public string OnClickedRoomName{
         set => _onClickedRoomName = value;
+        get => _onClickedRoomName;
     }
 
     public void ConnectToLobby(){
+        _mainMenu.UpdateLoadingPanel("Joining Lobby..");
         PhotonNetwork.JoinLobby();
     }
-    public void SetPlayerName(string playerName){
-        this._playerName = playerName;
+    public string PlayerName{
+        set => _playerName = value;
+        get => _playerName;
     }
 
     public void SetServerName(string serverName){
@@ -56,44 +61,37 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     //Properties//
     /* Connect to MasterServer Function*/
     public void Connect(){
+        PhotonNetwork.LocalPlayer.NickName = this._playerName;
+        PhotonNetwork.SendRate = 120;
+        PhotonNetwork.SerializationRate = 120;
         PhotonNetwork.ConnectUsingSettings();
-        print("서버 접속 중...");
+        _mainMenu.UpdateLoadingPanel("Connecting to Server");
+        StartCoroutine(WaitForConnectionCoroutine());
     }
 
     public override void OnConnected(){
-        print("접속 완료");
+        _mainMenu.UpdateLoadingPanel("Server Connected");
     }
 
     public override void OnConnectedToMaster(){
         base.OnConnectedToMaster();
-        print("마스터 서버 접속 완료");
+        _mainMenu.UpdateLoadingPanel("Master Server Connected");
+        _mainMenu.SetMainBtnGroupPanelActive(true);
+        _mainMenu.SetLoadingPanelActive(false);
     }
     //Connect to MasterServer Function//
     /* Connect to Lobby Function. Must ConnectedToMaster to be loaded*/
     public override void OnJoinedLobby(){
         base.OnJoinedLobby();
-        print("로비 접속 완료");
+        _mainMenu.UpdateLoadingPanel("Lobby Joined.");
+        _mainMenu.SetLoadingPanelActive(false);
+        _mainMenu.SetJoinGamePanelActive(true);
     }
     //Connect to Lobby Function. Must ConnectedToMaster to be loaded//
-    /* Login Function.*/
-    public void OnLoginButtonClicked(){
-        if(_playerName == null){
-            Debug.LogError("Player Name is Empty!.");
-            return;
-        }
-        if(!_playerName.Equals("")){
-            PhotonNetwork.LocalPlayer.NickName = _playerName;
-            _isLoggedIn = true;
-            Connect();
-        }
-        else{
-            Debug.LogError("Player Name is invalid.");
-        }
-    }
-    // Login Function.//
+
     /* CreateRoom Function. Must ConnectedToMaster to be loaded*/
     public void CreateRoom(){
-        print("호스트 서버 생성 중");
+        _mainMenu.UpdateLoadingPanel("Creating Host Server...");
         _serverName = (_serverName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : _serverName;
         _maxPlayers = (byte) Mathf.Clamp(_maxPlayers, 2, 12);
         RoomOptions options = new RoomOptions {MaxPlayers = _maxPlayers, PlayerTtl = 10000, IsVisible = true, IsOpen = true};
@@ -101,7 +99,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnCreatedRoom(){
-        print("호스트 서버 생성 완료");
+        _mainMenu.UpdateLoadingPanel("Host Server Created.");
         SceneLoader.Instance().LoadLocalScene("Room");
     }
     // CreateRoom Function. Must ConnectedToMaster to be loaded//
@@ -110,15 +108,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         _onClickedRoomName = " ";
     }
 
-    public void JoinClickedRoom(){
-        if(!_onClickedRoomName.Equals(" ")){
-            PhotonNetwork.JoinRoom(_onClickedRoomName);
-        }
-    }
-
     public void JoinRoom(string serverName){
         if(!serverName.Equals(" ")){
             PhotonNetwork.JoinRoom(serverName);
+            _mainMenu.UpdateLoadingPanel("Connecting to room...");
         }
     }
 
@@ -128,24 +121,60 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // JoinRoom Function. Must ConnectedToMaster to be loaded//
 
     public override void OnLeftRoom(){
+        PhotonNetwork.LeaveRoom();
         SceneLoader.Instance().LoadLocalScene("MainMenu");
     }
     
+    public void CloseRoomAndKickPlayers()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom != null)
+        {
+            // 모든 플레이어 강제 퇴장
+            foreach (Player player in PhotonNetwork.PlayerListOthers)
+            {
+                PhotonNetwork.CloseConnection(player);  // 해당 플레이어 퇴장
+            }
+
+            // 자신도 방에서 나가기
+            PhotonNetwork.LeaveRoom();
+        }
+    }
+
+    public void DebugServerConnect(){
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
+        // 접속이 완료될 때까지 기다리는 코루틴
+    private System.Collections.IEnumerator WaitForConnectionCoroutine()
+    {
+        Debug.Log("Waiting for connection...");
+
+        // 연결될 때까지 반복해서 체크
+        while (!PhotonNetwork.IsConnectedAndReady)
+        {
+            yield return null; // 한 프레임 대기
+        }
+
+        Debug.Log("Connection established!");
+
+        // 접속이 완료된 후 필요한 작업 수행
+        _isLoggedIn = true;
+    }
+
     void Awake(){
         if(_instance == null){
             _instance = this;
-        }
-        PhotonNetwork.SendRate = 120;
-        PhotonNetwork.SerializationRate = 120;
-        if(!PhotonNetwork.LocalPlayer.NickName.Equals("")){
-            _isLoggedIn = true;
         }
     }
 
     // Start is called before the first frame update
     void Start(){
-        
-    }
+        if(!PhotonNetwork.IsConnectedAndReady){
+            _mainMenu.SetMainBtnGroupPanelActive(false);
+            _mainMenu.SetLoginPanelActive(true);
+            }
+        }
+    
 
     // Update is called once per frame
     void Update(){

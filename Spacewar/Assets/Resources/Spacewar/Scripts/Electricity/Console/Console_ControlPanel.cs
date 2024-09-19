@@ -47,7 +47,7 @@ public class Console_ControlPanel : ConsoleBase
     protected override void Start(){
         base.Start();
         Initalize();
-        if(GameManager.Instance().IsDebugMode()){
+        if(GameManager.Instance().IsDebugMode){
             OnDebugMode();
         }
     }

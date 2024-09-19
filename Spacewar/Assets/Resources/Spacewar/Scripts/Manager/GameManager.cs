@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         return _instance;
     }
 
-    public bool IsDebugMode(){
-        return _instance._isDebugMode;
+    public bool IsDebugMode{
+        get => _isDebugMode;
     }
     void Awake(){
         if(_instance == null){
@@ -73,13 +73,20 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     // Start is called before the first frame update
     void Start(){
-        SetPlayerTeam();
-        SpawnPlayer();
-        int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
-        for(int i = 0; i < astCount; i++){
-            _asteroidAreas.Add(Instantiate(_asteroidArea));
+        if(_instance.IsDebugMode){
+
         }
-    }
+        
+        if(PhotonNetwork.IsConnected){
+            SetPlayerTeam();
+            SpawnPlayer();
+        }
+            /*
+            int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
+            for(int i = 0; i < astCount; i++){
+            _asteroidAreas.Add(Instantiate(_asteroidArea));
+            */
+    } 
 
     // Update is called once per frame
     void Update()
