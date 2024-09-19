@@ -178,7 +178,7 @@ public class Console_PowerGenerator : ConsoleBase
         // 임계온도 이하로 떨어지면 기존 색상으로 변경
         // 전원이 꺼진 상태라면 광원의 Electricity 스크립트에서 작동상태 변경
         if(_isPowered){
-            _lightElectricity.SetActiveState(Electricity.State.ACTIVE);
+            _lightElectricity.SetActiveState(CustomTypes.ElectricState.ACTIVE);
             if(_isCritical){
                 _lightController.SetLightColor(Color.red);
             }
@@ -187,7 +187,7 @@ public class Console_PowerGenerator : ConsoleBase
             }
         }
         else if(!_isPowered){
-            _lightElectricity.SetActiveState(Electricity.State.OFF);
+            _lightElectricity.SetActiveState(CustomTypes.ElectricState.OFF);
         }
     }
 

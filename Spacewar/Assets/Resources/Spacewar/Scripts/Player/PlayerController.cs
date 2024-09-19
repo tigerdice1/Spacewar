@@ -136,7 +136,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Debug.Log(movement);
         
         //_controlRigidBody.velocity = Vector3.Lerp(_controlRigidBody.velocity, movement * _controlObject.GetComponent<PlayerBase>().PlayerSpeed, 10f * Time.deltaTime);
-        _controlRigidBody.velocity = movement * _controlObject.GetComponent<PlayerBase>().PlayerSpeed;
+
+        Vector3 currentVelocity = _controlRigidBody.velocity;
+        Vector3 newVelocity = new Vector3(movement.x * _controlObject.GetComponent<PlayerBase>().PlayerSpeed, currentVelocity.y, movement.z * _controlObject.GetComponent<PlayerBase>().PlayerSpeed);
+
+        _controlRigidBody.velocity = newVelocity;
         
         /*
         float moveX = Input.GetAxis("Horizontal");
@@ -190,10 +194,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), false);
             }
             if(_triggerObject.GetComponent<Console_ControlPanel>() && !_uiManager.GetUIActivated()){
-                _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
+                _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject(this);
             }
             else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetUIActivated()){
-                _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject();
+                _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject(this);
             }
         }
         if(Input.GetKeyDown(KeyCode.T)){

@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Electricity : MonoBehaviour
 {
-    // 전기기계의 작동상태를 지정하는 enum 입니다.
-    public enum State{
-        OFF,
-        IDLE,
-        ACTIVE
-    }
     /* Power consumption refers to the total power consumption of an object using electricity */
     // 현재 전력 소모량을 저장하는 변수입니다.
     [SerializeField]
@@ -32,7 +26,7 @@ public class Electricity : MonoBehaviour
     private bool _isPowered;
 
     // 현재 전자기계의 상태를 저장하는 변수입니다.
-    private State _state = State.OFF;
+    private CustomTypes.ElectricState _state = CustomTypes.ElectricState.OFF;
 
     /* Properties */
     public bool IsPowered{
@@ -52,7 +46,7 @@ public class Electricity : MonoBehaviour
         get => _powerActive;
     }
 
-    public State GetState{
+    public CustomTypes.ElectricState GetState{
         get => _state;
     }
 
@@ -64,17 +58,17 @@ public class Electricity : MonoBehaviour
     }
 
     // 전원 상태를 지정하는 함수입니다. 외부에서 호출되는 함수입니다.
-    public void SetActiveState(State state){
+    public void SetActiveState(CustomTypes.ElectricState state){
         if(_state == state) return;
         _state = state;
         switch(_state){
-            case State.OFF:
+            case CustomTypes.ElectricState.OFF:
                 SetPowerState(false);
             break;
-            case State.IDLE:
+            case CustomTypes.ElectricState.IDLE:
                 SetPowerState(true);
             break;
-            case State.ACTIVE:
+            case CustomTypes.ElectricState.ACTIVE:
                 SetPowerState(true);
                 _powerConsumption = _powerActive;
             break;

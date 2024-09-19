@@ -249,8 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 0}
-  _playerSpeed: 10
-  _playerRotationSpeed: 10
+  _playerSpeed: 5
+  _playerRotationSpeed: 5
   _playerMaxHP: 10
   _playerCurrentHP: 0
   _animator: {fileID: 8667470999983829835}
