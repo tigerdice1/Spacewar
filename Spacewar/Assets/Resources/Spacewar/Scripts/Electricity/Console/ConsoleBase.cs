@@ -5,27 +5,33 @@ using UnityEngine;
 public class ConsoleBase : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("해당 오브젝트의 소유함선을 지정합니다.")]
+    [Tooltip("콘솔의 소유 함선을 지정합니다. 해당 변수를 통해서 스크립트를 통해 함선 정보에 도달합니다.")]
     protected MainShip _ownerShip;
     [SerializeField]
-    [Tooltip("해당 오브젝트에 상호작용 시 컨트롤 할 오브젝트를 지정합니다. 따로 없을경우 지정하지 않아도 됩니다.")]
+    [Tooltip("콘솔을 사용할 경우 조종하게 될 오브젝트를 지정합니다. 조종할 오브젝트가 따로 없고 UI만 띄우려고 한다면 따로 지정하지 않아도 됩니다.")]
     protected GameObject _objectToControl;
 
-    [Tooltip("해당 오브젝트를 사용중인 오브젝트입니다. 자동으로 지정됩니다.")]
+    [Tooltip("콘솔을 사용중인 플레이어를 지정합니다. _triggeredControllers 에 할당된 플레이어가 사용버튼을 누르면 자동으로 할당됩니다.")]
     protected List<PlayerBase> _handlingPlayers;
 
-    [Tooltip("접근 가능구역에 들어온 오브젝트입니다. 트리거 안에 오브젝트가 들어오면 자동으로 지정됩니다.")]
-    protected List<PlayerController> _triggeredController;
-    // 해당 콘솔에 접근 가능한지 판별해주는 변수. 보통의 경우 누군가 사용중일 때 다른 플레이어가 상호작용하지 못하도록 합니다.
-    protected bool _isInteractive = true;
-    protected bool _soloUseOnly = false;
+    [Tooltip("콘솔의 사용가능 범위 안에 들어와있는 PlayerController를 토글합니다. Trigger를 통해 자동으로 지정됩니다. Trigger 범위 안에 PlayerController 가 없는 경우 Null 을 반환하니 이 점에 유의해야합니다.")]
+    protected List<PlayerController> _triggeredControllers;
+    
+    // 콘솔을 누군가 사용중인지 판별하는 Bool 변수입니다. 누군가 콘솔을 사용중일 경우 false, 사용중이지 않을경우 true 를 반환합니다.
+    protected bool _isInteractive;
+
+    // 콘솔을 혼자서만 사용할 수 있는지 판별하는 Bool 변수입니다. true 로 설정시 한 번에 한 명씩만 접근할 수 있으며, false 로 설정시 동시에 여러명이 접근할 수 있습니다.
+    protected bool _soloUseOnly;
+
     [SerializeField]
-    [Tooltip("콘솔 접근 시 사용할 UI를 지정합니다. 따로 없을경우 지정하지 않아도 됩니다.")]
+    [Tooltip("콘솔에 접근하면 사용할 UI 입니다. 없어도 작동에 이상은 없지만 많이 불편할 수도 있습니다.")]
     protected GameObject _consoleUI;
 
     protected virtual void Initalize(){
         _handlingPlayers = new List<PlayerBase>();
-        _triggeredController = new List<PlayerController>();
+        _triggeredControllers = new List<PlayerController>();
+        _isInteractive = true;
+        _soloUseOnly = false;
     }
 
     protected virtual void OnDebugMode(){
@@ -37,13 +43,13 @@ public class ConsoleBase : MonoBehaviour
     }
     protected void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Player")){
-            _triggeredController.Add(other.GetComponent<PlayerBase>().PlayerController);
+            _triggeredControllers.Add(other.GetComponent<PlayerBase>().PlayerController);
             other.GetComponent<PlayerBase>().PlayerController.TriggerObject = this.gameObject;
         }
     }
     protected void OnTriggerExit(Collider other) {
         if(other.CompareTag("Player")){
-            _triggeredController.Remove(other.GetComponent<PlayerBase>().PlayerController);
+            _triggeredControllers.Remove(other.GetComponent<PlayerBase>().PlayerController);
             other.GetComponent<PlayerBase>().PlayerController.TriggerObject = null;
         }
     }

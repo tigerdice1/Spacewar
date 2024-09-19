@@ -18,7 +18,7 @@ public class Console_ControlPanel : ConsoleBase
     public void SwapContorlObject(PlayerController activatedPlayerController){
         if(_electricity.IsPowered){ // 전력이 들어와 있을 경우
             if(_isInteractive){ // 현재 콘솔이 사용가능한 상태일 때
-                if(_triggeredController.Contains(activatedPlayerController)){
+                if(_triggeredControllers.Contains(activatedPlayerController)){
                     _electricity.SetActiveState(CustomTypes.ElectricState.ACTIVE);
                     _handlingPlayers.Add(activatedPlayerController.DefaultControlObject.GetComponent<PlayerBase>());
                     activatedPlayerController.ControlObject = _objectToControl;
@@ -29,7 +29,7 @@ public class Console_ControlPanel : ConsoleBase
                 }
             }
             else if(!_isInteractive){ // 현재 콘솔이 사용 불가능한 상태일 때
-                if(_triggeredController.Contains(activatedPlayerController)){
+                if(_triggeredControllers.Contains(activatedPlayerController)){
                     _electricity.SetActiveState(CustomTypes.ElectricState.IDLE);
                     activatedPlayerController.ControlObject = activatedPlayerController.DefaultControlObject;
                     activatedPlayerController.gameObject.GetComponent<CameraController>().SetFollowTarget(activatedPlayerController.DefaultControlObject);
