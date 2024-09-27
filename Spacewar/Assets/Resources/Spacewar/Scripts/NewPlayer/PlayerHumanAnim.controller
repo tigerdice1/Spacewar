@@ -48,8 +48,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: walkingForwardSpeed
     m_Mirror: 0
-  m_BlendParameter: walkingLateralSpeed
-  m_BlendParameterY: walkingForwardSpeed
+  m_BlendParameter: LateralSpeed
+  m_BlendParameterY: ForwardSpeed
   m_MinThreshold: -5
   m_MaxThreshold: 20
   m_UseAutomaticThresholds: 0
@@ -86,13 +86,13 @@ AnimatorController:
   m_Name: PlayerHumanAnim
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: walkingForwardSpeed
+  - m_Name: ForwardSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: walkingLateralSpeed
+  - m_Name: LateralSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
