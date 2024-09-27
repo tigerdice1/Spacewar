@@ -26,7 +26,7 @@ public class Electricity : MonoBehaviour
     private bool _isPowered;
 
     // 현재 전자기계의 상태를 저장하는 변수입니다.
-    private CustomTypes.ElectricState _state = CustomTypes.ElectricState.OFF;
+    private CustomTypes.ElectricState _state;
 
     /* Properties */
     public bool IsPowered{
@@ -78,18 +78,17 @@ public class Electricity : MonoBehaviour
     private void CheckActiveState(){
         SetActiveState(_state);
     }
+
+    private void Initalize(){
+       _state = CustomTypes.ElectricState.OFF;
+    }
     // Start is called before the first frame update
-    void Start()
-    {
-
+    void Start(){
+        Initalize();
     }
 
-    private void FixedUpdate(){
-
-    }
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         CheckActiveState();
     }
 }

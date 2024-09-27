@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [Tooltip("플레이어가 접촉한 오브젝트")]
     private GameObject _triggerObject;
     private UIManager _uiManager;
+    private CameraController _cameraController;
 
     /* Properties */
     public GameObject DefaultControlObject{
@@ -31,19 +32,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     public GameObject ControlObject{
-        set => _controlObject = value;
+        set{
+            _controlObject = value;
+            _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
+        }
         get => _controlObject; 
     }
 
-    private void Initailize(){
+    private void Initialize(){
         // MainUI always visible
         _uiManager = this.gameObject.AddComponent<UIManager>();
         _uiManager.SetPlayerUIState(true); 
         if(_controlObject == null){
             _controlObject = _defaultControlObject;
-            _controlObject.GetComponent<PlayerBase>().PlayerController = gameObject.GetComponent<PlayerController>();
-            _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
+            var playerBase = _controlObject.GetComponent<PlayerBase>();
+            if (playerBase != null){
+                playerBase.PlayerController = this;
+            }
         }
+        _cameraController = GetComponent<CameraController>();
     }
     
     private void CheckOnTriggerExit(){
@@ -55,29 +62,28 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdatePlayerAnim(){
-        Vector3 worldVelocity = _controlRigidBody.velocity;
-        // 로컬 좌표계로 변환 (오브젝트 기준 앞, 뒤, 좌, 우 속도)
-        Vector3 localVelocity = _controlRigidBody.transform.InverseTransformDirection(worldVelocity);
-        // 앞/뒤 속도 (z축)
-        float forwardSpeed = localVelocity.z;
-        // 좌/우 속도 (x축)
-        float lateralSpeed = localVelocity.x;
-        //Debug.Log("앞뒤 속도: " + forwardSpeed);
-        //Debug.Log("좌우 속도: " + lateralSpeed);
-        _controlObject.GetComponent<PlayerBase>().UpdateWalkingState(forwardSpeed, lateralSpeed);
-    }
-    private RaycastHit GetCursorRaycastResult(){
-        Ray ray = this.GetComponent<CameraController>().GetCamera().ScreenPointToRay(Input.mousePosition);
+    public RaycastHit GetCursorRaycastResult(){
+        Ray ray = _cameraController.GetCamera().ScreenPointToRay(Input.mousePosition);
         RaycastHit hitResult;
         if(!Physics.Raycast(ray, out hitResult)){
             
         }
         return hitResult;
-        
     }
 
     private void MouseClickEvent(){
+        if (Input.GetMouseButtonDown(0)){
+            var controllable = _controlObject.GetComponent<IControllable>();
+            controllable?.HandleMouseClick(this);
+        }
+
+        if (Input.GetMouseButtonUp(0)){
+            var turret = _controlObject.GetComponent<Turret>();
+            if (turret != null){
+                turret.IsFiring = false;
+            }
+        }
+        /*
         if(Input.GetMouseButtonDown(0)){
             if(_controlObject.CompareTag("MainShip")){
                 for(int i = 0; _controlObject.GetComponent<MainShip>().GetLoadedMissileRooms.Count < 0; i++){
@@ -93,62 +99,36 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 _controlObject.GetComponent<Turret>().IsFire = false;
             }
         }
+    */
     }
-
-    private void LookCursorBySlerp(float maxRotationSpeed){
-        RaycastHit hitResult = GetCursorRaycastResult();
-            Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
-            Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
-            float currentRotationSpeed = Quaternion.Angle(_controlObject.transform.rotation, lookRotation) / Time.deltaTime;
-            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, maxRotationSpeed);
-            _controlObject.transform.rotation = Quaternion.Slerp(_controlObject.transform.rotation, lookRotation,limitedRotationSpeed * Time.deltaTime);
-           //_controlObject.transform.rotation = Quaternion.RotateTowards(_controlObject.transform.rotation, lookRotation, limitedRotationSpeed * Time.deltaTime);
-        /*
-            _controlObject.transform.forward = mouseDir;
-        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1f);
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector3 lookDir = worldPos - _controlObject.transform.position;
-        Debug.Log(worldPos);
-        lookDir.y = 0;
-        Quaternion lookRotation = Quaternion.LookRotation(lookDir);
-        _controlObject.transform.rotation = lookRotation;
-        */
-    }
-
-    private void LookCursor(float maxRotationSpeed){
-        RaycastHit hitResult = GetCursorRaycastResult();
-            Vector3 mouseDir = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
-            Quaternion lookRotation = Quaternion.LookRotation(mouseDir);
-            float currentRotationSpeed = Quaternion.Angle(_controlObject.transform.rotation, lookRotation) / Time.deltaTime;
-            float limitedRotationSpeed = Mathf.Clamp(currentRotationSpeed, 0f, maxRotationSpeed);
-            _controlObject.transform.rotation = Quaternion.Lerp(_controlObject.transform.rotation, lookRotation, limitedRotationSpeed * Time.deltaTime);
-    }
-
-    private void MovePlayer(){
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        float magnitude = Mathf.Sqrt(moveHorizontal * moveHorizontal + moveVertical * moveVertical);
-        if (magnitude > 1) {
-            moveHorizontal /= magnitude;
-            moveVertical /= magnitude;
+    public void LookAtCursor(float maxRotationSpeed, bool useSlerp){
+        var hitResult = GetCursorRaycastResult();
+        Vector3 direction = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        if (useSlerp){
+            _controlObject.transform.rotation = Quaternion.Slerp(_controlObject.transform.rotation, lookRotation, maxRotationSpeed * Time.deltaTime);
         }
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        Debug.Log(movement);
-        
-        //_controlRigidBody.velocity = Vector3.Lerp(_controlRigidBody.velocity, movement * _controlObject.GetComponent<PlayerBase>().PlayerSpeed, 10f * Time.deltaTime);
-
-        Vector3 currentVelocity = _controlRigidBody.velocity;
-        Vector3 newVelocity = new Vector3(movement.x * _controlObject.GetComponent<PlayerBase>().PlayerSpeed, currentVelocity.y, movement.z * _controlObject.GetComponent<PlayerBase>().PlayerSpeed);
-
-        _controlRigidBody.velocity = newVelocity;
-        
-        /*
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
-        _controlObject.transform.Translate(new Vector3(moveX, 0, moveZ)* Time.deltaTime * _controlObject.GetComponent<Human>().PlayerSpeed, Space.World);
-        */
+        else{
+            _controlObject.transform.rotation = Quaternion.Lerp(_controlObject.transform.rotation, lookRotation, maxRotationSpeed * Time.deltaTime);
+        }
     }
 
+    private void CheckKeyInput(){
+        if (Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
+            var powerGenerator = _triggerObject.GetComponent<Console_PowerGenerator>();
+            var controlPanel = _triggerObject.GetComponent<Console_ControlPanel>();
+
+            if (powerGenerator != null){
+                bool uiActivated = _uiManager.GetUIActivated();
+                _uiManager.SetUIState(powerGenerator.GetUI(), !uiActivated);
+            }
+            else if (controlPanel != null){
+                controlPanel.SwapControlObject(this);
+            }
+        }
+    }
+
+/*
     private void MoveShip(){
         _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
         float spd = _controlObject.GetComponent<MainShip>().Speed;
@@ -185,28 +165,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, _controlRigidBody.velocity.y, MaxVelocity  * -1);
         }
     }
-    private void CheckKeyInput(){
-        if(Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            if(_triggerObject.GetComponent<Console_PowerGenerator>() && !_uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), true);
-            }
-            else if(_triggerObject.GetComponent<Console_PowerGenerator>() && _uiManager.GetUIActivated()){
-                _uiManager.SetUIState(_triggerObject.GetComponent<Console_PowerGenerator>().GetUI(), false);
-            }
-            if(_triggerObject.GetComponent<Console_ControlPanel>() && !_uiManager.GetUIActivated()){
-                _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject(this);
-            }
-            else if(_triggerObject.GetComponent<Console_ControlPanel>() && _uiManager.GetUIActivated()){
-                _triggerObject.GetComponent<Console_ControlPanel>().SwapContorlObject(this);
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.T)){
+*/
 
-        }
-    }
+    
     // Start is called before the first frame update
     private void Start(){
-        Initailize();
+        Initialize();
 
     }
     // Update is called once per frame
@@ -220,20 +184,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     void FixedUpdate(){
-        if(photonView.IsMine){
-            // 태그가 플레이어일 경우
-            if(_controlObject.CompareTag("Player")){
-                MovePlayer();
-                UpdatePlayerAnim();
-                LookCursorBySlerp(_controlObject.GetComponent<PlayerBase>().PlayerRotationSpeed);
-            }
-            else if(_controlObject.CompareTag("MainShip")){
-                MoveShip();
-                LookCursorBySlerp(_controlObject.GetComponent<MainShip>().ShipRotationSpeed);
-            }
-            else if(_controlObject.CompareTag("Turret")){
-                LookCursor(_controlObject.GetComponent<Turret>().RotationSpeed);
-            }
+        if (photonView.IsMine){
+            var controllable = _controlObject.GetComponent<IControllable>();
+            controllable?.Move(this);
+            controllable?.Look(this, controllable.RotationSpeed, true);
+            controllable?.UpdateAnimation(this);
         }
     }
 }

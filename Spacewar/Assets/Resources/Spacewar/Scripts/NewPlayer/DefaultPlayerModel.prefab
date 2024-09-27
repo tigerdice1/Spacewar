@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9012584597314955609, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.621
@@ -204,11 +208,11 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isWalking
   - Type: 1
-    SynchronizeType: 2
-    Name: walkingForwardSpeed
+    SynchronizeType: 0
+    Name: ForwardSpeed
   - Type: 1
-    SynchronizeType: 2
-    Name: walkingLateralSpeed
+    SynchronizeType: 0
+    Name: LateralSpeed
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
@@ -248,17 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94761ce40650d404e895f265fa15d32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerController: {fileID: 0}
-  _playerSpeed: 5
-  _playerRotationSpeed: 5
-  _playerMaxHP: 10
-  _playerCurrentHP: 0
-  _animator: {fileID: 8667470999983829835}
-  _showItemName: {fileID: 0}
-  _hpSystem: {fileID: 0}
-  hasPressedE: 0
---- !u!95 &8667470999983829835 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
-  m_PrefabInstance: {fileID: 2964388189655633626}
-  m_PrefabAsset: {fileID: 0}
+  PlayerSpeed: 10
+  PlayerRotationSpeed: 10
+  PlayerCurrentHP: 0
+  PlayerMaxHP: 100
+  isPickingUpItem: 0
+  PlayerController: {fileID: 0}

@@ -7,13 +7,6 @@ public class Console_PowerGenerator : ConsoleBase
     [SerializeField]
     [Tooltip("해당 발전기와 연결된 분배기를 지정합니다.")]
     private Junction _connectedJunction;
-
-    [SerializeField]
-    [Tooltip("조명")]
-    private Light _lightSource;
-
-    private LightController _lightController;
-    private Electricity _lightElectricity;
     
      /* Generator Info */
     // It's the efficiency of the generator. The more efficient, the higher the output under less load. Range 0 ~ 100
@@ -172,50 +165,22 @@ public class Console_PowerGenerator : ConsoleBase
 
     /* Optional Functions */
     // 발전기에 연결된 광원을 동기화하는 함수
-    private void UpdateGeneratorLight(){
-        // 전원이 켜진 상태라면 광원의 Electricity 스크립트에서 작동상태 변경
-        // 임계온도시 광원의 색상을 변경
-        // 임계온도 이하로 떨어지면 기존 색상으로 변경
-        // 전원이 꺼진 상태라면 광원의 Electricity 스크립트에서 작동상태 변경
-        if(_isPowered){
-            _lightElectricity.SetActiveState(CustomTypes.ElectricState.ACTIVE);
-            if(_isCritical){
-                _lightController.SetLightColor(Color.red);
-            }
-            else{
-                _lightController.SetLightColor(Color.green);
-            }
-        }
-        else if(!_isPowered){
-            _lightElectricity.SetActiveState(CustomTypes.ElectricState.OFF);
-        }
-    }
-
     protected override void Initalize(){
-        if(_lightSource){
-            _lightController = _lightSource.GetComponent<LightController>();
-            _lightElectricity = _lightSource.GetComponent<Electricity>();
-        }
+
     }
     // Start is called before the first frame update
     protected override void Start(){
         base.Initalize();
         Initalize();
-        // 디버그용 
-        SetGeneratorState(true);
     }
 
     // Update is called once per frame
-    protected override void Update()
-    {
+    protected override void Update(){
         UpdateThermal();
         if(_isPowered){
             CheckFuelAmount();
             CalcOutputPower();
             CheckGeneratorThermal();
-        }
-        if(_lightSource){
-            UpdateGeneratorLight();
         }
     }
 }

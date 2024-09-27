@@ -7,7 +7,7 @@ using Photon.Realtime;
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
-    protected MainShip _ownerShip;
+    protected ShipBase _ownerShip;
     [SerializeField]
     protected float _projectileVelocity;
     [SerializeField]
@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
 
     private float _timer;
 
-    public MainShip OwnerShip{
+    public ShipBase OwnerShip{
         set =>  value = _ownerShip;
         get => _ownerShip;
     }

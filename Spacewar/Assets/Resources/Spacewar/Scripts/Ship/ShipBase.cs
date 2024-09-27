@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipBase : MonoBehaviour
+public class ShipBase : MonoBehaviour, IControllable
 {
-    [SerializeField]
-    [Tooltip("")]
-    protected PlayerController _playerController;
+    public float Speed;
+    public float ShipRotationSpeed;
+    public float RotationSpeed => ShipRotationSpeed;
+    public float ShipMaxHP;
+    public float ShipHP;
+
+    protected Rigidbody _rigidbody;
+
+
 
     [SerializeField]
     [Tooltip("")]
-    protected float _speed;
+    protected PlayerController _playerController;
 
     [SerializeField]
     protected List<MissileRoom> _missileRooms;
@@ -21,41 +27,18 @@ public class ShipBase : MonoBehaviour
 
     protected GameObject _targetObject;
 
-    protected float _shipHP;
-    [SerializeField]
-    protected float _rotationSpeed;
     protected float _currentAngularSpeed;
     protected Quaternion _previousRotation;
     protected Vector3 _axis = Vector3.zero;
 
     protected float _angle = 0.0f;
-    protected bool _isReverseThrusterActive = true;
-
-    public bool IsReverseThrusterActive{
-        set => _isReverseThrusterActive = value;
-        get => _isReverseThrusterActive;
-    }
-
-    public float ShipHP{
-        set => _shipHP = value;
-        get => _shipHP;
-    }
-    public float Speed{
-        set => _speed = value;
-        get => _speed;
-    }
-
-    public float ShipRotationSpeed{
-        set => _rotationSpeed = value;
-        get => _rotationSpeed;
-    }
 
     public float GetAngularSpeed{
         get => _currentAngularSpeed;
     }
 
-    public List<MissileRoom> GetLoadedMissileRooms{
-        get => _loadedMissileRooms;
+    public List<MissileRoom> GetLoadedMissileRooms(){
+        return _loadedMissileRooms;
     }
 
     public GameObject TargetObject{
@@ -82,52 +65,37 @@ public class ShipBase : MonoBehaviour
         _previousRotation = transform.rotation;
     }
 
-    protected void ReverseThruster(){
-        Rigidbody shipRigidBody = gameObject.GetComponent<Rigidbody>();
-        if(_isReverseThrusterActive){
-            ReverseThrusterRotate(shipRigidBody);
-            ReverseThrusterForward(shipRigidBody);
+    public void Move(PlayerController controller){
+        Vector3 force = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W)) force += Vector3.forward;
+        if (Input.GetKey(KeyCode.A)) force += Vector3.left;
+        if (Input.GetKey(KeyCode.S)) force += Vector3.back;
+        if (Input.GetKey(KeyCode.D)) force += Vector3.right;
+
+        _rigidbody.AddRelativeForce(force.normalized * Speed);
+
+        float maxVelocity = Speed;
+        _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, maxVelocity);
+    }
+
+    public void Look(PlayerController controller, float maxRotationSpeed, bool useSlerp){
+        controller.LookAtCursor(maxRotationSpeed, useSlerp);
+    }
+
+    public void HandleMouseClick(PlayerController controller){
+        var missileRooms = GetLoadedMissileRooms();
+        foreach (var room in missileRooms){
+            room.LaunchMissile();
         }
     }
 
-    protected void ReverseThrusterRotate(Rigidbody rb){
-        float fixedTorque = Mathf.Lerp(_currentAngularSpeed * 0.2f, 0.0f, Time.deltaTime);
-        if(_axis.y > 0.0f){
-            rb.AddRelativeTorque(Vector3.down * fixedTorque);
-        } 
-        else if(_axis.y < 0.0f){
-            rb.AddRelativeTorque(Vector3.up * fixedTorque);
-        }
+    public void UpdateAnimation(PlayerController controller){
+        // 필요 시 구현
     }
-    /*
-    Debug.Log(rid.transform.forward);
-    전방(0.0f, 0.0f, 1.0f)
-    후방(0.0f, 0.0f, -1.0f)
-    좌측(-1.0f, 0.0f, 0.0f)
-    우측(1.0f, 0.0f, 0.0f)
-    Debug.Log(rid.velocity);
-    전진(0.0f, 0.0f, 1.0f)
-    후진(0.0f, 0.0f, -1.0f)
-    좌측(-1.0f, 0.0f, 0.0f)
-    우측(1.0f, 0.0f, 0.0f)
-*/
-    protected void ReverseThrusterForward(Rigidbody rb){
-        if(rb.velocity.z > 0.0f){ // 게임화면 기준 상단이동
-            rb.AddRelativeForce(Vector3.back * rb.transform.forward.z * rb.velocity.magnitude);
-            rb.AddRelativeForce(Vector3.right * rb.transform.forward.x * rb.velocity.magnitude);
-        }
-        if(rb.velocity.z < 0.0f){ // 게임화면 기준 하단이동
-            rb.AddRelativeForce(Vector3.forward * rb.transform.forward.z * rb.velocity.magnitude);
-            rb.AddRelativeForce(Vector3.left * rb.transform.forward.x * rb.velocity.magnitude);
-        }
-        if(rb.velocity.x < 0.0f){ // 게임화면 기준 좌측이동
-            rb.AddRelativeForce(Vector3.right * rb.transform.forward.z * rb.velocity.magnitude);
-            rb.AddRelativeForce(Vector3.forward * rb.transform.forward.x * rb.velocity.magnitude);
-        }
-        if(rb.velocity.x > 0.0f){ // 게임화면 기준 우측이동
-            rb.AddRelativeForce(Vector3.left * rb.transform.forward.z * rb.velocity.magnitude);
-            rb.AddRelativeForce(Vector3.back * rb.transform.forward.x * rb.velocity.magnitude);
-        }
+
+    protected void Awake(){
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     protected virtual void Initalize(){

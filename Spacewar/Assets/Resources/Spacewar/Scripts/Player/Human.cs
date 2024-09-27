@@ -4,10 +4,11 @@ using UnityEngine;
 using TMPro;
 
 public class Human : PlayerBase{
+    /*
     [SerializeField]
     
     [Tooltip("아이템 주울 때 예외처리")]
-    private bool hasPressedE = false;
+    private bool isPickingUpItem = false;
 
     // [SerializeField]
     // [Tooltip("인벤토리")]
@@ -20,7 +21,7 @@ public class Human : PlayerBase{
     // }
 
     // void OnTriggerStay(Collider other){
-    //     if (hasPressedE || !Input.GetKey(KeyCode.E)) return;
+    //     if (isPickingUpItem || !Input.GetKey(KeyCode.E)) return;
 
     //     var item = other.GetComponent<GroundItem>();
     //     if (item){
@@ -28,7 +29,7 @@ public class Human : PlayerBase{
     //         Inventory.AddItem(new Item(item.Item), 1);
     //         Destroy(other.gameObject);
 
-    //         hasPressedE = true;
+    //         isPickingUpItem = true;
     //     } 
     // }
     
@@ -56,7 +57,7 @@ public class Human : PlayerBase{
         // }
         // //아이템 습득 중복 방지 예외처리
         // if (Input.GetKeyUp(KeyCode.E)){
-        //     hasPressedE = false;
+        //     isPickingUpItem = false;
         // }
     }
 
@@ -82,4 +83,15 @@ public class Human : PlayerBase{
     // void OnApplicationQuit(){
     //    _inventory.Container._items.Clear();
     // }
+    */
+    protected void Awake(){
+        base.Awake();
+    }
+    
+    protected void Start(){
+        Initalize();
+    }
+    protected void Initalize(){
+        this.PlayerCurrentHP = PlayerMaxHP;
+    }
 }

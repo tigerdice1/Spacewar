@@ -17,7 +17,7 @@ public class LightController : MonoBehaviour
         }
     }
 
-    public void SetHexColor(string hexCode){
+    public void SetLightColorByHexCode(string hexCode){
         Color color;
         if (ColorUtility.TryParseHtmlString(hexCode, out color)){
             for(int i = 0; i < _lightComponent.Count; i++){
@@ -26,31 +26,33 @@ public class LightController : MonoBehaviour
         }
     }
     
+    private void OnDebugMode(){
+        if(_lightComponent == null) Debug.Log("_lightComponent is not Loaded. Location : " + gameObject);
+        if(!_lightElectricity) Debug.Log("_lightElectricity is not Loaded. Location : " + gameObject);
+
+    }
+    
+
     private void Initalize(){
-        if(GameManager.Instance().IsDebugMode){
-            if(_lightComponent == null){
-                Debug.Log("_lightComponent is not Loaded. Location : " + gameObject);
-            }
-            if(!_lightElectricity){
-                Debug.Log("_lightElectricity is not Loaded. Location : " + gameObject);
-            }
-        }
         _lightComponent = new List<Light>(this.GetComponentsInChildren<Light>());
         _lightElectricity = this.GetComponent<Electricity>();
     }
-    private void SyncOnState(){
+    private void SyncState(){
         for(int i = 0; i < _lightComponent.Count; i++){
             _lightComponent[i].enabled = _lightElectricity.IsPowered;
         }
     }
+
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
+        if(GameManager.Instance().IsDebugMode){
+            OnDebugMode();
+        }
         Initalize();
     }
 
     // Update is called once per frame
     void Update(){
-        SyncOnState();   
+        SyncState();   
     }
 }

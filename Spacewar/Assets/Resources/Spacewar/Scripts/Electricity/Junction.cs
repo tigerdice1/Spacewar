@@ -17,12 +17,13 @@ public class Junction : MonoBehaviour
     [Tooltip("전력 사용량 총합.")]
 	private float _totalPowerConsumption;
     
-    void Initailize(){
-        if(GameManager.Instance().IsDebugMode){
-            if(!_generatorConsole){
-                Debug.Log("Console_PowerGenerator is not Loaded. Please add GeneratorConsole. Location : " + gameObject);
-            }
-        }
+
+    private void OnDebugMode(){
+        if(!_generatorConsole) Debug.Log("Console_PowerGenerator is not Loaded. Please add GeneratorConsole. Location : " + gameObject);
+  
+    }
+    private void Initailize(){
+
     }
     /* Custom Functions */
 	// Store the combined power consumption of the objects in the list.
