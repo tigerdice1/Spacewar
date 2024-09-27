@@ -19,37 +19,49 @@ public class Junction : MonoBehaviour
     
 
     private void OnDebugMode(){
-        if(!_generatorConsole) Debug.Log("Console_PowerGenerator is not Loaded. Please add GeneratorConsole. Location : " + gameObject);
-  
+        if (_generatorConsole == null){
+            Debug.LogWarning($"Console_PowerGenerator is not assigned. Please add GeneratorConsole. Location: {gameObject.name}");
+        }
     }
-    private void Initailize(){
-
+    private void Initialize(){
+        if (GameManager.Instance().IsDebugMode){
+            OnDebugMode();
+        }
     }
     /* Custom Functions */
 	// Store the combined power consumption of the objects in the list.
     // 전력 사용량 총합을 계산하는 함수.
     private void UpdatePowerConsumption(){
         _totalPowerConsumption = 0.0f;
-        for(int i = 0; i < _connectedObjectsList.Count; i++){
-            if(_connectedObjectsList[i] != null){
-                _totalPowerConsumption += _connectedObjectsList[i].PowerConsumption;
+
+        if (_connectedObjectsList != null){
+            foreach (var obj in _connectedObjectsList){
+                if (obj != null){
+                    _totalPowerConsumption += obj.PowerConsumption;
+                }
             }
         }
     }
 
-    void CheckPowerState(){
-        if(_generatorConsole && _generatorConsole.IsPowered){
-            for(int i = 0; i < _connectedObjectsList.Count; i++){
-                switch(_connectedObjectsList[i].GetState){
-                    case CustomTypes.ElectricState.OFF:
-                        _connectedObjectsList[i].SetActiveState(CustomTypes.ElectricState.IDLE);
-                    break;
+    private void CheckPowerState(){
+        if (_generatorConsole != null && _generatorConsole.IsPowered){
+            if (_connectedObjectsList != null){
+                foreach (var obj in _connectedObjectsList){
+                    if (obj != null){
+                        if (obj.GetState == CustomTypes.ElectricState.OFF){
+                            obj.SetActiveState(CustomTypes.ElectricState.IDLE);
+                        }
                     }
                 }
             }
-        else if(!_generatorConsole.IsPowered){
-            for(int i = 0; i < _connectedObjectsList.Count; i++){
-                _connectedObjectsList[i].SetActiveState(CustomTypes.ElectricState.OFF);
+        }
+        else{
+            if (_connectedObjectsList != null){
+                foreach (var obj in _connectedObjectsList){
+                    if (obj != null){
+                        obj.SetActiveState(CustomTypes.ElectricState.OFF);
+                    }
+                }
             }
         }
     }
@@ -60,11 +72,13 @@ public class Junction : MonoBehaviour
     */
     
     private void SyncPowerFromGenerator(){
-        _generatorConsole.SyncPower(_totalPowerConsumption);
+        if (_generatorConsole != null){
+            _generatorConsole.SyncPower(_totalPowerConsumption);
+        }
     }
  	// Start is called before the first frame update   
 	void Start(){
-        Initailize();
+        Initialize();
     }
 
     // Update is called once per frame

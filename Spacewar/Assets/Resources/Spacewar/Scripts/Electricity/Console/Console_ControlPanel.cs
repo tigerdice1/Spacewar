@@ -8,8 +8,8 @@ public class Console_ControlPanel : ConsoleBase
     // ConsoleBase 로부터 상속받아 작성됨
 
     private Electricity _electricity;
-    protected override void Initalize(){
-        base.Initalize();
+    protected override void Initialize(){
+        base.Initialize();
         _electricity = this.GetComponent<Electricity>();
     }
     protected override void OnDebugMode(){
@@ -46,7 +46,7 @@ public class Console_ControlPanel : ConsoleBase
     }
     protected override void Start(){
         base.Start();
-        Initalize();
+        Initialize();
         if(GameManager.Instance().IsDebugMode){
             OnDebugMode();
         }
