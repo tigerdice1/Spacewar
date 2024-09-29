@@ -35,7 +35,7 @@ public class Console_PowerGenerator : ConsoleBase
 
     // Current load on the generator.
     [SerializeField]
-    [Range(0, 100)]
+    [Range(0, 120)]
     [Tooltip("발전기의 현재 부하량")]
     private float _load;
     // Current Thermal on the generator.
@@ -88,6 +88,20 @@ public class Console_PowerGenerator : ConsoleBase
         set => _maxFuel = value;
         get => _maxFuel; 
     }
+    public float MaxPower{
+        set => _maxPower = value;
+        get => _maxPower; 
+    }
+
+    public float CurrentThermal{
+        set => _currentThermal = value;
+        get => _currentThermal; 
+    }
+
+    public float CriticalThermal{
+        set => _criticalThermal = value;
+        get => _criticalThermal; 
+    }
     public bool GetGeneratorState{
         get => _isPowered;
     }
@@ -101,11 +115,11 @@ public class Console_PowerGenerator : ConsoleBase
 
     // 온도 업데이트 함수
     private void UpdateThermal(){
-        // 전원이 켜진 상태이고 로드율이 50% 보다 높을경우, 3500도까지 로드율에 비례해서 서서히 증가
+        // 전원이 켜진 상태이고 로드율이 50% 보다 높을경우, 5000도까지 로드율에 비례해서 서서히 증가
         // 50% 보다 적을경우, 2500도까지 서서히 감소
         // 전원이 꺼질 경우 0도까지 온도 감소
         if (_isPowered){
-            float targetThermal = _load < 50.0f ? 2500.0f : 3500.0f;
+            float targetThermal = _load < 50.0f ? 2500.0f : 5000.0f * 1.2f;
             float thermalChangeRate = _load * 0.01f;
             _currentThermal = Mathf.Lerp(_currentThermal, targetThermal, Time.deltaTime * thermalChangeRate);
         }
@@ -120,7 +134,7 @@ public class Console_PowerGenerator : ConsoleBase
         // 목표로드율은 0% 보다 낮거나 100% 보다 클 수 없으므로 Clamp로 범위를 제한합니다.
         // 현재로드율을 목표로드율까지 서서히 조정합니다.
         float targetLoad = (powerUsage / _maxPower) * 100.0f;
-        float clamppedLoad = Mathf.Clamp(targetLoad, 0.0f, 100.0f);
+        float clamppedLoad = Mathf.Clamp(targetLoad, 0.0f, 120.0f);
         _load = Mathf.Lerp(_load, clamppedLoad, Time.deltaTime * 3.0f);
     }
 

@@ -48,7 +48,7 @@ public class Junction : MonoBehaviour
             if (_connectedObjectsList != null){
                 foreach (var obj in _connectedObjectsList){
                     if (obj != null){
-                        if (obj.GetState == CustomTypes.ElectricState.OFF){
+                        if (obj.State == CustomTypes.ElectricState.OFF){
                             obj.SetActiveState(CustomTypes.ElectricState.IDLE);
                         }
                     }

@@ -46,8 +46,9 @@ public class Electricity : MonoBehaviour
         get => _powerActive;
     }
 
-    public CustomTypes.ElectricState GetState{
+    public CustomTypes.ElectricState State{
         get => _state;
+        private set => _state = value;
     }
 
     // 전원의 켜고 끔을 지정하는 함수입니다. 외부에서 호출되지 않습니다.
@@ -58,33 +59,34 @@ public class Electricity : MonoBehaviour
     }
 
     // 전원 상태를 지정하는 함수입니다. 외부에서 호출되는 함수입니다.
-    public void SetActiveState(CustomTypes.ElectricState state){
-        if(_state == state) return;
-        _state = state;
-        switch(_state){
+public void SetActiveState(CustomTypes.ElectricState newState){
+        if (State == newState) return;
+        State = newState;
+
+        switch (State){
             case CustomTypes.ElectricState.OFF:
                 SetPowerState(false);
-            break;
+                break;
             case CustomTypes.ElectricState.IDLE:
                 SetPowerState(true);
-            break;
+                PowerConsumption = PowerIdle;
+                break;
             case CustomTypes.ElectricState.ACTIVE:
                 SetPowerState(true);
-                _powerConsumption = _powerActive;
-            break;
+                PowerConsumption = PowerActive;
+                break;
         }
     }
-
     private void CheckActiveState(){
         SetActiveState(_state);
     }
 
-    private void Initalize(){
-       _state = CustomTypes.ElectricState.OFF;
+    private void Initialize(){
+        SetActiveState(CustomTypes.ElectricState.OFF);
     }
     // Start is called before the first frame update
     void Start(){
-        Initalize();
+        Initialize();
     }
 
     // Update is called once per frame

@@ -33,10 +33,11 @@ public class ConsoleBase : MonoBehaviour
 
     protected virtual void Initialize(){
         _boxCollider = GetComponent<BoxCollider>();
-
+/*
         if (GameManager.Instance().IsDebugMode){
             OnDebugMode();
         }
+*/
     }
 
     protected virtual void OnDebugMode(){
