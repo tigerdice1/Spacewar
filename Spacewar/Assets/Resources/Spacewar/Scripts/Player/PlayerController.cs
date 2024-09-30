@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private UIManager _uiManager;
     private CameraController _cameraController;
 
+    public bool _isMine;
+
     /* Properties */
     public GameObject DefaultControlObject{
         set => _defaultControlObject = value; 
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void Initialize(){
         // MainUI always visible
+        _isMine = GetComponent<PhotonView>().IsMine;
         _uiManager = this.gameObject.AddComponent<UIManager>();
         _uiManager.SetPlayerUIState(true); 
         if(_controlObject == null){
@@ -51,6 +54,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
         _cameraController = GetComponent<CameraController>();
+        if(GameManager.Instance().IsDebugMode){
+            _isMine = true;
+        }
     }
     
     private void CheckOnTriggerExit(){
@@ -175,7 +181,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     // Update is called once per frame
     void Update(){
-        if(photonView.IsMine){
+        if(_isMine){
             CheckKeyInput();
             CheckOnTriggerExit();
             MouseClickEvent();
@@ -184,7 +190,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     void FixedUpdate(){
-        if (photonView.IsMine){
+        if (_isMine){
             var controllable = _controlObject.GetComponent<IControllable>();
             controllable?.Move(this);
             controllable?.Look(this, controllable.RotationSpeed, true);

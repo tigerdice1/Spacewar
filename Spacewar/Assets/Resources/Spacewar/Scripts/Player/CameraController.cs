@@ -24,6 +24,8 @@ public class CameraController : MonoBehaviourPunCallbacks
 	[Tooltip("카메라가 해당 물체를 따라가게 할지 선택합니다")]
     private bool _isFollowingTarget;
 
+    private bool _isMine;
+
     public Camera GetCamera(){
         if(_camera == null){
             Initalize();
@@ -32,6 +34,7 @@ public class CameraController : MonoBehaviourPunCallbacks
         return _camera;
     }
     private void Initalize(){
+        _isMine = GetComponent<PhotonView>();
         _playerController = this.GetComponent<PlayerController>();
         if(_followObject == null){
             _followObject = _playerController.DefaultControlObject;
@@ -43,7 +46,9 @@ public class CameraController : MonoBehaviourPunCallbacks
             cameraObject.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
             _camera = cameraObject.GetComponent<Camera>();
         }
-        
+        if(GameManager.Instance().IsDebugMode){
+            _isMine = true;
+        }
     }
     // Change the target to follow
     public void SetFollowTarget(GameObject target){
@@ -76,8 +81,8 @@ public class CameraController : MonoBehaviourPunCallbacks
     }
     // Start is called before the first frame update
     void Start(){
-        if(photonView.IsMine){
-            Initalize();
+        Initalize();
+        if(_isMine){
             SetFollowingState(true);
         }
     }
@@ -85,7 +90,7 @@ public class CameraController : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if(photonView.IsMine){
+        if(_isMine){
         UpdateFollowingTarget();
             if(_playerController.ControlObject.CompareTag("Player")){
                 _offset = new Vector3(0f, 15f, 0f);

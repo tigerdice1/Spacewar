@@ -71,13 +71,22 @@ public class GameManager : MonoBehaviourPunCallbacks
             GameObject playerController = PhotonNetwork.Instantiate("Spacewar/Prefabs/PlayerContoller",Vector3.zero, Quaternion.identity);
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
     }
+
+        private void SpawnDebugPlayer(){
+            // 모델 인스턴스화
+            GameObject playerModel = Instantiate(_playerModels[0], Vector3.zero, Quaternion.identity);
+            // 추가로, 캐릭터 컨트롤러 등을 부착하는 코드를 여기에 작성
+            playerModel.transform.SetParent(null);
+            
+            GameObject playerController = Instantiate(_playerController, Vector3.zero, Quaternion.identity);
+            playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
+    }
     // Start is called before the first frame update
     void Start(){
         if(_instance.IsDebugMode){
-
+            SpawnDebugPlayer();
         }
-        
-        if(PhotonNetwork.IsConnected){
+        else if(PhotonNetwork.IsConnected){
             SetPlayerTeam();
             SpawnPlayer();
         }
