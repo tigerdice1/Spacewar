@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class ShipBase : MonoBehaviour, IControllable
 {
-    public float Speed;
+    [Range(0, 100)]
+    public float Throttle;
+    public float Acceleration;
+    public float MaxVelocity;
     public float ShipRotationSpeed;
     public float RotationSpeed => ShipRotationSpeed;
     public float ShipMaxHP;
     public float ShipHP;
 
     protected Rigidbody _rigidbody;
-
-
-
-    [SerializeField]
-    [Tooltip("")]
-    protected PlayerController _playerController;
 
     [SerializeField]
     protected List<MissileRoom> _missileRooms;
@@ -47,6 +44,9 @@ public class ShipBase : MonoBehaviour, IControllable
     }
 
     protected void ChcekLoadedMissileRooms(){
+        if(_missileRooms.Count == 0){
+            return;
+        }
         for(int i = 0; i < _missileRooms.Count; i++){
             if(_missileRooms[i] && !_loadedMissileRooms.Contains(_missileRooms[i])){
                 _loadedMissileRooms.Add(_missileRooms[i]);
@@ -67,16 +67,22 @@ public class ShipBase : MonoBehaviour, IControllable
 
     public void Move(PlayerController controller){
         Vector3 force = Vector3.zero;
-
+        /*
         if (Input.GetKey(KeyCode.W)) force += Vector3.forward;
         if (Input.GetKey(KeyCode.A)) force += Vector3.left;
         if (Input.GetKey(KeyCode.S)) force += Vector3.back;
         if (Input.GetKey(KeyCode.D)) force += Vector3.right;
+        */
+        if (Input.GetKey(KeyCode.W)) Throttle++;
+        if (Input.GetKey(KeyCode.A)) force += Vector3.left;
+        if (Input.GetKey(KeyCode.S)) Throttle--;
+        if (Input.GetKey(KeyCode.D)) force += Vector3.right;
+        Throttle = Mathf.Clamp(Throttle, 0f, 100f);
 
-        _rigidbody.AddRelativeForce(force.normalized * Speed);
+        _rigidbody.AddRelativeForce(Vector3.forward * Throttle/100 * Acceleration);
+        _rigidbody.AddRelativeForce(force.normalized * Acceleration);
 
-        float maxVelocity = Speed;
-        _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, maxVelocity);
+        _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, MaxVelocity);
     }
 
     public void Look(PlayerController controller, float maxRotationSpeed, bool useSlerp){

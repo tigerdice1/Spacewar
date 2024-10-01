@@ -130,6 +130,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             else if (controlPanel != null){
                 controlPanel.SwapControlObject(this);
+                bool uiActivated = _uiManager.GetUIActivated();
+                _uiManager.SetUIState(controlPanel.GetUI(), !uiActivated);
             }
         }
     }
