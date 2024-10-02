@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         Transform playerUI;
-        if(playerUI = transform.Find("PlayerUI")){
+        if(playerUI = transform.Find("Personal_UI")){
             _playerUI = playerUI.GetComponent<CanvasGroup>();
         }
     }

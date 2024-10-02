@@ -16,6 +16,8 @@ public class Turret : MonoBehaviour, IControllable
 
     [SerializeField]
     private string _bulletPrefabPath = "Spacewar/Prefabs/Object/BULLET";
+    [SerializeField]
+    private GameObject _bulletPrefab;
 
     [SerializeField]
     private List<Transform> _bulletSpawnPoints = new List<Transform>();
@@ -44,6 +46,10 @@ public class Turret : MonoBehaviour, IControllable
 
         void Awake(){
         Initialize();
+    }
+
+    void OnDebugMode(){
+
     }
 
     public void Move(PlayerController controller){
@@ -75,12 +81,21 @@ public class Turret : MonoBehaviour, IControllable
             // 순환하여 발사 위치 선택
             _fireIndex %= _bulletSpawnPoints.Count;
             Transform spawnPoint = _bulletSpawnPoints[_fireIndex];
-
-            // 탄환 인스턴스 생성
-            GameObject bulletInstance = PhotonNetwork.Instantiate(
+            GameObject bulletInstance;
+            if(GameManager.Instance().IsDebugMode){
+                bulletInstance = Instantiate(
+                _bulletPrefab,
+                spawnPoint.position,
+                spawnPoint.rotation);
+            }
+            else{
+                // 탄환 인스턴스 생성
+                bulletInstance = PhotonNetwork.Instantiate(
                 _bulletPrefabPath,
                 spawnPoint.position,
                 spawnPoint.rotation);
+            }
+            
 
             // 탄환의 OwnerShip 설정
             Projectile projectile = bulletInstance.GetComponent<Projectile>();

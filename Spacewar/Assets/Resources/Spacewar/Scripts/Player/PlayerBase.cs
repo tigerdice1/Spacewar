@@ -12,16 +12,9 @@ public class PlayerBase : MonoBehaviour, IControllable
     public bool isPickingUpItem;
     public PlayerController PlayerController;
 
-    
-    private InventoryObject _inventory;
+    public List<CustomTypes.ItemData> Inventory = new List<CustomTypes.ItemData>();
     private Animator _animator;
     private Rigidbody _rigidbody;
-    
-
-    public InventoryObject Inventory{
-        get => _inventory;
-        set => _inventory = value;
-    }
 
     protected virtual void Die(){
         Debug.Log("Died");

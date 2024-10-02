@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public bool _isMine;
 
+    public bool _isTeam1;
+
     /* Properties */
     public GameObject DefaultControlObject{
         set => _defaultControlObject = value; 

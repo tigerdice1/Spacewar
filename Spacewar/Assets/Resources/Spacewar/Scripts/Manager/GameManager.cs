@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameObject[] _playerModels;
     public GameObject _playerController;
+
+    public GameObject _playerUI;
     
     public static GameManager Instance(){
         return _instance;
@@ -80,6 +82,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             
             GameObject playerController = Instantiate(_playerController, Vector3.zero, Quaternion.identity);
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
+            GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
+            playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
+            
     }
     // Start is called before the first frame update
     void Start(){
