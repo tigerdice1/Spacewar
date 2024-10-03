@@ -455,7 +455,6 @@ GameObject:
   - component: {fileID: 8937421777014825334}
   - component: {fileID: 8077182895611109168}
   - component: {fileID: 4771580511706894993}
-  - component: {fileID: 502027356012342153}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -476,6 +475,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2721254605839305015}
+  - {fileID: 5012556208885280311}
   - {fileID: 2596939578629234170}
   m_Father: {fileID: 458208440648333685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -547,18 +547,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!225 &502027356012342153
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2873194369286616649}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &2971133334832927501
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,6 +806,81 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
+--- !u!1 &4554282831778197696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5012556208885280311}
+  - component: {fileID: 7557704335985453921}
+  - component: {fileID: 6010614893578771114}
+  m_Layer: 5
+  m_Name: InventoryPicker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5012556208885280311
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554282831778197696}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9038696610646006239}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -450, y: -275}
+  m_SizeDelta: {x: 75, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7557704335985453921
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554282831778197696}
+  m_CullTransparentMesh: 1
+--- !u!114 &6010614893578771114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554282831778197696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4783366899926476616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,6 +1238,7 @@ GameObject:
   - component: {fileID: 5647341955927969145}
   - component: {fileID: 7122756167518466334}
   - component: {fileID: 3102773197994343388}
+  - component: {fileID: 3493049384297256380}
   m_Layer: 5
   m_Name: Personal_UI
   m_TagString: Untagged
@@ -1278,7 +1342,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OwnController: {fileID: 0}
-  Inventory: {fileID: 2596939578629234170}
+  InventorySlotList: []
+--- !u!225 &3493049384297256380
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542716943330826977}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7811248275070583852
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,10 +10,7 @@ public class UIManager : MonoBehaviour
     private bool _isUIActivated;
     // Start is called before the first frame update
     void Start(){
-        Transform playerUI;
-        if(playerUI = transform.Find("Personal_UI")){
-            _playerUI = playerUI.GetComponent<CanvasGroup>();
-        }
+        _playerUI = gameObject.GetComponent<PlayerController>().PlayerUI.GetComponent<CanvasGroup>();
     }
 
     public void SetPlayerUIState(bool state){
@@ -59,5 +56,41 @@ public class UIManager : MonoBehaviour
             }
         }
         
+    }
+    public void MoveInventoryPicker(int number){
+        Transform slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[9].transform;
+        switch(number){
+            case 0:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[9].transform;
+            break;
+            case 1:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[0].transform;
+            break;
+            case 2:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[1].transform;
+            break;
+            case 3:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[2].transform;
+            break;
+            case 4:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[3].transform;
+            break;
+            case 5:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[4].transform;
+            break;
+            case 6:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[5].transform;
+            break;
+            case 7:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[6].transform;
+            break;
+            case 8:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[7].transform;
+            break;
+            case 9:
+                slotPosition = _playerUI.gameObject.GetComponent<UI_Player>().InventorySlotList[8].transform;
+            break;
+        }
+        _playerUI.gameObject.GetComponent<UI_Player>().InventoryPicker.transform.position = slotPosition.position;
     }
 }

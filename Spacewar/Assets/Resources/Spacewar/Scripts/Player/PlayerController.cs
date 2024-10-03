@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private GameObject _triggerObject;
     private UIManager _uiManager;
     private CameraController _cameraController;
+    public GameObject PlayerUI;
 
     public bool _isMine;
 
@@ -135,6 +136,44 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 bool uiActivated = _uiManager.GetUIActivated();
                 _uiManager.SetUIState(controlPanel.GetUI(), !uiActivated);
             }
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha1)){
+            _uiManager.MoveInventoryPicker(1);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)){
+            _uiManager.MoveInventoryPicker(2);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3)){
+            _uiManager.MoveInventoryPicker(3);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha4)){
+            _uiManager.MoveInventoryPicker(4);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha5)){
+            _uiManager.MoveInventoryPicker(5);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha6)){
+            _uiManager.MoveInventoryPicker(6);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha7)){
+            _uiManager.MoveInventoryPicker(7);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha8)){
+            _uiManager.MoveInventoryPicker(8);
+
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha9)){
+            _uiManager.MoveInventoryPicker(9);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha0)){
+            _uiManager.MoveInventoryPicker(0);
         }
     }
 

@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
             GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
             playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
+            playerController.GetComponent<PlayerController>().PlayerUI = playerUI;
             
     }
     // Start is called before the first frame update
