@@ -7,9 +7,11 @@ public class PickableItem : MonoBehaviour
 
     public CustomTypes.ItemData Item;
     private PlayerBase _triggeredPlayer;
-    public void PickupItem(){
-        _triggeredPlayer.Inventory.Add(Item);
-        Destroy(gameObject);
+    public void PickupItem(int index){
+        if(_triggeredPlayer.Inventory[index].ItemType == 0){
+            _triggeredPlayer.Inventory[index] = Item;
+            Destroy(gameObject);
+        }
     }
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")){

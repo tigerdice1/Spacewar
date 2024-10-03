@@ -19,8 +19,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [Tooltip("플레이어가 컨트롤 할 오브젝트")]
     private GameObject _controlObject;
     private Rigidbody _controlRigidBody;
-    
-    
+    private int _inventoryIndex = 0;
     private UIManager _uiManager;
     private CameraController _cameraController;
 
@@ -132,7 +131,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 _uiManager.SetUIState(controlPanel.GetUI(), !uiActivated);
             }
             else if (item != null){
-                item.PickupItem();
+                item.PickupItem(_inventoryIndex);
             }
         }
         for (int i = 0; i <= 9; i++){
@@ -141,9 +140,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 // 0 키는 인벤토리 인덱스 0이 아닌 10으로 처리할 경우
                 int pickerNumber = (i == 0) ? 0 : i;
                 _uiManager.MoveInventoryPicker(pickerNumber);
+                _inventoryIndex = pickerNumber - 1;
             }
         }
-        
+        if (Input.GetKeyDown(KeyCode.G)){
+            _controlObject.GetComponent<PlayerBase>().DropItem(_inventoryIndex);
+        }
     }
 
 /*

@@ -22,10 +22,21 @@ public class PlayerBase : MonoBehaviour, IControllable
     protected virtual void Awake(){
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        CustomTypes.ItemData blankItem = new CustomTypes.ItemData(null, 0, null);
+        for(int i = 0; i < 10; i++){
+            Inventory.Add(blankItem);
+        }
     }
 
     public float RotationSpeed => PlayerRotationSpeed;
 
+    public void DropItem(int index){
+        if(Inventory[index].ItemType != 0){
+            Inventory[index].ItemName = null;       
+            Inventory[index].ItemType = 0;
+            Inventory[index].ThumbnailSprite = null;
+        }
+    }
     public void Move(PlayerController controller){
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
