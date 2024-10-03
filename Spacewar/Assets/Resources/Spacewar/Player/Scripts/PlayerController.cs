@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject PlayerUI;
     public bool IsMine;
     public bool IsTeam1;
+    [Tooltip("플레이어가 접촉한 오브젝트")]
+    public GameObject TriggerObject;
 
     [SerializeField]
     [Tooltip("기본 컨트롤 오브젝트.")]
@@ -18,9 +20,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private GameObject _controlObject;
     private Rigidbody _controlRigidBody;
     
-    [SerializeField]
-    [Tooltip("플레이어가 접촉한 오브젝트")]
-    private GameObject _triggerObject;
+    
     private UIManager _uiManager;
     private CameraController _cameraController;
 
@@ -28,10 +28,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject DefaultControlObject{
         set => _defaultControlObject = value; 
         get => _defaultControlObject; 
-    }
-    public GameObject TriggerObject{
-        set => _triggerObject = value; 
-        get => _triggerObject; 
     }
 
     public GameObject ControlObject{
@@ -61,10 +57,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     
     private void CheckOnTriggerExit(){
-        if(_triggerObject == null && _uiManager.GetUIActivated()){
+        if(TriggerObject == null && _uiManager.GetUIActivated()){
             _uiManager.ReleaseUI();
         }
-        if(_triggerObject == null && !_controlObject.CompareTag("Player")){
+        if(TriggerObject == null && !_controlObject.CompareTag("Player")){
             _controlObject = _defaultControlObject;
         }
     }
@@ -121,9 +117,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     private void CheckKeyInput(){
-        if (Input.GetKeyDown(KeyCode.E) && _triggerObject != null){
-            var powerGenerator = _triggerObject.GetComponent<Console_PowerGenerator>();
-            var controlPanel = _triggerObject.GetComponent<Console_ControlPanel>();
+        if (Input.GetKeyDown(KeyCode.E) && TriggerObject != null){
+            var powerGenerator = TriggerObject.GetComponent<Console_PowerGenerator>();
+            var controlPanel = TriggerObject.GetComponent<Console_ControlPanel>();
+            var item = TriggerObject.GetComponent<PickableItem>();
 
             if (powerGenerator != null){
                 bool uiActivated = _uiManager.GetUIActivated();
@@ -134,6 +131,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 bool uiActivated = _uiManager.GetUIActivated();
                 _uiManager.SetUIState(controlPanel.GetUI(), !uiActivated);
             }
+            else if (item != null){
+                item.PickupItem();
+            }
         }
         for (int i = 0; i <= 9; i++){
             KeyCode keyCode = (KeyCode)((int)KeyCode.Alpha0 + i);
@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 _uiManager.MoveInventoryPicker(pickerNumber);
             }
         }
+        
     }
 
 /*
