@@ -112,7 +112,9 @@ public class Console_PowerGenerator : ConsoleBase
     public bool IsCritical => _isCritical;
 
     /* Essential Functions */
-
+    public void FillFuel(){
+        _currentFuel = _maxFuel;
+    }
     // 온도 업데이트 함수
     private void UpdateThermal(){
         // 전원이 켜진 상태이고 로드율이 50% 보다 높을경우, 5000도까지 로드율에 비례해서 서서히 증가

@@ -127,6 +127,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 _inventoryIndex = pickerNumber - 1;
             }
         }
+        if (Input.GetKeyDown(KeyCode.F)){
+            var powerGenerator = TriggerObject.GetComponent<Console_PowerGenerator>();
+            if(powerGenerator != null && _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ItemType == 1000){
+                _controlObject.GetComponent<PlayerBase>().UseItem(_inventoryIndex, TriggerObject);
+            }
+            
+        }
         if (Input.GetKeyDown(KeyCode.G)){
             _controlObject.GetComponent<PlayerBase>().DropItem(_inventoryIndex);
         }

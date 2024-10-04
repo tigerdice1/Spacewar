@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8266271328885033631}
   - component: {fileID: 4719967792335462016}
   - component: {fileID: 5946938115967813832}
+  - component: {fileID: 2988910723993612868}
   m_Layer: 0
   m_Name: TestItemPrefab
   m_TagString: Untagged
@@ -144,7 +145,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item:
     ItemName: test
-    ItemType: 100
+    ItemType: 1000
     ThumbnailSprite: {fileID: 21300000, guid: caf48393da7a64c449e82c9e470a0b0a, type: 3}
     Prefab: {fileID: 4064189317774863712}
-  Prefab: {fileID: 4064189317774863712}
+--- !u!114 &2988910723993612868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4064189317774863712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffc8875e175bc04ab16534010f2a06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
