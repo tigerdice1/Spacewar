@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (Input.GetMouseButtonDown(0)){
             var controllable = _controlObject.GetComponent<IControllable>();
             controllable?.HandleMouseClick(this);
+            _uiManager.PlayerUI.gameObject.GetComponent<UI_Player>().GetClickedUIElement();
         }
 
         if (Input.GetMouseButtonUp(0)){
@@ -85,23 +86,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 turret.IsFiring = false;
             }
         }
-        /*
-        if(Input.GetMouseButtonDown(0)){
-            if(_controlObject.CompareTag("MainShip")){
-                for(int i = 0; _controlObject.GetComponent<MainShip>().GetLoadedMissileRooms.Count < 0; i++){
-                    _controlObject.GetComponent<MainShip>().GetLoadedMissileRooms[i].LaunchMissile();
-                }
-            }
-            if(_controlObject.CompareTag("Turret")){
-                _controlObject.GetComponent<Turret>().IsFire = true;
-            }
-        }
-        if(Input.GetMouseButtonUp(0)){
-            if(_controlObject.CompareTag("Turret")){
-                _controlObject.GetComponent<Turret>().IsFire = false;
-            }
-        }
-    */
     }
     public void LookAtCursor(float maxRotationSpeed, bool useSlerp){
         var hitResult = GetCursorRaycastResult();
@@ -146,48 +130,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.G)){
             _controlObject.GetComponent<PlayerBase>().DropItem(_inventoryIndex);
         }
-    }
-
-/*
-    private void MoveShip(){
-        _controlRigidBody = _controlObject.GetComponent<Rigidbody>();
-        float spd = _controlObject.GetComponent<MainShip>().Speed;
-        
-        if (Input.GetKey(KeyCode.W)){
-            _controlRigidBody.AddRelativeForce(Vector3.forward * spd);
-        }
-        if (Input.GetKey(KeyCode.A)){
-            _controlRigidBody.AddRelativeForce(Vector3.left * spd);
-        }
-        if (Input.GetKey(KeyCode.S)){
-            _controlRigidBody.AddRelativeForce(Vector3.back * spd);
-        }
-        if (Input.GetKey(KeyCode.D)){
-            _controlRigidBody.AddRelativeForce(Vector3.right * spd);
-        }
-        float MaxVelocity = _controlObject.GetComponent<MainShip>().Speed;
-        if(_controlRigidBody.velocity.x > MaxVelocity){
-            _controlRigidBody.velocity = new Vector3(MaxVelocity, _controlRigidBody.velocity.y, _controlRigidBody.velocity.z);
-        }
-        if(_controlRigidBody.velocity.x < (MaxVelocity * - 1)){
-            _controlRigidBody.velocity = new Vector3(MaxVelocity * -1, _controlRigidBody.velocity.y, _controlRigidBody.velocity.z);
-        }
-        if(_controlRigidBody.velocity.y > MaxVelocity){
-            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, MaxVelocity, _controlRigidBody.velocity.z);
-        }
-        if(_controlRigidBody.velocity.y < (MaxVelocity * - 1)){
-            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, MaxVelocity  * -1, _controlRigidBody.velocity.z);
-        } 
-        if(_controlRigidBody.velocity.z > MaxVelocity){
-            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, _controlRigidBody.velocity.y, MaxVelocity);
-        }
-        if(_controlRigidBody.velocity.z < (MaxVelocity * - 1)){
-            _controlRigidBody.velocity = new Vector3(_controlRigidBody.velocity.x, _controlRigidBody.velocity.y, MaxVelocity  * -1);
-        }
-    }
-*/
-
-    
+    }  
     // Start is called before the first frame update
     private void Start(){
         Initialize();

@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField]
-    private CanvasGroup _playerUI;
+    public CanvasGroup PlayerUI;
     private CanvasGroup _otherUI;
     private bool _isUIActivated;
     // Start is called before the first frame update
     void Start(){
-        _playerUI = gameObject.GetComponent<PlayerController>().PlayerUI.GetComponent<CanvasGroup>();
+        PlayerUI = gameObject.GetComponent<PlayerController>().PlayerUI.GetComponent<CanvasGroup>();
     }
 
     public void SetPlayerUIState(bool state){
-        if(_playerUI && state){
-            _playerUI.interactable = state;
-            _playerUI.blocksRaycasts = state;
-            _playerUI.alpha = 1.0f;
+        if(PlayerUI && state){
+            PlayerUI.interactable = state;
+            PlayerUI.blocksRaycasts = state;
+            PlayerUI.alpha = 1.0f;
         }
-        else if(_playerUI && !state){
-            _playerUI.interactable = state;
-            _playerUI.blocksRaycasts = state;
-            _playerUI.alpha = 0.0f;
+        else if(PlayerUI && !state){
+            PlayerUI.interactable = state;
+            PlayerUI.blocksRaycasts = state;
+            PlayerUI.alpha = 0.0f;
         }
     }
 
@@ -58,7 +57,7 @@ public class UIManager : MonoBehaviour
         
     }
     public void MoveInventoryPicker(int number){
-        UI_Player uiPlayer = _playerUI.gameObject.GetComponent<UI_Player>();
+        UI_Player uiPlayer = PlayerUI.gameObject.GetComponent<UI_Player>();
         int slotIndex = (number + 9) % 10;
         Transform slotPosition = uiPlayer.InventorySlotList[slotIndex].transform;
         uiPlayer.InventoryPicker.transform.position = slotPosition.position;

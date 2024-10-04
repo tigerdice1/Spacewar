@@ -12,10 +12,10 @@ public class ConsoleBase : MonoBehaviour
     [Tooltip("콘솔을 사용할 경우 조종하게 될 오브젝트를 지정합니다. 조종할 오브젝트가 따로 없고 UI만 띄우려고 한다면 따로 지정하지 않아도 됩니다.")]
     protected GameObject _objectToControl;
 
-
+    [SerializeField]
     [Tooltip("콘솔을 사용중인 플레이어를 지정합니다. _triggeredControllers 에 할당된 플레이어가 사용버튼을 누르면 자동으로 할당됩니다.")]
     protected List<PlayerBase> _handlingPlayers = new List<PlayerBase>();
-
+    [SerializeField]
     [Tooltip("콘솔의 사용가능 범위 안에 들어와있는 PlayerController를 토글합니다. Trigger를 통해 자동으로 지정됩니다. Trigger 범위 안에 PlayerController 가 없는 경우 Null 을 반환하니 이 점에 유의해야합니다.")]
     protected List<PlayerController> _triggeredControllers = new List<PlayerController>();
 
@@ -59,8 +59,19 @@ public class ConsoleBase : MonoBehaviour
             if (playerBase != null){
                 PlayerController playerController = playerBase.PlayerController;
                 if (playerController != null){
+                    playerBase.PlayerController.TriggerObject = gameObject;
                     _triggeredControllers.Add(playerController);
-                    playerController.TriggerObject = gameObject;
+                }
+            }
+        }
+    }
+    protected void OnTriggerStay(Collider other) {
+        if (other.CompareTag("Player")){
+            PlayerBase playerBase = other.GetComponent<PlayerBase>();
+            if (playerBase != null){
+                PlayerController playerController = playerBase.PlayerController;
+                if (playerController != null){
+                    playerBase.PlayerController.TriggerObject = gameObject;
                 }
             }
         }

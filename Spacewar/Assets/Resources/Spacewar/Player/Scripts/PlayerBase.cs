@@ -16,10 +16,7 @@ public class PlayerBase : MonoBehaviour, IControllable
     private Animator _animator;
     private Rigidbody _rigidbody;
 
-    protected virtual void Die(){
-        Debug.Log("Died");
-    }
-    protected virtual void Awake(){
+    protected virtual void Initialize(){
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         CustomTypes.ItemData blankItem = new CustomTypes.ItemData(null, 0, null);
@@ -27,14 +24,20 @@ public class PlayerBase : MonoBehaviour, IControllable
             Inventory.Add(blankItem);
         }
     }
+    protected virtual void Die(){
+        Debug.Log("Died");
+    }
+    protected virtual void Awake(){
+        Initialize();
+    }
 
     public float RotationSpeed => PlayerRotationSpeed;
 
     public void DropItem(int index){
         if(Inventory[index].ItemType != 0){
-            Inventory[index].ItemName = null;       
-            Inventory[index].ItemType = 0;
-            Inventory[index].ThumbnailSprite = null;
+            GameObject spawnedItem = Instantiate(Inventory[index].Prefab, gameObject.transform.position, gameObject.transform.rotation);
+            spawnedItem.GetComponent<PickableItem>().Item.Prefab = Inventory[index].Prefab;
+            Inventory[index].ClearItemData();
         }
     }
     public void Move(PlayerController controller){
