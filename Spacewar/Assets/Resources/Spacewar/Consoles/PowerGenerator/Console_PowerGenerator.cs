@@ -112,6 +112,13 @@ public class Console_PowerGenerator : ConsoleBase
     public bool IsCritical => _isCritical;
 
     /* Essential Functions */
+    protected override void Aging(){
+        base.Aging();
+        if(_durability <= 0f){
+            _durability = 0f;
+            _isPowered = false;
+        }
+    }
     public void FillFuel(){
         _currentFuel = _maxFuel;
     }
@@ -137,7 +144,7 @@ public class Console_PowerGenerator : ConsoleBase
         // 현재로드율을 목표로드율까지 서서히 조정합니다.
         float targetLoad = (powerUsage / _maxPower) * 100.0f;
         float clamppedLoad = Mathf.Clamp(targetLoad, 0.0f, 120.0f);
-        _load = Mathf.Lerp(_load, clamppedLoad, Time.deltaTime * 3.0f);
+        _load = Mathf.Lerp(_load, clamppedLoad, Time.deltaTime * 2.0f);
     }
 
     // 연료량을 체크하는 함수
@@ -204,6 +211,7 @@ public class Console_PowerGenerator : ConsoleBase
             CheckFuelAmount();
             CalculateOutputPower();
             CheckGeneratorThermal();
+            Aging();
         }
     }
 }

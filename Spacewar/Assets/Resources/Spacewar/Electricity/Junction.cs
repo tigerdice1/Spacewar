@@ -16,6 +16,8 @@ public class Junction : MonoBehaviour
  	// Total power consumption
     [Tooltip("전력 사용량 총합.")]
 	private float _totalPowerConsumption;
+    [SerializeField]
+    private float _durability = 100f;
     
 
     private void OnDebugMode(){
@@ -70,7 +72,15 @@ public class Junction : MonoBehaviour
     Calls the load adjustment function of the generator 
     if the amount of power produced is less or greater than the amount of power consumed. 
     */
-    
+    private void Aging(){
+        float gain = _totalPowerConsumption / _generatorConsole.PowerOutput;
+        if(_generatorConsole.PowerOutput <= 0f) gain = 0f;
+        _durability = Mathf.Lerp(_durability, 0.0f, Time.deltaTime * gain * 0.002f);
+        if(_durability <= 0f){
+            _durability = 0f;
+            _totalPowerConsumption = 0f;
+        }
+    }
     private void SyncPowerFromGenerator(){
         if (_generatorConsole != null){
             _generatorConsole.SyncPower(_totalPowerConsumption);
@@ -83,8 +93,11 @@ public class Junction : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        UpdatePowerConsumption();
-        SyncPowerFromGenerator();
         CheckPowerState();
+        UpdatePowerConsumption();
+        Aging();
+        if(_durability > 0f){
+            SyncPowerFromGenerator();
+        }
     }
 }

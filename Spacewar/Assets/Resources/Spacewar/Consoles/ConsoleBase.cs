@@ -22,6 +22,8 @@ public class ConsoleBase : MonoBehaviour
     [SerializeField]
     [Tooltip("콘솔에 접근하면 사용할 UI 입니다. 없어도 작동에 이상은 없지만 많이 불편할 수도 있습니다.")]
     protected GameObject _consoleUI;
+    [SerializeField]
+    protected float _durability = 100f;
     
     // 콘솔을 누군가 사용중인지 판별하는 Bool 변수입니다. 누군가 콘솔을 사용중일 경우 false, 사용중이지 않을경우 true 를 반환합니다.
     protected bool _isInteractive = true;
@@ -88,6 +90,10 @@ public class ConsoleBase : MonoBehaviour
             }
         }
     }
+
+    protected virtual void Aging(){
+        _durability = Mathf.Lerp(_durability,  0f, Time.deltaTime * 0.002f);
+    }
     public GameObject GetUI(){
         return _consoleUI;
     }
@@ -102,8 +108,6 @@ public class ConsoleBase : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected virtual void Update()
-    {
-        
+    protected virtual void Update(){
     }
 }
