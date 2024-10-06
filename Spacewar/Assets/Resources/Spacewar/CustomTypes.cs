@@ -40,4 +40,11 @@ namespace CustomTypes
         IDLE,
         ACTIVE
     }
+
+    public class MathExt{
+        public static bool Approximately(float a, float b){
+        return Mathf.Abs(b - a) < Mathf.Max(0.001f * Mathf.Max(Mathf.Abs(a), Mathf.Abs(b)), 0.01f);
+        }
+    }
+    
 }

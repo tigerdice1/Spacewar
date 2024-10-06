@@ -56,7 +56,7 @@ public class Electricity : MonoBehaviour
     }
 
     IEnumerator UpdatePowerConsumptionCoroutine(float targetValue){
-        while (!Mathf.Approximately(_powerConsumption, targetValue)){
+        while (!CustomTypes.MathExt.Approximately(_powerConsumption, targetValue)){
             _powerConsumption = Mathf.Lerp(_powerConsumption, targetValue, Time.deltaTime);
             yield return null;
         }
@@ -64,9 +64,9 @@ public class Electricity : MonoBehaviour
     }
 
     // 전원의 켜고 끔을 지정하는 함수입니다. 외부에서 호출되지 않습니다.
-    private void SetPowerState(bool isOn){
+    private void SetPowerConsumption(bool isOn){
         // 전원이 켜지면 전력 소모량을 대기전력 소모량으로 변경합니다. 
-        _isPowered = isOn;
+        
         if(isOn){
             if (_playingCoroutine != null){
                 StopCoroutine(_playingCoroutine);
@@ -88,13 +88,12 @@ public class Electricity : MonoBehaviour
 
         switch (State){
             case CustomTypes.ElectricState.OFF:
-                SetPowerState(false);
+                SetPowerConsumption(false);
                 break;
             case CustomTypes.ElectricState.IDLE:
-                SetPowerState(true);
+                SetPowerConsumption(true);
                 break;
             case CustomTypes.ElectricState.ACTIVE:
-                SetPowerState(true);
                 if (_playingCoroutine != null){
                     StopCoroutine(_playingCoroutine);
                 }
@@ -103,6 +102,14 @@ public class Electricity : MonoBehaviour
         }
     }
 
+    public void CheckPowerState(){
+        if(_powerConsumption >= _powerIdle * 0.9f){
+            _isPowered = true;
+        }
+        else{
+            _isPowered = false;
+        }
+    }
     private void Initialize(){
         SetActiveState(CustomTypes.ElectricState.OFF);
     }
@@ -114,5 +121,6 @@ public class Electricity : MonoBehaviour
     // Update is called once per frame
     void Update(){
         SetActiveState(_state);
+        CheckPowerState();
     }
 }

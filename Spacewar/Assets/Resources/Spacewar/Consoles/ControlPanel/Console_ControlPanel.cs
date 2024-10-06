@@ -15,6 +15,7 @@ public class Console_ControlPanel : ConsoleBase
     protected override void OnDebugMode(){
         if(!this.GetComponent<Electricity>()) Debug.Log("Electricity is not Loaded. Please add Electricity Module. Location : " + gameObject);
     }
+
     public void SwapControlObject(PlayerController activatedPlayerController){
         if(_electricity.IsPowered){ // 전력이 들어와 있을 경우
             if(_isInteractive){ // 현재 콘솔이 사용가능한 상태일 때
@@ -50,5 +51,8 @@ public class Console_ControlPanel : ConsoleBase
         if(GameManager.Instance().IsDebugMode){
             OnDebugMode();
         }
+    }
+    protected override void Update(){
+        Aging();
     }
 }
