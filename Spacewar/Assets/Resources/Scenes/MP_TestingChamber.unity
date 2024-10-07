@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e861cbc6d3dbbb4c9e4b7239cbca222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
   Ship: {fileID: 676486696}
   Rigidbody: {fileID: 0}
   ThrottleText: {fileID: 942654586}
@@ -1188,6 +1189,7 @@ GameObject:
   - component: {fileID: 1328938753}
   - component: {fileID: 1328938752}
   - component: {fileID: 1328938751}
+  - component: {fileID: 1328938754}
   m_Layer: 5
   m_Name: GeneratorUI
   m_TagString: Untagged
@@ -1268,6 +1270,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328938749}
   m_CullTransparentMesh: 1
+--- !u!114 &1328938754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328938749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45dcc15f93e78d24283932794166cde4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
+  PowerToggle: {fileID: 1071405035}
+  LoadRadial: {fileID: 1522734577}
+  TemptureRadial: {fileID: 2097832958}
+  FuelBar: {fileID: 1290244057}
 --- !u!1 &1373069208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,7 +2231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ownerShip: {fileID: 676486696}
   _objectToControl: {fileID: 676486695}
-  _consoleUI: {fileID: 777249214}
+  _consoleUI: {fileID: 777249216}
 --- !u!4 &1885085275 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5747868957880991673, guid: dbcef83566bfbc94a8ea238e88ce2133, type: 3}
@@ -2835,12 +2854,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313082518988850579, guid: dbcef83566bfbc94a8ea238e88ce2133, type: 3}
       propertyPath: IsPowered
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1313082518988850579, guid: dbcef83566bfbc94a8ea238e88ce2133, type: 3}
       propertyPath: _consoleUI
       value: 
-      objectReference: {fileID: 1328938749}
+      objectReference: {fileID: 1328938754}
     - target: {fileID: 1313082518988850579, guid: dbcef83566bfbc94a8ea238e88ce2133, type: 3}
       propertyPath: CurrentFuel
       value: 8500

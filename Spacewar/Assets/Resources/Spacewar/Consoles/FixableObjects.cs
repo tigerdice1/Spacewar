@@ -9,7 +9,7 @@ public class FixableObjects : MonoBehaviour
     [SerializeField]
     protected GameObject _objectToControl;
     [SerializeField]
-    protected GameObject _consoleUI;
+    protected UI_Base _consoleUI;
     protected List<PlayerBase> _handlingPlayers = new List<PlayerBase>();
     protected List<PlayerController> _triggeredControllers = new List<PlayerController>();
     protected BoxCollider _boxCollider;
@@ -18,7 +18,7 @@ public class FixableObjects : MonoBehaviour
     protected bool _isInteractive = true;
     protected bool _soloUseOnly = true;
 
-    public GameObject ConsoleUI{
+    public UI_Base ConsoleUI{
         get{return _consoleUI;}
     }
     protected virtual void Initialize(){

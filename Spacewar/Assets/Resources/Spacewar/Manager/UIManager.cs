@@ -38,8 +38,8 @@ public class UIManager : MonoBehaviour
             _otherUI = null;
         }
     }
-    public void SetUIState(GameObject ui, bool state){
-        if(_otherUI = ui.GetComponent<CanvasGroup>()){
+    public void SetUIState(UI_Base ui, bool state){
+        if(_otherUI = ui.Canvas){
             if(state){
                 _otherUI.interactable = true;
                 _otherUI.blocksRaycasts = true;

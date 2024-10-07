@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class UI_MainShip : MonoBehaviour
+public class UI_MainShip : UI_Base
 {
     public MainShip Ship;
     public Rigidbody Rigidbody;
