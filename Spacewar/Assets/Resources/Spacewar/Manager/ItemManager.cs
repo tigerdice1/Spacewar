@@ -25,13 +25,22 @@ public class ItemManager : MonoBehaviour
         }
     }
     public void UseItem(int index, GameObject targetObject, PlayerBase itemUser){
+        if(targetObject == null) return;
         CustomTypes.ItemData item = itemUser.Inventory[index];
-        var target = targetObject.GetComponent<Console_PowerGenerator>();
-        if(item.ItemType == 1 && target != null){
-            target.FixObject();
+        var powerGenerator = targetObject.GetComponent<Console_PowerGenerator>();
+        var controlPanel = targetObject.GetComponent<Console_ControlPanel>();
+        var junction = targetObject.GetComponent<Junction>();
+        if(item.ItemType == 1 && powerGenerator != null){
+            powerGenerator.FixObject();
         }
-        if(item.ItemType == 3 && target != null){
-            target.FillFuel();
+        if(item.ItemType == 2 && controlPanel != null){
+            controlPanel.FixObject();
+        }
+        if(item.ItemType == 2 && junction != null){
+            junction.FixObject();
+        }
+        if(item.ItemType == 3 && powerGenerator != null){
+            powerGenerator.FillFuel();
             item.ClearItemData();
         }
     }

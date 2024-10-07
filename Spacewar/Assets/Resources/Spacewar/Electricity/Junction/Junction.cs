@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Junction : MonoBehaviour
 {
+    [Tooltip("콘솔의 사용가능 범위 안에 들어와있는 PlayerController를 토글합니다. Trigger를 통해 자동으로 지정됩니다. Trigger 범위 안에 PlayerController 가 없는 경우 Null 을 반환하니 이 점에 유의해야합니다.")]
+    private List<PlayerController> _triggeredControllers = new List<PlayerController>();
     /* Essential Variables */
 	// Generators connected to the junction. If not specified, it will not be executed.
     [SerializeField]
@@ -19,6 +21,19 @@ public class Junction : MonoBehaviour
     [SerializeField]
     private float _durability = 100f;
     
+    private Coroutine _playingCoroutine;
+
+    protected IEnumerator FixDurabilityCoroutine(float skill){
+        while (!CustomTypes.MathExt.Approximately(_durability, 100f)){
+            _durability = Mathf.Lerp(_durability, 100f, Time.deltaTime * skill);
+            yield return null;
+        }
+        _durability = 100f;        
+    }
+
+    public void FixObject(){
+        _playingCoroutine = StartCoroutine(FixDurabilityCoroutine(.1f));
+    }
 
     private void OnDebugMode(){
         if (_generatorConsole == null){
@@ -84,6 +99,45 @@ public class Junction : MonoBehaviour
     private void SyncPowerFromGenerator(){
         if (_generatorConsole != null){
             _generatorConsole.SyncPower(_totalPowerConsumption);
+        }
+    }
+
+        protected void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")){
+            PlayerBase playerBase = other.GetComponent<PlayerBase>();
+            if (playerBase != null){
+                PlayerController playerController = playerBase.PlayerController;
+                if (playerController != null){
+                    playerBase.PlayerController.TriggerObject = gameObject;
+                    _triggeredControllers.Add(playerController);
+                }
+            }
+        }
+    }
+    protected void OnTriggerStay(Collider other) {
+        if (other.CompareTag("Player")){
+            PlayerBase playerBase = other.GetComponent<PlayerBase>();
+            if (playerBase != null){
+                PlayerController playerController = playerBase.PlayerController;
+                if (playerController != null){
+                    playerBase.PlayerController.TriggerObject = gameObject;
+                }
+            }
+        }
+    }
+    protected void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")){
+            PlayerBase playerBase = other.GetComponent<PlayerBase>();
+            if (playerBase != null){
+                PlayerController playerController = playerBase.PlayerController;
+                if (playerController != null){
+                    _triggeredControllers.Remove(playerController);
+                    playerController.TriggerObject = null;
+                    if(_playingCoroutine != null){
+                        StopCoroutine(_playingCoroutine);
+                    }
+                }
+            }
         }
     }
  	// Start is called before the first frame update   

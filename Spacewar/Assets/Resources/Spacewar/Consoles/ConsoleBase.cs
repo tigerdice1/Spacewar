@@ -52,6 +52,9 @@ public class ConsoleBase : MonoBehaviour
         _durability = 100f;        
     }
 
+    public void FixObject(){
+        _playingCoroutine = StartCoroutine(FixDurabilityCoroutine(.1f));
+    }
     protected virtual void OnDebugMode(){
         if (_ownerShip == null)
             Debug.LogWarning($"OwnerShip is not initialized. Please set the OwnerShip. Location: {gameObject.name}");
