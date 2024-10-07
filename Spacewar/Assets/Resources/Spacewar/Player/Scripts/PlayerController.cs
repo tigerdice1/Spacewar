@@ -101,18 +101,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void CheckKeyInput(){
         if (Input.GetKeyDown(KeyCode.E) && TriggerObject != null){
-            var powerGenerator = TriggerObject.GetComponent<Console_PowerGenerator>();
-            var controlPanel = TriggerObject.GetComponent<Console_ControlPanel>();
+            var powerGenerator = TriggerObject.GetComponent<PowerGenerator>();
+            var controlPanel = TriggerObject.GetComponent<ControlPanel>();
             var item = TriggerObject.GetComponent<PickableItem>();
 
             if (powerGenerator != null){
                 bool uiActivated = _uiManager.GetUIActivated();
-                _uiManager.SetUIState(powerGenerator.GetUI(), !uiActivated);
+                _uiManager.SetUIState(powerGenerator.ConsoleUI, !uiActivated);
             }
             else if (controlPanel != null){
                 controlPanel.SwapControlObject(this);
                 bool uiActivated = _uiManager.GetUIActivated();
-                _uiManager.SetUIState(controlPanel.GetUI(), !uiActivated);
+                _uiManager.SetUIState(controlPanel.ConsoleUI, !uiActivated);
             }
             else if (item != null){
                 item.PickupItem(_inventoryIndex);

@@ -27,17 +27,17 @@ public class ItemManager : MonoBehaviour
     public void UseItem(int index, GameObject targetObject, PlayerBase itemUser){
         if(targetObject == null) return;
         CustomTypes.ItemData item = itemUser.Inventory[index];
-        var powerGenerator = targetObject.GetComponent<Console_PowerGenerator>();
-        var controlPanel = targetObject.GetComponent<Console_ControlPanel>();
+        var powerGenerator = targetObject.GetComponent<PowerGenerator>();
+        var controlPanel = targetObject.GetComponent<ControlPanel>();
         var junction = targetObject.GetComponent<Junction>();
         if(item.ItemType == 1 && powerGenerator != null){
-            powerGenerator.FixObject();
+            powerGenerator.FixObject(100f);
         }
         if(item.ItemType == 2 && controlPanel != null){
-            controlPanel.FixObject();
+            controlPanel.FixObject(100f);
         }
         if(item.ItemType == 2 && junction != null){
-            junction.FixObject();
+            junction.FixObject(100f);
         }
         if(item.ItemType == 3 && powerGenerator != null){
             powerGenerator.FillFuel();

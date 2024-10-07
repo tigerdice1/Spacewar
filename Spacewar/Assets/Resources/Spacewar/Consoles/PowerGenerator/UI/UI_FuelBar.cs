@@ -5,7 +5,7 @@ using UnityEngine;
 public class UI_FuelBar : UI_ProgressBarBase
 {
     [SerializeField]
-    protected Console_PowerGenerator _powerGenerator;
+    protected PowerGenerator _powerGenerator;
 
     private void Initialize(){
     }

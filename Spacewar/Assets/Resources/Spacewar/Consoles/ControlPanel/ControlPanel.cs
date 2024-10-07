@@ -2,20 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Console_ControlPanel : ConsoleBase
+public class ControlPanel : FixableObjects
 {
-    // 컨트롤 할 오브젝트를 변경하는 함수
-    // ConsoleBase 로부터 상속받아 작성됨
-
     private Electricity _electricity;
     protected override void Initialize(){
         base.Initialize();
         _electricity = this.GetComponent<Electricity>();
     }
-    protected override void OnDebugMode(){
+    protected void OnDebugMode(){
         if(!this.GetComponent<Electricity>()) Debug.Log("Electricity is not Loaded. Please add Electricity Module. Location : " + gameObject);
     }
-
     public void SwapControlObject(PlayerController activatedPlayerController){
         if(_electricity.IsPowered){ // 전력이 들어와 있을 경우
             if(_isInteractive){ // 현재 콘솔이 사용가능한 상태일 때
@@ -45,14 +41,10 @@ public class Console_ControlPanel : ConsoleBase
 
         }
     }
-    protected override void Start(){
-        base.Start();
+    protected void Start(){
         Initialize();
         if(GameManager.Instance().IsDebugMode){
             OnDebugMode();
         }
-    }
-    protected override void Update(){
-        Aging();
     }
 }

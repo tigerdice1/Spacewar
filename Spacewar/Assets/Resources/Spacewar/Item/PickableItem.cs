@@ -13,11 +13,6 @@ public class PickableItem : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void UseItem(GameObject targetObject){
-        if(Item.ItemType == 3){
-            targetObject.GetComponent<Console_PowerGenerator>().FillFuel();
-        }
-    }
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")){
             _triggeredPlayer = other.GetComponent<PlayerBase>();

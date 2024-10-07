@@ -6,7 +6,7 @@ public class UI_Radial_Temperture : UI_RadialBase
 {
     // Start is called before the first frame update
     [SerializeField]
-    protected Console_PowerGenerator _powerGenerator; // PowerGenerator 스크립트 참조
+    protected PowerGenerator _powerGenerator; // PowerGenerator 스크립트 참조
     void Start()
     {
         
