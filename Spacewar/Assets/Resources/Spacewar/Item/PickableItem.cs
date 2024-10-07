@@ -14,7 +14,7 @@ public class PickableItem : MonoBehaviour
         }
     }
     public void UseItem(GameObject targetObject){
-        if(Item.ItemType == 1000){
+        if(Item.ItemType == 3){
             targetObject.GetComponent<Console_PowerGenerator>().FillFuel();
         }
     }
@@ -25,12 +25,14 @@ public class PickableItem : MonoBehaviour
         }
     }
     private void OnTriggerExit(Collider other) {
-        _triggeredPlayer.PlayerController.TriggerObject = null;
-        _triggeredPlayer = null;
+        if(other.CompareTag("Player")){
+            _triggeredPlayer.GetComponent<PlayerBase>().PlayerController.TriggerObject = null;
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame

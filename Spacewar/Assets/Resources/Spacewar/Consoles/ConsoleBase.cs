@@ -33,6 +33,8 @@ public class ConsoleBase : MonoBehaviour
 
     protected BoxCollider _boxCollider;
 
+    protected Coroutine _playingCoroutine;
+
     protected virtual void Initialize(){
         _boxCollider = GetComponent<BoxCollider>();
 /*
@@ -40,6 +42,14 @@ public class ConsoleBase : MonoBehaviour
             OnDebugMode();
         }
 */
+    }
+    
+    protected IEnumerator FixDurabilityCoroutine(float skill){
+        while (!CustomTypes.MathExt.Approximately(_durability, 100f)){
+            _durability = Mathf.Lerp(_durability, 100f, Time.deltaTime * skill);
+            yield return null;
+        }
+        _durability = 100f;        
     }
 
     protected virtual void OnDebugMode(){
@@ -86,6 +96,9 @@ public class ConsoleBase : MonoBehaviour
                 if (playerController != null){
                     _triggeredControllers.Remove(playerController);
                     playerController.TriggerObject = null;
+                    if(_playingCoroutine != null){
+                        StopCoroutine(_playingCoroutine);
+                    }
                 }
             }
         }

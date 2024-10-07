@@ -128,14 +128,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
         if (Input.GetKeyDown(KeyCode.F)){
-            var powerGenerator = TriggerObject.GetComponent<Console_PowerGenerator>();
-            if(powerGenerator != null && _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ItemType == 1000){
-                _controlObject.GetComponent<PlayerBase>().UseItem(_inventoryIndex, TriggerObject);
+            var player = _controlObject.GetComponent<PlayerBase>();
+            if(player != null){
+                ItemManager.Instance().UseItem(_inventoryIndex, TriggerObject, player);
             }
-            
         }
         if (Input.GetKeyDown(KeyCode.G)){
-            _controlObject.GetComponent<PlayerBase>().DropItem(_inventoryIndex);
+            var player = _controlObject.GetComponent<PlayerBase>();
+            if(player != null){
+                ItemManager.Instance().DropItem(_inventoryIndex, player);
+            }
         }
     }  
     // Start is called before the first frame update

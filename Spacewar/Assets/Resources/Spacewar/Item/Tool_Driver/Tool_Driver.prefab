@@ -158,5 +158,5 @@ MonoBehaviour:
   Item:
     ItemName: Driver
     ItemType: 2
-    ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
+    ThumbnailSprite: {fileID: 21300000, guid: b2619e39edbad4c4b99e6098ee8e944a, type: 3}
+    Prefab: {fileID: 5706794083813297539}

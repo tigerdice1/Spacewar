@@ -119,6 +119,9 @@ public class Console_PowerGenerator : ConsoleBase
             _isPowered = false;
         }
     }
+    public void FixObject(){
+        _playingCoroutine = StartCoroutine(FixDurabilityCoroutine(.1f));
+    }
     public void FillFuel(){
         _currentFuel = _maxFuel;
     }

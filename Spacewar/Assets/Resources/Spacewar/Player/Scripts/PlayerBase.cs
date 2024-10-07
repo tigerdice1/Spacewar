@@ -33,19 +33,6 @@ public class PlayerBase : MonoBehaviour, IControllable
 
     public float RotationSpeed => PlayerRotationSpeed;
 
-    public void DropItem(int index){
-        if(Inventory[index].ItemType != 0){
-            GameObject spawnedItem = Instantiate(Inventory[index].Prefab, gameObject.transform.position, gameObject.transform.rotation);
-            spawnedItem.GetComponent<PickableItem>().Item.Prefab = Inventory[index].Prefab;
-            Inventory[index].ClearItemData();
-        }
-    }
-    public void UseItem(int index, GameObject targetObject){
-        if(Inventory[index].ItemType != 0){
-            Inventory[index].Prefab.GetComponent<PickableItem>().UseItem(targetObject);
-            Inventory[index].ClearItemData();
-        }
-    }
     public void Move(PlayerController controller){
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");

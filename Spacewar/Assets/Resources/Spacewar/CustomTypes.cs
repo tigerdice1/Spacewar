@@ -20,12 +20,10 @@ namespace CustomTypes
         public string ItemName;
         public int ItemType;
         public Sprite ThumbnailSprite;
-        public GameObject Prefab;
         public void ClearItemData(){
             ItemName = "";
             ItemType = 0;
             ThumbnailSprite = null;
-            Prefab = null;
         }
         public ItemData(string ItemName, int ItemType, Sprite ThumbnailSprite){
             this.ItemName = ItemName;
