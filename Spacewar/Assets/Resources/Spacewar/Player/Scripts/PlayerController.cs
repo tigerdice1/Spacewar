@@ -110,9 +110,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 _uiManager.SetUIState(powerGenerator.ConsoleUI, !uiActivated);
             }
             else if (controlPanel != null){
-                controlPanel.SwapControlObject(this);
-                bool uiActivated = _uiManager.GetUIActivated();
-                _uiManager.SetUIState(controlPanel.ConsoleUI, !uiActivated);
+                if(controlPanel.SwapControlObject(this)){
+                    bool uiActivated = _uiManager.GetUIActivated();
+                    _uiManager.SetUIState(controlPanel.ConsoleUI, !uiActivated);
+                }
             }
             else if (item != null){
                 item.PickupItem(_inventoryIndex);
@@ -125,6 +126,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 int pickerNumber = (i == 0) ? 0 : i;
                 _uiManager.MoveInventoryPicker(pickerNumber);
                 _inventoryIndex = pickerNumber - 1;
+                if(_controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ItemType != 0){
+                    _controlObject.GetComponent<PlayerBase>().EquipItemAnimation();
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.F)){

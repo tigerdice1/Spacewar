@@ -24,6 +24,9 @@ public class PlayerBase : MonoBehaviour, IControllable
             Inventory.Add(blankItem);
         }
     }
+    public   virtual void EquipItemAnimation(){
+        _animator.SetTrigger("EquipItem");
+    }
     protected virtual void Die(){
         Debug.Log("Died");
     }

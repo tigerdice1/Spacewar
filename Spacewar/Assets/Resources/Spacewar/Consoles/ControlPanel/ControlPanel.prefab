@@ -58,7 +58,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0bbcc972390b4cb4a88c3a11af287cf0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4468211460778510244}
+      addedObject: {fileID: 8747649175103094688}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0bbcc972390b4cb4a88c3a11af287cf0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1545687282145986099}
@@ -74,7 +74,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0bbcc972390b4cb4a88c3a11af287cf0, type: 3}
   m_PrefabInstance: {fileID: 4136716861674862359}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4468211460778510244
+--- !u!114 &8747649175103094688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,13 +83,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3866898558744693318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd90d88cfe2ea482887bf4eda8bed396, type: 3}
+  m_Script: {fileID: 11500000, guid: b381de5b88393f84192c336a95e6d63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _ownerShip: {fileID: 0}
   _objectToControl: {fileID: 0}
-  _handlingPlayers: []
-  _triggeredControllers: []
   _consoleUI: {fileID: 0}
 --- !u!114 &1545687282145986099
 MonoBehaviour:
@@ -103,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Priority: 0
   _powerConsumption: 0
   _powerIdle: 500
   _powerActive: 1000

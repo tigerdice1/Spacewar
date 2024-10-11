@@ -6,10 +6,10 @@ using TMPro;
 public class UI_MainShip : UI_Base
 {
     public MainShip Ship;
-    public Rigidbody Rigidbody;
     public TextMeshProUGUI ThrottleText;
     public TextMeshProUGUI VelocityText;
     public float Throttle;
+    private Rigidbody Rigidbody;
 
     void UpdateThrottleText(){
         if (ThrottleText != null){
@@ -26,7 +26,8 @@ public class UI_MainShip : UI_Base
         }
     }
     // Start is called before the first frame update
-    void Start(){
+    protected override void Start(){
+        base.Start();
         if(Ship != null){
             Rigidbody = Ship.gameObject.GetComponent<Rigidbody>();
         }
