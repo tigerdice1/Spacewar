@@ -13,6 +13,8 @@ public class PlayerBase : MonoBehaviour, IControllable
     public PlayerController PlayerController;
     public List<CustomTypes.ItemData> Inventory = new List<CustomTypes.ItemData>();
     
+    public Transform HandBone;
+    public Transform AttachedItem;
     private Animator _animator;
     private Rigidbody _rigidbody;
 
@@ -24,8 +26,20 @@ public class PlayerBase : MonoBehaviour, IControllable
             Inventory.Add(blankItem);
         }
     }
-    public   virtual void EquipItemAnimation(){
+    public virtual void DropItemAnimation(int invIndex){
+        _animator.SetTrigger("DropItem");
+        if(AttachedItem != null){
+            Destroy(AttachedItem.gameObject);
+        }
+    }
+    public virtual void EquipItemAnimation(int invIndex){
         _animator.SetTrigger("EquipItem");
+        if(AttachedItem != null){
+            Destroy(AttachedItem.gameObject);
+        }
+        AttachedItem = Instantiate(ItemManager.Instance().FindItem(Inventory[invIndex].ItemType),HandBone.position, HandBone.rotation * Quaternion.Euler(0.0f, -90f, 0.0f)).transform;
+        AttachedItem.GetComponent<PickableItem>().IsAttached = true;
+        AttachedItem.SetParent(HandBone);
     }
     protected virtual void Die(){
         Debug.Log("Died");

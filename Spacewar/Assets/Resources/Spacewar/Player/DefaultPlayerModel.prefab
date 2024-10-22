@@ -213,9 +213,14 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 0
     Name: LateralSpeed
+  - Type: 9
+    SynchronizeType: 0
+    Name: EquipItem
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
+  - SynchronizeType: 0
+    LayerIndex: 1
 --- !u!114 &2948331816084915214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,5 +261,13 @@ MonoBehaviour:
   PlayerRotationSpeed: 10
   PlayerCurrentHP: 0
   PlayerMaxHP: 100
-  isPickingUpItem: 0
+  IsPickingUpItem: 0
   PlayerController: {fileID: 0}
+  Inventory: []
+  HandBone: {fileID: 6342975878080252028}
+  AttachedItem: {fileID: 0}
+--- !u!4 &6342975878080252028 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1070350730909333850, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+  m_PrefabInstance: {fileID: 2964388189655633626}
+  m_PrefabAsset: {fileID: 0}

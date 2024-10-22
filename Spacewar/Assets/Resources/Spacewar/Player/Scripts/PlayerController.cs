@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 _uiManager.MoveInventoryPicker(pickerNumber);
                 _inventoryIndex = pickerNumber - 1;
                 if(_controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ItemType != 0){
-                    _controlObject.GetComponent<PlayerBase>().EquipItemAnimation();
+                    _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);
                 }
             }
         }
@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.G)){
             var player = _controlObject.GetComponent<PlayerBase>();
             if(player != null){
+                player.DropItemAnimation(_inventoryIndex);
                 ItemManager.Instance().DropItem(_inventoryIndex, player);
             }
         }

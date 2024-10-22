@@ -6,9 +6,11 @@ public class PickableItem : MonoBehaviour
 {
 
     public CustomTypes.ItemData Item;
+    public bool IsAttached = false;
     private PlayerBase _triggeredPlayer;
+    private Rigidbody _rigidbody;
     public void PickupItem(int index){
-        if(_triggeredPlayer.Inventory[index].ItemType == 0){
+        if(_triggeredPlayer.Inventory[index].ItemType == 0 && !IsAttached){
             _triggeredPlayer.Inventory[index] = Item;
             Destroy(gameObject);
         }
@@ -27,7 +29,10 @@ public class PickableItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        if(IsAttached){
+            Destroy(_rigidbody);
+        }
     }
 
     // Update is called once per frame
