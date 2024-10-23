@@ -92,7 +92,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &258382588318537245
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +184,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &842613266356581093
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +276,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &1269757630004620693
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +368,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &2700931378693323886
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +714,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &3883665969248974759
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +806,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &4554282831778197696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,7 +1133,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &7355200366237943714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1225,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &7542716943330826977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,9 +1342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OwnController: {fileID: 0}
-  InventoryPicker: {fileID: 0}
+  InventoryPicker: {fileID: 5012556208885280311}
   InventorySlotList: []
-  PlayerUI: {fileID: 0}
+  PlayerUI: {fileID: 9038696610646006239}
   clickedObject: {fileID: 0}
 --- !u!225 &3493049384297256380
 CanvasGroup:
@@ -1548,7 +1540,6 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}
 --- !u!1 &8194942473918181743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,4 +1632,3 @@ MonoBehaviour:
     ItemName: 
     ItemType: 0
     ThumbnailSprite: {fileID: 0}
-    Prefab: {fileID: 0}

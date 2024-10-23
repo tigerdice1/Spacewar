@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 233708574}
   - component: {fileID: 233708575}
   m_Layer: 5
-  m_Name: Content
+  m_Name: Team2 Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,7 +363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onClickedRoomName: 
-  _mainMenu: {fileID: 0}
 --- !u!1 &486540300
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +483,7 @@ GameObject:
   - component: {fileID: 522555319}
   - component: {fileID: 522555318}
   m_Layer: 5
-  m_Name: HostGamebtn_Quit
+  m_Name: HostGameQuit_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,19 +551,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 522555319}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 329332601}
-        m_TargetAssemblyTypeName: Photon.Pun.MonoBehaviourPunCallbacks, PhotonUnityNetworking
-        m_MethodName: OnLeftRoom
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &522555319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,7 +1201,7 @@ GameObject:
   - component: {fileID: 1251903983}
   - component: {fileID: 1251903982}
   m_Layer: 5
-  m_Name: HostGamebtn_Start
+  m_Name: HostGameStart_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1282,19 +1269,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1251903983}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1291440004}
-        m_TargetAssemblyTypeName: Room, Assembly-CSharp
-        m_MethodName: StartBtnClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1251903983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1505,7 +1480,7 @@ GameObject:
   - component: {fileID: 1335908195}
   - component: {fileID: 1335908196}
   m_Layer: 5
-  m_Name: Content
+  m_Name: Team1 Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1659,7 +1634,7 @@ GameObject:
   - component: {fileID: 1430506129}
   - component: {fileID: 1430506128}
   m_Layer: 5
-  m_Name: HostGamebtn_SwitchTeam
+  m_Name: SwitchTeam_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1727,19 +1702,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1430506129}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1291440004}
-        m_TargetAssemblyTypeName: Room, Assembly-CSharp
-        m_MethodName: SwitchTeam
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1430506129
 MonoBehaviour:
   m_ObjectHideFlags: 0

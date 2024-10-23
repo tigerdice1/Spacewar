@@ -122,14 +122,29 @@ public class PlayerController : MonoBehaviourPunCallbacks
         for (int i = 0; i <= 9; i++){
             KeyCode keyCode = (KeyCode)((int)KeyCode.Alpha0 + i);
             if (Input.GetKeyDown(keyCode)){
-                // 0 키는 인벤토리 인덱스 0이 아닌 10으로 처리할 경우
-                int pickerNumber = (i == 0) ? 0 : i;
-                _uiManager.MoveInventoryPicker(pickerNumber);
+                // 0 키를 누르면 pickerNumber는 9(인벤토리의 마지막 슬롯), 그렇지 않으면 그대로
+                int pickerNumber = (i == 0) ? 10 : i;
+
+                // 인벤토리 인덱스는 0부터 시작하므로 pickerNumber를 -1 해서 맞춤
                 _inventoryIndex = pickerNumber - 1;
-                if(_controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ItemType != 0){
-                    _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);
+
+                // UI 상에서 인벤토리 선택 표시를 업데이트
+                _uiManager.MoveInventoryPicker(pickerNumber);
+
+                // 인덱스가 범위를 벗어나지 않도록 안전 장치
+                if (_inventoryIndex >= 0 && _inventoryIndex < 9){
+                    // 해당 슬롯에 아이템이 있는지 확인 후 장착 애니메이션 실행
+                    var item = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
+                    if (item != null && item.ItemType != 0) // 아이템이 존재하고 타입이 0이 아닐 경우에만 장착 애니메이션
+                    {
+                        _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);
+                    }
                 }
-            }
+        else{
+            Debug.LogWarning("Invalid inventory index selected.");
+        }
+    }
+
         }
         if (Input.GetKeyDown(KeyCode.F)){
             var player = _controlObject.GetComponent<PlayerBase>();

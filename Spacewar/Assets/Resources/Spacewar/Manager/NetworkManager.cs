@@ -137,9 +137,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         SceneLoader.Instance().LoadLocalScene("Room");
     }
     // JoinRoom Function. Must ConnectedToMaster to be loaded//
-
-    public override void OnLeftRoom(){
+    public void LeaveRoom(){
         PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom(){
         SceneLoader.Instance().LoadLocalScene("MainMenu");
     }
     
@@ -164,6 +165,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public bool CheckConnectState(){
         return PhotonNetwork.IsConnectedAndReady;
+    }
+    public bool CheckMasterClient(){
+        return PhotonNetwork.IsMasterClient;
     }
 
         // 접속이 완료될 때까지 기다리는 코루틴

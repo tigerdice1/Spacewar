@@ -12,8 +12,8 @@ public class UI_Player : MonoBehaviour
     public Transform PlayerUI;
     public GameObject clickedObject;
     
-    private PlayerBase _ownPlayer;
-    private Transform _inventory;
+    public PlayerBase _ownPlayer;
+    public Transform _inventory;
 
 
     public void GetClickedUIElement(){
@@ -46,6 +46,9 @@ public class UI_Player : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         _ownPlayer = OwnController.DefaultControlObject.GetComponent<PlayerBase>();
+    }
+
+    void Awake(){
         PlayerUI = transform.Find("PlayerUI");
         _inventory = PlayerUI.transform.Find("Inventory");
         InventoryPicker = PlayerUI.transform.Find("InventoryPicker");
@@ -56,7 +59,6 @@ public class UI_Player : MonoBehaviour
             InventorySlotList.Add(child.GetComponent<UI_InventorySlot>());
         }
     }
-
     // Update is called once per frame
     void Update(){
         UpdateInventoryList();

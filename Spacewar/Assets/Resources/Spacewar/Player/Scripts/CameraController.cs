@@ -34,18 +34,24 @@ public class CameraController : MonoBehaviourPunCallbacks
         return _camera;
     }
     private void Initalize(){
-        _isMine = GetComponent<PhotonView>();
+        PhotonView photonView = GetComponent<PhotonView>();
+        _isMine = photonView != null && photonView.IsMine;
         _playerController = this.GetComponent<PlayerController>();
-        if(_followObject == null){
-            _followObject = _playerController.DefaultControlObject;
-        }
+        _followObject = _playerController.DefaultControlObject;
         if(!_camera){
             GameObject cameraObject = new GameObject("PlayerCamera");
             Camera cameraComponent = cameraObject.AddComponent<Camera>();
             cameraObject.transform.position = _followObject.transform.position;
             cameraObject.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
             _camera = cameraObject.GetComponent<Camera>();
+            if(_isMine){
+                _camera.enabled = true;
+            }
+            else{
+                _camera.enabled = false;
+            }
         }
+
         if(GameManager.Instance().IsDebugMode){
             _isMine = true;
         }

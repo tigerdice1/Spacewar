@@ -61,6 +61,9 @@ PrefabInstance:
       addedObject: {fileID: 572403840562174040}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -2594425427978402577}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8146961815019932217}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
       insertIndex: -1
@@ -101,6 +104,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-2594425427978402577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719057315370630842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &8146961815019932217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +142,7 @@ MonoBehaviour:
     ItemName: Wrench
     ItemType: 1
     ThumbnailSprite: {fileID: 21300000, guid: 6d03c566a4671044aac2d36ce6500e82, type: 3}
-    Prefab: {fileID: 8719057315370630842}
+  IsAttached: 0
 --- !u!65 &8817840881623504300
 BoxCollider:
   m_ObjectHideFlags: 0

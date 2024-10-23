@@ -208,10 +208,10 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isWalking
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: ForwardSpeed
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: LateralSpeed
   - Type: 9
     SynchronizeType: 0
