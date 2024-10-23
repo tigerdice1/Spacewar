@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Realtime;
+using Photon.Pun;
 
 public class ItemManager : MonoBehaviour
 {
     public List<GameObject> ItemList = new List<GameObject>();
+    public Dictionary<GameObject, string> ItemDictionary = new Dictionary<GameObject, string>();
     private static ItemManager _instance;
     public static ItemManager Instance(){
         return _instance;

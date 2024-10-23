@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private static GameManager _instance;
     [SerializeField]
-    private bool _isDebugMode;
+    private bool _isDebugMode = false;
     [SerializeField]
     private CustomTypes.Coordniate2D _mapSize;
     [SerializeField]
@@ -65,12 +65,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.SetCustomProperties(playerProps);
 
             // 모델 인스턴스화
-            GameObject playerModel = PhotonNetwork.Instantiate("Spacewar/Scripts/NewPlayer/DefaultPlayerModel", Vector3.zero, Quaternion.identity);
+            GameObject playerModel = PhotonNetwork.Instantiate("Spacewar/Player/DefaultPlayerModel", Vector3.zero, Quaternion.identity);
             // 추가로, 캐릭터 컨트롤러 등을 부착하는 코드를 여기에 작성
             playerModel.transform.SetParent(null);
-            
-            GameObject playerController = PhotonNetwork.Instantiate("Spacewar/Prefabs/PlayerContoller",Vector3.zero, Quaternion.identity);
+            GameObject playerController = PhotonNetwork.Instantiate("Spacewar/Player/PlayerContoller",Vector3.zero, Quaternion.identity);
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
+            //GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
+           //playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
+            //playerController.GetComponent<PlayerController>().PlayerUI = playerUI; 
     }
 
         private void SpawnDebugPlayer(){
@@ -89,12 +91,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start(){
         if(_instance.IsDebugMode){
-            SpawnDebugPlayer();
+            //SpawnDebugPlayer();
         }
         else if(PhotonNetwork.IsConnected){
-            SetPlayerTeam();
-            SpawnPlayer();
+            
         }
+        SetPlayerTeam();
+        SpawnPlayer();
             /*
             int astCount = UnityEngine.Random.Range(_minAsteroidAreas, _maxAsteroidAreas);
             for(int i = 0; i < astCount; i++){

@@ -2377,7 +2377,7 @@ MonoBehaviour:
   - {fileID: 2730015404637598603, guid: 974cf6e868b72c44886c969a745ca324, type: 3}
   _playerController: {fileID: 7578604238521271527, guid: 55bff9f5f30c76b4784b289fa491b2e3, type: 3}
   _playerUI: {fileID: 7542716943330826977, guid: fb714afc3cdc31248a1607dd7022c68f, type: 3}
-  _isDebugMode: 1
+  _isDebugMode: 0
   _minAsteroidAreas: 0
   _maxAsteroidAreas: 0
   _asteroidArea: {fileID: 0}

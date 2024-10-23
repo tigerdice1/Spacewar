@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onClickedRoomName: 
+  _mainMenu: {fileID: 0}
 --- !u!1 &486540300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,10 +1490,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dcf18e0b1d19341ae26e5a06bfa9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _teamListContents:
+  TeamListContents:
   - {fileID: 1335908195}
   - {fileID: 233708574}
-  _playerListItem: {fileID: 2129105202428824534, guid: 92d2a8e142a7f7a48a031a415f86ec4a, type: 3}
+  PlayerListItem: {fileID: 2129105202428824534, guid: 92d2a8e142a7f7a48a031a415f86ec4a, type: 3}
 --- !u!1 &1335908194
 GameObject:
   m_ObjectHideFlags: 0

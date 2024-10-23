@@ -5,15 +5,16 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using Photon.Pun;
 using TMPro;
+using System.Linq;
 
-public class Lobby : MonoBehaviourPunCallbacks
+public class LobbyPanel : MonoBehaviourPunCallbacks
 {
-    public Transform RtContent;
-    
-    [SerializeField]
-    private InputField _inputServerName;
-    [SerializeField]
+    private string _serverListItemPath = "Spacewar/MainMenu/ServerListItem";
+    private Transform _roomListContent;
+    private InputField _findServerByNameInputField;
     private GameObject _serverListItem;
+    private Button _connectButton;
+    private Button _backButton;
 
 
     Dictionary<string, RoomInfo> _dicRoomInfo = new Dictionary<string, RoomInfo>();
@@ -28,7 +29,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     }
 
     void DeleteRoomListItem(){
-        foreach(Transform child in RtContent){
+        foreach(Transform child in _roomListContent){
             Destroy(child.gameObject);
         }
     }
@@ -64,18 +65,26 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     void CreateRoomListItem(){
         foreach(RoomInfo roomInfo in _dicRoomInfo.Values){
-            GameObject go = Instantiate(_serverListItem, RtContent);
+            GameObject go = Instantiate(_serverListItem, _roomListContent);
             RoomListItem item = go.GetComponent<RoomListItem>();
             item.SetInfo(roomInfo.Name, roomInfo.PlayerCount, roomInfo.MaxPlayers);
             //item.onDelegate = SelectRoomItem;
         }
 
     }
-    void Start()
-    {
-        
+    void Start(){
+        _connectButton.onClick.AddListener(MainMenuController.Instance().OnConnectButtonClicked);
+        _backButton.onClick.AddListener(MainMenuController.Instance().OnLobbyBackButtonClicked);
     }
 
+    void Awake(){
+        Transform[] allTransforms = Resources.FindObjectsOfTypeAll<Transform>();
+        _roomListContent = allTransforms.FirstOrDefault(t => t.gameObject.name == "Content");
+        _findServerByNameInputField = allTransforms.FirstOrDefault(t => t.gameObject.name == "FindServerByNameInputField").GetComponent<InputField>();
+        _serverListItem = Resources.Load<GameObject>(_serverListItemPath);
+        _connectButton = allTransforms.FirstOrDefault(t => t.gameObject.name == "Connect_Btn").GetComponent<Button>();
+        _backButton = allTransforms.FirstOrDefault(t => t.gameObject.name == "Back_Btn").GetComponent<Button>();
+    }
     // Update is called once per frame
     void Update()
     {

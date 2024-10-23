@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Priority: 0
   _powerConsumption: 0
   _powerIdle: 10
   _powerActive: 100
@@ -1346,17 +1347,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4434385728639049930, guid: b72d4025015999c41a45ff036f2131dc, type: 3}
---- !u!114 &832315740 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7457714505916796000, guid: 55bff9f5f30c76b4784b289fa491b2e3, type: 3}
-  m_PrefabInstance: {fileID: 7098847001809934165}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dced2f2deed1a748bffc7f10860d204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &832315741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1859579667531260233, guid: 55bff9f5f30c76b4784b289fa491b2e3, type: 3}
@@ -2913,13 +2903,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ea9cc102cc16e499e4847316d2e5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerModels: []
+  _playerController: {fileID: 0}
+  _playerUI: {fileID: 0}
   _isDebugMode: 0
   _minAsteroidAreas: 5
   _maxAsteroidAreas: 10
   _asteroidArea: {fileID: 8275125540175564271, guid: c3f3fbd724f82ca4f8b449761e5abba4, type: 3}
   _asteroidAreas: []
-  _playerModels: []
-  _playerController: {fileID: 0}
 --- !u!1001 &1576020123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3409,6 +3400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Priority: 0
   _powerConsumption: 0
   _powerIdle: 0
   _powerActive: 0
@@ -3771,13 +3763,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94761ce40650d404e895f265fa15d32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerController: {fileID: 832315740}
-  _playerSpeed: 5
-  _playerRotationSpeed: 10
-  _playerMaxHP: 100
-  _playerCurrentHP: 100
-  _showItemName: {fileID: 0}
-  _hpSystem: {fileID: 2026724713}
+  PlayerSpeed: 0
+  PlayerRotationSpeed: 0
+  PlayerCurrentHP: 0
+  PlayerMaxHP: 0
+  IsPickingUpItem: 0
+  PlayerController: {fileID: 0}
+  Inventory: []
+  HandBone: {fileID: 0}
+  AttachedItem: {fileID: 0}
 --- !u!136 &2026724708
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4341,6 +4335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a638abaac43ff41bfb66fe29f559c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Priority: 0
   _powerConsumption: 0
   _powerIdle: 0
   _powerActive: 30
@@ -4515,6 +4510,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1565344654}
     m_Modifications:
+    - target: {fileID: 342221695585107222, guid: 55bff9f5f30c76b4784b289fa491b2e3, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1859579667531260233, guid: 55bff9f5f30c76b4784b289fa491b2e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -62.227867

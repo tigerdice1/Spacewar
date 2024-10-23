@@ -68,9 +68,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dced2f2deed1a748bffc7f10860d204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerUI: {fileID: 7542716943330826977, guid: fb714afc3cdc31248a1607dd7022c68f, type: 3}
+  IsMine: 0
+  IsTeam1: 0
+  TriggerObject: {fileID: 0}
   _defaultControlObject: {fileID: 8872838953896793287, guid: 6104e90611b21214e9bb027ee9dc8937, type: 3}
   _controlObject: {fileID: 0}
-  _triggerObject: {fileID: 0}
 --- !u!114 &8376452080588141102
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,13 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/MainMenu.unity
     guid: bb6048dffc1c66341ab6d555b934a46d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Resources/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Resources/Scenes/Room.unity
     guid: 45aaab1b10939d542a09a9aa3db3c86a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Resources/Scenes/MP_DefaultMap.unity
     guid: f1962257fffca554eadd56c4c22365bf
   - enabled: 1

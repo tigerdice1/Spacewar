@@ -11,15 +11,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private static NetworkManager _instance;
     private string _playerName;
     private string _serverName;
-
     private byte _maxPlayers;
-
     private bool _isLoggedIn;
     private Text _connectionStatus;
-
     public string _onClickedRoomName;
-
-    public MainMenu _mainMenu;
     //Variables//
 
     /*Properties*/
@@ -37,7 +32,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public void ConnectToLobby(){
-        _mainMenu.UpdateLoadingPanel("Joining Lobby..");
+        MainMenuController.Instance().UpdateLoadingPanel("Joining Lobby..");
         PhotonNetwork.JoinLobby();
     }
     public string PlayerName{
@@ -60,38 +55,48 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     //Properties//
     /* Connect to MasterServer Function*/
+    /* 마스터 서버 접속 관련 함수*/
     public void Connect(){
         PhotonNetwork.LocalPlayer.NickName = this._playerName;
         PhotonNetwork.SendRate = 120;
         PhotonNetwork.SerializationRate = 120;
         PhotonNetwork.ConnectUsingSettings();
-        _mainMenu.UpdateLoadingPanel("Connecting to Server");
+        MainMenuController.Instance().UpdateLoadingPanel("Connecting to Server");
         StartCoroutine(WaitForConnectionCoroutine());
     }
 
     public override void OnConnected(){
-        _mainMenu.UpdateLoadingPanel("Server Connected");
+        MainMenuController.Instance().UpdateLoadingPanel("Server Connected");
     }
 
     public override void OnConnectedToMaster(){
         base.OnConnectedToMaster();
-        _mainMenu.UpdateLoadingPanel("Master Server Connected");
-        _mainMenu.SetMainBtnGroupPanelActive(true);
-        _mainMenu.SetLoadingPanelActive(false);
+        MainMenuController.Instance().UpdateLoadingPanel("Master Server Connected");
+        MainMenuController.Instance().ActiveMainPanel();
     }
     //Connect to MasterServer Function//
     /* Connect to Lobby Function. Must ConnectedToMaster to be loaded*/
     public override void OnJoinedLobby(){
         base.OnJoinedLobby();
-        _mainMenu.UpdateLoadingPanel("Lobby Joined.");
-        _mainMenu.SetLoadingPanelActive(false);
-        _mainMenu.SetJoinGamePanelActive(true);
+        MainMenuController.Instance().UpdateLoadingPanel("Lobby Joined.");
+        MainMenuController.Instance().ActiveLobbyPanel();
     }
     //Connect to Lobby Function. Must ConnectedToMaster to be loaded//
 
+    public void LeaveLobby(){
+        if (PhotonNetwork.InLobby){
+            PhotonNetwork.LeaveLobby();
+            MainMenuController.Instance().UpdateLoadingPanel("Leaving Lobby...");
+        }
+    }
+
+    public override void OnLeftLobby(){
+        base.OnLeftLobby();
+        MainMenuController.Instance().ActiveMainPanel();
+    }
     /* CreateRoom Function. Must ConnectedToMaster to be loaded*/
     public void CreateRoom(){
-        _mainMenu.UpdateLoadingPanel("Creating Host Server...");
+        MainMenuController.Instance().UpdateLoadingPanel("Creating Host Server...");
         _serverName = (_serverName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : _serverName;
         _maxPlayers = (byte) Mathf.Clamp(_maxPlayers, 2, 12);
         RoomOptions options = new RoomOptions {MaxPlayers = _maxPlayers, PlayerTtl = 10000, IsVisible = true, IsOpen = true};
@@ -99,7 +104,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnCreatedRoom(){
-        _mainMenu.UpdateLoadingPanel("Host Server Created.");
+        MainMenuController.Instance().UpdateLoadingPanel("Host Server Created.");
         SceneLoader.Instance().LoadLocalScene("Room");
     }
     // CreateRoom Function. Must ConnectedToMaster to be loaded//
@@ -109,10 +114,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     public void JoinRoom(string serverName){
-        if(!serverName.Equals(" ")){
+        if(!serverName.Equals("")){
             PhotonNetwork.JoinRoom(serverName);
-            _mainMenu.UpdateLoadingPanel("Connecting to room...");
+            MainMenuController.Instance().ActiveLoadingPanel();
+            MainMenuController.Instance().UpdateLoadingPanel("Connecting to room...");
         }
+    }
+    public void JoinRoom(){
+        if(!OnClickedRoomName.Equals("")){
+            PhotonNetwork.JoinRoom(OnClickedRoomName);
+            MainMenuController.Instance().ActiveLoadingPanel();
+            MainMenuController.Instance().UpdateLoadingPanel("Connecting to room...");
+        }
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message){
+        MainMenuController.Instance().ActiveLobbyPanel();
+        Debug.LogError($"Failed to join room. Error code: {returnCode}, Message: {message}");
     }
 
     public override void OnJoinedRoom(){
@@ -144,6 +162,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    public bool CheckConnectState(){
+        return PhotonNetwork.IsConnectedAndReady;
+    }
+
         // 접속이 완료될 때까지 기다리는 코루틴
     private System.Collections.IEnumerator WaitForConnectionCoroutine()
     {
@@ -169,10 +191,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     // Start is called before the first frame update
     void Start(){
-        if(!PhotonNetwork.IsConnectedAndReady){
-            _mainMenu.SetMainBtnGroupPanelActive(false);
-            _mainMenu.SetLoginPanelActive(true);
-            }
+
         }
     
 

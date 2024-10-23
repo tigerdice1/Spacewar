@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Realtime;
+using Photon.Pun;
 
 public class PlayerBase : MonoBehaviour, IControllable
 {
@@ -40,6 +42,7 @@ public class PlayerBase : MonoBehaviour, IControllable
         AttachedItem = Instantiate(ItemManager.Instance().FindItem(Inventory[invIndex].ItemType),HandBone.position, HandBone.rotation * Quaternion.Euler(0.0f, -90f, 0.0f)).transform;
         AttachedItem.GetComponent<PickableItem>().IsAttached = true;
         AttachedItem.SetParent(HandBone);
+
     }
     protected virtual void Die(){
         Debug.Log("Died");

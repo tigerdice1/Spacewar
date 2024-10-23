@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 120950909}
   - component: {fileID: 120950908}
   m_Layer: 5
-  m_Name: GameLogo
+  m_Name: Logo_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -603,9 +603,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65217abb54ff7e409f379561351e808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RtContent: {fileID: 1785143179}
   _inputServerName: {fileID: 0}
   _serverListItem: {fileID: 2129105202428824534, guid: 53bebedf097aa7545bf0f63fbbb42752, type: 3}
-  rtContent: {fileID: 1785143179}
 --- !u!1 &277513538
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 324420992}
   - component: {fileID: 324420991}
   m_Layer: 5
-  m_Name: BG_UI
+  m_Name: MainMenuBtnGroup_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onClickedRoomName: 
-  _mainMenu: {fileID: 1300635375}
+  _mainMenu: {fileID: 0}
 --- !u!1 &343448473
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 344563121}
   - component: {fileID: 344563120}
   m_Layer: 5
-  m_Name: Join
+  m_Name: Join_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -894,7 +894,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnJoinButtonClicked
         m_Mode: 1
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnHostBackButtonClicked
         m_Mode: 1
@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 378376288}
   - component: {fileID: 378376287}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: Settings_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1740,7 +1740,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnLoginButtonClicked
         m_Mode: 1
@@ -3273,7 +3273,7 @@ GameObject:
   - component: {fileID: 1066690824}
   - component: {fileID: 1066690823}
   m_Layer: 5
-  m_Name: Host
+  m_Name: Host_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3342,7 +3342,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnHostButtonClicked
         m_Mode: 1
@@ -3535,7 +3535,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnHostStartButtonClicked
         m_Mode: 1
@@ -3780,7 +3780,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnConnectButtonClicked
         m_Mode: 1
@@ -4138,7 +4138,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1300635374}
-  - component: {fileID: 1300635375}
   - component: {fileID: 1300635376}
   m_Layer: 0
   m_Name: MenuController
@@ -4162,27 +4161,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1300635375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300635372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b9ebfb4e56cd44c844b236e163193b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _netManager: {fileID: 329332601}
-  _mainBtnGroupPanel: {fileID: 1265294932}
-  _loginPanel: {fileID: 1980304270}
-  _loginErrorText: {fileID: 1835438524}
-  _hostGamePanel: {fileID: 2131259896}
-  _joinGamePanel: {fileID: 241612821}
-  _loadingPanel: {fileID: 1986799468}
-  _loadingPanelText: {fileID: 1007112052}
-  _newGameLevel: 
 --- !u!114 &1300635376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4493,7 +4471,7 @@ GameObject:
   - component: {fileID: 1436575806}
   - component: {fileID: 1436575805}
   m_Layer: 5
-  m_Name: Exit
+  m_Name: Exit_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4562,7 +4540,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI_MainMenu, Assembly-CSharp
         m_MethodName: ExitButton
         m_Mode: 1
@@ -4964,7 +4942,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1300635375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OnLobbyBackButtonClicked
         m_Mode: 1
@@ -5769,7 +5747,7 @@ GameObject:
   - component: {fileID: 1763913599}
   - component: {fileID: 1763913598}
   m_Layer: 5
-  m_Name: Start
+  m_Name: Start_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
