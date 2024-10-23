@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.28
+      value: 48.214108
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 722.7082
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.1
+      value: -1090.7372
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26,15 +26,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -61,6 +61,9 @@ PrefabInstance:
       addedObject: {fileID: 8767117029569516576}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 4822266522468974233}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 4676193731713337872}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e47b99fe8480f9c41b8c81b7d2c41722, type: 3}
       insertIndex: -1
@@ -83,11 +86,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233d458aaa096694eb7cda68b8cb4085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ownerShip: {fileID: 0}
+  _objectToControl: {fileID: 0}
+  _consoleUI: {fileID: 0}
   _totalPowerConsumption: 0
   _generatorConsole: {fileID: 0}
   _connectedObjectsList:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &4822266522468974233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416545648650806310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!65 &4676193731713337872
 BoxCollider:
   m_ObjectHideFlags: 0

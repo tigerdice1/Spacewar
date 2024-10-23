@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1a8239c3c7fbf3a468d363e2212e8a95, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3427963
+      value: -3.0508301
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a8239c3c7fbf3a468d363e2212e8a95, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.423
+      value: 0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a8239c3c7fbf3a468d363e2212e8a95, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.113
+      value: 0.34262514
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a8239c3c7fbf3a468d363e2212e8a95, type: 3}
       propertyPath: m_LocalRotation.w
@@ -93,10 +93,10 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 2
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!54 &2174963009548402182
