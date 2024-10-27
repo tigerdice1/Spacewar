@@ -64,7 +64,7 @@ PrefabInstance:
       addedObject: {fileID: 4285134413059301403}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8146961815019932217}
+      addedObject: {fileID: 4716024766540017340}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8817840881623504300}
@@ -118,15 +118,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObservedComponentsFoldoutOpen: 1
   Group: 0
-  prefixField: -1
+  prefixField: 0
   Synchronization: 3
-  OwnershipTransfer: 2
+  OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8146961815019932217
+--- !u!114 &4716024766540017340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,12 +135,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8719057315370630842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221785102fd9cf84db467c9c348f16ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d198dedd1856224ba07f5a69043165a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item:
-    ItemName: Wrench
-    ItemType: 1
+  ItemInfo:
+    Name: Wrench
+    ID: 2
     ThumbnailSprite: {fileID: 21300000, guid: 6d03c566a4671044aac2d36ce6500e82, type: 3}
   IsAttached: 0
 --- !u!65 &8817840881623504300

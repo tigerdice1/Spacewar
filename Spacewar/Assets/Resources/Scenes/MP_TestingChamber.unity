@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e861cbc6d3dbbb4c9e4b7239cbca222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 0}
+  UICanvasGroup: {fileID: 0}
   Ship: {fileID: 676486696}
   ThrottleText: {fileID: 942654586}
   VelocityText: {fileID: 1910742665}
@@ -749,6 +749,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4285134413059301403, guid: 90d319079d98fba48b25267ac38a58da, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8146961815019932217, guid: 90d319079d98fba48b25267ac38a58da, type: 3}
+      propertyPath: ItemInfo.ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8146961815019932217, guid: 90d319079d98fba48b25267ac38a58da, type: 3}
+      propertyPath: ItemInfo.Name
+      value: Wrench
+      objectReference: {fileID: 0}
+    - target: {fileID: 8146961815019932217, guid: 90d319079d98fba48b25267ac38a58da, type: 3}
+      propertyPath: ItemInfo.ThumbnailSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6d03c566a4671044aac2d36ce6500e82, type: 3}
     - target: {fileID: 8235817915637539840, guid: 90d319079d98fba48b25267ac38a58da, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.7170045
@@ -850,6 +866,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5168192117858895503, guid: a8d56de6eef328745bfa6cd8b07ddae0, type: 3}
+      propertyPath: sceneViewId
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -863,6 +883,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3842517400415985829, guid: 2035e54b1b682d34cadcea69b6e17405, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -3469176138306958581, guid: 2035e54b1b682d34cadcea69b6e17405, type: 3}
+      propertyPath: ItemInfo.ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3469176138306958581, guid: 2035e54b1b682d34cadcea69b6e17405, type: 3}
+      propertyPath: ItemInfo.Name
+      value: Driver
+      objectReference: {fileID: 0}
+    - target: {fileID: -3469176138306958581, guid: 2035e54b1b682d34cadcea69b6e17405, type: 3}
+      propertyPath: ItemInfo.ThumbnailSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2619e39edbad4c4b99e6098ee8e944a, type: 3}
     - target: {fileID: 4934056604842481465, guid: 2035e54b1b682d34cadcea69b6e17405, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.0508301
@@ -1184,7 +1220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45dcc15f93e78d24283932794166cde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 0}
+  UICanvasGroup: {fileID: 0}
   PowerToggle: {fileID: 1071405035}
   LoadRadial: {fileID: 1522734577}
   TemptureRadial: {fileID: 2097832958}
@@ -2330,6 +2366,7 @@ MonoBehaviour:
   ItemList:
   - {fileID: 8719057315370630842, guid: 90d319079d98fba48b25267ac38a58da, type: 3}
   - {fileID: 5706794083813297539, guid: 2035e54b1b682d34cadcea69b6e17405, type: 3}
+  ItemPrefabPathList: []
 --- !u!1 &2097832956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,6 +2470,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1513526969}
     m_Modifications:
+    - target: {fileID: 2814449715374736864, guid: a44d79bda608d614c97ff9313b731c69, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4019415682648054654, guid: a44d79bda608d614c97ff9313b731c69, type: 3}
       propertyPath: _consoleUI
       value: 
@@ -2546,6 +2587,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4822266522468974233, guid: c280f66ad2c3b954c909e08cfab70be4, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8767117029569516576, guid: c280f66ad2c3b954c909e08cfab70be4, type: 3}
       propertyPath: _generatorConsole
       value: 
@@ -2652,6 +2697,10 @@ PrefabInstance:
       propertyPath: _objectToControl
       value: 
       objectReference: {fileID: 676486695}
+    - target: {fileID: 6209242559874229123, guid: 0ecbc5d8084d5664aa3cd8d316070a7b, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7244041170362107293, guid: 0ecbc5d8084d5664aa3cd8d316070a7b, type: 3}
       propertyPath: m_Name
       value: ControlPanel_Ship
@@ -2717,6 +2766,10 @@ PrefabInstance:
       propertyPath: _connectedJunction
       value: 
       objectReference: {fileID: 821974898}
+    - target: {fileID: 2692060378202862086, guid: dbcef83566bfbc94a8ea238e88ce2133, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4940265110562006275, guid: dbcef83566bfbc94a8ea238e88ce2133, type: 3}
       propertyPath: m_Name
       value: Powergenerator

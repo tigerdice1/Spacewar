@@ -70,7 +70,7 @@ PrefabInstance:
       addedObject: {fileID: 1621196055119329022}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1a8239c3c7fbf3a468d363e2212e8a95, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6101763805534968462}
+      addedObject: {fileID: -3469176138306958581}
   m_SourcePrefab: {fileID: 100100000, guid: 1a8239c3c7fbf3a468d363e2212e8a95, type: 3}
 --- !u!1 &5706794083813297539 stripped
 GameObject:
@@ -91,9 +91,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObservedComponentsFoldoutOpen: 1
   Group: 0
-  prefixField: -1
+  prefixField: 0
   Synchronization: 3
-  OwnershipTransfer: 2
+  OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 0
@@ -168,7 +168,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6101763805534968462
+--- !u!114 &-3469176138306958581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,11 +177,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5706794083813297539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221785102fd9cf84db467c9c348f16ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b7d1d0ea267610478dc0bbaca61e5e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item:
-    ItemName: Driver
-    ItemType: 2
+  ItemInfo:
+    Name: Driver
+    ID: 1
     ThumbnailSprite: {fileID: 21300000, guid: b2619e39edbad4c4b99e6098ee8e944a, type: 3}
   IsAttached: 0

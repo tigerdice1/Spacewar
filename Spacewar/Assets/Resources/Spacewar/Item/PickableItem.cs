@@ -6,17 +6,30 @@ using Photon.Realtime;
 
 public class PickableItem : MonoBehaviourPunCallbacks
 {
-
-    public CustomTypes.ItemData Item;
+    /* 새로운 아이템을 추가할 때 필히 ItemManager에 프리펩 경로를 추가해주세요.*/
+    public CustomTypes.ItemData ItemInfo;
     public bool IsAttached = false;
-    private PlayerBase _triggeredPlayer;
-    private Rigidbody _rigidbody;
-    public void PickupItem(int index){
-        if(_triggeredPlayer.Inventory[index].ItemType == 0 && !IsAttached){
-            _triggeredPlayer.Inventory[index] = Item;
+    protected Rigidbody _rigidbody;
+
+    protected virtual void Initalize(){
+
+    }
+    public void PickupItem(PlayerBase targetPlayer, int targetInventoryIndex){
+        if(targetPlayer.Inventory[targetInventoryIndex].ID == 0 && !IsAttached){
+            targetPlayer.Inventory[targetInventoryIndex] = ItemInfo;
             DestroyItem();
         }
     }
+
+    public virtual void UseItem(){
+
+    }
+
+    public virtual void DropItem(Transform transform){
+        ItemManager.Instance().InstantiateItem(ItemInfo.ID, transform.position, transform.rotation);
+        DestroyItem();
+    }
+
     [PunRPC]
     public void DestroyItem(){
         if(photonView.IsMine){
@@ -30,27 +43,19 @@ public class PickableItem : MonoBehaviourPunCallbacks
         PhotonView targetPhotonView = gameObject.GetComponent<PhotonView>();
         if (targetPhotonView != null){
             // 해당 오브젝트의 소유자에게 "DestroyItem" RPC 호출
-            targetPhotonView.RPC("DestroyItem", RpcTarget.MasterClient);
+            targetPhotonView.RPC("DestroyItem", RpcTarget.AllBuffered);
         }
     }
-        private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")){
-            _triggeredPlayer = other.GetComponent<PlayerBase>();
-            _triggeredPlayer.PlayerController.TriggerObject = this.gameObject;
-        }
-    }
-    private void OnTriggerExit(Collider other) {
-        if(other.CompareTag("Player")){
-            _triggeredPlayer.GetComponent<PlayerBase>().PlayerController.TriggerObject = null;
-        }
+
+    /* 플레이어에게 부착된 상태면 불필요한 물리를 없애기 위해 리지드바디 삭제 */
+    protected void DestroyRigidbody(){
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        Destroy(_rigidbody);
+        
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        _rigidbody = gameObject.GetComponent<Rigidbody>();
-        if(IsAttached){
-            Destroy(_rigidbody);
-        }
+    protected virtual void Start(){
+        if(IsAttached) DestroyRigidbody();
     }
 
     // Update is called once per frame

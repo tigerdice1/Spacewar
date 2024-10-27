@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerGenerator : FixableObjects{
+    #region Public Variables
+
     public float CurrentThermal;
     public float CriticalThermal;
     public float CurrentFuel;
@@ -10,6 +12,12 @@ public class PowerGenerator : FixableObjects{
     public float MaxPower;
     [Range(0, 120)]
     public float Load;
+    public bool IsPowered;
+
+    #endregion Public Variables
+
+    #region Private Variables
+
     [SerializeField]
     private Junction _connectedJunction;
     [SerializeField]
@@ -22,11 +30,14 @@ public class PowerGenerator : FixableObjects{
     private float _criticalThermalTimer;
     [SerializeField]
     private bool _isCritical;
-    public bool IsPowered;
 
     /* 시간계산용 변수 */
     private float _fuelTimer;
     private float _thermalTimer;
+
+    #endregion Private Variables
+
+    #region Public Methods
 
     public void SetGeneratorState(bool isOn){
         IsPowered = isOn;
@@ -42,6 +53,11 @@ public class PowerGenerator : FixableObjects{
         float clamppedLoad = Mathf.Clamp(targetLoad, 0.0f, 120.0f);
         Load = Mathf.Lerp(Load, clamppedLoad, Time.deltaTime * 2.0f);
     }
+
+    #endregion Public Methods
+
+    #region Protected Methods
+
     protected override void Aging(){
         base.Aging();
         if(_durability <= 0f){
@@ -49,6 +65,11 @@ public class PowerGenerator : FixableObjects{
             IsPowered = false;
         }
     }
+
+    #endregion Protected Methods
+
+    #region Private Methods
+    
     private void UpdateThermal(){
         // 전원이 켜진 상태이고 로드율이 50% 보다 높을경우, 5000도까지 로드율에 비례해서 서서히 증가
         // 50% 보다 적을경우, 2500도까지 서서히 감소
@@ -100,6 +121,8 @@ public class PowerGenerator : FixableObjects{
         CurrentFuel -= Load / Mathf.Pow(_efficiency, 2.0f);
         _outputPower = MaxPower / 100.0f * Load;
     }
+
+    #endregion Private Methods
     protected void Start(){
         Initialize();
     }

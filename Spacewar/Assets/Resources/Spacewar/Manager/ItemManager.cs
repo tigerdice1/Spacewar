@@ -7,25 +7,53 @@ using Photon.Pun;
 public class ItemManager : MonoBehaviour
 {
     public List<GameObject> ItemList = new List<GameObject>();
-    public Dictionary<GameObject, string> ItemDictionary = new Dictionary<GameObject, string>();
+    public List<string> ItemPrefabPathList = new List<string>();
     private static ItemManager _instance;
     public static ItemManager Instance(){
         return _instance;
     }
 
-    public GameObject FindItem(int itemType){
-        foreach(GameObject item in ItemList){
-            int targetItem = item.GetComponent<PickableItem>().Item.ItemType;
-            if(targetItem == itemType) return item;
+    public void InitalizeItemList(){
+        ItemPrefabPathList.Add("Spacewar/Item/Tool_Driver/Tool_Driver");
+        ItemPrefabPathList.Add("Spacewar/Item/Tool_Wrench/Tool_Wrench");
+    }
+    public GameObject FindItemByID(int id){
+        foreach(string path in ItemPrefabPathList){
+            GameObject itemPreload = Resources.Load<GameObject>(path);
+            if(id == itemPreload.GetComponent<PickableItem>().ItemInfo.ID) return itemPreload;
         }
         return null;
     }
-    public void DropItem(int index, PlayerBase itemUser){
-        CustomTypes.ItemData item = itemUser.Inventory[index];
-        if(item.ItemType != 0){
-            GameObject spawnedItem = Instantiate(FindItem(item.ItemType), itemUser.transform.position, itemUser.transform.rotation);
-            item.ClearItemData();
+    public string FindItemPathByID(int id){
+        foreach(string path in ItemPrefabPathList){
+            GameObject itemPreload = Resources.Load<GameObject>(path);
+            if(id == itemPreload.GetComponent<PickableItem>().ItemInfo.ID) return path;
         }
+        Debug.Log("couldn't find item");
+        return null;
+    }
+    public Transform InstantiateItem(int id, Vector3 position, Quaternion rotation){
+        return PhotonNetwork.Instantiate(FindItemPathByID(id), position, rotation).transform;
+    }
+    /*
+    public void RequestInstantiateItem(int id, Vector3 position, Quaternion rotation){
+        PhotonView targetPhotonView = gameObject.GetComponent<PhotonView>();
+        if (targetPhotonView != null){
+            // 해당 오브젝트의 소유자에게 "InstantiateItem" RPC 호출
+            targetPhotonView.RPC("InstantiateItem", RpcTarget.MasterClient, id, position, rotation);
+        }
+    }
+    */
+    public void DropItem(Transform transform, int inventoryIndex, PlayerBase itemUser){
+        var player = transform.gameObject.GetComponent<PlayerBase>();
+        if(player != null){
+            CustomTypes.ItemData itemWillDrop = player.Inventory[inventoryIndex];
+            if(itemWillDrop.ID != 0){
+                PhotonNetwork.Instantiate(FindItemPathByID(itemWillDrop.ID), transform.position, transform.rotation);
+                itemWillDrop.ClearItemData();
+            }
+        }
+        
     }
     public void UseItem(int index, GameObject targetObject, PlayerBase itemUser){
         if(targetObject == null) return;
@@ -33,16 +61,16 @@ public class ItemManager : MonoBehaviour
         var powerGenerator = targetObject.GetComponent<PowerGenerator>();
         var controlPanel = targetObject.GetComponent<ControlPanel>();
         var junction = targetObject.GetComponent<Junction>();
-        if(item.ItemType == 1 && powerGenerator != null){
+        if(item.ID == 1 && powerGenerator != null){
             powerGenerator.FixObject(100f);
         }
-        if(item.ItemType == 2 && controlPanel != null){
+        if(item.ID == 2 && controlPanel != null){
             controlPanel.FixObject(100f);
         }
-        if(item.ItemType == 2 && junction != null){
+        if(item.ID == 2 && junction != null){
             junction.FixObject(100f);
         }
-        if(item.ItemType == 3 && powerGenerator != null){
+        if(item.ID == 3 && powerGenerator != null){
             powerGenerator.FillFuel();
             item.ClearItemData();
         }
@@ -53,9 +81,8 @@ public class ItemManager : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start(){
+        InitalizeItemList();
     }
 
     // Update is called once per frame

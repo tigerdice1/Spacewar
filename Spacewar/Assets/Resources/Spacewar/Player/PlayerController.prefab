@@ -72,6 +72,7 @@ MonoBehaviour:
   IsMine: 0
   IsTeam1: 0
   TriggerObject: {fileID: 0}
+  TriggerItem: {fileID: 0}
   _defaultControlObject: {fileID: 8872838953896793287, guid: 6104e90611b21214e9bb027ee9dc8937, type: 3}
   _controlObject: {fileID: 0}
 --- !u!114 &8376452080588141102

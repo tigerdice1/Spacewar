@@ -6,12 +6,16 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 { 
+    #region Public Variables
     public GameObject PlayerUI;
     public bool IsMine;
     public bool IsTeam1;
     [Tooltip("플레이어가 접촉한 오브젝트")]
     public GameObject TriggerObject;
+    public PickableItem TriggerItem;
+    #endregion Public Variables
 
+    #region Private Variables
     [SerializeField]
     [Tooltip("기본 컨트롤 오브젝트.")]
     private GameObject _defaultControlObject;
@@ -22,8 +26,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private int _inventoryIndex = 0;
     private UIManager _uiManager;
     private CameraController _cameraController;
-
-    /* Properties */
+    #endregion Private Variables
+    
+    #region Public Properties
     public GameObject DefaultControlObject{
         set => _defaultControlObject = value; 
         get => _defaultControlObject; 
@@ -36,12 +41,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         get => _controlObject; 
     }
+    #endregion Public Properties
 
+    #region Public Methods
+    public RaycastHit GetCursorRaycastResult(){
+        Ray ray = _cameraController.GetCamera().ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitResult;
+        if(!Physics.Raycast(ray, out hitResult)){
+            
+        }
+        return hitResult;
+    }
+    public void LookAtCursor(float maxRotationSpeed, bool useSlerp){
+        var hitResult = GetCursorRaycastResult();
+        Vector3 direction = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        _controlObject.transform.rotation = useSlerp ? Quaternion.Slerp(_controlObject.transform.rotation, lookRotation, maxRotationSpeed * Time.deltaTime) :
+        Quaternion.Lerp(_controlObject.transform.rotation, lookRotation, maxRotationSpeed * Time.deltaTime);
+    }
+    #endregion Public Methods
+
+    #region Private Methods
     private void Initialize(){
-        // MainUI always visible
         IsMine = GetComponent<PhotonView>().IsMine;
-        _uiManager = this.gameObject.AddComponent<UIManager>();
-        _uiManager.SetPlayerUIState(true); 
+        _uiManager = gameObject.AddComponent<UIManager>();
+        _uiManager.ShowPlayerUI(true); 
         if(_controlObject == null){
             _controlObject = _defaultControlObject;
             var playerBase = _controlObject.GetComponent<PlayerBase>();
@@ -53,25 +77,46 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if(GameManager.Instance().IsDebugMode){
             IsMine = true;
         }
+        PlayerBase.OnObjectEnterTrigger += HandleTriggerEnter;
+        PlayerBase.OnObjectStayTrigger += HandleTriggerStay;
+        PlayerBase.OnObjectExitTrigger += HandleTriggerExit;
+    }
+
+    public void HandleTriggerEnter(Collider other){
+        var item = other.GetComponent<PickableItem>();
+        if(item != null){
+            TriggerItem = item;
+        }
+        else{
+            TriggerObject = other.gameObject;
+        }
+    }
+    public void HandleTriggerStay(Collider other){
+        
+    }
+    public void HandleTriggerExit(Collider other){
+        var item = other.GetComponent<PickableItem>();
+        if(item != null){
+            TriggerItem = null;
+        }
+        TriggerObject = null;
+        if(_uiManager.IsOtherUIVisible){
+            _uiManager.HideObjectUI();
+        }
+        if(!_controlObject.CompareTag("Player")){
+            _controlObject = _defaultControlObject;
+        }
     }
     
     private void CheckOnTriggerExit(){
-        if(TriggerObject == null && _uiManager.GetUIActivated()){
-            _uiManager.ReleaseUI();
+        if(TriggerObject == null && _uiManager.IsOtherUIVisible){
+            _uiManager.HideObjectUI();
         }
         if(TriggerObject == null && !_controlObject.CompareTag("Player")){
             _controlObject = _defaultControlObject;
         }
     }
 
-    public RaycastHit GetCursorRaycastResult(){
-        Ray ray = _cameraController.GetCamera().ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitResult;
-        if(!Physics.Raycast(ray, out hitResult)){
-            
-        }
-        return hitResult;
-    }
 
     private void MouseClickEvent(){
         if (Input.GetMouseButtonDown(0)){
@@ -87,36 +132,30 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
     }
-    public void LookAtCursor(float maxRotationSpeed, bool useSlerp){
-        var hitResult = GetCursorRaycastResult();
-        Vector3 direction = new Vector3(hitResult.point.x, _controlObject.transform.position.y, hitResult.point.z) - _controlObject.transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        if (useSlerp){
-            _controlObject.transform.rotation = Quaternion.Slerp(_controlObject.transform.rotation, lookRotation, maxRotationSpeed * Time.deltaTime);
-        }
-        else{
-            _controlObject.transform.rotation = Quaternion.Lerp(_controlObject.transform.rotation, lookRotation, maxRotationSpeed * Time.deltaTime);
-        }
-    }
 
     private void CheckKeyInput(){
-        if (Input.GetKeyDown(KeyCode.E) && TriggerObject != null){
-            var powerGenerator = TriggerObject.GetComponent<PowerGenerator>();
-            var controlPanel = TriggerObject.GetComponent<ControlPanel>();
-            var item = TriggerObject.GetComponent<PickableItem>();
-
-            if (powerGenerator != null){
-                bool uiActivated = _uiManager.GetUIActivated();
-                _uiManager.SetUIState(powerGenerator.ConsoleUI, !uiActivated);
-            }
-            else if (controlPanel != null){
-                if(controlPanel.SwapControlObject(this)){
-                    bool uiActivated = _uiManager.GetUIActivated();
-                    _uiManager.SetUIState(controlPanel.ConsoleUI, !uiActivated);
+        if (Input.GetKeyDown(KeyCode.E)){
+            if(TriggerObject != null){
+                // 오브젝트 판정인 트리거일 시 
+                var powerGenerator = TriggerObject.GetComponent<PowerGenerator>();
+                var controlPanel = TriggerObject.GetComponent<ControlPanel>();
+                if (powerGenerator != null){
+                bool IsOtherUIVisible = _uiManager.IsOtherUIVisible;
+                    _uiManager.SetUIVisible(powerGenerator.ConsoleUI, !IsOtherUIVisible);
+                }
+                else if (controlPanel != null){
+                    if(controlPanel.SwapControlObject(this)){
+                        bool IsOtherUIVisible = _uiManager.IsOtherUIVisible;
+                        _uiManager.SetUIVisible(controlPanel.ConsoleUI, !IsOtherUIVisible);
+                    }
                 }
             }
-            else if (item != null){
-                item.PickupItem(_inventoryIndex);
+            if(TriggerItem != null){
+                // 아이템 판정인 트리거일 시
+                var item = TriggerItem.GetComponent<PickableItem>();
+                if (item != null){
+                    item.PickupItem(ControlObject.GetComponent<PlayerBase>() ,_inventoryIndex);
+                }
             }
         }
         for (int i = 0; i <= 9; i++){
@@ -125,41 +164,39 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 // 0 키를 누르면 pickerNumber는 9(인벤토리의 마지막 슬롯), 그렇지 않으면 그대로
                 int pickerNumber = (i == 0) ? 10 : i;
 
-                // 인벤토리 인덱스는 0부터 시작하므로 pickerNumber를 -1 해서 맞춤
-                _inventoryIndex = pickerNumber - 1;
-
                 // UI 상에서 인벤토리 선택 표시를 업데이트
                 _uiManager.MoveInventoryPicker(pickerNumber);
 
-                // 인덱스가 범위를 벗어나지 않도록 안전 장치
-                if (_inventoryIndex >= 0 && _inventoryIndex < 9){
-                    // 해당 슬롯에 아이템이 있는지 확인 후 장착 애니메이션 실행
-                    var item = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
-                    if (item != null && item.ItemType != 0) // 아이템이 존재하고 타입이 0이 아닐 경우에만 장착 애니메이션
-                    {
-                        _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);
-                    }
-                }
-        else{
-            Debug.LogWarning("Invalid inventory index selected.");
-        }
-    }
+                _inventoryIndex = (pickerNumber + 9) % 10;
+                _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);
 
+            }
+            else{
+                Debug.LogWarning("Invalid inventory index selected.");
+            }
         }
         if (Input.GetKeyDown(KeyCode.F)){
             var player = _controlObject.GetComponent<PlayerBase>();
-            if(player != null){
-                ItemManager.Instance().UseItem(_inventoryIndex, TriggerObject, player);
+            if(player != null && _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ID != 0){
+                var usableitem = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
+                var foundItem = ItemManager.Instance().FindItemByID(usableitem.ID);
+                foundItem?.GetComponent<PickableItem>().UseItem();
+                //ItemManager.Instance().UseItem(_inventoryIndex, TriggerObject, player); 
             }
         }
         if (Input.GetKeyDown(KeyCode.G)){
             var player = _controlObject.GetComponent<PlayerBase>();
-            if(player != null){
+            if(player != null && _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ID != 0){
+                var pickableItem = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
+                var foundItem = ItemManager.Instance().FindItemByID(pickableItem.ID);
                 player.DropItemAnimation(_inventoryIndex);
-                ItemManager.Instance().DropItem(_inventoryIndex, player);
+                pickableItem.ClearItemData();
+                foundItem?.GetComponent<PickableItem>().DropItem(_controlObject.transform);
+                //ItemManager.Instance().DropItem(_inventoryIndex, player);
             }
         }
-    }  
+    }
+    #endregion Private Methods
     // Start is called before the first frame update
     private void Start(){
         Initialize();
@@ -169,9 +206,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Update(){
         if(IsMine){
             CheckKeyInput();
-            CheckOnTriggerExit();
             MouseClickEvent();
-            
         }
     }
 

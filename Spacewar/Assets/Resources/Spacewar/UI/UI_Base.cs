@@ -6,8 +6,8 @@ using TMPro;
 
 public class UI_Base : MonoBehaviour
 {
-    public CanvasGroup Canvas;
+    public CanvasGroup UICanvasGroup;
     protected virtual void Start(){
-        Canvas = gameObject.GetComponent<CanvasGroup>();
+        UICanvasGroup = gameObject.GetComponent<CanvasGroup>();
     }
 }

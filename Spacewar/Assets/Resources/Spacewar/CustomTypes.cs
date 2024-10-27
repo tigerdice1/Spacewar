@@ -17,17 +17,17 @@ namespace CustomTypes
     [System.Serializable]
     public class ItemData{
         
-        public string ItemName;
-        public int ItemType;
+        public string Name;
+        public int ID;
         public Sprite ThumbnailSprite;
         public void ClearItemData(){
-            ItemName = "";
-            ItemType = 0;
+            Name = "";
+            ID = 0;
             ThumbnailSprite = null;
         }
-        public ItemData(string ItemName, int ItemType, Sprite ThumbnailSprite){
-            this.ItemName = ItemName;
-            this.ItemType = ItemType;
+        public ItemData(string Name, int ID, Sprite ThumbnailSprite){
+            this.Name = Name;
+            this.ID = ID;
             this.ThumbnailSprite = ThumbnailSprite;
         }
     }

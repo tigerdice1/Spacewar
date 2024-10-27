@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Electricity : MonoBehaviour
 {
-
+    #region Public Variables
     public int Priority;
+    #endregion Public Variables
+
+    #region Private Variables
+
     /* Power consumption refers to the total power consumption of an object using electricity */
     // 현재 전력 소모량을 저장하는 변수입니다.
     [SerializeField]
@@ -31,8 +35,9 @@ public class Electricity : MonoBehaviour
     private CustomTypes.ElectricState _state;
 
     private Coroutine _playingCoroutine;
+    #endregion Private Variables
 
-    /* Properties */
+    #region  Properties
     public bool IsPowered{
         set => _isPowered = value;
         get => _isPowered;
@@ -54,7 +59,9 @@ public class Electricity : MonoBehaviour
         get => _state;
         private set => _state = value;
     }
+    #endregion  Properties
 
+    #region Coroutines
     IEnumerator UpdatePowerConsumptionCoroutine(float targetValue){
         while (!CustomTypes.MathExt.Approximately(_powerConsumption, targetValue)){
             _powerConsumption = Mathf.Lerp(_powerConsumption, targetValue, Time.deltaTime);
@@ -62,25 +69,9 @@ public class Electricity : MonoBehaviour
         }
         _powerConsumption = targetValue;
     }
+    #endregion Coroutines
 
-    // 전원의 켜고 끔을 지정하는 함수입니다. 외부에서 호출되지 않습니다.
-    private void SetPowerConsumption(bool isOn){
-        // 전원이 켜지면 전력 소모량을 대기전력 소모량으로 변경합니다. 
-        
-        if(isOn){
-            if (_playingCoroutine != null){
-                StopCoroutine(_playingCoroutine);
-            }
-            _playingCoroutine = StartCoroutine(UpdatePowerConsumptionCoroutine(_powerIdle));
-        }
-        else{
-            if (_playingCoroutine != null){
-                StopCoroutine(_playingCoroutine);
-            }
-            _playingCoroutine = StartCoroutine(UpdatePowerConsumptionCoroutine(0f));
-        }
-    }
-
+    #region Public Methods
     // 전원 상태를 지정하는 함수입니다. 외부에서 호출되는 함수입니다.
     public void SetActiveState(CustomTypes.ElectricState newState){
         if (State == newState) return;
@@ -110,9 +101,33 @@ public class Electricity : MonoBehaviour
             _isPowered = false;
         }
     }
+    #endregion Public Methods
+
+    #region Private Methods
+
+    // 전원의 켜고 끔을 지정하는 함수입니다. 외부에서 호출되지 않습니다.
+    private void SetPowerConsumption(bool isOn){
+        // 전원이 켜지면 전력 소모량을 대기전력 소모량으로 변경합니다. 
+        
+        if(isOn){
+            if (_playingCoroutine != null){
+                StopCoroutine(_playingCoroutine);
+            }
+            _playingCoroutine = StartCoroutine(UpdatePowerConsumptionCoroutine(_powerIdle));
+        }
+        else{
+            if (_playingCoroutine != null){
+                StopCoroutine(_playingCoroutine);
+            }
+            _playingCoroutine = StartCoroutine(UpdatePowerConsumptionCoroutine(0f));
+        }
+    }
+
+
     private void Initialize(){
         SetActiveState(CustomTypes.ElectricState.OFF);
     }
+    #endregion Private Methods
     // Start is called before the first frame update
     void Start(){
         Initialize();

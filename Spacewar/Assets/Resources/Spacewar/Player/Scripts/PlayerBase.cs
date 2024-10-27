@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Realtime;
 using Photon.Pun;
+using System;
 
 public class PlayerBase : MonoBehaviour, IControllable
 {
@@ -14,12 +15,27 @@ public class PlayerBase : MonoBehaviour, IControllable
     public bool IsPickingUpItem;
     public PlayerController PlayerController;
     public List<CustomTypes.ItemData> Inventory = new List<CustomTypes.ItemData>();
-    
+
     public Transform HandBone;
     public Transform AttachedItem;
+
+    public static event Action<Collider> OnObjectEnterTrigger;
+    public static event Action<Collider> OnObjectStayTrigger;
+    public static event Action<Collider> OnObjectExitTrigger;
+
+
     private Animator _animator;
     private Rigidbody _rigidbody;
 
+    private void OnTriggerEnter(Collider other){
+        OnObjectEnterTrigger?.Invoke(other);
+    }
+    private void OnTriggerStay(Collider other){
+        OnObjectStayTrigger?.Invoke(other);
+    }
+    private void OnTriggerExit(Collider other){
+        OnObjectExitTrigger?.Invoke(other);
+    }
     protected virtual void Initialize(){
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
@@ -31,15 +47,18 @@ public class PlayerBase : MonoBehaviour, IControllable
     public virtual void DropItemAnimation(int invIndex){
         _animator.SetTrigger("DropItem");
         if(AttachedItem != null){
-            Destroy(AttachedItem.gameObject);
+            AttachedItem.GetComponent<PickableItem>().DestroyItem();
         }
     }
     public virtual void EquipItemAnimation(int invIndex){
         _animator.SetTrigger("EquipItem");
         if(AttachedItem != null){
-            Destroy(AttachedItem.gameObject);
+            AttachedItem.GetComponent<PickableItem>().DestroyItem();
         }
-        AttachedItem = Instantiate(ItemManager.Instance().FindItem(Inventory[invIndex].ItemType),HandBone.position, HandBone.rotation * Quaternion.Euler(0.0f, -90f, 0.0f)).transform;
+        if(Inventory[invIndex].ID == 0){
+            return;
+        }
+        AttachedItem = ItemManager.Instance().InstantiateItem(Inventory[invIndex].ID, HandBone.position, HandBone.rotation * Quaternion.Euler(0.0f, -90f, 0.0f)).transform;
         AttachedItem.GetComponent<PickableItem>().IsAttached = true;
         AttachedItem.SetParent(HandBone);
 
