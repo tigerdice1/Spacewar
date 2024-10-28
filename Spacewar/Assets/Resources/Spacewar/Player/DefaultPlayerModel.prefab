@@ -105,7 +105,7 @@ PrefabInstance:
       addedObject: {fileID: 3937708426579695266}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 2774375564666835262}
+      addedObject: {fileID: 7806124789329401529}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: 3
       addedObject: {fileID: 7266806348370507439}
@@ -115,6 +115,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8371212967672352269}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8464222759487327958}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2948331816084915214}
@@ -154,8 +157,8 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!64 &2774375564666835262
-MeshCollider:
+--- !u!136 &7806124789329401529
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -172,10 +175,11 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4311566983292452419, guid: fea012d5e5edea247951fbcab50c76be, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.26
+  m_Height: 1.7941294
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.90506124, z: 0}
 --- !u!65 &7266806348370507439
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -238,13 +242,29 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: LateralSpeed
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: EquipItem
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 1
+--- !u!114 &-8464222759487327958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730015404637598603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
+  m_UseLocal: 1
 --- !u!114 &2948331816084915214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +286,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: -127171922972706785}
   - {fileID: 8371212967672352269}
+  - {fileID: -8464222759487327958}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -285,6 +306,7 @@ MonoBehaviour:
   PlayerRotationSpeed: 10
   PlayerCurrentHP: 0
   PlayerMaxHP: 100
+  FixSkill: 0
   IsPickingUpItem: 0
   PlayerController: {fileID: 0}
   Inventory: []

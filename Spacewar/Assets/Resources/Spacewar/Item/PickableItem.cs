@@ -15,35 +15,39 @@ public class PickableItem : MonoBehaviourPunCallbacks
     #endregion Public Variables
 
     #region Protected Variables
+    [SerializeField]
     protected Rigidbody _rigidbody;
+    protected BoxCollider _boxCollider;
+    protected Vector3 _networkPosition;
+    protected Quaternion _networkRotation;
 
     #endregion Protected Variables
 
-    #region Protected Methods
-    protected virtual void Initalize(){
 
-    }
-    /* 플레이어에게 부착된 상태면 불필요한 물리를 없애기 위해 리지드바디 삭제 */
-    protected void DestroyRigidbody(){
-        _rigidbody = gameObject.GetComponent<Rigidbody>();
-        Destroy(_rigidbody);
-        
-    }
+    #region Protected Methods
     
+    protected virtual void Initalize(){
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        _boxCollider = gameObject.GetComponent<BoxCollider>();
+    }
+
     #endregion Protected Methods
     
     #region Public Methods
     public void PickupItem(PlayerBase targetPlayer, int targetInventoryIndex){
         if(targetPlayer.Inventory[targetInventoryIndex].ID == 0 && !IsAttached){
             targetPlayer.Inventory[targetInventoryIndex] = ItemInfo;
-            DestroyItem();
+            PhotonView targetPhotonView = gameObject.GetComponent<PhotonView>();
+            if (targetPhotonView != null){
+                // 해당 오브젝트의 소유자에게 "DestroyItem" RPC 호출
+                targetPhotonView.RPC("DestroyItem", RpcTarget.AllBuffered);
+            }
         }
     }
 
     public virtual void UseItem(Transform ownPlayer, Transform targetTransform){
 
     }
-
     public virtual void DropItem(Transform transform){
         ItemManager.Instance().InstantiateItem(ItemInfo.ID, transform.position, transform.rotation);
         DestroyItem();
@@ -54,27 +58,32 @@ public class PickableItem : MonoBehaviourPunCallbacks
         if(photonView.IsMine){
             PhotonNetwork.Destroy(gameObject);
         }
-        else{
-            RequestDestroyItem();
-        }
     }
-    public void RequestDestroyItem(){
-        PhotonView targetPhotonView = gameObject.GetComponent<PhotonView>();
-        if (targetPhotonView != null){
-            // 해당 오브젝트의 소유자에게 "DestroyItem" RPC 호출
-            targetPhotonView.RPC("DestroyItem", RpcTarget.AllBuffered);
-        }
+    [PunRPC]
+    public void RemovePhysics(){
+        _rigidbody.isKinematic = true;
+        _rigidbody.useGravity = false;
+        Destroy(_boxCollider);
     }
-
     #endregion Public Methods
+
+    protected virtual void Awake(){
+        Initalize();
+    }
     // Start is called before the first frame update
     protected virtual void Start(){
-        if(IsAttached) DestroyRigidbody();
+        if(IsAttached) {
+            photonView.RPC("RemovePhysics", RpcTarget.AllBuffered);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    protected void FixedUpdate(){
+
     }
 }

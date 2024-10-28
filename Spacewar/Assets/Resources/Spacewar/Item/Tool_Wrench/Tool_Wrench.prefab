@@ -61,16 +61,19 @@ PrefabInstance:
       addedObject: {fileID: 572403840562174040}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4285134413059301403}
+      addedObject: {fileID: 1392881946871180056}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6831335045395246470}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -835459613233563424}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4716024766540017340}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8817840881623504300}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2981272106741274834}
+      addedObject: {fileID: 4285134413059301403}
   m_SourcePrefab: {fileID: 100100000, guid: 551987039da589042a7f2fa46db68aa8, type: 3}
 --- !u!1 &8719057315370630842 stripped
 GameObject:
@@ -104,67 +107,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4285134413059301403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8719057315370630842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: 0
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &4716024766540017340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8719057315370630842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d198dedd1856224ba07f5a69043165a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemInfo:
-    Name: Wrench
-    ID: 2
-    ThumbnailSprite: {fileID: 21300000, guid: 6d03c566a4671044aac2d36ce6500e82, type: 3}
-  IsAttached: 0
---- !u!65 &8817840881623504300
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8719057315370630842}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.7662668, y: 0.69971144, z: 0.82002294}
-  m_Center: {x: 0.0029911995, y: 0.04047519, z: -0.047692478}
---- !u!65 &2981272106741274834
+--- !u!65 &1392881946871180056
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,5 +126,79 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.13601148, y: 0.0254848, z: 0.51398706}
-  m_Center: {x: -0.0011493564, y: 0.0000009536743, z: -0.037835643}
+  m_Size: {x: 0.13601147, y: 0.025484798, z: 0.51398706}
+  m_Center: {x: -0.0011495947, y: 0.0000009536749, z: -0.037835643}
+--- !u!114 &6831335045395246470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719057315370630842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &-835459613233563424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719057315370630842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
+  m_UseLocal: 1
+--- !u!114 &4716024766540017340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719057315370630842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d198dedd1856224ba07f5a69043165a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemInfo:
+    Name: Wrench
+    ID: 2
+    ThumbnailSprite: {fileID: 21300000, guid: 6d03c566a4671044aac2d36ce6500e82, type: 3}
+  IsAttached: 0
+  _rigidbody: {fileID: 0}
+--- !u!114 &4285134413059301403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719057315370630842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: 0
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 6831335045395246470}
+  - {fileID: -835459613233563424}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

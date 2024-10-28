@@ -5,34 +5,22 @@ using UnityEngine;
 public class UI_FuelBar : UI_ProgressBarBase
 {
     [SerializeField]
-    protected PowerGenerator _powerGenerator;
+    public PowerGenerator PowerGenerator;
 
     private void Initialize(){
-    }
-    public void SyncProgressBar(float targetPercent, float updateSpeed, bool useSlerp){
-        Vector3 currentScale = _progressBar.localScale;
-        Vector3 targetScale = new Vector3(currentScale.x, targetPercent, currentScale.z);
-        if(!Mathf.Approximately(targetScale.x, currentScale.x)){
-            if(useSlerp){
-                _progressBar.localScale = Vector3.Slerp(currentScale, targetScale, Time.deltaTime * updateSpeed);
-            }
-            else{
-                _progressBar.localScale = Vector3.Lerp(currentScale, targetScale, Time.deltaTime * updateSpeed);
-            }
-        }
-        else{
-            _progressBar.localScale = targetScale;
-        }
+
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    protected override void Start(){
+        base.Initialize();
         Initialize();
     }
 
     // Update is called once per frame
-     protected virtual void Update(){
-        SyncProgressBar(_powerGenerator.CurrentFuel / _powerGenerator.MaxFuel, 5f, false);
+     protected override void Update(){
+        if(PowerGenerator!= null){
+            SyncProgressBar(PowerGenerator.CurrentFuel / PowerGenerator.MaxFuel, 5f, false);
+        }
     }
 }

@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void HandleTriggerEnter(Collider other){
         var item = other.GetComponent<PickableItem>();
-        if(item != null){
+        if(item != null && !item.IsAttached){
             TriggerItem = item;
         }
         else{
@@ -168,28 +168,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 _inventoryIndex = (pickerNumber + 9) % 10;
                 _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);
-
-            }
-            else{
-                Debug.LogWarning("Invalid inventory index selected.");
+                
             }
         }
         if (Input.GetKeyDown(KeyCode.F)){
             var player = _controlObject.GetComponent<PlayerBase>();
+            // 현재 플레이어를 조종중 && 현재 활성화된 인벤토리 인덱스가 비어있지 않을 때
             if(player != null && _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ID != 0){
                 var usableitem = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
                 var foundItem = ItemManager.Instance().FindItemByID(usableitem.ID);
-                foundItem?.GetComponent<PickableItem>().UseItem(_controlObject.transform, TriggerObject.transform);
+                if(foundItem!= null){
+                    foundItem.GetComponent<PickableItem>().UseItem(_controlObject.transform, TriggerObject.transform);
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.G)){
             var player = _controlObject.GetComponent<PlayerBase>();
+            // 현재 플레이어를 조종중 && 현재 활성화된 인벤토리 인덱스가 비어있지 않을 때
             if(player != null && _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ID != 0){
-                var pickableItem = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
-                var foundItem = ItemManager.Instance().FindItemByID(pickableItem.ID);
-                player.DropItemAnimation(_inventoryIndex);
-                pickableItem.ClearItemData();
-                foundItem?.GetComponent<PickableItem>().DropItem(_controlObject.transform);
+                var itemWillDrop = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
+                var foundItem = ItemManager.Instance().FindItemByID(itemWillDrop.ID);
+                player.DropItemAnimation();
+                itemWillDrop.ClearItemData();
+                if(foundItem!= null){
+                    foundItem.GetComponent<PickableItem>().DropItem(_controlObject.transform);
+                }
             }
         }
     }

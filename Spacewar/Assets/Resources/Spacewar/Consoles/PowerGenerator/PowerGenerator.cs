@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PowerGenerator : FixableObjects{
+using Photon.Pun;
+using Photon.Realtime;
+public class PowerGenerator : FixableObjects, IPunObservable{
     #region Public Variables
 
     public float CurrentThermal;
@@ -38,7 +39,24 @@ public class PowerGenerator : FixableObjects{
     #endregion Private Variables
 
     #region Public Methods
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if ( stream.IsWriting )
+        {
+            stream.SendNext(CurrentThermal);
+            stream.SendNext(CurrentFuel);
+            stream.SendNext(Load);
+            stream.SendNext(IsPowered);
+        }
+        else if ( stream.IsReading )
+        {
+            CurrentThermal = (float) stream.ReceiveNext();
+            CurrentFuel = (float) stream.ReceiveNext();
+            Load = (float) stream.ReceiveNext();
+            IsPowered = (bool) stream.ReceiveNext();
 
+        }
+    }
     public void SetGeneratorState(bool isOn){
         IsPowered = isOn;
     }
@@ -123,6 +141,10 @@ public class PowerGenerator : FixableObjects{
     }
 
     #endregion Private Methods
+
+    protected void Awake(){
+        ConsoleUI.GetComponent<UI_PowerGenerator>().PowerGenerator = this;
+    }
     protected void Start(){
         Initialize();
     }
@@ -134,5 +156,8 @@ public class PowerGenerator : FixableObjects{
             CheckGeneratorThermal();
             Aging();
         }
+    }
+    protected void FixedUpdate(){
+
     }
 }

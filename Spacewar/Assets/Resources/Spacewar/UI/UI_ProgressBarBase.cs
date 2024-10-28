@@ -19,9 +19,9 @@ public class UI_ProgressBarBase : MonoBehaviour
         progress = Mathf.Clamp01(value);
     }
 
-    private void Initialize(){
+    protected void Initialize(){
     }
-    public void SyncProgressBar(float targetPercent, float updateSpeed, bool useSlerp){
+    protected void SyncProgressBar(float targetPercent, float updateSpeed, bool useSlerp){
         Vector3 currentScale = _progressBar.localScale;
         Vector3 targetScale = new Vector3(currentScale.x, targetPercent, currentScale.z);
         if(!Mathf.Approximately(targetScale.x, currentScale.x)){
@@ -36,10 +36,11 @@ public class UI_ProgressBarBase : MonoBehaviour
             _progressBar.localScale = targetScale;
         }
     }
-
+    protected virtual void Awake(){
+        _progressBar = transform.GetChild(0);
+    }
     // Start is called before the first frame update
-    void Start()
-    {
+    protected virtual void Start(){
         Initialize();
     }
 

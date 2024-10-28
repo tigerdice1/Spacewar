@@ -95,12 +95,12 @@ MonoBehaviour:
   MaxFuel: 8500
   MaxPower: 8500
   Load: 0
+  IsPowered: 0
   _connectedJunction: {fileID: 0}
   _efficiency: 90
   _outputPower: 0
   _criticalThermalTimer: 30
   _isCritical: 0
-  IsPowered: 0
 --- !u!114 &2692060378202862086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +118,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 1313082518988850579}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

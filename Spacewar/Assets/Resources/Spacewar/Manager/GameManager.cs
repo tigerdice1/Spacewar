@@ -74,14 +74,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             // 모델 인스턴스화
             GameObject playerModel = PhotonNetwork.Instantiate(PrefabPath.PlayerModelPrefabPath, Vector3.zero, Quaternion.identity);
-            // 추가로, 캐릭터 컨트롤러 등을 부착하는 코드를 여기에 작성
             playerModel.transform.SetParent(null);
+            // 추가로, 캐릭터 컨트롤러 등을 부착하는 코드를 여기에 작성
+            
             GameObject playerController = PhotonNetwork.Instantiate(PrefabPath.PlayerControllerPrefabPath, Vector3.zero, Quaternion.identity);
+            
             GameObject playerUIPreload = Resources.Load<GameObject>(PrefabPath.PlayerUIPrefabPath);
             GameObject playerUI = Instantiate(playerUIPreload, Vector3.zero, Quaternion.identity);
             playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
-            playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
             playerController.GetComponent<UIManager>().PlayerUI = playerUI.GetComponent<CanvasGroup>();
+            playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
             //GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
            //playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
             //playerController.GetComponent<PlayerController>().PlayerUI = playerUI; 

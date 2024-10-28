@@ -43,6 +43,12 @@ MonoBehaviour:
   - InstantiateItem
   - DestroyAsteroid
   - DestroyProjectile
+  - DestroyRigidbody
+  - SetItemAttachment
+  - RemovePhysics
+  - DropItem
+  - SetItemAttachmentRPC
+  - InstantiateHandItem
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

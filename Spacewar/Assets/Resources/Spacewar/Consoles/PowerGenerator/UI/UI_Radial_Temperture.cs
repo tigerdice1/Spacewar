@@ -5,8 +5,7 @@ using UnityEngine;
 public class UI_Radial_Temperture : UI_RadialBase
 {
     // Start is called before the first frame update
-    [SerializeField]
-    protected PowerGenerator _powerGenerator; // PowerGenerator 스크립트 참조
+    public PowerGenerator PowerGenerator; // PowerGenerator 스크립트 참조
     void Start()
     {
         
@@ -14,8 +13,8 @@ public class UI_Radial_Temperture : UI_RadialBase
 
     // Update is called once per frame
     void Update(){
-        if (_powerGenerator != null){
-            UpdateRotation(_powerGenerator.CurrentThermal / _powerGenerator.CriticalThermal * 100f, 0f, _powerGenerator.CriticalThermal, true);
+        if (PowerGenerator != null){
+            UpdateRotation(PowerGenerator.CurrentThermal / PowerGenerator.CriticalThermal * 100f, 0f, PowerGenerator.CriticalThermal, true);
         }
     }
 }

@@ -6,7 +6,7 @@ using Photon.Realtime;
 using Photon.Pun;
 using System;
 
-public class PlayerBase : MonoBehaviour, IControllable
+public class PlayerBase : MonoBehaviourPunCallbacks, IControllable, IPunObservable
 {
     #region Public Variables
 
@@ -15,7 +15,7 @@ public class PlayerBase : MonoBehaviour, IControllable
     public float PlayerCurrentHP;
     public float PlayerMaxHP;
 
-    public float FixSkill;
+    public float FixSkill = 100f;
 
     
     public bool IsPickingUpItem;
@@ -29,6 +29,8 @@ public class PlayerBase : MonoBehaviour, IControllable
     public static event Action<Collider> OnObjectStayTrigger;
     public static event Action<Collider> OnObjectExitTrigger;
     #endregion Public Variables
+    protected Vector3 _networkPosition;
+    protected Quaternion _networkRotation;
 
     #region Private Variables
 
@@ -69,10 +71,28 @@ public class PlayerBase : MonoBehaviour, IControllable
     #endregion Protected Methods
 
     #region Public Methods
-    public virtual void DropItemAnimation(int invIndex){
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+        if ( stream.IsWriting )
+        {
+            stream.SendNext(_rigidbody.position);
+            stream.SendNext(_rigidbody.rotation);
+            stream.SendNext(_rigidbody.velocity);
+        }
+        else if ( stream.IsReading )
+        {
+            _networkPosition = (Vector3) stream.ReceiveNext();
+            _networkRotation = (Quaternion) stream.ReceiveNext();
+            _rigidbody.velocity = (Vector3) stream.ReceiveNext();
+
+            float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
+            _rigidbody.position += _rigidbody.velocity * lag;
+        }
+    }
+    public virtual void DropItemAnimation(){
         _animator.SetTrigger("DropItem");
         if(AttachedItem != null){
             AttachedItem.GetComponent<PickableItem>().DestroyItem();
+            AttachedItem = null;
         }
     }
     public virtual void EquipItemAnimation(int invIndex){
@@ -84,11 +104,32 @@ public class PlayerBase : MonoBehaviour, IControllable
             return;
         }
         AttachedItem = ItemManager.Instance().InstantiateItem(Inventory[invIndex].ID, HandBone.position, HandBone.rotation * Quaternion.Euler(0.0f, -90f, 0.0f)).transform;
-        AttachedItem.GetComponent<PickableItem>().IsAttached = true;
-        AttachedItem.SetParent(HandBone);
 
+
+        photonView.RPC("SetItemAttachment", RpcTarget.AllBuffered, AttachedItem.GetComponent<PhotonView>().ViewID);
+    
     }
 
+
+    [PunRPC]
+    public void SetItemAttachment(int itemPhotonViewID){
+    // 전송받은 ID를 사용해 해당 아이템을 찾음
+    PhotonView itemPhotonView = PhotonView.Find(itemPhotonViewID);
+
+    if (itemPhotonView != null){
+        AttachedItem = itemPhotonView.transform;
+        var pickableItem = AttachedItem.GetComponent<PickableItem>();
+
+        if (pickableItem != null){
+            pickableItem.IsAttached = true;
+        }
+
+        AttachedItem.SetParent(HandBone); // 부모 설정도 동기화
+    }
+    else{
+        Debug.LogWarning("AttachedItem을 찾을 수 없습니다. 아이템이 아직 동기화되지 않았을 수 있습니다.");
+    }
+    }
     public float RotationSpeed => PlayerRotationSpeed;
 
     public void Move(PlayerController controller){
@@ -124,4 +165,14 @@ public class PlayerBase : MonoBehaviour, IControllable
     }
 
     #endregion Public Methods
+
+    private void FixedUpdate(){
+        /*
+        if(_rigidbody == null) return;
+        if (!photonView.IsMine){
+            _rigidbody.position = Vector3.MoveTowards(_rigidbody.position, _networkPosition, Time.fixedDeltaTime);
+            _rigidbody.rotation = Quaternion.RotateTowards(_rigidbody.rotation, _networkRotation, Time.fixedDeltaTime * 100.0f);
+        }
+        */
+    }
 }
