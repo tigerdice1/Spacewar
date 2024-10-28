@@ -12,8 +12,6 @@ public class Turret : MonoBehaviour, IControllable
     [SerializeField]
     private float _rpm;
     [SerializeField]
-    private string _bulletPrefabPath = "Spacewar/Prefabs/Object/BULLET";
-    [SerializeField]
     private GameObject _bulletPrefab;
     [SerializeField]
     private List<Transform> _bulletSpawnPoints = new List<Transform>();
@@ -77,19 +75,8 @@ public class Turret : MonoBehaviour, IControllable
             _fireIndex %= _bulletSpawnPoints.Count;
             Transform spawnPoint = _bulletSpawnPoints[_fireIndex];
             GameObject bulletInstance;
-            if(GameManager.Instance().IsDebugMode){
-                bulletInstance = Instantiate(
-                _bulletPrefab,
-                spawnPoint.position,
-                spawnPoint.rotation);
-            }
-            else{
-                // 탄환 인스턴스 생성
-                bulletInstance = PhotonNetwork.Instantiate(
-                _bulletPrefabPath,
-                spawnPoint.position,
-                spawnPoint.rotation);
-            }
+             // 탄환 인스턴스 생성
+            bulletInstance = PhotonNetwork.Instantiate(PrefabPath.BulletPrefabPath, spawnPoint.position, spawnPoint.rotation);
             
 
             // 탄환의 OwnerShip 설정

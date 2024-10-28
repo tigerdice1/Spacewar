@@ -5,14 +5,12 @@ using UnityEngine;
 public class Bullet_120mm : Projectile
 {
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         base.Start();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update(){
+        base.Update();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Player : MonoBehaviour
+public class UI_Player : UI_Base
 {
     public PlayerController OwnController;
     public Transform InventoryPicker;
@@ -15,6 +15,11 @@ public class UI_Player : MonoBehaviour
     public PlayerBase _ownPlayer;
     public Transform _inventory;
 
+    public void MoveInventoryPicker(int index){
+        int slotIndex = (index + 9) % 10;
+        Transform slotPosition = InventorySlotList[slotIndex].transform;
+        InventoryPicker.transform.position = slotPosition.position;
+    }
 
     public void GetClickedUIElement(){
         GraphicRaycaster graphicRaycaster = PlayerUI.GetComponent<GraphicRaycaster>();

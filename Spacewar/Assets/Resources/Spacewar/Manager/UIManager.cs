@@ -36,15 +36,8 @@ public class UIManager : MonoBehaviour
         }
         
     }
-    public void MoveInventoryPicker(int number){
-        UI_Player uiPlayer = PlayerUI.gameObject.GetComponent<UI_Player>();
-        // 0 을 10번째 인덱스로 보정하기 위한 계산식
-        int slotIndex = (number + 9) % 10;
-        Transform slotPosition = uiPlayer.InventorySlotList[slotIndex].transform;
-        uiPlayer.InventoryPicker.transform.position = slotPosition.position;
-    }
+
     private void Initalize(){
-        PlayerUI = gameObject.GetComponent<PlayerController>().PlayerUI.GetComponent<CanvasGroup>();
         UI_Player uiPlayer = PlayerUI.gameObject.GetComponent<UI_Player>();
         Transform slotPosition = uiPlayer.InventorySlotList[0].transform;
         uiPlayer.InventoryPicker.transform.position = slotPosition.position;

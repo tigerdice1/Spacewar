@@ -7,10 +7,14 @@ using CustomTypes;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    #region Public Variables
     public GameObject[] _playerModels;
     public GameObject _playerController;
     public GameObject _playerUI;
-
+    
+    #endregion Public Variables
+    
+    #region Private Variables
     private static GameManager _instance;
     [SerializeField]
     private bool _isDebugMode = false;
@@ -30,10 +34,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     private List<Player> _team1Player = new List<Player>();
     private List<Player> _team2Player = new List<Player>();
 
-    private string _playerModelPrefabPath = "Spacewar/Player/DefaultPlayerModel";
-    private string _playerControllerPrefabPath = "Spacewar/Player/PlayerController";
-    private string _playerUIPrefabPath = "Spacewar/Player/Personal_UI";
-
+    #endregion Private Variables
+    
+    #region Public Properties
     public static GameManager Instance(){
         return _instance;
     }
@@ -41,11 +44,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool IsDebugMode{
         get => _isDebugMode;
     }
-    void Awake(){
-        if(_instance == null){
-            _instance = this;
-        }
-    }
+
+    #endregion Public Properties
+
     private void SetPlayerTeam(){
         Player[] players = PhotonNetwork.PlayerList;
         foreach(Player player in players){
@@ -61,7 +62,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     private void SpawnPlayer(){
-        // 플레이어 모델 선택 또는 할당 (예시로 랜덤 선택)
             int modelIndex = Random.Range(0, _playerModels.Length);
             string selectedModelName = _playerModels[modelIndex].name;
 
@@ -73,15 +73,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             */
 
             // 모델 인스턴스화
-            GameObject playerModel = PhotonNetwork.Instantiate(_playerModelPrefabPath, Vector3.zero, Quaternion.identity);
+            GameObject playerModel = PhotonNetwork.Instantiate(PrefabPath.PlayerModelPrefabPath, Vector3.zero, Quaternion.identity);
             // 추가로, 캐릭터 컨트롤러 등을 부착하는 코드를 여기에 작성
             playerModel.transform.SetParent(null);
-            GameObject playerController = PhotonNetwork.Instantiate(_playerControllerPrefabPath, Vector3.zero, Quaternion.identity);
-            GameObject playerUIPreload = Resources.Load<GameObject>(_playerUIPrefabPath);
+            GameObject playerController = PhotonNetwork.Instantiate(PrefabPath.PlayerControllerPrefabPath, Vector3.zero, Quaternion.identity);
+            GameObject playerUIPreload = Resources.Load<GameObject>(PrefabPath.PlayerUIPrefabPath);
             GameObject playerUI = Instantiate(playerUIPreload, Vector3.zero, Quaternion.identity);
             playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
-            playerController.GetComponent<PlayerController>().PlayerUI = playerUI;
+            playerController.GetComponent<UIManager>().PlayerUI = playerUI.GetComponent<CanvasGroup>();
             //GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
            //playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
             //playerController.GetComponent<PlayerController>().PlayerUI = playerUI; 
@@ -97,9 +97,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
             GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
             playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
-            playerController.GetComponent<PlayerController>().PlayerUI = playerUI;
+            playerController.GetComponent<UIManager>().PlayerUI = playerUI.GetComponent<CanvasGroup>();
             
     }
+
+    void Awake(){
+        if(_instance == null){
+            _instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start(){
         if(IsDebugMode){

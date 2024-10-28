@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &258382588318537245
 GameObject:
@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &842613266356581093
 GameObject:
@@ -273,8 +273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &1269757630004620693
 GameObject:
@@ -365,8 +365,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &2700931378693323886
 GameObject:
@@ -711,8 +711,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &3883665969248974759
 GameObject:
@@ -803,8 +803,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &4554282831778197696
 GameObject:
@@ -1130,8 +1130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &7355200366237943714
 GameObject:
@@ -1222,8 +1222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &7542716943330826977
 GameObject:
@@ -1346,6 +1346,8 @@ MonoBehaviour:
   InventorySlotList: []
   PlayerUI: {fileID: 9038696610646006239}
   clickedObject: {fileID: 0}
+  _ownPlayer: {fileID: 0}
+  _inventory: {fileID: 0}
 --- !u!225 &3493049384297256380
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1537,8 +1539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}
 --- !u!1 &8194942473918181743
 GameObject:
@@ -1629,6 +1631,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData:
-    ItemName: 
-    ItemType: 0
+    Name: 
+    ID: 0
     ThumbnailSprite: {fileID: 0}

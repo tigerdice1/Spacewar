@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviourPunCallbacks
 {
     /* Essential Variables */
     // Specifies the main camera. If not, you may not be able to see the time point properly.
+    #region Private Variables
+
     [SerializeField]
     [Tooltip("카메라")]
     private Camera _camera;
@@ -26,6 +28,9 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     private bool _isMine;
 
+    #endregion Private Variables
+
+    #region Public Properties
     public Camera GetCamera(){
         if(_camera == null){
             Initalize();
@@ -33,11 +38,38 @@ public class CameraController : MonoBehaviourPunCallbacks
         }
         return _camera;
     }
+    #endregion Public Properties
+
+    #region Public Methods
+
+        // Change the target to follow
+    public void SetFollowTarget(GameObject target){
+        _followObject = target;
+    }
+        // Select whether the camera tracks the target.
+    public void SetFollowingState(bool isFollowingTarget){
+        _isFollowingTarget = isFollowingTarget;
+    }
+    
+    // Move the location of the camera to the target location.
+    public void MoveCameraToTarget(){
+        Vector3 newPosition = new Vector3(
+        _followObject.transform.position.x + _offset.x,
+        _followObject.transform.position.y + _offset.y,
+        _followObject.transform.position.z + _offset.z);
+        _camera.transform.position = newPosition;
+    }
+
+    #endregion Public Methods
+    
+    #region Private Methods
     private void Initalize(){
         PhotonView photonView = GetComponent<PhotonView>();
         _isMine = photonView != null && photonView.IsMine;
+
         _playerController = this.GetComponent<PlayerController>();
         _followObject = _playerController.DefaultControlObject;
+
         if(!_camera){
             GameObject cameraObject = new GameObject("PlayerCamera");
             Camera cameraComponent = cameraObject.AddComponent<Camera>();
@@ -56,25 +88,8 @@ public class CameraController : MonoBehaviourPunCallbacks
             _isMine = true;
         }
     }
-    // Change the target to follow
-    public void SetFollowTarget(GameObject target){
-        _followObject = target;
-    }
-    
-    // Move the location of the camera to the target location.
-    public void MoveCameraToTarget(){
-        Vector3 newPosition = new Vector3(
-        _followObject.transform.position.x + _offset.x,
-        _followObject.transform.position.y + _offset.y,
-        _followObject.transform.position.z + _offset.z);
-        _camera.transform.position = newPosition;
-    }
-    // Select whether the camera tracks the target.
-    void SetFollowingState(bool isFollowingTarget){
-        _isFollowingTarget = isFollowingTarget;
-    }
 
-    void UpdateFollowingTarget(){
+    private void UpdateFollowingTarget(){
         if(_isFollowingTarget){
             Vector3 fixedPosition = new Vector3(
             _followObject.transform.position.x + _offset.x,
@@ -85,6 +100,8 @@ public class CameraController : MonoBehaviourPunCallbacks
             _camera.transform.position = Vector3.Lerp(_camera.transform.position, fixedPosition, Time.deltaTime * 8);
         }
     }
+    
+    #endregion Private Methods
     // Start is called before the first frame update
     void Start(){
         Initalize();

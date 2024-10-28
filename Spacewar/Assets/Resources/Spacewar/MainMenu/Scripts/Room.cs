@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
+using Heshtable = ExitGames.Client.Photon.Hashtable;
 using System.Linq;
 
 public class Room : MonoBehaviourPunCallbacks
@@ -25,11 +26,11 @@ public class Room : MonoBehaviourPunCallbacks
     }
     private void UpdatePlayerProperties(Transform team, Player targetPlayer){
         if (PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InRoom){
-            ExitGames.Client.Photon.Hashtable customPropertise = 
+            Heshtable customPropertise = 
             team == TeamListContents[0] ? 
-            new ExitGames.Client.Photon.Hashtable{
+            new Heshtable{
                 {"Team", 0}
-            } : new ExitGames.Client.Photon.Hashtable{
+            } : new Heshtable{
                 {"Team", 1}
             };
             targetPlayer.SetCustomProperties(customPropertise);

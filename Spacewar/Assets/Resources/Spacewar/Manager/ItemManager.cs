@@ -14,8 +14,8 @@ public class ItemManager : MonoBehaviour
     }
 
     public void InitalizeItemList(){
-        ItemPrefabPathList.Add("Spacewar/Item/Tool_Driver/Tool_Driver");
-        ItemPrefabPathList.Add("Spacewar/Item/Tool_Wrench/Tool_Wrench");
+        ItemPrefabPathList.Add(PrefabPath.DriverPrefabPath);
+        ItemPrefabPathList.Add(PrefabPath.WrenchPrefabPath);
     }
     public GameObject FindItemByID(int id){
         foreach(string path in ItemPrefabPathList){
@@ -55,26 +55,7 @@ public class ItemManager : MonoBehaviour
         }
         
     }
-    public void UseItem(int index, GameObject targetObject, PlayerBase itemUser){
-        if(targetObject == null) return;
-        CustomTypes.ItemData item = itemUser.Inventory[index];
-        var powerGenerator = targetObject.GetComponent<PowerGenerator>();
-        var controlPanel = targetObject.GetComponent<ControlPanel>();
-        var junction = targetObject.GetComponent<Junction>();
-        if(item.ID == 1 && powerGenerator != null){
-            powerGenerator.FixObject(100f);
-        }
-        if(item.ID == 2 && controlPanel != null){
-            controlPanel.FixObject(100f);
-        }
-        if(item.ID == 2 && junction != null){
-            junction.FixObject(100f);
-        }
-        if(item.ID == 3 && powerGenerator != null){
-            powerGenerator.FillFuel();
-            item.ClearItemData();
-        }
-    }
+
     void Awake(){
     if(_instance == null){
         _instance = this;

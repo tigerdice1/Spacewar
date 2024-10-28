@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     protected ShipBase _ownerShip;
@@ -17,7 +17,9 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     protected float _destoryTimer;
 
-    private float _timer;
+    protected float _timer;
+
+    protected Rigidbody _rigidbody;
 
     public ShipBase OwnerShip{
         set =>  value = _ownerShip;
@@ -30,26 +32,42 @@ public class Projectile : MonoBehaviour
     }
     protected void Initailze(){
         this.transform.SetParent(null);
-        Rigidbody rid = this.GetComponent<Rigidbody>();
-        rid.AddRelativeForce(Vector3.forward * _projectileVelocity * rid.mass * 10f);
+        _rigidbody= this.GetComponent<Rigidbody>();
+        _rigidbody.AddRelativeForce(Vector3.forward * _projectileVelocity * _rigidbody.mass * 10f);
         
     }
+    private void OnCollisionEnter(Collision other) {
 
+    }
+    [PunRPC]
+    protected void DestroyProjectile(){
+        if(photonView.IsMine){
+            PhotonNetwork.Destroy(gameObject);
+        }
+        else{
+            RequestDestroyProjectile();
+        }
+    }
+
+    protected void RequestDestroyProjectile(){
+        PhotonView targetPhotonView = gameObject.GetComponent<PhotonView>();
+        if (targetPhotonView != null){
+            // 해당 오브젝트의 소유자에게 "DestroyProjectile" RPC 호출
+            targetPhotonView.RPC("DestroyProjectile", RpcTarget.AllBuffered);
+        }
+    }
     // Start is called before the first frame update
     protected virtual void Start(){
         Initailze(); 
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    protected void Update(){
         _timer += Time.deltaTime;
         if(_timer >= _destoryTimer){
-            PhotonNetwork.Destroy(this.gameObject);
+            DestroyProjectile();
         }
     }
 
-    private void OnCollisionEnter(Collision other) {
 
-    }
 }

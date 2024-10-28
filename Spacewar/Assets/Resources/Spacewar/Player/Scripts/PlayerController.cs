@@ -7,12 +7,13 @@ using Photon.Pun;
 public class PlayerController : MonoBehaviourPunCallbacks
 { 
     #region Public Variables
-    public GameObject PlayerUI;
     public bool IsMine;
-    public bool IsTeam1;
+    public bool Team1;
     [Tooltip("플레이어가 접촉한 오브젝트")]
     public GameObject TriggerObject;
     public PickableItem TriggerItem;
+    public UIManager UIController;
+    
     #endregion Public Variables
 
     #region Private Variables
@@ -24,7 +25,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private GameObject _controlObject;
     private Rigidbody _controlRigidBody;
     private int _inventoryIndex = 0;
-    private UIManager _uiManager;
     private CameraController _cameraController;
     #endregion Private Variables
     
@@ -64,8 +64,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     #region Private Methods
     private void Initialize(){
         IsMine = GetComponent<PhotonView>().IsMine;
-        _uiManager = gameObject.AddComponent<UIManager>();
-        _uiManager.ShowPlayerUI(true); 
+        
         if(_controlObject == null){
             _controlObject = _defaultControlObject;
             var playerBase = _controlObject.GetComponent<PlayerBase>();
@@ -100,8 +99,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             TriggerItem = null;
         }
         TriggerObject = null;
-        if(_uiManager.IsOtherUIVisible){
-            _uiManager.HideObjectUI();
+        if(UIController.IsOtherUIVisible){
+            UIController.HideObjectUI();
         }
         if(!_controlObject.CompareTag("Player")){
             _controlObject = _defaultControlObject;
@@ -109,8 +108,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     
     private void CheckOnTriggerExit(){
-        if(TriggerObject == null && _uiManager.IsOtherUIVisible){
-            _uiManager.HideObjectUI();
+        if(TriggerObject == null && UIController.IsOtherUIVisible){
+            UIController.HideObjectUI();
         }
         if(TriggerObject == null && !_controlObject.CompareTag("Player")){
             _controlObject = _defaultControlObject;
@@ -122,7 +121,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (Input.GetMouseButtonDown(0)){
             var controllable = _controlObject.GetComponent<IControllable>();
             controllable?.HandleMouseClick(this);
-            _uiManager.PlayerUI.gameObject.GetComponent<UI_Player>().GetClickedUIElement();
+            UIController.PlayerUI.gameObject.GetComponent<UI_Player>().GetClickedUIElement();
         }
 
         if (Input.GetMouseButtonUp(0)){
@@ -140,13 +139,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 var powerGenerator = TriggerObject.GetComponent<PowerGenerator>();
                 var controlPanel = TriggerObject.GetComponent<ControlPanel>();
                 if (powerGenerator != null){
-                bool IsOtherUIVisible = _uiManager.IsOtherUIVisible;
-                    _uiManager.SetUIVisible(powerGenerator.ConsoleUI, !IsOtherUIVisible);
+                bool IsOtherUIVisible = UIController.IsOtherUIVisible;
+                    UIController.SetUIVisible(powerGenerator.ConsoleUI, !IsOtherUIVisible);
                 }
                 else if (controlPanel != null){
                     if(controlPanel.SwapControlObject(this)){
-                        bool IsOtherUIVisible = _uiManager.IsOtherUIVisible;
-                        _uiManager.SetUIVisible(controlPanel.ConsoleUI, !IsOtherUIVisible);
+                        bool IsOtherUIVisible = UIController.IsOtherUIVisible;
+                        UIController.SetUIVisible(controlPanel.ConsoleUI, !IsOtherUIVisible);
                     }
                 }
             }
@@ -165,7 +164,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 int pickerNumber = (i == 0) ? 10 : i;
 
                 // UI 상에서 인벤토리 선택 표시를 업데이트
-                _uiManager.MoveInventoryPicker(pickerNumber);
+                UIController.PlayerUI.gameObject.GetComponent<UI_Player>().MoveInventoryPicker(pickerNumber);
 
                 _inventoryIndex = (pickerNumber + 9) % 10;
                 _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);
@@ -180,8 +179,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if(player != null && _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex].ID != 0){
                 var usableitem = _controlObject.GetComponent<PlayerBase>().Inventory[_inventoryIndex];
                 var foundItem = ItemManager.Instance().FindItemByID(usableitem.ID);
-                foundItem?.GetComponent<PickableItem>().UseItem();
-                //ItemManager.Instance().UseItem(_inventoryIndex, TriggerObject, player); 
+                foundItem?.GetComponent<PickableItem>().UseItem(_controlObject.transform, TriggerObject.transform);
             }
         }
         if (Input.GetKeyDown(KeyCode.G)){
@@ -192,11 +190,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 player.DropItemAnimation(_inventoryIndex);
                 pickableItem.ClearItemData();
                 foundItem?.GetComponent<PickableItem>().DropItem(_controlObject.transform);
-                //ItemManager.Instance().DropItem(_inventoryIndex, player);
             }
         }
     }
     #endregion Private Methods
+
+    private void Awake(){
+        UIController = gameObject.AddComponent<UIManager>();
+        UIController.ShowPlayerUI(true); 
+    }
     // Start is called before the first frame update
     private void Start(){
         Initialize();

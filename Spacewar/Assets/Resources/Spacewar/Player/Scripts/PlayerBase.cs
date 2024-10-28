@@ -8,10 +8,16 @@ using System;
 
 public class PlayerBase : MonoBehaviour, IControllable
 {
+    #region Public Variables
+
     public float PlayerSpeed;
     public float PlayerRotationSpeed;
     public float PlayerCurrentHP;
     public float PlayerMaxHP;
+
+    public float FixSkill;
+
+    
     public bool IsPickingUpItem;
     public PlayerController PlayerController;
     public List<CustomTypes.ItemData> Inventory = new List<CustomTypes.ItemData>();
@@ -22,11 +28,16 @@ public class PlayerBase : MonoBehaviour, IControllable
     public static event Action<Collider> OnObjectEnterTrigger;
     public static event Action<Collider> OnObjectStayTrigger;
     public static event Action<Collider> OnObjectExitTrigger;
+    #endregion Public Variables
 
+    #region Private Variables
 
     private Animator _animator;
     private Rigidbody _rigidbody;
 
+    #endregion Private Variables
+
+    #region Private Methods
     private void OnTriggerEnter(Collider other){
         OnObjectEnterTrigger?.Invoke(other);
     }
@@ -36,6 +47,10 @@ public class PlayerBase : MonoBehaviour, IControllable
     private void OnTriggerExit(Collider other){
         OnObjectExitTrigger?.Invoke(other);
     }
+
+    #endregion Private Methods
+
+    #region Protected Methods
     protected virtual void Initialize(){
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
@@ -44,6 +59,16 @@ public class PlayerBase : MonoBehaviour, IControllable
             Inventory.Add(blankItem);
         }
     }
+    protected virtual void Die(){
+        Debug.Log("Died");
+    }
+    protected virtual void Awake(){
+        Initialize();
+    }
+
+    #endregion Protected Methods
+
+    #region Public Methods
     public virtual void DropItemAnimation(int invIndex){
         _animator.SetTrigger("DropItem");
         if(AttachedItem != null){
@@ -62,12 +87,6 @@ public class PlayerBase : MonoBehaviour, IControllable
         AttachedItem.GetComponent<PickableItem>().IsAttached = true;
         AttachedItem.SetParent(HandBone);
 
-    }
-    protected virtual void Die(){
-        Debug.Log("Died");
-    }
-    protected virtual void Awake(){
-        Initialize();
     }
 
     public float RotationSpeed => PlayerRotationSpeed;
@@ -103,4 +122,6 @@ public class PlayerBase : MonoBehaviour, IControllable
         _animator.SetFloat("ForwardSpeed", forwardSpeed);
         _animator.SetFloat("LateralSpeed", lateralSpeed);
     }
+
+    #endregion Public Methods
 }
