@@ -744,19 +744,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1885085276}
-        m_TargetAssemblyTypeName: PowerGenerator, Assembly-CSharp
-        m_MethodName: SetGeneratorState
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!4 &1082090168 stripped
 Transform:
@@ -1113,7 +1101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progress: 0
   _progressBar: {fileID: 1281700851}
-  _powerGenerator: {fileID: 1885085276}
+  PowerGenerator: {fileID: 0}
 --- !u!114 &1290244058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1165,6 +1153,7 @@ GameObject:
   - component: {fileID: 1328938752}
   - component: {fileID: 1328938751}
   - component: {fileID: 1328938754}
+  - component: {fileID: 1328938755}
   m_Layer: 5
   m_Name: GeneratorUI
   m_TagString: Untagged
@@ -1258,10 +1247,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvasGroup: {fileID: 0}
-  PowerToggle: {fileID: 1071405035}
-  LoadRadial: {fileID: 1522734577}
-  TemptureRadial: {fileID: 2097832958}
-  FuelBar: {fileID: 1290244057}
+  PowerGenerator: {fileID: 0}
+  _powerToggle: {fileID: 0}
+  _loadRadial: {fileID: 0}
+  _temptureRadial: {fileID: 0}
+  _fuelBar: {fileID: 0}
+--- !u!114 &1328938755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328938749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 9
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1373069208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,7 +1804,7 @@ MonoBehaviour:
   _maximumRotation: -230
   _rotationAngle: 0
   _percentageTolerance: 0.01
-  _powerGenerator: {fileID: 1885085276}
+  PowerGenerator: {fileID: 0}
 --- !u!114 &1522734578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,7 +2472,7 @@ MonoBehaviour:
   _maximumRotation: -230
   _rotationAngle: 0
   _percentageTolerance: 0.01
-  _powerGenerator: {fileID: 1885085276}
+  PowerGenerator: {fileID: 0}
 --- !u!114 &2097832959
 MonoBehaviour:
   m_ObjectHideFlags: 0

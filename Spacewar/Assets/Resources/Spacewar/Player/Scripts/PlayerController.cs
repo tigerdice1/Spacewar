@@ -88,6 +88,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         else{
             TriggerObject = other.gameObject;
+            var console = TriggerObject.GetComponent<FixableObjects>();
+            if(console != null && console.ConsoleUI != null){
+                UIController.SetOtherUI(console.ConsoleUI);
+            }
         }
     }
     public void HandleTriggerStay(Collider other){
@@ -101,7 +105,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         TriggerObject = null;
         if(UIController.IsOtherUIVisible){
             UIController.HideObjectUI();
+            
         }
+        UIController.SetOtherUI(null);
         if(!_controlObject.CompareTag("Player")){
             _controlObject = _defaultControlObject;
         }
@@ -121,7 +127,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (Input.GetMouseButtonDown(0)){
             var controllable = _controlObject.GetComponent<IControllable>();
             controllable?.HandleMouseClick(this);
-            UIController.PlayerUI.gameObject.GetComponent<UI_Player>().GetClickedUIElement();
+            UIController.GetPlayerUI().gameObject.GetComponent<UI_Player>().GetClickedUIElement();
         }
 
         if (Input.GetMouseButtonUp(0)){
@@ -140,12 +146,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 var controlPanel = TriggerObject.GetComponent<ControlPanel>();
                 if (powerGenerator != null){
                 bool IsOtherUIVisible = UIController.IsOtherUIVisible;
-                    UIController.SetUIVisible(powerGenerator.ConsoleUI, !IsOtherUIVisible);
+                    UIController.SetUIVisible(!IsOtherUIVisible);
                 }
                 else if (controlPanel != null){
                     if(controlPanel.SwapControlObject(this)){
                         bool IsOtherUIVisible = UIController.IsOtherUIVisible;
-                        UIController.SetUIVisible(controlPanel.ConsoleUI, !IsOtherUIVisible);
+                        UIController.SetUIVisible(!IsOtherUIVisible);
                     }
                 }
             }
@@ -164,7 +170,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 int pickerNumber = (i == 0) ? 10 : i;
 
                 // UI 상에서 인벤토리 선택 표시를 업데이트
-                UIController.PlayerUI.gameObject.GetComponent<UI_Player>().MoveInventoryPicker(pickerNumber);
+                UIController.GetPlayerUI().gameObject.GetComponent<UI_Player>().MoveInventoryPicker(pickerNumber);
 
                 _inventoryIndex = (pickerNumber + 9) % 10;
                 _controlObject.GetComponent<PlayerBase>().EquipItemAnimation(_inventoryIndex);

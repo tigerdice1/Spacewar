@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             GameObject playerUIPreload = Resources.Load<GameObject>(PrefabPath.PlayerUIPrefabPath);
             GameObject playerUI = Instantiate(playerUIPreload, Vector3.zero, Quaternion.identity);
             playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
-            playerController.GetComponent<UIManager>().PlayerUI = playerUI.GetComponent<CanvasGroup>();
+            playerController.GetComponent<UIManager>().SetPlayerUI(playerUI.GetComponent<UI_Base>());
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
             //GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
            //playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerController.GetComponent<PlayerController>().DefaultControlObject = playerModel;
             GameObject playerUI = Instantiate(_playerUI, Vector3.zero, Quaternion.identity);
             playerUI.GetComponent<UI_Player>().OwnController = playerController.GetComponent<PlayerController>();
-            playerController.GetComponent<UIManager>().PlayerUI = playerUI.GetComponent<CanvasGroup>();
+            playerController.GetComponent<UIManager>().SetPlayerUI(playerUI.GetComponent<UI_Base>());
             
     }
 

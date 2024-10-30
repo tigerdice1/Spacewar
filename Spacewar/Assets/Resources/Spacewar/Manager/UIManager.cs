@@ -7,40 +7,56 @@ using Photon.Realtime;
 public class UIManager : MonoBehaviourPunCallbacks
 {
     public bool IsOtherUIVisible;
-    public CanvasGroup PlayerUI;
-    private CanvasGroup _otherUI;
+    private UI_Base _playerUI;
+    [SerializeField]
+    private UI_Base _otherUI;
+    private CanvasGroup _playerUICanvasGroup;
+    private CanvasGroup _otherUICanvasGroup;
+
+    public void SetPlayerUI(UI_Base playerUI){
+        _playerUI = playerUI;
+        _playerUICanvasGroup = _playerUI.GetComponent<CanvasGroup>();
+    }
+
+    public void SetOtherUI(UI_Base otherUI){
+        _otherUI = otherUI;
+        _otherUICanvasGroup = _otherUI.GetComponent<CanvasGroup>();
+    }
+
+    public UI_Base GetPlayerUI(){
+        return _playerUI;
+    }
+
+    public UI_Base GetOtherUI(){
+        return _otherUI;
+    }
 
 
     public void ShowPlayerUI(bool state){
-        if(PlayerUI != null){
-            PlayerUI.interactable = state;
-            PlayerUI.blocksRaycasts = state;
-            PlayerUI.alpha = state ? 1f : 0f;
+        if(_playerUICanvasGroup != null){
+            _playerUICanvasGroup.interactable = state;
+            _playerUICanvasGroup.blocksRaycasts = state;
+            _playerUICanvasGroup.alpha = state ? 1f : 0f;
         }
     }
 
     public void HideObjectUI(){
         if(IsOtherUIVisible){
-            _otherUI.interactable = false;
-            _otherUI.alpha = 0.0f;
-            _otherUI.blocksRaycasts= false;
-            _otherUI = null;
+            _otherUICanvasGroup.interactable = false;
+            _otherUICanvasGroup.alpha = 0.0f;
+            _otherUICanvasGroup.blocksRaycasts= false;
             IsOtherUIVisible = false;
         }
     }
-    public void SetUIVisible(UI_Base targetUI, bool state){
-        if(_otherUI = targetUI.UICanvasGroup){
-            _otherUI.interactable = state;
-            _otherUI.blocksRaycasts = state;
-            _otherUI.alpha = state ? 1f : 0f;
-            IsOtherUIVisible = state;
-            _otherUI = state ? _otherUI : null;
-        }
-        
+    public void SetUIVisible(bool state){
+        _otherUICanvasGroup.interactable = state;
+        _otherUICanvasGroup.blocksRaycasts = state;
+        _otherUICanvasGroup.alpha = state ? 1f : 0f;
+        IsOtherUIVisible = state;
     }
 
     private void Initalize(){
-        UI_Player uiPlayer = PlayerUI.gameObject.GetComponent<UI_Player>();
+        UI_Player uiPlayer = _playerUI.gameObject.GetComponent<UI_Player>();
         Transform slotPosition = uiPlayer.InventorySlotList[0].transform;
         uiPlayer.InventoryPicker.transform.position = slotPosition.position;
     }
