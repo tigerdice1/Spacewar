@@ -41,12 +41,15 @@ public class PlayerBase : MonoBehaviourPunCallbacks, IControllable, IPunObservab
 
     #region Private Methods
     private void OnTriggerEnter(Collider other){
+        Debug.Log("TriggerEnter");
         OnObjectEnterTrigger?.Invoke(other);
     }
     private void OnTriggerStay(Collider other){
+        Debug.Log("TriggerStay");
         OnObjectStayTrigger?.Invoke(other);
     }
     private void OnTriggerExit(Collider other){
+        Debug.Log("TriggerExit");
         OnObjectExitTrigger?.Invoke(other);
     }
 

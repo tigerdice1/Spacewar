@@ -73,7 +73,7 @@ MonoBehaviour:
   TriggerObject: {fileID: 0}
   TriggerItem: {fileID: 0}
   UIController: {fileID: 0}
-  _defaultControlObject: {fileID: 8872838953896793287, guid: 6104e90611b21214e9bb027ee9dc8937, type: 3}
+  _defaultControlObject: {fileID: 2730015404637598603, guid: 974cf6e868b72c44886c969a745ca324, type: 3}
   _controlObject: {fileID: 0}
 --- !u!114 &8376452080588141102
 MonoBehaviour:

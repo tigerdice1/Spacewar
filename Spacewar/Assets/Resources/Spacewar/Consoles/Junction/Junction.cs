@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Junction : FixableObjects
 {
-    public float _totalPowerConsumption = 0f;
+    public float TotalPowerConsumption = 0f;
     [SerializeField]
     private PowerGenerator _generatorConsole;
     [SerializeField]
     private List<Electricity> _connectedObjectsList;
     private void UpdatePowerConsumption(){
-        _totalPowerConsumption = 0.0f;
+        TotalPowerConsumption = 0f;
         if (_connectedObjectsList != null){
             foreach (var obj in _connectedObjectsList){
                 if (obj != null){
-                    _totalPowerConsumption += obj.PowerConsumption;
+                    TotalPowerConsumption += obj.PowerConsumption;
                 }
             }
         }
@@ -43,7 +45,7 @@ public class Junction : FixableObjects
     }
     private void SyncPowerFromGenerator(){
         if (_generatorConsole != null){
-            _generatorConsole.SyncPower(_totalPowerConsumption);
+            _generatorConsole.SyncPower(TotalPowerConsumption);
         }
     }
 

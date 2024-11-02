@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Electricity : MonoBehaviourPunCallBacks
+public class Electricity : MonoBehaviourPunCallbacks
 {
     #region Public Variables
     public int Priority;

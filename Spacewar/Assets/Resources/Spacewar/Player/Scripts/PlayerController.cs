@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     public void HandleTriggerEnter(Collider other){
+        Debug.Log("HandleTriggerEnter");
         var item = other.GetComponent<PickableItem>();
         // 들어간 트리거가 아이템일 때
         if(item != null && !item.IsAttached){
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
         }
         
-        var console = TriggerObject.GetComponent<FixableObjects>();
+        var console = other.GetComponent<FixableObjects>();
         // 들어간 트리거가 엑세스 가능한 FixableObjects 일 때.
         if(console != null){
             TriggerObject = other.gameObject;
@@ -100,9 +101,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
     public void HandleTriggerStay(Collider other){
+        Debug.Log("HandleTriggerStay");
         
     }
     public void HandleTriggerExit(Collider other){
+        Debug.Log("HandleTriggerExit");
         var item = other.GetComponent<PickableItem>();
         // 나온 트리거가 아이템일 때
         if(item != null){
