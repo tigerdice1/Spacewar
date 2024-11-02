@@ -83,13 +83,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void HandleTriggerEnter(Collider other){
         var item = other.GetComponent<PickableItem>();
+        // 들어간 트리거가 아이템일 때
         if(item != null && !item.IsAttached){
             TriggerItem = item;
+            return;
         }
-        else{
+        
+        var console = TriggerObject.GetComponent<FixableObjects>();
+        // 들어간 트리거가 엑세스 가능한 FixableObjects 일 때.
+        if(console != null){
             TriggerObject = other.gameObject;
-            var console = TriggerObject.GetComponent<FixableObjects>();
-            if(console != null && console.ConsoleUI != null){
+            // UI 가 있다면 할당
+            if(console.ConsoleUI != null){
                 UIController.SetOtherUI(console.ConsoleUI);
             }
         }
@@ -99,29 +104,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     public void HandleTriggerExit(Collider other){
         var item = other.GetComponent<PickableItem>();
+        // 나온 트리거가 아이템일 때
         if(item != null){
             TriggerItem = null;
+            return;
+        }
+
+        var controlPanel = other.GetComponent<FixableObjects>();
+        // 나온 트리거가 콘솔일 떄
+        if(controlPanel != null){
+            // 플레이어캐릭터 말고 다른 오브젝트를 조종중이었다면 오브젝트를 기본 컨트롤 오브젝트로 변경
+            if(!_controlObject.CompareTag("Player")){
+                _controlObject = _defaultControlObject;
+            }
+            // 다른 오브젝트 UI가 존재하고 UI 가 표시되는 중이라면 UI를 숨김
+            if(controlPanel.ConsoleUI != null && UIController.IsOtherUIVisible){
+                UIController.HideObjectUI();
+                UIController.SetOtherUI(null);
+            }
         }
         TriggerObject = null;
-        if(UIController.IsOtherUIVisible){
-            UIController.HideObjectUI();
-            
-        }
-        UIController.SetOtherUI(null);
-        if(!_controlObject.CompareTag("Player")){
-            _controlObject = _defaultControlObject;
-        }
     }
-    
-    private void CheckOnTriggerExit(){
-        if(TriggerObject == null && UIController.IsOtherUIVisible){
-            UIController.HideObjectUI();
-        }
-        if(TriggerObject == null && !_controlObject.CompareTag("Player")){
-            _controlObject = _defaultControlObject;
-        }
-    }
-
 
     private void MouseClickEvent(){
         if (Input.GetMouseButtonDown(0)){
@@ -144,14 +147,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 // 오브젝트 판정인 트리거일 시 
                 var powerGenerator = TriggerObject.GetComponent<PowerGenerator>();
                 var controlPanel = TriggerObject.GetComponent<ControlPanel>();
+
                 if (powerGenerator != null){
                 bool IsOtherUIVisible = UIController.IsOtherUIVisible;
                     UIController.SetUIVisible(!IsOtherUIVisible);
                 }
                 else if (controlPanel != null){
                     if(controlPanel.SwapControlObject(this)){
-                        bool IsOtherUIVisible = UIController.IsOtherUIVisible;
-                        UIController.SetUIVisible(!IsOtherUIVisible);
+                        if(controlPanel.ConsoleUI != null){
+                            bool IsOtherUIVisible = UIController.IsOtherUIVisible;
+                            UIController.SetUIVisible(!IsOtherUIVisible);
+                        }
                     }
                 }
             }

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Electricity : MonoBehaviour
+public class Electricity : MonoBehaviourPunCallBacks
 {
     #region Public Variables
     public int Priority;
@@ -122,7 +124,6 @@ public class Electricity : MonoBehaviour
             _playingCoroutine = StartCoroutine(UpdatePowerConsumptionCoroutine(0f));
         }
     }
-
 
     private void Initialize(){
         SetActiveState(CustomTypes.ElectricState.OFF);

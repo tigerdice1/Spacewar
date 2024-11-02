@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class FixableObjects : MonoBehaviour
+public class FixableObjects : MonoBehaviourPunCallbacks
 {
+    #region Protected Variables
     [SerializeField]
     protected MainShip _ownerShip;
     [SerializeField]
     protected GameObject _objectToControl;
     [SerializeField]
     protected UI_Base _consoleUI;
-    protected BoxCollider _boxCollider;
     protected Coroutine _fixObjectCoroutine;
     protected float _durability = 100f;
     protected bool _isInteractive = true;
     protected bool _soloUseOnly = true;
+    #endregion Protected Variables
 
     public UI_Base ConsoleUI{
         get{return _consoleUI;}
     }
     protected virtual void Initialize(){
-        _boxCollider = GetComponent<BoxCollider>();
     }
     protected IEnumerator FixDurabilityCoroutine(float skill){
         while (!CustomTypes.MathExt.Approximately(_durability, 100f)){

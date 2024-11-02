@@ -20,7 +20,13 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     public void SetOtherUI(UI_Base otherUI){
         _otherUI = otherUI;
-        _otherUICanvasGroup = _otherUI.GetComponent<CanvasGroup>();
+        if(_otherUI == null){
+            _otherUICanvasGroup = null;
+            return;
+        }
+        else{
+            _otherUICanvasGroup = _otherUI.GetComponent<CanvasGroup>();
+        }
     }
 
     public UI_Base GetPlayerUI(){

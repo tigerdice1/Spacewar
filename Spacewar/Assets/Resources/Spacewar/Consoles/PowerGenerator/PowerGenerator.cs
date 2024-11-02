@@ -39,24 +39,24 @@ public class PowerGenerator : FixableObjects, IPunObservable{
     #endregion Private Variables
 
     #region Public Methods
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if ( stream.IsWriting )
-        {
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+        if ( stream.IsWriting ){
             stream.SendNext(CurrentThermal);
             stream.SendNext(CurrentFuel);
             stream.SendNext(Load);
             stream.SendNext(IsPowered);
+            stream.SendNext(_durability);
         }
-        else if ( stream.IsReading )
-        {
+        else if ( stream.IsReading ){
             CurrentThermal = (float) stream.ReceiveNext();
             CurrentFuel = (float) stream.ReceiveNext();
             Load = (float) stream.ReceiveNext();
             IsPowered = (bool) stream.ReceiveNext();
+            _durability = (float) stream.ReceiveNext();
 
         }
     }
+
     public void SetGeneratorState(bool isOn){
         IsPowered = isOn;
     }
